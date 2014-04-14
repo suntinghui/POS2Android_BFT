@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">佰付通</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="title_alert">提示</string>
+    <string name="title_waitting">请稍候</string>
+    <string name="noNetTips">请您确认已开通手机上网功能，并在手机上设置正确的上网方式</string>
+    <string name="hint_username">请输入用户名</string>
+    <string name="hint_pwd">请输入密码</string>
+    <string name="remember_pwd">记住密码</string>
+    <string name="get_pwd">取回密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="catalogtitle">主界面</string>
+    <string name="pWaitAMonment">正在处理请稍候</string>
+    <string name="sysTimeTip">您的手机时间可能不准确，为了不影响交易，建议您立即校正手机时间。</string>
+    <string name="test_menu_placeholder">Menu goes here</string>
+    <string name="test_content_placeholder">Content goes here (tap to open/close drawer)</string>
+    <string name="noPublicKey">没有公钥数据，请确认您已经注册或联系客服!</string>
+    <string name="pwdKeyboardTips">佰付通为保护您的密码安全，请您使用定制的键盘输入密码。密码键盘每次随机打乱按键顺序，并且在您输入完6位密码后自动对密码进行加密，全面保护您的账户安全。</string>
+    <string name="title_progressbar">正在下载文件</string>
+    
+</resources>

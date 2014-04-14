@@ -1,0 +1,292 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/titlebar" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sawtooth_bg"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/phoneTV"
+            style="@style/TextView14sp_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:text="注册号码：15011302090" />
+
+        <TextView
+            android:id="@+id/timeTV"
+            style="@style/TextView14sp_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:text="2013-10-08" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/image_transfer_detail_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="交易类型：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/type"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="转账" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="交易流水号：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/flowNum"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="09876" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="交易时间：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="2013-09-09 12：12：12" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="交易卡号：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/cardNum"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="62269809******9999" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="交易金额：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="￥300.0"
+                style="@style/TextView15_green" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="批次号：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/batch"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="000006" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="100dip"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/TextView15_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="0dip"
+                    android:text="参考号：" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/referenceNum"
+                style="@style/TextView15_black"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="000009" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/image_transfer_detail_line" />
+    </LinearLayout>
+
+</LinearLayout>

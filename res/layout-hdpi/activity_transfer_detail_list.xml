@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:id="@+id/layout" >
+
+    <include layout="@layout/titlebar" />
+
+    <RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/sawtooth_bg"
+	    android:orientation="horizontal">
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="注册号码：15011302090"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/phoneTV"/>
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="2013-10-08"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/timeTV"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginRight="10dip"/>
+	    
+	</RelativeLayout>
+	
+    <ListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginTop="17dip"
+            android:layout_marginBottom="10dip"
+            android:background="@drawable/transfer_detail_item_bg_n"
+            android:choiceMode="singleChoice"
+            android:divider="@drawable/dotted_line"
+            android:dividerHeight="1dip"
+            android:listSelector="@android:color/transparent"
+            android:descendantFocusability="blocksDescendants"  
+            android:scrollbars="none" />
+
+</LinearLayout>

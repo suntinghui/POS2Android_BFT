@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bft.slideMenu.SlideMenuAnimationContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slideMenuAnimationContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- SlideMenu contents must reside in a LinearLayout with id: slideMenuLinearLayout -->
+
+    <LinearLayout
+        android:id="@+id/slideMenuLinearLayout"
+        android:layout_width="200dip"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- slideMenuLinearLayout must contain ListView with id: slideMenuListView -->
+
+        <ListView
+            android:id="@+id/slideMenuListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/left_bg" />
+    </LinearLayout>
+
+    <!-- Activity contents must reside in a LinearLayout with id: @id/contentLinearLayout -->
+
+    <LinearLayout
+        android:id="@+id/contentLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_bg"
+        android:clickable="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/topbg"
+            android:orientation="horizontal" >
+
+            <Button android:id="@+id/content_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/slide_menu_image" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="45dip"
+                android:text="我的存款"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dip" />
+        </LinearLayout>
+
+        <!-- You can put the rest of the content here -->
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity 1"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</com.bft.slideMenu.SlideMenuAnimationContainer>

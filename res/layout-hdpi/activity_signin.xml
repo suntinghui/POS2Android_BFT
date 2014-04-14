@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:id="@+id/layout" >
+
+    <include layout="@layout/titlebar" />
+
+	<RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/sawtooth_bg"
+	    android:orientation="horizontal">
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="注册号码：15011302090"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/phoneTV"/>
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="2013-10-08"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/timeTV"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginRight="10dip"/>
+	    
+	</RelativeLayout>
+	
+	<Button android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/btn_confirm"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="40dip"
+	    android:id="@+id/btn_confirm"
+	    style="@style/TextView18sp"
+	    android:text="签	到"/>
+	
+	<LinearLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="30dip"
+	    android:background="@drawable/tips_bg"
+	    android:orientation="vertical">
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="使用说明"
+	        style="@style/TextView18_1sp"
+	        android:layout_marginLeft="40dip"
+	        android:layout_marginTop="30dip"/>
+	    <LinearLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="15dip"
+	        android:layout_marginLeft="20dip"
+	        android:layout_marginRight="15dip"
+	        >
+	        
+	        <TextView android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="1、"
+	            style="@style/TextView14sp_black"/>
+	        <TextView android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="初次使用本系统请您先签到，更新安全参数等信息，交易更安全。"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="15dip"
+	        android:layout_marginLeft="20dip"
+	        android:layout_marginRight="15dip"
+	        >
+	        
+	        <TextView android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="2、"
+	            style="@style/TextView14sp_black"/>
+	        <TextView android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="在您结算之后，请您重新签到。"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="15dip"
+	        android:layout_marginLeft="20dip"
+	        android:layout_marginRight="15dip"
+	        >
+	        
+	        <TextView android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="3、"
+	            style="@style/TextView14sp_black"/>
+	        <TextView android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="在您重新安装程序后，需要重新签到。"/>
+	    </LinearLayout>
+	   
+	</LinearLayout>
+</LinearLayout>

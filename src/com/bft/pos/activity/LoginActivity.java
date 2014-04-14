@@ -6,19 +6,23 @@ package com.bft.pos.activity;
  * */
 import java.util.HashMap;
 
-import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.bft.pos.R;
+import com.bft.pos.activity.view.PasswordWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.core.Event;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
@@ -30,6 +34,9 @@ public class LoginActivity extends BaseActivity {
 	private Button loginButton;
 	// 设定是否记住账号
 	private Boolean isRemember;
+
+	private SharedPreferences sp = ApplicationEnvironment.getInstance()
+			.getPreferences();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +93,23 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				loginAction();
-				// shangsong();
+				if (checkValue()) {
+					SharedPreferences.Editor ed = sp.edit();
+					ed.putBoolean(Constant.kISREMEBER, isRemember);
+					if (isRemember) {
+						ed.putString(Constant.LOGINPWD, pwdET.getText()
+								.toString());
+					} else {
+						ed.putString(Constant.LOGINPWD, "");
+					}
+					Boolean firstLogin = sp.getBoolean("firstLogin", true);
+					if (firstLogin) {
+						ed.putBoolean("firstLogin", false);
+					} else {
+						loginAction();
+					}
+					ed.commit();
+				}
 				break;
 			}
 			}
@@ -96,21 +118,21 @@ public class LoginActivity extends BaseActivity {
 
 	};
 
-//	// 不明觉厉
-//	private void shangsong() {
-//		try {
-//			Event event = new Event();
-//			event.setTransfer("032000");// 050000
-//
-//			String fsk = "Get_VendorTerID|null";
-//			event.setFsk(fsk);
-//
-//			event.trigger();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// // 不明觉厉
+	// private void shangsong() {
+	// try {
+	// Event event = new Event();
+	// event.setTransfer("032000");// 050000
+	//
+	// String fsk = "Get_VendorTerID|null";
+	// event.setFsk(fsk);
+	//
+	// event.trigger();
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	// 这里是菜单键,按出来能得个Setting
 	@Override
@@ -126,7 +148,7 @@ public class LoginActivity extends BaseActivity {
 		if (userNameET.length() == 0) {
 			this.showToast("用户名不能为空！");
 			return false;
-		} else if (pwdET.length() == 0) {
+		} else if (pwdET.getText().length() == 0) {
 			this.showToast("密码不能为空！");
 			return false;
 		}
@@ -135,8 +157,31 @@ public class LoginActivity extends BaseActivity {
 
 	// 跳转，这里直接跳转到目录页
 	private void loginAction() {
-		Intent intent = new Intent(this, CatalogActivity.class);
-		startActivity(intent);
+		if (checkValue()) {
+
+			Editor editor = ApplicationEnvironment.getInstance()
+					.getPreferences().edit();
+			editor.putBoolean(Constant.kISREMEBER, isRemember);
+			Log.i("phone:", userNameET.getText().toString());
+			Log.i("phone:", pwdET.getText().toString());
+			editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
+			editor.commit();
+			try {
+				Event event = new Event(null, "login", null);
+				event.setTransfer("089016");
+				String fsk = "Get_ExtPsamNo|null";
+				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("login", userNameET.getText().toString());
+				map.put("lgnPass", pwdET.getText().toString());
+				map.put("verifyCode", "qwe123");
+				event.setStaticActivityDataMap(map);
+				event.trigger();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		// if(checkValue()){
 		//
 		// Editor editor =
@@ -151,7 +196,8 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void getPwdAction() {
-		Intent getpwd_intent=new Intent(LoginActivity.this,FindPasswordActivity.class);
+		Intent getpwd_intent = new Intent(LoginActivity.this,
+				FindPasswordActivity.class);
 		startActivity(getpwd_intent);
 	}
 }

@@ -25,8 +25,9 @@ public class Constant {
 	// HTTP   220.194.44.216
 	public static String XMLURL = "http://58.221.92.138:9999";
 
-	public static String JSONURL = "https://58.221.92.138:8443/yunpaiApi/api/"; // 9200   8443
-//	public static String JSONURL = "http://114.80.227.152:2005/";
+//	public static String JSONURL = "https://58.221.92.138:8443/yunpaiApi/api/"; // 9200   8443
+	public static String JSONURL = "http://114.80.227.152:2005/mobile/";
+	
 //	public static String JSONURL = "https://api.vastpay.cn:8443/yunpaiApi/api/"; // 9200   8443
 	
 	public static String IMAGEURL = "http://192.168.21.164:8888/pos/img_andriod/";

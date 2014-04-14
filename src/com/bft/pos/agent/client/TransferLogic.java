@@ -1052,7 +1052,7 @@ public class TransferLogic {
 		intent.putExtra("securityCode", fieldMap.get("captcha"));
 		BaseActivity.getTopActivity().startActivity(intent);
 		BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_DIALOG);
-	}
+	} 
 
 	public TransferModel parseConfigXML(String confName) throws FileNotFoundException {
 		TransferModel transfer = new TransferModel();

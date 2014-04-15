@@ -1,11 +1,15 @@
 package com.bft.pos.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.bft.pos.R;
+import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 
 public class SplashActivity extends BaseActivity {
@@ -25,10 +29,10 @@ public class SplashActivity extends BaseActivity {
 		@Override
 		protected Object doInBackground(Object... arg0) {
 			try{
-				/***
+				
 				// 利用闪屏界面初始化系统
 				long startTime = System.currentTimeMillis();
-				//ApplicationEnvironment.getInstance().initialize(SplashActivity.this.getApplication());
+				ApplicationEnvironment.getInstance().initialize(SplashActivity.this.getApplication());
 				long endTime = System.currentTimeMillis();
 				long cashTime = endTime - startTime;
 				Log.e("Splash Time", String.valueOf(cashTime));
@@ -38,10 +42,6 @@ public class SplashActivity extends BaseActivity {
 				if (cashTime < 1500){
 					Thread.sleep(1500 - cashTime);
 				}
-				
-				****/
-				
-				Thread.sleep(1500);
 				
 				return null;
 				
@@ -64,26 +64,26 @@ public class SplashActivity extends BaseActivity {
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 				//TODO
-//				LKAlertDialog dialog = new LKAlertDialog(BaseActivity.getTopActivity());
-//				dialog.setTitle("提示");
-//				dialog.setCancelable(false);
-//				dialog.setMessage(SplashActivity.this.getResources().getString(R.string.noNetTips));
-//				dialog.setPositiveButton("设置网络", new android.content.DialogInterface.OnClickListener() {
-//					public void onClick(DialogInterface dialog, int which) {
-//						Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-//						startActivity(intent);
-//						
-//						finish();
-//					}
-//				});
-//				dialog.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
-//					public void onClick(DialogInterface dialog, int which) {
-//						dialog.dismiss();
-//						finish();
-//					}
-//				});
-//				
-//				dialog.create().show();
+				LKAlertDialog dialog = new LKAlertDialog(BaseActivity.getTopActivity());
+				dialog.setTitle("提示");
+				dialog.setCancelable(false);
+				dialog.setMessage(SplashActivity.this.getResources().getString(R.string.noNetTips));
+				dialog.setPositiveButton("设置网络", new android.content.DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+						startActivity(intent);
+						
+						finish();
+					}
+				});
+				dialog.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
+				
+				dialog.create().show();
 			}
 		}
 		

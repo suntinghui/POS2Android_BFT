@@ -35,7 +35,7 @@ import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
 	
-	private static boolean isHttpsFlag				= true;
+	private static boolean isHttpsFlag				= false;
 	
 	private static HttpManager instance 			= null;
 	

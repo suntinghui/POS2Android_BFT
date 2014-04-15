@@ -319,7 +319,7 @@ public class TransferPacketThread extends Thread {
 			} else {
 				if (transferModel.isJson()) {
 					respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, sendJSONStringer.toString().getBytes("GBK"));
-					parseJson(new String(respByte, "GBK"));
+					parseJson(new String(respByte, "UTF-8"));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);
 					HashMap<String, Object> respMap = action.afterProcess(respByte);

@@ -34,6 +34,7 @@ public class Constant {
 	public static String FILESURL = "http://192.168.21.164:8888/pos/xmlFiles/";
 	
 	public static String DOWNLOADAPKURL = "http://192.168.21.164:8888/pos/client/";
+
 	
 	// Preference
 	public static String 	LOGINPWD								= "kLoginPwd";

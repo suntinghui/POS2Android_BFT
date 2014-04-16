@@ -28,9 +28,9 @@ public class ManageActivity extends MenuBaseActivity {
 	// 四个按钮
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_2_n,
-			R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码" };
+	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,12 @@ public class ManageActivity extends MenuBaseActivity {
 							AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
+					break;
+				case 4:
+					Intent intent4 = new Intent(ManageActivity.this,
+							BankNumberActivity.class);
+					intent4.putExtra("TAG", arg2);
+					startActivity(intent4);
 					break;
 				default:
 					break;

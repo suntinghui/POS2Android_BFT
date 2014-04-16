@@ -93,23 +93,23 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				if (checkValue()) {
-					SharedPreferences.Editor ed = sp.edit();
-					ed.putBoolean(Constant.kISREMEBER, isRemember);
-					if (isRemember) {
-						ed.putString(Constant.LOGINPWD, pwdET.getText()
-								.toString());
-					} else {
-						ed.putString(Constant.LOGINPWD, "");
-					}
-					Boolean firstLogin = sp.getBoolean("firstLogin", true);
-					if (firstLogin) {
-						ed.putBoolean("firstLogin", false);
-					} else {
-						loginAction();
-					}
-					ed.commit();
-				}
+				// if (checkValue()) {
+				// SharedPreferences.Editor ed = sp.edit();
+				// ed.putBoolean(Constant.kISREMEBER, isRemember);
+				// if (isRemember) {
+				// ed.putString(Constant.LOGINPWD, pwdET.getText()
+				// .toString());
+				// } else {
+				// ed.putString(Constant.LOGINPWD, "");
+				// }
+				// Boolean firstLogin = sp.getBoolean("firstLogin", true);
+				// if (firstLogin) {
+				// ed.putBoolean("firstLogin", false);
+				// } else {
+				loginAction();
+				// }
+				// ed.commit();
+				// }
 				break;
 			}
 			}
@@ -144,7 +144,6 @@ public class LoginActivity extends BaseActivity {
 
 	// 用来判断输入内容的
 	private Boolean checkValue() {
-
 		if (userNameET.length() == 0) {
 			this.showToast("用户名不能为空！");
 			return false;
@@ -157,30 +156,34 @@ public class LoginActivity extends BaseActivity {
 
 	// 跳转，这里直接跳转到目录页
 	private void loginAction() {
-		if (checkValue()) {
-
-			Editor editor = ApplicationEnvironment.getInstance()
-					.getPreferences().edit();
-			editor.putBoolean(Constant.kISREMEBER, isRemember);
-			Log.i("phone:", userNameET.getText().toString());
-			Log.i("phone:", pwdET.getText().toString());
-			editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-			editor.commit();
-			try {
-				Event event = new Event(null, "login", null);
-				event.setTransfer("089016");
-				String fsk = "Get_ExtPsamNo|null";
-				event.setFsk(fsk);
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("login", userNameET.getText().toString());
-				map.put("lgnPass", pwdET.getText().toString());
-				map.put("verifyCode", "qwe123");
-				event.setStaticActivityDataMap(map);
-				event.trigger();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+		startActivity(intent);
+		// if (checkValue()) {
+		
+		//
+		// Editor editor = ApplicationEnvironment.getInstance()
+		// .getPreferences().edit();
+		// editor.putBoolean(Constant.kISREMEBER, isRemember);
+		// Log.i("phone:", userNameET.getText().toString());
+		// Log.i("phone:", pwdET.getText().toString());
+		// editor.putString(Constant.PHONENUM,
+		// userNameET.getText().toString());// userNameET.getText().toString()
+		// editor.commit();
+		// try {
+		// Event event = new Event(null, "login", null);
+		// event.setTransfer("089016");
+		// String fsk = "Get_ExtPsamNo|null";
+		// event.setFsk(fsk);
+		// HashMap<String, String> map = new HashMap<String, String>();
+		// map.put("login", userNameET.getText().toString());
+		// map.put("lgnPass", pwdET.getText().toString());
+		// map.put("verifyCode", "qwe123");
+		// event.setStaticActivityDataMap(map);
+		// event.trigger();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// }
 
 		// if(checkValue()){
 		//

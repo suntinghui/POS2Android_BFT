@@ -6,6 +6,8 @@ package com.bft.pos.activity;
  * */
 import java.util.HashMap;
 
+import org.jivesoftware.smack.util.StringUtils;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -23,11 +25,12 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
 	private EditText userNameET;
-	private EditText pwdET;
+	private PasswordWithIconView et_pwd;
 	private ImageView rememberIV;
 	private Button getPwdButton;
 	private Button registerButton;
@@ -41,12 +44,13 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_activity);
+		setContentView(R.layout.activity_login);
 		// 设置标题
 		initTitleBar("登 录", false);
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
-		pwdET = (EditText) this.findViewById(R.id.pwdET);
+		et_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pwd);
+		et_pwd.setIconAndHint(R.drawable.icon_pwd, "密码");
 		// 这里是是否记住密码那儿的那个小勾勾
 		rememberIV = (ImageView) this.findViewById(R.id.rememberIV);
 		rememberIV.setOnClickListener(listener);
@@ -97,7 +101,7 @@ public class LoginActivity extends BaseActivity {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
 					if (isRemember) {
-						ed.putString(Constant.LOGINPWD, pwdET.getText()
+						ed.putString(Constant.LOGINPWD, et_pwd.getText()
 								.toString());
 					} else {
 						ed.putString(Constant.LOGINPWD, "");
@@ -148,7 +152,7 @@ public class LoginActivity extends BaseActivity {
 		if (userNameET.length() == 0) {
 			this.showToast("用户名不能为空！");
 			return false;
-		} else if (pwdET.getText().length() == 0) {
+		} else if (et_pwd.getText().length() == 0) {
 			this.showToast("密码不能为空！");
 			return false;
 		}
@@ -162,8 +166,6 @@ public class LoginActivity extends BaseActivity {
 			Editor editor = ApplicationEnvironment.getInstance()
 					.getPreferences().edit();
 			editor.putBoolean(Constant.kISREMEBER, isRemember);
-			Log.i("phone:", userNameET.getText().toString());
-			Log.i("phone:", pwdET.getText().toString());
 			editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
 			editor.commit();
 			try {
@@ -173,7 +175,8 @@ public class LoginActivity extends BaseActivity {
 				event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("login", userNameET.getText().toString());
-				map.put("lgnPass", pwdET.getText().toString());
+				String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET.getText().toString()+et_pwd.getText()) + "www.payfortune.com");
+				map.put("lgnPass", pwd);
 				map.put("verifyCode", "qwe123");
 				event.setStaticActivityDataMap(map);
 				event.trigger();

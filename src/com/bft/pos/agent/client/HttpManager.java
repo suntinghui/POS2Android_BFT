@@ -147,13 +147,14 @@ public class HttpManager {
 		
 		try {
 			String req_json = new String(outBytes);
+			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
 			req_map = JSONUtil.JSONStr2MAP(req_json);
 			req_json = (String) req_map.get("arg");
 			req_map.clear();
 			req_map = JSONUtil.JSONStr2MAP(req_json);
 			
 			req_json = JSONUtil.MAP2JSONStr(req_map);
-			
+			/*==============================*/
 			
 			Log.i("REQ_JSON:", req_json);
 			NameValuePair[] param = { new NameValuePair("common",req_json)};  

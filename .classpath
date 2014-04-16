@@ -14,12 +14,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/mail.jar"/>
 	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="lib" path="libs/httpclient/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/commons-beanutils-1.8.3.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/commons-lang-2.1.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="libs/JSON/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,36 +1,17 @@
 package com.bft.pos.agent.client;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
+import org.apache.commons.httpclient.Cookie;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.methods.PostMethod;
 
 import android.util.Log;
 
-import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.client.exception.HttpException;
-import com.bft.pos.util.InputStreamUtils;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
@@ -46,7 +27,7 @@ public class HttpManager {
 	byte[] reqHeaderLenght = new byte[2];// 报文头
 	
 	private HttpClient httpClient 					= null;
-	private HttpPost httpPost 						= null;
+	private PostMethod postMethod 						= null;
 	private boolean aborted 						= false;
 	
 	private static final int port = 9200;
@@ -97,9 +78,9 @@ public class HttpManager {
 	****/
 	
 	public void abort() {
-		if (!aborted && null != httpPost) {
+		if (!aborted && null != postMethod) {
 			try {
-				httpPost.abort();
+				postMethod.abort();
 			} catch (Exception e) {
 				e.toString();
 			}
@@ -109,95 +90,30 @@ public class HttpManager {
 
 
 	private HttpClient initHttp() {
-		HttpParams httpParameters = new BasicHttpParams();
-
-		HttpConnectionParams.setConnectionTimeout(httpParameters,ConnectionTimeout);
-		HttpConnectionParams.setSoTimeout(httpParameters, SocketTimeout);
-		HttpConnectionParams.setSocketBufferSize(httpParameters,SocketBufferSize);
-		HttpClientParams.setRedirecting(httpParameters, true); // 设置重定向，默认为true
-		//HttpProtocolParams.setUserAgent(httpParameters, "MBSClient/Android-1.0");
-		return new DefaultHttpClient(httpParameters);
+		if(httpClient != null){
+			return httpClient;
+		}else{
+			httpClient = new HttpClient();
+			
+			 //设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+			httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+			
+		}
+		return httpClient;
 	}
 	
 	private HttpClient initHttps() {
-		HttpParams httpParameters = new BasicHttpParams();
-
-		HttpProtocolParams.setVersion(httpParameters, HttpVersion.HTTP_1_1);
-		HttpConnectionParams.setConnectionTimeout(httpParameters,ConnectionTimeout);
-		HttpConnectionParams.setSoTimeout(httpParameters, SocketTimeout);
-		HttpConnectionParams.setSocketBufferSize(httpParameters,SocketBufferSize);
-		HttpClientParams.setRedirecting(httpParameters, true);
-		HttpProtocolParams.setUserAgent(httpParameters, "MBSClient/Android-1.0");
-		InputStream instream = null;
-		
-		try {
-			instream = HttpManager.class.getResourceAsStream("/ylt.cer");
-			//读取证书
-	        CertificateFactory cerFactory = CertificateFactory.getInstance("X.509"); 
-	        Certificate cer = cerFactory.generateCertificate(instream);
-	        //创建一个证书库，并将证书导入证书库
-	        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType()); 
-	        keyStore.load(null, null);
-	        keyStore.setCertificateEntry("trust", cer);
-	        //把证书库作为信任证书库
-			//SSLSocketFactory socketFactory = new MySSLSocketFactory(keyStore);
-	        
-	        SSLSocketFactory socketFactory = new SSLSocketFactory(keyStore);
-			socketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-			Scheme sch = new Scheme("https", socketFactory, port);
-			SchemeRegistry registry = new SchemeRegistry();
-			registry.register(sch);
-			
-			ClientConnectionManager ccm = new ThreadSafeClientConnManager(httpParameters, registry);
-			
-			return new DefaultHttpClient(ccm, httpParameters);
-		
-		}catch(Exception e){
-			BaseActivity.getTopActivity().runOnUiThread(new Runnable(){
-				@Override
-				public void run() {
-					TransferLogic.getInstance().gotoCommonFaileActivity("系统加载文件出错，请重新启动程序！");
-				}
-				
-			});
-		}
-		/*
-		catch (CertificateException e) {
-			e.printStackTrace();
-		} catch (KeyStoreException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (KeyManagementException e) {
-			e.printStackTrace();
-		} catch (UnrecoverableKeyException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
-		
-		
-		finally{
-			try {
-				instream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return new DefaultHttpClient();
+		return null;
 	}
 	
-	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes) throws HttpException{
+	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes) throws HttpException, IOException{
 		
 		// 记录上行流量
 		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND, outBytes.length);
 		
 		byte[] bArray = null;
+		int status = -1;
 	
-		HttpResponse response = null;
-		InputStream responseStream =null;
 		
 		///////////////////
 //		int reqMsgLen = outBytes.length;
@@ -221,73 +137,73 @@ public class HttpManager {
 		//////////////////
 		
 		if (type == HttpManager.URL_JSON_TYPE){
-			httpPost = new HttpPost(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
+			postMethod = new ENCODEPostMethod(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
+			System.out.println("@:" + Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
 		} else {
-			httpPost = new HttpPost(Constant.XMLURL);
+			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
-		httpPost.setHeader("Content-Type", "application/octet-stream");
-		
 		
 		try {
-			//httpPost.setEntity(new StringEntity(new String(outBytes, "GBK"),"GBK"));
-			InputStream is = new ByteArrayInputStream(outBytes);
-			InputStreamEntity reqEntity = new InputStreamEntity(is, is.available());
-			httpPost.setEntity(reqEntity);
-			
-//			httpPost.setEntity(new ByteArrayEntity(outBytes));
-//			httpPost.setHeader("Content-type", "application/octet-stream");
+			String req_json = new String(outBytes);
+			Log.i("REQ_JSON:", req_json);
+			NameValuePair[] param = { new NameValuePair("common", req_json)};  
+			postMethod.setRequestBody(param);   
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
 		}
 		
 		try {
-			response = this.getHttpClient().execute(httpPost);
-		} catch (ClientProtocolException e1) {
-			// ClientProtocolException - in case of an http protocol error
-			e1.printStackTrace();
-			throw new HttpException(900);
+
+			//6 执行请求
+			status = getHttpClient().executeMethod(postMethod);
+
+			Log.i("STATUS:", String.valueOf(status));
+			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
+			if(status == HttpStatus.SC_OK){
+				bArray = postMethod.getResponseBody();
+				// 记录下行流量
+				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
+				Log.i("相应报文====》\t", new String(bArray,Constant.JSON_ENCODING));
+			}
+			/*登录时拿到cookie值*/
+			if(transferCode.equals("089016")){
+				//获得登陆后的 Cookie
+				Cookie[] cookies = getHttpClient().getState().getCookies();
+				
+				String tmpcookies= "";
+				for(Cookie c:cookies){
+					tmpcookies += c.toString()+";";
+				}
+				System.out.println("tmpcookies:" + tmpcookies);
+			}
 			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			// IOException - in case of a problem or the connection was aborted
 			throw new HttpException(903);
+		}finally{
+			if(null != getHttpClient())
+				getHttpClient().getHttpConnectionManager().closeIdleConnections(0);
 		}
 		
-		int statusCode = response.getStatusLine().getStatusCode();
-		
-		if (statusCode == HttpStatus.SC_OK){
-			try {
-				responseStream = response.getEntity().getContent();
-				if (null != responseStream){
-					System.out.println("response:" + responseStream);
-					bArray = InputStreamUtils.InputStreamTOByte(responseStream);
-					// 记录下行流量
-					TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-				throw new HttpException(e.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new HttpException(e.getMessage());
-			} finally{
-				if(null != responseStream)
-					try {
-						responseStream.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-				this.getHttpClient().getConnectionManager().closeExpiredConnections();
-			}
-			
-		} else{
-			String reason = response.getStatusLine().getReasonPhrase();
-			Log.e("connect error", reason);
-			throw new HttpException(statusCode);
-		}
 		
 		return bArray;
 		
 	}
+
+	/**
+	 * 重载PostMethod的getRequestCharSet()方法, 返回我们需要的编码(字符集)名称, 就可以解决 UTF-8 或者其它非默认编码提交 POST 请求时的乱码问题了
+	 * */
+	public static class ENCODEPostMethod extends PostMethod{     
+		public ENCODEPostMethod(String url){     
+			super(url);     
+		}     
+		@Override    
+		public String getRequestCharSet() {     
+			//return super.getRequestCharSet();     
+			return Constant.JSON_ENCODING;     
+		}     
+	}  
+
+
 }

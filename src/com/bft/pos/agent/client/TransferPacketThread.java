@@ -318,7 +318,7 @@ public class TransferPacketThread extends Thread {
 				respByte = StaticNetClient.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
-					respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, sendJSONStringer.toString().getBytes("GBK"));
+					respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, sendJSONStringer.toString().getBytes(Constant.JSON_ENCODING));
 					parseJson(new String(respByte, "UTF-8"));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);

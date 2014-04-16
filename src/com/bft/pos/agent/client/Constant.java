@@ -91,5 +91,8 @@ public class Constant {
 	public static String PASS										="logpass";
 	public static String terIndex									= "terIndex";
 	public static String recievePhone								="";
-
+	
+	//JSON编码
+	public static final String JSON_ENCODING								="UTF-8";
+//	public static final String JSON_ENCODING								="GBK";
 }

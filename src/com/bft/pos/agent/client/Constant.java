@@ -93,6 +93,7 @@ public class Constant {
 	public static String recievePhone								="";
 	
 	//JSON编码
-	public static final String JSON_ENCODING								="UTF-8";
-//	public static final String JSON_ENCODING								="GBK";
+	public static final String ENCODING_8583								="UTF-8";
+	public static final String ENCODING_JSON								="UTF-8";
+//	public static final String ENCODING_JSON							="GBK";
 }

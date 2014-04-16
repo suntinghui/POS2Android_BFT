@@ -1,6 +1,7 @@
 package com.bft.pos.agent.client;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
@@ -12,6 +13,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import android.util.Log;
 
 import com.bft.pos.client.exception.HttpException;
+import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
@@ -106,6 +108,7 @@ public class HttpManager {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes) throws HttpException, IOException{
 		
 		// 记录上行流量
@@ -113,7 +116,7 @@ public class HttpManager {
 		
 		byte[] bArray = null;
 		int status = -1;
-	
+		Map<String,Object> req_map;
 		
 		///////////////////
 //		int reqMsgLen = outBytes.length;
@@ -138,15 +141,22 @@ public class HttpManager {
 		
 		if (type == HttpManager.URL_JSON_TYPE){
 			postMethod = new ENCODEPostMethod(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
-			System.out.println("@:" + Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
 		} else {
 			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
 		
 		try {
 			String req_json = new String(outBytes);
+			req_map = JSONUtil.JSONStr2MAP(req_json);
+			req_json = (String) req_map.get("arg");
+			req_map.clear();
+			req_map = JSONUtil.JSONStr2MAP(req_json);
+			
+			req_json = JSONUtil.MAP2JSONStr(req_map);
+			
+			
 			Log.i("REQ_JSON:", req_json);
-			NameValuePair[] param = { new NameValuePair("common", req_json)};  
+			NameValuePair[] param = { new NameValuePair("common",req_json)};  
 			postMethod.setRequestBody(param);   
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
@@ -163,7 +173,7 @@ public class HttpManager {
 				bArray = postMethod.getResponseBody();
 				// 记录下行流量
 				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
-				Log.i("相应报文====》\t", new String(bArray,Constant.JSON_ENCODING));
+				Log.i("相应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
 			}
 			/*登录时拿到cookie值*/
 			if(transferCode.equals("089016")){
@@ -175,6 +185,8 @@ public class HttpManager {
 					tmpcookies += c.toString()+";";
 				}
 				System.out.println("tmpcookies:" + tmpcookies);
+			}else{
+				
 			}
 			
 		} catch (IOException e1) {
@@ -201,7 +213,7 @@ public class HttpManager {
 		@Override    
 		public String getRequestCharSet() {     
 			//return super.getRequestCharSet();     
-			return Constant.JSON_ENCODING;     
+			return Constant.ENCODING_JSON;     
 		}     
 	}  
 

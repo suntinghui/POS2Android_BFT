@@ -41,7 +41,6 @@ public class ManageActivity extends MenuBaseActivity {
 		super.onCreate(savedInstanceState);
 		// 设置标题
 		this.initTitlebar("我的管理");
-
 		listView = (ListView) this.findViewById(R.id.listview);
 		// 获取列表视图
 		listView = (ListView) this.findViewById(R.id.listview);
@@ -75,6 +74,7 @@ public class ManageActivity extends MenuBaseActivity {
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;
+//					实名认证
 				case 2:
 					Intent intent2 = new Intent(ManageActivity.this,
 							AuthenticationUpImageActivity.class);
@@ -124,9 +124,7 @@ public class ManageActivity extends MenuBaseActivity {
 			ManagerViewHolder holder = null;
 			if (null == convertView) {
 				holder = new ManagerViewHolder();
-
 				convertView = mInflater.inflate(R.layout.item_left_right, null);
-
 				holder.mLeftIV = (ImageView) convertView
 						.findViewById(R.id.leftIV);
 				holder.mRightTV = (TextView) convertView

@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity {
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
 		// if (checkValue()) {
-		
+
 		//
 		// Editor editor = ApplicationEnvironment.getInstance()
 		// .getPreferences().edit();

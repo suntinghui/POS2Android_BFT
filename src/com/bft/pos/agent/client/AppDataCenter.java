@@ -114,12 +114,15 @@ public class AppDataCenter {
 				if (Constant.isStatic) {
 					return "中国联通";
 				} else {
-					return ApplicationEnvironment.getInstance().getPreferences().getString(Constant.MERCHERNAME, "");
+					return ApplicationEnvironment.getInstance()
+							.getPreferences()
+							.getString(Constant.MERCHERNAME, "");
 				}
 			}
 
 			else {
-				Class<?> thisClass = Class.forName("com.bft.pos.agent.client.AppDataCenter");
+				Class<?> thisClass = Class
+						.forName("com.bft.pos.agent.client.AppDataCenter");
 				Field field = thisClass.getDeclaredField(fieldName); // private
 				return (String) field.get(thisClass);
 			}
@@ -146,14 +149,17 @@ public class AppDataCenter {
 	public static void setTERID(String __TERID) {
 		AppDataCenter.__TERID = __TERID;
 	}
+
 	// 取系统追踪号，6个字节数字定长域
 	private static String getTraceAuditNum() {
-		SharedPreferences preferences = ApplicationEnvironment.getInstance().getPreferences();
+		SharedPreferences preferences = ApplicationEnvironment.getInstance()
+				.getPreferences();
 
 		int number = preferences.getInt(Constant.TRACEAUDITNUM, 1);
 
 		Editor editor = preferences.edit();
-		editor.putInt(Constant.TRACEAUDITNUM, (number + 1) > 999999 ? 1 : (number + 1));
+		editor.putInt(Constant.TRACEAUDITNUM, (number + 1) > 999999 ? 1
+				: (number + 1));
 		editor.commit();
 
 		number += 980000;
@@ -177,6 +183,7 @@ public class AppDataCenter {
 	public static String getRANDOM() {
 		return __RANDOM;
 	}
+
 	public static String getField41() {
 		return field41;
 	}
@@ -197,7 +204,8 @@ public class AppDataCenter {
 	public static void setBatchNum(String batchNum) {
 		__BATCHNUM = batchNum;
 
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
 		editor.putString(Constant.BATCHNUM, batchNum);
 		editor.commit();
 	}
@@ -207,14 +215,16 @@ public class AppDataCenter {
 			return __BATCHNUM;
 
 		} else {
-			SharedPreferences preferences = ApplicationEnvironment.getInstance().getPreferences();
+			SharedPreferences preferences = ApplicationEnvironment
+					.getInstance().getPreferences();
 			__BATCHNUM = preferences.getString(Constant.BATCHNUM, "000001");
 			return __BATCHNUM;
 		}
 	}
 
 	private static String getUUID() {
-		return ApplicationEnvironment.getInstance().getPreferences().getString(Constant.UUIDSTRING, "");
+		return ApplicationEnvironment.getInstance().getPreferences()
+				.getString(Constant.UUIDSTRING, "");
 	}
 
 	public static void setAddress(String address) {
@@ -222,7 +232,8 @@ public class AppDataCenter {
 	}
 
 	private static String getCurrentVersion() {
-		int currentVersion = ApplicationEnvironment.getInstance().getPreferences().getInt(Constant.VERSION, 0);
+		int currentVersion = ApplicationEnvironment.getInstance()
+				.getPreferences().getInt(Constant.VERSION, 0);
 		__CURRENTVERSION = String.valueOf(currentVersion);
 		return __CURRENTVERSION;
 	}
@@ -234,7 +245,8 @@ public class AppDataCenter {
 	public static void setPhoneNum(String phoneNum) {
 		__PHONENUM = phoneNum;
 
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
 		editor.putString(Constant.PHONENUM, phoneNum);
 		editor.commit();
 	}
@@ -244,7 +256,8 @@ public class AppDataCenter {
 		if (__PHONENUM != null)
 			return __PHONENUM;
 
-		__PHONENUM = ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, "");
+		__PHONENUM = ApplicationEnvironment.getInstance().getPreferences()
+				.getString(Constant.PHONENUM, "");
 		if (__PHONENUM != null && !"".equals(__PHONENUM))
 			return __PHONENUM;
 
@@ -279,19 +292,21 @@ public class AppDataCenter {
 	// 这里假设开始一项新的交易时，所用到的参数一定会是此交易所想要的参数，能及时更新到。理论上也是这样子的。
 	public static void setFSKArgs(CommandReturn cmdReturn) {
 		if (null != cmdReturn.Return_PSAMNo)
-			
+
 			__PSAMNO = Util.BytesToString(cmdReturn.Return_PSAMNo);
-		
+
 		// Log.i("psam num:", __PSAMNO);
 
 		if (null != cmdReturn.Return_TerSerialNo)
 			__TERSERIALNO = Util.BcdToString(cmdReturn.Return_TerSerialNo);
 
 		if (null != cmdReturn.Return_PSAMRandom)
-			__PSAMRANDOM = Util.BinToHex(cmdReturn.Return_PSAMRandom, 0, cmdReturn.Return_PSAMRandom.length);
+			__PSAMRANDOM = Util.BinToHex(cmdReturn.Return_PSAMRandom, 0,
+					cmdReturn.Return_PSAMRandom.length);
 
 		if (null != cmdReturn.Return_PSAMPIN) {
-			__PSAMPIN = Util.BinToHex(cmdReturn.Return_PSAMPIN, 0, cmdReturn.Return_PSAMPIN.length);
+			__PSAMPIN = Util.BinToHex(cmdReturn.Return_PSAMPIN, 0,
+					cmdReturn.Return_PSAMPIN.length);
 			__FIELD22 = "021";
 		} else {
 			__PSAMPIN = "";
@@ -304,10 +319,12 @@ public class AppDataCenter {
 		}
 
 		if (null != cmdReturn.Return_PSAMTrack) {
-			__PSAMTRACK = Util.BinToHex(cmdReturn.Return_PSAMTrack, 0, cmdReturn.Return_PSAMTrack.length);
-			
+			__PSAMTRACK = Util.BinToHex(cmdReturn.Return_PSAMTrack, 0,
+					cmdReturn.Return_PSAMTrack.length);
+
 			int totalLength = __PSAMTRACK.length();
-			int field35Length = Integer.parseInt(__PSAMTRACK.substring(0, 2), 16) * 2;
+			int field35Length = Integer.parseInt(__PSAMTRACK.substring(0, 2),
+					16) * 2;
 
 			if (totalLength == field35Length + 2) { // 只有35域
 				__FIELD35 = __PSAMTRACK.substring(2);
@@ -319,20 +336,24 @@ public class AppDataCenter {
 			}
 
 		}
-		
-		if (null != cmdReturn.Return_Track2){
-			__FIELD35 = Util.BinToHex(cmdReturn.Return_Track2, 0, cmdReturn.Return_Track2.length);//"4392257501725638D090610117539137";//
+
+		if (null != cmdReturn.Return_Track2) {
+			__FIELD35 = Util.BinToHex(cmdReturn.Return_Track2, 0,
+					cmdReturn.Return_Track2.length);// "4392257501725638D090610117539137";//
 		}
-		
-		if (null != cmdReturn.Return_Track3){
-			__FIELD36 = Util.BinToHex(cmdReturn.Return_Track3, 0, cmdReturn.Return_Track3.length);
+
+		if (null != cmdReturn.Return_Track3) {
+			__FIELD36 = Util.BinToHex(cmdReturn.Return_Track3, 0,
+					cmdReturn.Return_Track3.length);
 		}
 
 		if (null != cmdReturn.Return_PAN)
-			__PAN = Util.BinToHex(cmdReturn.Return_PAN, 0, cmdReturn.Return_PAN.length);
+			__PAN = Util.BinToHex(cmdReturn.Return_PAN, 0,
+					cmdReturn.Return_PAN.length);
 
 		if (null != cmdReturn.Return_ENCCardNo)
-			__ENCCARDNO = Util.BinToHex(cmdReturn.Return_ENCCardNo, 0, cmdReturn.Return_ENCCardNo.length);
+			__ENCCARDNO = Util.BinToHex(cmdReturn.Return_ENCCardNo, 0,
+					cmdReturn.Return_ENCCardNo.length);
 
 		if (null != cmdReturn.Return_Vendor)
 			__VENDOR = Util.BytesToString(cmdReturn.Return_Vendor);
@@ -349,14 +370,15 @@ public class AppDataCenter {
 		}
 
 	}
-	
+
 	public static void setKSN(String ksn) {
 		AppDataCenter.__PSAMNO = ksn;
 	}
-	
-	public static String getPsamnoOrKsn(){
+
+	public static String getPsamnoOrKsn() {
 		return AppDataCenter.__PSAMNO;
 	}
+
 	public static void setEncTrack(String str) {
 		AppDataCenter.__ENCTRACK = str;
 	}
@@ -368,8 +390,8 @@ public class AppDataCenter {
 	public static void setMaskedPAN(String pan) {
 		AppDataCenter.__MASKEDPAN = pan;
 	}
-	
-	public static String getMaskedPAN(){
+
+	public static String getMaskedPAN() {
 		return AppDataCenter.__MASKEDPAN;
 	}
 
@@ -382,7 +404,8 @@ public class AppDataCenter {
 			}
 		} else {
 			try {
-				InputStream stream = AssetsUtil.getInputStreamFromPhone("transfername.xml");
+				InputStream stream = AssetsUtil
+						.getInputStreamFromPhone("transfername.xml");
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(stream, "utf-8");
 				int eventType = parser.getEventType();
@@ -390,8 +413,10 @@ public class AppDataCenter {
 					switch (eventType) {
 					case XmlPullParser.START_TAG:
 						if ("item".equalsIgnoreCase(parser.getName())) {
-							String code = parser.getAttributeValue(null, "code");
-							String name = parser.getAttributeValue(null, "name");
+							String code = parser
+									.getAttributeValue(null, "code");
+							String name = parser
+									.getAttributeValue(null, "name");
 							transferNameMap.put(code, name);
 						}
 
@@ -422,7 +447,8 @@ public class AppDataCenter {
 
 		} else {
 			try {
-				InputStream stream = AssetsUtil.getInputStreamFromPhone("reversalmap.xml");
+				InputStream stream = AssetsUtil
+						.getInputStreamFromPhone("reversalmap.xml");
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(stream, "utf-8");
 				int eventType = parser.getEventType();
@@ -431,7 +457,8 @@ public class AppDataCenter {
 					case XmlPullParser.START_TAG:
 						if ("item".equalsIgnoreCase(parser.getName())) {
 							String key = parser.getAttributeValue(null, "key");
-							String value = parser.getAttributeValue(null, "value");
+							String value = parser.getAttributeValue(null,
+									"value");
 							reversalMap.put(key, value);
 						}
 
@@ -472,7 +499,7 @@ public class AppDataCenter {
 		map.put("089017", "getPassword");
 		map.put("089018", "getVersion");
 		map.put("089020", "identifyMerchant");
-
+		map.put("089021", "newidentifyMerchant");
 		return map.get(transferCode);
 
 	}

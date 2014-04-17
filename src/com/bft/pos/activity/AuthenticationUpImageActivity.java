@@ -1,6 +1,7 @@
 package com.bft.pos.activity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,25 +24,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.component.ViewException;
+import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.CityModel;
 import com.bft.pos.util.Bank;
 import com.bft.pos.util.BankParse;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
-import com.dhc.dynamic.core.Event;
+
 
 //实名认证 上图图片
 public class AuthenticationUpImageActivity extends BaseActivity implements
 		OnClickListener {
 
-	private ImageView iv_0;
+	// private ImageView iv_0;
 	private ImageView iv_1;
 	private ImageView iv_2;
 	private ImageView iv_3;
 
-	private String bitmap_str_0 = null;
+	// private String //bitmap_str_0 = null;
 	private String bitmap_str_1 = null;
 	private String bitmap_str_2 = null;
 	private String bitmap_str_3 = null;
@@ -71,6 +72,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 
 	private EditText et_account = null;
 	private EditText et_account_confirm = null;
+	private EditText buss_name = null;
 
 	private String merchant_name = null;
 	private String mastername = null;
@@ -81,7 +83,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	private String bankbranchname = null;
 
 	private EditText et_sms;
-	private Button btn_sms;
+	private Button btn_sms, bt_confirm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +94,14 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		Button btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
-		Button btn_confirm = (Button) this
-				.findViewById(R.id.et_account_confirm);
-		btn_confirm.setOnClickListener(this);
-
 		btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
 		btn_bank_branch.setOnClickListener(this);
 
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);
 		btn_sms.setOnClickListener(this);
+
+		bt_confirm = (Button) this.findViewById(R.id.bt_confirm);
+		bt_confirm.setOnClickListener(this);
 
 		parse = ProvinceParse.build(this, R.raw.province, R.raw.cities);
 		parse_bank = BankParse.build(this, R.raw.banks);
@@ -140,23 +141,33 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		case R.id.btn_back:
 			this.finish();
 			break;
-		case R.id.btn_confirm:
-
+		case R.id.bt_confirm:
+			try {
+			Event event = new Event(null, "newidentifyMerchant", null);
+			event.setTransfer("089021");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("img15", bitmap_str_0);
-			map.put("img13", bitmap_str_1);
-			map.put("img17", bitmap_str_2);
-			map.put("img14", bitmap_str_3);
-
-			map.put("merchant_id", merchant_id);
-			map.put("tel", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
-
-			Event event = new Event(null, "identifyMerchant", null);
+			
+			map.put("pIdImg0", bitmap_str_1);// 身份证正面
+			map.put("pIdImg1", bitmap_str_2);// 身份证反面
+			map.put("bankNo", "10");// 银行卡开户行<12
+			map.put("bkCardNo", "11");// 银行卡号<19
+			map.put("bkCardImg", bitmap_str_3);// 银行卡图片
+			map.put("mctName", "山西");//商户名
+			map.put("verifyCode", "123456");//验证码
+			
 			event.setStaticActivityDataMap(map);
-			event.setTransfer("089020");
-			BaseActivity.getTopActivity().showDialog("正在上传图片，请稍候 ", "089020");
-			event.trigger();
+//			BaseActivity.getTopActivity().showDialog("正在上传，请稍候 ", "089021");
+			
+				event.trigger();
+			} catch (ViewException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		// case R.id.iv_0:
 		// current_index = 0;
@@ -222,12 +233,12 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			}
 			if (bm != null) {
 				switch (current_index) {
-				case 0:
-
-					Log.i("bm0:", bm.toString());
-					bitmap_str_0 = bitmaptoString(bm);
-					iv_0.setImageBitmap(bm);
-					break;
+				// case 0:
+				//
+				// Log.i("bm0:", bm.toString());
+				// //bitmap_str_0 = bitmaptoString(bm);
+				// iv_0.setImageBitmap(bm);
+				// break;
 				case 1:
 					Log.i("bm1:", bm.toString());
 					bitmap_str_1 = bitmaptoString(bm);

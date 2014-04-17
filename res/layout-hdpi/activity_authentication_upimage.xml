@@ -219,6 +219,24 @@
                 android:layout_height="1px"
                 android:background="@drawable/divide_line" />
 
+            <TextView
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商户名"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/buss_name"
+                style="@style/black_15"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/input_bg"
+                android:hint="商户名"
+                android:inputType="number"
+                android:paddingLeft="8dip" />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -248,10 +266,11 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/et_account_confirm"
+                android:id="@+id/bt_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/blue_btn"
                 android:text="上传" >
             </Button>

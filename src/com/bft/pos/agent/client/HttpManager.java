@@ -1,32 +1,30 @@
 package com.bft.pos.agent.client;
 
 import java.io.IOException;
-import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
-
-
-
-
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 import android.util.Log;
 
 import com.bft.pos.client.exception.HttpException;
-import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
+	private static String cookies			= null;
 	
 	private static boolean isHttpsFlag				= false;
-	
+	/**
+     * 类的实例
+     */
 	private static HttpManager instance 			= null;
 	
 	private final static int ConnectionTimeout 		= 27000;
@@ -34,8 +32,11 @@ public class HttpManager {
 	private final static int SocketBufferSize 		= 8192;
 	
 	byte[] reqHeaderLenght = new byte[2];// 报文头
-	
-	private HttpClient httpClient 					= null;
+
+    /**
+     * HttpClient实例
+     */
+	private HttpClient httpClient 					= getHttpClient();
 	private PostMethod postMethod 						= null;
 	private boolean aborted 						= false;
 	
@@ -43,6 +44,47 @@ public class HttpManager {
 
 	public static final int URL_XML_TYPE = 1;
 	public static final int URL_JSON_TYPE  = 2;
+	
+	
+    /**
+     * 链接的超时数,默认为30秒,此处要做成可配置
+     */
+    private static final int CONNECTION_TIME_OUT = 30000;
+    
+    /**
+     * 每个主机的最大并行链接数，默认为2
+     */
+    private static final int MAX_CONNECTIONS_PER_HOST = 10;
+    
+    /**
+     * 客户端总并行链接最大数，默认为20
+     */
+    private static final int MAX_TOTAL_CONNECTIONS = 20;
+    
+    /** 日志对象 */
+//    private static final DebugLog logger = LogFactory.getDebugLog(HttpTools.class);
+    
+    /**
+     * http的header中的content-type属性的名字
+     */
+    private static final String CONTENT_TYPE_NAME = "content-type";
+    
+    /**
+     * http的header中的content-type属性的内容
+     */
+    private static final String CONTENT_TYPE_VALUE_XML_UTF_8 = "text/xml; charset=UTF-8";
+    
+    /**
+     * http的header中的content-type属性的传输类型
+     */
+    private static final String TEXT_XML = "text/xml";
+    
+    /**
+     * http的header中的content-type属性的字符编码
+     */
+    private static final String UTF_8 = "UTF-8";
+    
+    
 
 	public static HttpManager getInstance() {
 
@@ -51,13 +93,45 @@ public class HttpManager {
 		}
 		return instance;
 	}
-	
+	  /**
+     * 构造Http客户端对象 <功能详细描述>
+     * 
+     * @return [参数说明]
+     * 
+     * @return HttpClient [返回类型说明]
+     * @exception throws [违例类型] [违例说明]
+     * @see [类、类#方法、类#成员]
+     */
+    private HttpClient initHttpClient()
+    {
+        // 此处运用连接池技术。
+        MultiThreadedHttpConnectionManager manager = new MultiThreadedHttpConnectionManager();
+        
+        // 设定参数：与每个主机的最大连接数
+        int maxConnectionsI = MAX_CONNECTIONS_PER_HOST;
+        manager.getParams().setDefaultMaxConnectionsPerHost(maxConnectionsI);
+        
+        // 设定参数：客户端的总连接数
+        int maxTotalConnections = MAX_TOTAL_CONNECTIONS;
+        manager.getParams().setMaxTotalConnections(maxTotalConnections);
+        
+        // 使用连接池技术创建HttpClient对象
+        HttpClient client = new HttpClient(manager);
+        
+        // 设置超时时间
+        client.getHttpConnectionManager().getParams().setConnectionTimeout(CONNECTION_TIME_OUT);
+       
+        //设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        return client;
+    }
 	private HttpClient getHttpClient(){
 		if (null == httpClient){
 			if(isHttpsFlag){
 				httpClient = initHttps();
 			} else {
-				httpClient = initHttp();
+//				httpClient = initHttp();
+				httpClient = initHttpClient();
 			}
 		}
 		
@@ -130,10 +204,9 @@ public class HttpManager {
 		
 		byte[] bArray = null;
 		int status = -1;
-		Map<String,Object> req_map;
 		
 		if (type == HttpManager.URL_JSON_TYPE){
-			//2确定请求方式 new UTF8PostMethod()解决中文乱码
+			//2确定请求方式 new ENCODEPostMethod()解决中文乱码
 			postMethod = new ENCODEPostMethod(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
 		} else {
 			//2确定请求方式 new UTF8PostMethod()解决中文乱码
@@ -143,17 +216,18 @@ public class HttpManager {
 		try {
 			String req_json = new String(outBytes);
 			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
-			req_map = JSONUtil.JSONStr2MAP(req_json);
-			req_json = (String) req_map.get("arg");
-			req_map.clear();
-			req_map = JSONUtil.JSONStr2MAP(req_json);
-			
-			req_json = JSONUtil.MAP2JSONStr(req_map);
+//			Map<String,Object> req_map;
+//			req_map = JSONUtil.JSONStr2MAP(req_json);
+//			req_json = (String) req_map.get("arg");
+//			req_map.clear();
+//			req_map = JSONUtil.JSONStr2MAP(req_json);
+//			
+//			req_json = JSONUtil.MAP2JSONStr(req_map);
 			/*==============================*/
 			
-			Log.i("REQ_JSON:", req_json);
 			if(parts != null){
-				/*=====带附件========*/
+				/**=====带附件========*/
+				parts[parts.length] = new StringPart("common",req_json , Constant.ENCODING_JSON);
 				//4 构建实体
 				MultipartRequestEntity entity = new MultipartRequestEntity(parts, postMethod.getParams());
 
@@ -161,20 +235,18 @@ public class HttpManager {
 				postMethod.setRequestEntity(entity);
 				
 			}else{
-				/*======普通=======*/
+				/**======普通=======*/
 				NameValuePair[] param = { new NameValuePair("common",req_json)};  
 				postMethod.setRequestBody(param);   
-				/*=============*/
 			}
+			Log.i("REQ_JSON:", req_json);
 			
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
 		}
-		
 		try {
-
 			//6 执行请求
-			status = getHttpClient().executeMethod(postMethod);
+			status = httpClient.executeMethod(postMethod);
 
 			Log.i("STATUS:", String.valueOf(status));
 			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
@@ -187,13 +259,12 @@ public class HttpManager {
 			/*登录时拿到cookie值*/
 			if(transferCode.equals("089016")){
 				//获得登陆后的 Cookie
-				Cookie[] cookies = getHttpClient().getState().getCookies();
+				Cookie[] cookies_ = httpClient.getState().getCookies();
 				
-				String tmpcookies= "";
-				for(Cookie c:cookies){
-					tmpcookies += c.toString()+";";
+				for(Cookie c:cookies_){
+					cookies += c.toString()+";";
 				}
-				System.out.println("tmpcookies:" + tmpcookies);
+				Log.i("cookies:" , cookies);
 			}else{
 				
 			}
@@ -203,8 +274,10 @@ public class HttpManager {
 			// IOException - in case of a problem or the connection was aborted
 			throw new HttpException(903);
 		}finally{
-			if(null != getHttpClient())
-				getHttpClient().getHttpConnectionManager().closeIdleConnections(0);
+			if(null != httpClient)
+				httpClient.getHttpConnectionManager().closeIdleConnections(0);
+			if(null != postMethod)
+				postMethod.releaseConnection();
 		}
 		
 		

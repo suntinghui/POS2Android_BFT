@@ -179,8 +179,14 @@ public class LoginActivity extends BaseActivity {
 
 	// 跳转，这里直接跳转到目录页
 	private void loginAction() {
+		/**
+		 * 直接跳转到主菜单
+		 * */
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
+		/**==============*/
+		
+		
 		// if (checkValue()) {
 
 		// Editor editor = ApplicationEnvironment.getInstance()

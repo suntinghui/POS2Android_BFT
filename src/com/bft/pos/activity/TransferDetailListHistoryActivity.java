@@ -137,7 +137,7 @@ public class TransferDetailListHistoryActivity extends BaseActivity implements
 			if (null == convertView) {
 				holder = new ViewHolder();
 
-				convertView = mInflater.inflate(R.layout.list_ltem_transfer,
+				convertView = mInflater.inflate(R.layout.list_item_transfer,
 						null);
 
 				holder.contentLayout = (RelativeLayout) convertView

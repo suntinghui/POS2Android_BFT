@@ -178,6 +178,7 @@ public class LoginActivity extends BaseActivity {
 				String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET.getText().toString()+et_pwd.getText()) + "www.payfortune.com");
 				map.put("lgnPass", pwd);
 				map.put("verifyCode", "qwe123");
+//				map.put("pIdImg0", "/user/abc.jpg");
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (Exception e) {

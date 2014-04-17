@@ -1,5 +1,6 @@
 package com.bft.pos.agent.client;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -9,6 +10,9 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 
 import android.util.Log;
 
@@ -108,6 +112,115 @@ public class HttpManager {
 		return null;
 	}
 	
+	/**
+	 * @param type
+	 * @param transferCode
+	 * @param outBytes
+	 * @param MREntity 实体
+	 * @return
+	 * @throws HttpException
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unchecked")
+	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException, IOException{
+//		Part[] partss = new Part[]{};
+//		partss[0] = new FilePart("signImg", new File(filename+"图片1.png");
+//		partss[1] = new FilePart("signImg", new File(filename+"图片1.png");
+//		partss[2] = new FilePart("signImg", new File(filename+"图片1.png");
+		// 记录上行流量
+		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND, outBytes.length);
+		
+		byte[] bArray = null;
+		int status = -1;
+		Map<String,Object> req_map;
+		
+		if (type == HttpManager.URL_JSON_TYPE){
+			//2确定请求方式 new UTF8PostMethod()解决中文乱码
+			postMethod = new ENCODEPostMethod(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
+		} else {
+			//2确定请求方式 new UTF8PostMethod()解决中文乱码
+			postMethod = new ENCODEPostMethod(Constant.XMLURL);
+		}
+		
+		try {
+			String req_json = new String(outBytes);
+			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
+			req_map = JSONUtil.JSONStr2MAP(req_json);
+			req_json = (String) req_map.get("arg");
+			req_map.clear();
+			req_map = JSONUtil.JSONStr2MAP(req_json);
+			
+			req_json = JSONUtil.MAP2JSONStr(req_map);
+			/*==============================*/
+			
+			Log.i("REQ_JSON:", req_json);
+			if(parts != null){
+				/*=====带附件========*/
+				//4 构建实体
+				MultipartRequestEntity entity = new MultipartRequestEntity(parts, postMethod.getParams());
+
+				//5 设置实体
+				postMethod.setRequestEntity(entity);
+			}else{
+				/*======普通=======*/
+				NameValuePair[] param = { new NameValuePair("common",req_json)};  
+				postMethod.setRequestBody(param);   
+				/*=============*/
+			}
+			
+		} catch (Exception e1) {
+			throw new HttpException(e1.getMessage());
+		}
+		
+		try {
+
+			//6 执行请求
+			status = getHttpClient().executeMethod(postMethod);
+
+			Log.i("STATUS:", String.valueOf(status));
+			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
+			if(status == HttpStatus.SC_OK){
+				bArray = postMethod.getResponseBody();
+				// 记录下行流量
+				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
+				Log.i("相应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
+			}
+			/*登录时拿到cookie值*/
+			if(transferCode.equals("089016")){
+				//获得登陆后的 Cookie
+				Cookie[] cookies = getHttpClient().getState().getCookies();
+				
+				String tmpcookies= "";
+				for(Cookie c:cookies){
+					tmpcookies += c.toString()+";";
+				}
+				System.out.println("tmpcookies:" + tmpcookies);
+			}else{
+				
+			}
+			
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			// IOException - in case of a problem or the connection was aborted
+			throw new HttpException(903);
+		}finally{
+			if(null != getHttpClient())
+				getHttpClient().getHttpConnectionManager().closeIdleConnections(0);
+		}
+		
+		
+		return bArray;
+		
+	}
+	/**
+	 * @param type
+	 * @param transferCode
+	 * @param outBytes
+	 * @param MREntity 实体
+	 * @return
+	 * @throws HttpException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes) throws HttpException, IOException{
 		
@@ -159,6 +272,7 @@ public class HttpManager {
 			Log.i("REQ_JSON:", req_json);
 			NameValuePair[] param = { new NameValuePair("common",req_json)};  
 			postMethod.setRequestBody(param);   
+		
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
 		}

@@ -28,9 +28,9 @@ public class ManageActivity extends MenuBaseActivity {
 	// 四个按钮
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_2_n,
-			R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码" };
+	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class ManageActivity extends MenuBaseActivity {
 		super.onCreate(savedInstanceState);
 		// 设置标题
 		this.initTitlebar("我的管理");
-
 		listView = (ListView) this.findViewById(R.id.listview);
 		// 获取列表视图
 		listView = (ListView) this.findViewById(R.id.listview);
@@ -75,11 +74,18 @@ public class ManageActivity extends MenuBaseActivity {
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;
+//					实名认证
 				case 2:
 					Intent intent2 = new Intent(ManageActivity.this,
 							AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
+					break;
+				case 4:
+					Intent intent4 = new Intent(ManageActivity.this,
+							BankNumberActivity.class);
+					intent4.putExtra("TAG", arg2);
+					startActivity(intent4);
 					break;
 				default:
 					break;
@@ -118,9 +124,7 @@ public class ManageActivity extends MenuBaseActivity {
 			ManagerViewHolder holder = null;
 			if (null == convertView) {
 				holder = new ManagerViewHolder();
-
 				convertView = mInflater.inflate(R.layout.item_left_right, null);
-
 				holder.mLeftIV = (ImageView) convertView
 						.findViewById(R.id.leftIV);
 				holder.mRightTV = (TextView) convertView

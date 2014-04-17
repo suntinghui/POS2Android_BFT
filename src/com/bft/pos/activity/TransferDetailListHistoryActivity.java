@@ -28,7 +28,7 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.util.ActivityUtil;
 
-public class TransferDetailListActivity extends BaseActivity implements
+public class TransferDetailListHistoryActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 
 	private Button btn_back = null;
@@ -83,10 +83,11 @@ public class TransferDetailListActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intent = new Intent(TransferDetailListActivity.this,
+				Intent intent = new Intent(
+						TransferDetailListHistoryActivity.this,
 						TransferDetailActivity.class);
 				intent.putExtra("model", modelList.get(arg2));
-				TransferDetailListActivity.this.startActivity(intent);
+				TransferDetailListHistoryActivity.this.startActivity(intent);
 			}
 
 		});
@@ -152,7 +153,7 @@ public class TransferDetailListActivity extends BaseActivity implements
 				holder.moreButton = (Button) convertView
 						.findViewById(R.id.moreButton);
 				holder.moreButton
-						.setOnClickListener(TransferDetailListActivity.this);
+						.setOnClickListener(TransferDetailListHistoryActivity.this);
 				holder.iv_revoke = (ImageView) convertView
 						.findViewById(R.id.iv_revoke);
 
@@ -215,10 +216,10 @@ public class TransferDetailListActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-		Intent intent = new Intent(TransferDetailListActivity.this,
+		Intent intent = new Intent(TransferDetailListHistoryActivity.this,
 				TransferDetailActivity.class);
 		intent.putExtra("model", modelList.get(arg2));
-		TransferDetailListActivity.this.startActivity(intent);
+		TransferDetailListHistoryActivity.this.startActivity(intent);
 
 	}
 
@@ -244,11 +245,14 @@ public class TransferDetailListActivity extends BaseActivity implements
 	public void refresh() {
 		Event event = new Event(null, "queryTransList", null);
 		event.setTransfer("089000");
+		String fsk = "Get_ExtPsamNo|null";
+		event.setFsk(fsk);
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("page_current", ++currentPage + "");
-		map.put("page_size", Constant.PAGESIZE);
-		map.put("begin_date", date_s);
-		map.put("end_date", date_e);
+		map.put("login", ++currentPage + "");
+		map.put("type", "1");
+		// map.put("page_size", Constant.PAGESIZE);
+		map.put("currPage", "1");
+		map.put("pageNum", "10");
 		event.setStaticActivityDataMap(map);
 		try {
 			event.trigger();

@@ -19,7 +19,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="13dip"
-            android:background="@drawable/back_button" >
+            android:background="@drawable/back_button"
+            android:text="返回" >
         </Button>
 
         <TextView
@@ -30,24 +31,9 @@
             android:text="实名认证"
             android:textColor="@color/white"
             android:textSize="18dip" />
-
-        <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="13dip"
-            android:background="@drawable/blue_btn"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:text="上传" >
-        </Button>
     </RelativeLayout>
 
-    <com.bft.view.TopInfoView
+    <com.bft.pos.activity.view.TopInfoView
         android:id="@+id/topInfoView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
@@ -64,27 +50,6 @@
             android:layout_marginTop="15dip"
             android:orientation="vertical"
             android:paddingBottom="10dip" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="20dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="上传头像:" />
-
-                <ImageView
-                    android:id="@+id/iv_0"
-                    android:layout_width="120dip"
-                    android:layout_height="120dip"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/img_card_head_portrait" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -128,6 +93,105 @@
                     android:src="@drawable/img_card_head_portrait" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/divide_line" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip" >
+
+                <Spinner
+                    android:id="@+id/spinner0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray"
+                    android:padding="5dip"
+                    android:prompt="@string/planet_prompt" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip" >
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray"
+                    android:padding="5dip"
+                    android:prompt="@string/planet_prompt" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip" >
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray"
+                    android:padding="5dip"
+                    android:prompt="@string/planet_prompt" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_bank_branch"
+                style="@style/black_16"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/blue_btn"
+                android:gravity="left"
+                android:text="xx支行/xx储蓄所/xx分理处" />
+
+            <TextView
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="银行卡号"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/et_account"
+                style="@style/black_15"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/input_bg"
+                android:hint="银行卡号"
+                android:inputType="number"
+                android:paddingLeft="8dip" />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +204,7 @@
                     style="@style/black_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="二合一照片:" />
+                    android:text="银行卡图片:" />
 
                 <ImageView
                     android:id="@+id/iv_3"
@@ -149,6 +213,67 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/img_card_head_portrait" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/divide_line" />
+
+            <TextView
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商户名"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/buss_name"
+                style="@style/black_15"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/input_bg"
+                android:hint="商户名"
+                android:inputType="number"
+                android:paddingLeft="8dip" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dip" >
+
+                <Button
+                    android:id="@+id/btn_sms"
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/img_btn"
+                    android:text="获取短信校验码" />
+
+                <EditText
+                    android:id="@+id/et_sms"
+                    style="@style/black_15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:layout_toLeftOf="@id/btn_sms"
+                    android:background="@drawable/input_login"
+                    android:hint="短信校验码"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dip" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/bt_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/blue_btn"
+                android:text="上传" >
+            </Button>
         </LinearLayout>
     </ScrollView>
 

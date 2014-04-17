@@ -1,6 +1,5 @@
 package com.bft.pos.agent.client;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -13,6 +12,10 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
+
+
+
+
 
 import android.util.Log;
 
@@ -121,8 +124,7 @@ public class HttpManager {
 	 * @throws HttpException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("unchecked")
-	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException, IOException{
+	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException{
 		// 记录上行流量
 		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND, outBytes.length);
 		

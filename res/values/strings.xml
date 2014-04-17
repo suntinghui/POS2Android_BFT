@@ -23,5 +23,6 @@
     <string name="noPublicKey">没有公钥数据，请确认您已经注册或联系客服!</string>
     <string name="pwdKeyboardTips">佰付通为保护您的密码安全，请您使用定制的键盘输入密码。密码键盘每次随机打乱按键顺序，并且在您输入完6位密码后自动对密码进行加密，全面保护您的账户安全。</string>
     <string name="title_progressbar">正在下载文件</string>
-    
+    <string name="planet_prompt">请选择</string>
+
 </resources>

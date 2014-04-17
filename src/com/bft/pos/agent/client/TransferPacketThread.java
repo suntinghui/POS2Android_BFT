@@ -63,7 +63,8 @@ public class TransferPacketThread extends Thread {
 
 	private TxActionImp action;
 
-	public TransferPacketThread(String transferCode, HashMap<String, String> map, Handler handler) {
+	public TransferPacketThread(String transferCode,
+			HashMap<String, String> map, Handler handler) {
 		this.transferCode = transferCode;
 		this.map = map;
 		this.handler = handler;
@@ -101,12 +102,18 @@ public class TransferPacketThread extends Thread {
 		try {
 			String configXml = "con_req_" + this.transferCode + ".xml";
 			if (Constant.isAISHUA) {
-				if (this.transferCode.equals("086000") || this.transferCode.equals("020001") || this.transferCode.equals("020022") || this.transferCode.equals("020023") || this.transferCode.equals("080002")) {
-					configXml = "con_req_" + this.transferCode + "_aishua" + ".xml";
-				}
+				if (this.transferCode.equals("086000")
+						|| this.transferCode.equals("020001")
+						|| this.transferCode.equals("020022")
+						|| this.transferCode.equals("020023")
+						|| this.transferCode.equals("080002")) {
+					configXml = "con_req_" + this.transferCode + "_aishua"
+							+ ".xml";
 
+				}
 			}
-			transferModel = TransferLogic.getInstance().parseConfigXML(configXml);
+			transferModel = TransferLogic.getInstance().parseConfigXML(
+					configXml);
 
 			// 在报文的配置中，有可能值来自于本报文中某一个域的值，为了检索的效率，在tempMap中将已解析的值存储，在后面用到时直接在tmepMap中查找
 			// 取本报文的值用$做前缀，此时一定要注意，取此值时，前面一定要已经有这个域的值
@@ -124,15 +131,24 @@ public class TransferPacketThread extends Thread {
 					if (value.startsWith("$")) {
 						// 如果报文中某一域的值取自此报文的其他域的值，其值规定为将key的首末用'$'做前后缀
 						// for example：field60 - 012#__PASMNO#$field11$
-						if (sendFieldMap.containsKey(value.substring(1, value.length() - 1))) {
-							sb.append(sendFieldMap.get(value.substring(1, value.length() - 1)));
+						if (sendFieldMap.containsKey(value.substring(1,
+								value.length() - 1))) {
+							sb.append(sendFieldMap.get(value.substring(1,
+									value.length() - 1)));
 						} else {
-							Log.e("conf_req_" + this.transferCode + ".xml WRONG", "Set the value of '" + model.getKey() + "' before setting the value of '" + value.substring(1, value.length() - 1) + "' !!!");
+							Log.e("conf_req_" + this.transferCode
+									+ ".xml WRONG",
+									"Set the value of '"
+											+ model.getKey()
+											+ "' before setting the value of '"
+											+ value.substring(1,
+													value.length() - 1)
+													+ "' !!!");
 						}
-
 					} else if (value.startsWith("__")) {
 						// 首先检查此值是否来自界面输入
-						if (null != dataMap && dataMap.containsKey(value.substring(2))) {
+						if (null != dataMap
+								&& dataMap.containsKey(value.substring(2))) {
 							sb.append(dataMap.get(value.substring(2)));
 						} else {
 							// 如果不是来自界面，那么就在AppDataCenter中寻找这个值。
@@ -148,7 +164,8 @@ public class TransferPacketThread extends Thread {
 				model.setValue(sb.toString());
 
 				// 进行一步特殊处理，fieldImage为上传签购单的图片内容，一般为20-30K。我认为在其他地方不会使用该值，所以不在map中保存。
-				if (!model.getKey().equals("img") && !model.getKey().equals("macstr")) {
+				if (!model.getKey().equals("img")
+						&& !model.getKey().equals("macstr")) {
 					sendFieldMap.put(model.getKey(), model.getValue());
 				}
 
@@ -157,15 +174,18 @@ public class TransferPacketThread extends Thread {
 					tmp_mac = model.getValue();
 				}
 
-				if (!model.getKey().trim().equals("fieldTrancode") && !model.getKey().trim().equals("isJson") && !model.getKey().equals("macstr")) {
-					tmpSendJSONString.key(model.getKey()).value(model.getValue());
+				if (!model.getKey().trim().equals("fieldTrancode")
+						&& !model.getKey().trim().equals("isJson")
+						&& !model.getKey().equals("macstr")) {
+					tmpSendJSONString.key(model.getKey()).value(
+							model.getValue());
 				}
 
 				if (!model.getKey().trim().equals("fieldTrancode")) {
-					macsb.append(FormatFieldValue.format(model.getKey(), model.getValue()));
+					macsb.append(FormatFieldValue.format(model.getKey(),
+							model.getValue()));
 				}
 			}
-
 			// 如果该交易需要进行冲正，则将其记入数据库冲正表中。注意，这里可能会有问题，因为有可能网络不通，直接打回，也就是说没有从手机发出交易就需要进行充正。
 			if (AppDataCenter.getReversalMap().containsKey(this.transferCode)) {
 				ReversalModel model = new ReversalModel();
@@ -190,7 +210,8 @@ public class TransferPacketThread extends Thread {
 						macBuilder.append(sendFieldMap.get(tmpArray[i]));
 					}
 					if (this.transferCode.equals("089020")) {
-						str = sendFieldMap.get("tel") + sendFieldMap.get("merchant_id");
+						str = sendFieldMap.get("tel")
+								+ sendFieldMap.get("merchant_id");
 					} else {
 						str = macBuilder.toString();
 					}
@@ -199,8 +220,10 @@ public class TransferPacketThread extends Thread {
 					} else {
 						Constant.isUploadSalesSlip = false;
 					}
-					String md5key = ApplicationEnvironment.getInstance().getPreferences().getString(Constant.MD5KEY, "");
-					sendJSONStringer.key("mac").value(StringUtil.MD5Crypto(str + md5key));
+					String md5key = ApplicationEnvironment.getInstance()
+							.getPreferences().getString(Constant.MD5KEY, "");
+					sendJSONStringer.key("mac").value(
+							StringUtil.MD5Crypto(str + md5key));
 					sendJSONStringer.endObject();
 					this.sendPacket();
 				} else {
@@ -217,9 +240,7 @@ public class TransferPacketThread extends Thread {
 				sendByte = action.first(tempMap);
 
 				if (transferModel.shouldMac()) {// 需要进行MAC计算
-
 					if (Constant.isAISHUA) {
-
 						try {
 							String str0 = Constant.mackey;
 							/** macKey:mac密钥(明文); macKeyTemp:起始macKey */
@@ -230,19 +251,26 @@ public class TransferPacketThread extends Thread {
 							/** macValue */
 							byte[] macValue;
 
-							macKeyTemp = UnionDes.getKey(ByteUtil.hexStringToBytes(str0));
-							macKeyByte = UnionDes.des(ConvertUtil.hexStringToBytes(AppDataCenter.getRANDOM()), macKeyTemp);
+							macKeyTemp = UnionDes.getKey(ByteUtil
+									.hexStringToBytes(str0));
+							macKeyByte = UnionDes.des(
+									ConvertUtil.hexStringToBytes(AppDataCenter
+											.getRANDOM()), macKeyTemp);
 
 							macKey = UnionDes.getKey(macKeyByte);
 
 							byte[] tempByte0 = new byte[sendByte.length - 8 - 11];
-							System.arraycopy(sendByte, 11, tempByte0, 0, tempByte0.length);
+							System.arraycopy(sendByte, 11, tempByte0, 0,
+									tempByte0.length);
 
-							macValue = UnionDes.xorDataAndMac(tempByte0, macKey);
+							macValue = UnionDes
+									.xorDataAndMac(tempByte0, macKey);
 
 							byte[] tempByte = new byte[sendByte.length];
-							System.arraycopy(sendByte, 0, tempByte, 0, sendByte.length - 8);
-							System.arraycopy(macValue, 0, tempByte, tempByte.length - 8, 8);
+							System.arraycopy(sendByte, 0, tempByte, 0,
+									sendByte.length - 8);
+							System.arraycopy(macValue, 0, tempByte,
+									tempByte.length - 8, 8);
 
 							sendByte = tempByte;
 							sendPacket();
@@ -255,9 +283,13 @@ public class TransferPacketThread extends Thread {
 						}
 					} else {
 						byte[] tempByte = new byte[sendByte.length - 8 - 11];
-						System.arraycopy(sendByte, 11, tempByte, 0, tempByte.length);
+						System.arraycopy(sendByte, 11, tempByte, 0,
+								tempByte.length);
 						CalcMacHandler calcHandler = new CalcMacHandler();
-						FSKOperator.execute("Get_MAC|int:0,int:1,string:null,string:" + StringUtil.bytes2HexString(tempByte), calcHandler);
+						FSKOperator.execute(
+								"Get_MAC|int:0,int:1,string:null,string:"
+										+ StringUtil.bytes2HexString(tempByte),
+										calcHandler);
 					}
 
 				} else {
@@ -271,10 +303,11 @@ public class TransferPacketThread extends Thread {
 			e.printStackTrace();
 			if (this.transferCode.equals("089006")) {
 
-			}else{
-				TransferLogic.getInstance().gotoCommonFaileActivity(e.getMessage());	
+			} else {
+				TransferLogic.getInstance().gotoCommonFaileActivity(
+						e.getMessage());
 			}
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -283,24 +316,32 @@ public class TransferPacketThread extends Thread {
 
 	@SuppressWarnings("static-access")
 	private void sendPacket() {
-		if(Constant.isAISHUA){
-			if(this.transferCode.equals("086000") || this.transferCode.equals("089001") || 
-					this.transferCode.equals("020001") || this.transferCode.equals("020022") || 
-					this.transferCode.equals("020023") || this.transferCode.equals("080002") || 
-					this.transferCode.equals("080003")){
-				if((AppDataCenter.getPsamnoOrKsn() == null || AppDataCenter.getPsamnoOrKsn().length() == 0)){
-					BaseActivity.getTopActivity().showDialog(BaseActivity.getTopActivity().MODAL_DIALOG, "请插入购买的刷卡设备");
+		if (Constant.isAISHUA) {
+			if (this.transferCode.equals("086000")
+					|| this.transferCode.equals("089001")
+					|| this.transferCode.equals("020001")
+					|| this.transferCode.equals("020022")
+					|| this.transferCode.equals("020023")
+					|| this.transferCode.equals("080002")
+					|| this.transferCode.equals("080003")) {
+				if ((AppDataCenter.getPsamnoOrKsn() == null || AppDataCenter
+						.getPsamnoOrKsn().length() == 0)) {
+					BaseActivity.getTopActivity().showDialog(
+							BaseActivity.getTopActivity().MODAL_DIALOG,
+							"请插入购买的刷卡设备");
 					return;
 				}
 			}
 		}
-		
+
 		if (transferModel.isJson()) {
-			Log.e("send JSON", AppDataCenter.getMethod_Json(this.transferCode) + ":   " + sendJSONStringer.toString());
+			Log.e("send JSON", AppDataCenter.getMethod_Json(this.transferCode)
+					+ ":   " + sendJSONStringer.toString());
 		}
 		// 如果是冲正则提示冲正。
 		if (AppDataCenter.getReversalMap().containsValue(this.transferCode)) {
-			BaseActivity.getTopActivity().showDialog("正在进行冲正，请稍候 ", transferCode);
+			BaseActivity.getTopActivity().showDialog("正在进行冲正，请稍候 ",
+					transferCode);
 
 		} else if (this.transferCode.equals("086000")) {
 			BaseActivity.getTopActivity().showDialog("正在签到，请稍候 ", transferCode);
@@ -316,23 +357,25 @@ public class TransferPacketThread extends Thread {
 		} else if (this.transferCode.equals("089006")) {
 
 		} else {
-			BaseActivity.getTopActivity().showDialog("正在处理交易，请稍候 ", transferCode);
+			BaseActivity.getTopActivity().showDialog("正在处理交易，请稍候 ",
+					transferCode);
 		}
 
 		try {
 			if (Constant.isStatic) {
-				respByte = StaticNetClient.getMessageByTransCode(this.transferCode);
+				respByte = StaticNetClient
+						.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
 					Map<String, Object> req_map = new HashMap<String, Object>();
 					Map<String, Object> temp_req_map = new HashMap<String, Object>();
 					String req_json = null;
 					String temp_req_json = null;
-					
+
 					temp_req_map = JSONUtil.JSONStr2MAP(sendJSONStringer.toString());
 					temp_req_json = (String) temp_req_map.get("arg");
 					temp_req_map = JSONUtil.JSONStr2MAP(temp_req_json);
-					
+
 					req_map.putAll(temp_req_map);
 					req_json = JSONUtil.MAP2JSONStr(req_map);
 					if(temp_req_map.get("attachments") != null){
@@ -363,9 +406,9 @@ public class TransferPacketThread extends Thread {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
+
 						parts[temp_req_map.size()] = new StringPart("common",req_json , Constant.ENCODING_JSON);
-						
+
 						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),parts);
 					}else{
 						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),null);
@@ -385,15 +428,19 @@ public class TransferPacketThread extends Thread {
 
 			}
 			Log.i("hidecount ", "hidecount base before");
-			BaseActivity.getTopActivity().hideDialog(BaseActivity.COUNTUP_DIALOG);
+			BaseActivity.getTopActivity().hideDialog(
+					BaseActivity.COUNTUP_DIALOG);
 			Log.i("hidecount ", "hidecount base after");
 		} catch (HttpException e) {
-			BaseActivity.getTopActivity().hideDialog(BaseActivity.COUNTUP_DIALOG);
-			BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_DIALOG);
+			BaseActivity.getTopActivity().hideDialog(
+					BaseActivity.COUNTUP_DIALOG);
+			BaseActivity.getTopActivity().hideDialog(
+					BaseActivity.PROGRESS_DIALOG);
 			if (this.transferCode.equals("089006")) {
 
-			}else{
-				TransferLogic.getInstance().gotoCommonFaileActivity(e.getMessage());				
+			} else {
+				TransferLogic.getInstance().gotoCommonFaileActivity(
+						e.getMessage());
 			}
 
 		} catch (UnsupportedEncodingException e) {
@@ -401,10 +448,12 @@ public class TransferPacketThread extends Thread {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			if (this.transferCode.equals("089018") || this.transferCode.equals("089006")) {
+			if (this.transferCode.equals("089018")
+					|| this.transferCode.equals("089006")) {
 
 			} else {
-				TransferLogic.getInstance().gotoCommonFaileActivity("服务器响应异常，请重试");
+				TransferLogic.getInstance().gotoCommonFaileActivity(
+						"服务器响应异常，请重试");
 
 			}
 
@@ -415,14 +464,14 @@ public class TransferPacketThread extends Thread {
 		try {
 			// 如果是上传签购单交易 原来是500000001
 			if (this.transferCode.equals("089014")) {
-				if (receiveFieldMap.containsKey("field39") && receiveFieldMap.get("field39").equals("00")) {
+				if (receiveFieldMap.containsKey("field39")
+						&& receiveFieldMap.get("field39").equals("00")) {
 					Message message = new Message();
 					message.what = 0; // 回调TransferLogic
 					message.obj = receiveFieldMap;
 					message.setTarget(handler);
 					message.sendToTarget();
 				}
-
 			} else {
 				if (transferModel.shouldMac()) {
 					if (Constant.isAISHUA) {
@@ -438,27 +487,40 @@ public class TransferPacketThread extends Thread {
 
 						String random = (int) (Math.random() * 50 + 1) + "";
 
-						macKeyTemp = UnionDes.getKey(ByteUtil.hexStringToBytes(str0));
+						macKeyTemp = UnionDes.getKey(ByteUtil
+								.hexStringToBytes(str0));
 
-						macKeyByte = UnionDes.des(ConvertUtil.hexStringToBytes(AppDataCenter.getRANDOM()), macKeyTemp);
+						macKeyByte = UnionDes.des(ConvertUtil
+								.hexStringToBytes(AppDataCenter.getRANDOM()),
+								macKeyTemp);
 
 						macKey = UnionDes.getKey(macKeyByte);
 
 						byte[] tempByte0 = new byte[respByte.length - 8 - 11];
-						System.arraycopy(respByte, 11, tempByte0, 0, tempByte0.length);
+						System.arraycopy(respByte, 11, tempByte0, 0,
+								tempByte0.length);
 
 						macValue = UnionDes.xorDataAndMac(tempByte0, macKey);
-						if (new String(macValue).equals(receiveFieldMap.get("field64"))) {
+						if (new String(macValue).equals(receiveFieldMap
+								.get("field64"))) {
 							checkField39();
 						} else {
-							TransferLogic.getInstance().gotoCommonFaileActivity("校验服务器响应数据失败，请重新交易");
+							TransferLogic.getInstance()
+							.gotoCommonFaileActivity(
+									"校验服务器响应数据失败，请重新交易");
 						}
 					} else {
 						byte[] tempByte = new byte[respByte.length - 8 - 11];
-						System.arraycopy(respByte, 11, tempByte, 0, tempByte.length);
+						System.arraycopy(respByte, 11, tempByte, 0,
+								tempByte.length);
 
 						CheckMacHandler checkHandler = new CheckMacHandler();
-						FSKOperator.execute("Get_CheckMAC|int:0,int:0,string:null,string:" + StringUtil.bytes2HexString(tempByte) + ",string:" + receiveFieldMap.get("field64"), checkHandler);// 计算MAC的数据+MAC（8字节）
+						FSKOperator.execute(
+								"Get_CheckMAC|int:0,int:0,string:null,string:"
+										+ StringUtil.bytes2HexString(tempByte)
+										+ ",string:"
+										+ receiveFieldMap.get("field64"),
+										checkHandler);// 计算MAC的数据+MAC（8字节）
 
 					}
 
@@ -493,7 +555,8 @@ public class TransferPacketThread extends Thread {
 			String arg_str = receiveFieldMap.get("apires").replace(",", "");
 			// 如果是上传签购单交易 500000001
 			if (this.transferCode.equals("089014")) {
-				if (receiveFieldMap.containsKey("field39") && receiveFieldMap.get("field39").equals("00")) {
+				if (receiveFieldMap.containsKey("field39")
+						&& receiveFieldMap.get("field39").equals("00")) {
 					Message message = new Message();
 					message.what = 0; // 回调TransferLogic
 					message.obj = receiveFieldMap;
@@ -504,24 +567,31 @@ public class TransferPacketThread extends Thread {
 			} else {
 				if (transferModel.shouldMac()) {
 					if (receiveFieldMap.get("macstr").length() == 0) {
-						if (this.transferCode.equals("089018") || this.transferCode.equals("089006")) {
+						if (this.transferCode.equals("089018")
+								|| this.transferCode.equals("089006")) {
 
 						} else {
-							TransferLogic.getInstance().gotoCommonFaileActivity("操作失败");
+							TransferLogic.getInstance()
+							.gotoCommonFaileActivity("操作失败");
 						}
-						
+
 					} else {
 						if (receiveFieldMap.get("mac") != null) {
-							String md5key = ApplicationEnvironment.getInstance().getPreferences().getString(Constant.MD5KEY, "");
-							if ((receiveFieldMap.get("mac").equals(StringUtil.MD5Crypto(receiveFieldMap.get("macstr") + md5key)))) {
+							String md5key = ApplicationEnvironment
+									.getInstance().getPreferences()
+									.getString(Constant.MD5KEY, "");
+							if ((receiveFieldMap.get("mac").equals(StringUtil
+									.MD5Crypto(receiveFieldMap.get("macstr")
+											+ md5key)))) {
 								Message message = new Message();
 								message.what = 0; // 回调TransferLogic
 								message.obj = receiveFieldMap;
 								message.setTarget(handler);
 								message.sendToTarget();
 							} else {
-								TransferLogic.getInstance().gotoCommonFaileActivity("操作失败");
-								
+								TransferLogic.getInstance()
+								.gotoCommonFaileActivity("操作失败");
+
 							}
 						}
 					}
@@ -544,7 +614,9 @@ public class TransferPacketThread extends Thread {
 			String field39 = receiveFieldMap.get("field39");
 
 			// 收到应答后，如果此交易是一笔可能发冲正的交易且响应码不是98，则删除冲正表中的此条交易记录
-			if (!field39.equals("98") && AppDataCenter.getReversalMap().containsKey(this.transferCode)) {
+			if (!field39.equals("98")
+					&& AppDataCenter.getReversalMap().containsKey(
+							this.transferCode)) {
 				ReversalDBHelper helper = new ReversalDBHelper();
 				helper.deleteAReversalTrans(receiveFieldMap.get("field11"));
 			}
@@ -555,7 +627,8 @@ public class TransferPacketThread extends Thread {
 					AppDataCenter.setServerDate(receiveFieldMap.get("field13"));
 				}
 
-				if (AppDataCenter.getReversalMap().containsValue(this.transferCode)) {
+				if (AppDataCenter.getReversalMap().containsValue(
+						this.transferCode)) {
 					// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
 					ReversalDBHelper helper = new ReversalDBHelper();
 					helper.updateReversalState(receiveFieldMap.get("field11"));
@@ -568,7 +641,8 @@ public class TransferPacketThread extends Thread {
 				message.sendToTarget();
 
 			} else if (field39.equals("98")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
-				TransferLogic.getInstance().gotoCommonFaileActivity("没有收到发卡行应答");
+				TransferLogic.getInstance()
+				.gotoCommonFaileActivity("没有收到发卡行应答");
 				TransferLogic.getInstance().reversalAction();
 
 			} else {
@@ -579,17 +653,19 @@ public class TransferPacketThread extends Thread {
 					str_error = "校验错，请重新签到！";
 				} else if (field39.equals("A1")) {
 					str_error = "A1！";
-				} else if(field39.equalsIgnoreCase("xx")){
-					str_error = receiveFieldMap.get("field63") != null ? receiveFieldMap.get("field63"):"";
+				} else if (field39.equalsIgnoreCase("xx")) {
+					str_error = receiveFieldMap.get("field63") != null ? receiveFieldMap
+							.get("field63") : "";
 				} else {
 					Integer error = null;
 					try {
-						error = Integer.valueOf(field39);	
+						error = Integer.valueOf(field39);
 					} catch (Exception e) {
 						// TODO: handle exception
-						TransferLogic.getInstance().gotoCommonFaileActivity(field39);
+						TransferLogic.getInstance().gotoCommonFaileActivity(
+								field39);
 					}
-					
+
 					switch (error) {
 					case 03:
 						str_error = "商户未登记";
@@ -705,12 +781,13 @@ public class TransferPacketThread extends Thread {
 						break;
 					}
 				}
-				str_error = str_error + "("+field39 +")";
+				str_error = str_error + "(" + field39 + ")";
 				TransferLogic.getInstance().gotoCommonFaileActivity(str_error);
 			}
 		} else {
 			// 没有收到39域
-			TransferLogic.getInstance().gotoCommonFaileActivity("交易失败，请重试 (39)");
+			TransferLogic.getInstance()
+			.gotoCommonFaileActivity("交易失败，请重试 (39)");
 		}
 	}
 
@@ -725,8 +802,12 @@ public class TransferPacketThread extends Thread {
 				if (cmdReturn.Return_Result == 0) { // mac计算成功
 					if (transferModel.isJson()) {
 						try {
-							tmp_mac = Util.BytesToString(cmdReturn.Return_PSAMMAC);
-							sendJSONStringer.key("mac").value(Util.BytesToString(cmdReturn.Return_PSAMMAC));
+							tmp_mac = Util
+									.BytesToString(cmdReturn.Return_PSAMMAC);
+							sendJSONStringer
+							.key("mac")
+							.value(Util
+									.BytesToString(cmdReturn.Return_PSAMMAC));
 							sendJSONStringer.endObject();
 
 							sendPacket();
@@ -738,8 +819,10 @@ public class TransferPacketThread extends Thread {
 					} else {
 						try {
 							byte[] tempByte = new byte[sendByte.length];
-							System.arraycopy(sendByte, 0, tempByte, 0, sendByte.length - 8);
-							System.arraycopy(cmdReturn.Return_PSAMMAC, 0, tempByte, tempByte.length - 8, 8);
+							System.arraycopy(sendByte, 0, tempByte, 0,
+									sendByte.length - 8);
+							System.arraycopy(cmdReturn.Return_PSAMMAC, 0,
+									tempByte, tempByte.length - 8, 8);
 
 							sendByte = tempByte;
 							sendPacket();
@@ -750,7 +833,8 @@ public class TransferPacketThread extends Thread {
 					}
 
 				} else { // mac计算失败
-					BaseActivity.getTopActivity().showDialog(BaseActivity.MODAL_DIALOG, "加密数据时出现异常，请重试.");
+					BaseActivity.getTopActivity().showDialog(
+							BaseActivity.MODAL_DIALOG, "加密数据时出现异常，请重试.");
 				}
 
 				break;
@@ -780,11 +864,13 @@ public class TransferPacketThread extends Thread {
 			case FSKService.RESULT_FAILED_CHECKMAC:
 				// 如果是有对应冲正的交易，则发起第一次的自动冲正
 				if (AppDataCenter.getReversalMap().containsKey(transferCode)) {
-					TransferLogic.getInstance().gotoCommonFaileActivity("校验服务器响应数据失败");
+					TransferLogic.getInstance().gotoCommonFaileActivity(
+							"校验服务器响应数据失败");
 
 					TransferLogic.getInstance().reversalAction();
 				} else {
-					TransferLogic.getInstance().gotoCommonFaileActivity("校验服务器响应数据失败，请重新交易");
+					TransferLogic.getInstance().gotoCommonFaileActivity(
+							"校验服务器响应数据失败，请重新交易");
 				}
 				break;
 			}

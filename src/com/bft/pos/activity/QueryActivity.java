@@ -74,6 +74,13 @@ public class QueryActivity extends MenuBaseActivity {
 					startActivity(intent2);
 					break;
 				// 还有两个按钮 一个是公告查询，一个是流量统计
+				case 3:
+					//公告查询
+					Intent intent3=new Intent(QueryActivity.this,
+							AnnouncementListActivity.class);
+					intent3.putExtra("TAG", arg2);
+					startActivity(intent3);						
+					break;
 				default:
 					break;
 				}

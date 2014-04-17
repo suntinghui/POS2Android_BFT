@@ -27,6 +27,7 @@ import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.ReversalModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
+import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
 import com.dhcc.pos.core.SocketTransport;
@@ -362,8 +363,11 @@ public class TransferPacketThread extends Thread {
 			} else {
 				if (transferModel.isJson()) {
 					respByte = HttpManager.getInstance().sendRequest(
-							HttpManager.URL_JSON_TYPE, this.transferCode,
-							sendJSONStringer.toString().getBytes("GBK"));
+							HttpManager.URL_JSON_TYPE,
+							this.transferCode,
+							sendJSONStringer.toString().getBytes(
+									Constant.ENCODING_JSON));
+					parseJson(new String(respByte, Constant.ENCODING_JSON));
 					parseJson(new String(respByte, "UTF-8"));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);

@@ -126,7 +126,6 @@ public class AppDataCenter {
 				Field field = thisClass.getDeclaredField(fieldName); // private
 				return (String) field.get(thisClass);
 			}
-
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
@@ -480,12 +479,12 @@ public class AppDataCenter {
 	public static String getMethod_Json(String transferCode) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("089000", "queryTransList");
-		map.put("089001", "registMerchant");
+		map.put("089001", "register");
 		map.put("089002", "checkInfo");
 		map.put("089003", "modifyPassword");
-		map.put("089004", "getNotice");
+		map.put("089004", "bulletin");
 		map.put("089005", "uploadSalesSlip");
-		map.put("089006", "sms");
+		map.put("089006", "phone-verif-code");
 		map.put("089007", "getBanks");
 		map.put("089008", "addBanks");
 		map.put("089009", "modifyBanks");
@@ -493,13 +492,27 @@ public class AppDataCenter {
 		map.put("089011", "getBanksBranch");
 		map.put("089012", "getBanksBranchByName");
 		map.put("089013", "getMerchantInfo");
-		map.put("089014", "uploadSalesSlip");
+		map.put("089014", "upVoucher");
 		map.put("089015", "getPassword");
 		map.put("089016", "login");
 		map.put("089017", "getPassword");
 		map.put("089018", "getVersion");
 		map.put("089020", "identifyMerchant");
-		map.put("089021", "newidentifyMerchant");
+
+		map.put("089019", "newidentifyMerchant");
+		map.put("089021", "verifyCodes");
+		map.put("089022", "set-pay-pwd");
+		map.put("089023", "reset-pay-pwd");
+		map.put("089024", "modify-pwd");
+		map.put("089025", "draw-cash");
+		map.put("089026", "query-card-trade");
+		map.put("089027", "query-bal");
+		map.put("089028", "query-acc-trade");
+		map.put("089029", "modify-bk");
+		map.put("089030", "logout");
+		map.put("089031", "checkInfo");
+		map.put("089032", "set-login-pwd");
+
 		return map.get(transferCode);
 
 	}

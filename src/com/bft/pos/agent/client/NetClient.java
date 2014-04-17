@@ -42,7 +42,7 @@ public class NetClient {
 	public byte[] transferMsg(HashMap<String, String> map) throws IOException {
 		byte[] data = this.serialize(map);
 		byte[] outMsg = null;
-		Log.i("sendXML", new String(data, "utf-8"));
+		Log.i("sendXML", new String(data, Constant.ENCODING_8583));
 		try {
 			outMsg = HttpManager.getInstance().sendRequest(HttpManager.URL_XML_TYPE, "test", data);// 非动态还需要用到吗？？？
 			if (outMsg == null || outMsg.length == 0) {

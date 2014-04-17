@@ -1,3 +1,4 @@
+
 package com.bft.pos.activity;
 
 import java.sql.Date;
@@ -146,5 +147,4 @@ public class TransferQueryActivity extends BaseActivity implements
 
 		return Integer.parseInt(String.valueOf(between_days));
 	}
-
 }

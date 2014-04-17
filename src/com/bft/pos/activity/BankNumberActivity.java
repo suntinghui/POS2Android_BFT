@@ -39,12 +39,11 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			break;
 		case R.id.btn_submit:
 			try {
-				Event event = new Event(null, "newidentifyMerchant", null);
-				event.setTransfer("089021");
+				Event event = new Event(null, "modify-bk", null);
+				event.setTransfer("089029");
 				String fsk = "Get_ExtPsamNo|null";
 				event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-
 				map.put("name", "张三");// name
 				map.put("pIdNo", "140106198806070614");// 身份证号
 				map.put("oldBkCardNo", "001");// 原银行卡号
@@ -57,7 +56,6 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		default:

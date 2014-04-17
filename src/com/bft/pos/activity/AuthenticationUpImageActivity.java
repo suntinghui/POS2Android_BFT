@@ -32,7 +32,6 @@ import com.bft.pos.util.BankParse;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
 
-
 //实名认证 上图图片
 public class AuthenticationUpImageActivity extends BaseActivity implements
 		OnClickListener {
@@ -143,22 +142,21 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		case R.id.bt_confirm:
 			try {
-			Event event = new Event(null, "newidentifyMerchant", null);
-			event.setTransfer("089021");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			
-			map.put("pIdImg0", bitmap_str_1);// 身份证正面
-			map.put("pIdImg1", bitmap_str_2);// 身份证反面
-			map.put("bankNo", "10");// 银行卡开户行<12
-			map.put("bkCardNo", "11");// 银行卡号<19
-			map.put("bkCardImg", bitmap_str_3);// 银行卡图片
-			map.put("mctName", "山西");//商户名
-			map.put("verifyCode", "123456");//验证码
-			
-			event.setStaticActivityDataMap(map);
-			
+				Event event = new Event(null, "newidentifyMerchant", null);
+				event.setTransfer("089021");
+				String fsk = "Get_ExtPsamNo|null";
+				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+
+				map.put("pIdImg0", bitmap_str_1);// 身份证正面
+				map.put("pIdImg1", bitmap_str_2);// 身份证反面
+				map.put("bankNo", "10");// 银行卡开户行<12
+				map.put("bkCardNo", "11");// 银行卡号<19
+				map.put("bkCardImg", bitmap_str_3);// 银行卡图片
+				map.put("mctName", "山西");// 商户名
+				map.put("verifyCode", "123456");// 验证码
+
+				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (ViewException e) {
 				// TODO Auto-generated catch block
@@ -168,6 +166,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				e.printStackTrace();
 			}
 			break;
+
 		// case R.id.iv_0:
 		// current_index = 0;
 		// actionCamera();

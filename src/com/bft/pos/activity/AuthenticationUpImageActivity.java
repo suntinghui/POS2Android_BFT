@@ -158,7 +158,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			map.put("verifyCode", "123456");//验证码
 			
 			event.setStaticActivityDataMap(map);
-//			BaseActivity.getTopActivity().showDialog("正在上传，请稍候 ", "089021");
 			
 				event.trigger();
 			} catch (ViewException e) {

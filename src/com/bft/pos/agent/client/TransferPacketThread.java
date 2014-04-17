@@ -429,7 +429,6 @@ public class TransferPacketThread extends Thread {
 					message.setTarget(handler);
 					message.sendToTarget();
 				}
-
 			} else {
 				if (transferModel.shouldMac()) {
 					if (Constant.isAISHUA) {

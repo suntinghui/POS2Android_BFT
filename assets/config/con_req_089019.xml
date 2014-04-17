@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 新实名认证 -->
+<root
+    isJson="true"
+    shouldMac="false" >
+
+    <field
+        key="newidentifyMerchant"
+        value="089021" />
+
+    <field
+        key="psamNo"
+        value="__PsamNo" />
+
+    <field
+        key="pIdImg0"
+        value="__pIdImg0" />
+
+    <field
+        key="pIdImg1"
+        value="__pIdImg1" />
+
+    <field
+        key="bankNo"
+        value="10" />
+
+    <field
+        key="bkCardNo"
+        value="11" />
+
+    <field
+        key="bkCardImg"
+        value="__bkCardImg" />
+
+    <field
+        key="mctName"
+        value="山西" />
+
+    <field
+        key="verifyCode"
+        value="123456" />
+
+</root>

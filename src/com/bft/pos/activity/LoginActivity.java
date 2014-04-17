@@ -183,14 +183,14 @@ public class LoginActivity extends BaseActivity {
 		startActivity(intent);
 		// if (checkValue()) {
 
-		//
 		// Editor editor = ApplicationEnvironment.getInstance()
 		// .getPreferences().edit();
 		// editor.putBoolean(Constant.kISREMEBER, isRemember);
 		// Log.i("phone:", userNameET.getText().toString());
 		// Log.i("phone:", pwdET.getText().toString());
 		// editor.putString(Constant.PHONENUM,
-		// userNameET.getText().toString());// userNameET.getText().toString()
+		// userNameET.getText().toString());
+		// userNameET.getText().toString();
 		// editor.commit();
 		// try {
 		// Event event = new Event(null, "login", null);

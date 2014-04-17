@@ -10,8 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 
 public class PhoneCode extends Activity{

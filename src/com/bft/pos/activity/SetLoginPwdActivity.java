@@ -17,7 +17,7 @@ import com.bft.pos.dynamic.core.Event;
 /**
  * 填写完个人注册信息后设置登陆密码
  * 
- * @author Fancong
+ * @创建者 Fancong
  */
 public class SetLoginPwdActivity extends BaseActivity implements
 		OnClickListener {

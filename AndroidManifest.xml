@@ -395,11 +395,47 @@
                 <data android:scheme="info" />
             </intent-filter>
         </activity>
-        <activity android:name="com.bft.pos.activity.FindPasswordActivity" >
+        <activity
+            android:name="com.bft.pos.activity.FindPasswordActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
-        <activity android:name="com.bft.pos.activity.ModifyPaymentPwdActivity" >
+        <activity
+            android:name="com.bft.pos.activity.ModifyPaymentPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
-        <activity android:name="com.bft.pos.activity.SetPayPwdActivity" >
+        <activity
+            android:name="com.bft.pos.activity.SetPayPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.RegisterActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.SetLoginPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.ShowProtocolActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.ResetPayPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
     </application>
 

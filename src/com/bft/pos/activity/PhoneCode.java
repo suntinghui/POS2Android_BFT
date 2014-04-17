@@ -39,7 +39,7 @@ public class PhoneCode extends Activity{
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
 		try {
-			Event event = new Event(null, "getSms", null);
+			Event event = new Event(null, "verifyCodes", null);
 			event.setTransfer("089021");
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);

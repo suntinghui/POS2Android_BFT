@@ -1,12 +1,16 @@
 package com.bft.pos.agent.client;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -27,6 +31,7 @@ import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.ReversalModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
+import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
@@ -138,7 +143,7 @@ public class TransferPacketThread extends Thread {
 											+ "' before setting the value of '"
 											+ value.substring(1,
 													value.length() - 1)
-											+ "' !!!");
+													+ "' !!!");
 						}
 					} else if (value.startsWith("__")) {
 						// 首先检查此值是否来自界面输入
@@ -284,7 +289,7 @@ public class TransferPacketThread extends Thread {
 						FSKOperator.execute(
 								"Get_MAC|int:0,int:1,string:null,string:"
 										+ StringUtil.bytes2HexString(tempByte),
-								calcHandler);
+										calcHandler);
 					}
 
 				} else {
@@ -362,22 +367,60 @@ public class TransferPacketThread extends Thread {
 						.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
-					respByte = HttpManager.getInstance().sendRequest(
-							HttpManager.URL_JSON_TYPE,
-							this.transferCode,
-							sendJSONStringer.toString().getBytes(
-									Constant.ENCODING_JSON));
+					Map<String, Object> req_map = new HashMap<String, Object>();
+					Map<String, Object> temp_req_map = new HashMap<String, Object>();
+					String req_json = null;
+					String temp_req_json = null;
+
+					temp_req_map = JSONUtil.JSONStr2MAP(sendJSONStringer.toString());
+					temp_req_json = (String) temp_req_map.get("arg");
+					temp_req_map = JSONUtil.JSONStr2MAP(temp_req_json);
+
+					req_map.putAll(temp_req_map);
+					req_json = JSONUtil.MAP2JSONStr(req_map);
+					if(temp_req_map.get("attachments") != null){
+						List<String> list = null;
+						String value = null;
+						Part[] parts = null;
+						int i = 1;
+
+						list = (List<String>) temp_req_map.get("attachments");
+						Iterator<String> itr = list.iterator();
+						temp_req_map.clear();
+
+						while (itr.hasNext()) {
+							value = itr.next();
+							temp_req_map.put(String.valueOf(i),value);
+							i++;
+						}
+						try {
+							String [] strs = null;
+							String str = null;
+							parts = new CustomFilePart[temp_req_map.size()];
+							for(int j=1; j<=temp_req_map.size(); j++){
+								str = (String) temp_req_map.get(String.valueOf(j));
+								strs = str.split("#");
+								parts[j-1] = new CustomFilePart(strs[0], new File(strs[1]));
+							}
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						parts[temp_req_map.size()] = new StringPart("common",req_json , Constant.ENCODING_JSON);
+
+						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),parts);
+					}else{
+						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),null);
+					}
 					parseJson(new String(respByte, Constant.ENCODING_JSON));
-					parseJson(new String(respByte, "UTF-8"));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);
-					HashMap<String, Object> respMap = action
-							.afterProcess(respByte);
+					HashMap<String, Object> respMap = action.afterProcess(respByte);
 
 					receiveFieldMap = new HashMap<String, String>();
 					for (String key : respMap.keySet()) {
-						this.receiveFieldMap
-								.put(key, (String) respMap.get(key));
+						this.receiveFieldMap.put(key, (String) respMap.get(key));
 					}
 
 					parse();
@@ -429,7 +472,6 @@ public class TransferPacketThread extends Thread {
 					message.setTarget(handler);
 					message.sendToTarget();
 				}
-
 			} else {
 				if (transferModel.shouldMac()) {
 					if (Constant.isAISHUA) {
@@ -464,8 +506,8 @@ public class TransferPacketThread extends Thread {
 							checkField39();
 						} else {
 							TransferLogic.getInstance()
-									.gotoCommonFaileActivity(
-											"校验服务器响应数据失败，请重新交易");
+							.gotoCommonFaileActivity(
+									"校验服务器响应数据失败，请重新交易");
 						}
 					} else {
 						byte[] tempByte = new byte[respByte.length - 8 - 11];
@@ -478,7 +520,7 @@ public class TransferPacketThread extends Thread {
 										+ StringUtil.bytes2HexString(tempByte)
 										+ ",string:"
 										+ receiveFieldMap.get("field64"),
-								checkHandler);// 计算MAC的数据+MAC（8字节）
+										checkHandler);// 计算MAC的数据+MAC（8字节）
 
 					}
 
@@ -530,7 +572,7 @@ public class TransferPacketThread extends Thread {
 
 						} else {
 							TransferLogic.getInstance()
-									.gotoCommonFaileActivity("操作失败");
+							.gotoCommonFaileActivity("操作失败");
 						}
 
 					} else {
@@ -548,7 +590,7 @@ public class TransferPacketThread extends Thread {
 								message.sendToTarget();
 							} else {
 								TransferLogic.getInstance()
-										.gotoCommonFaileActivity("操作失败");
+								.gotoCommonFaileActivity("操作失败");
 
 							}
 						}
@@ -600,7 +642,7 @@ public class TransferPacketThread extends Thread {
 
 			} else if (field39.equals("98")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
 				TransferLogic.getInstance()
-						.gotoCommonFaileActivity("没有收到发卡行应答");
+				.gotoCommonFaileActivity("没有收到发卡行应答");
 				TransferLogic.getInstance().reversalAction();
 
 			} else {
@@ -745,7 +787,7 @@ public class TransferPacketThread extends Thread {
 		} else {
 			// 没有收到39域
 			TransferLogic.getInstance()
-					.gotoCommonFaileActivity("交易失败，请重试 (39)");
+			.gotoCommonFaileActivity("交易失败，请重试 (39)");
 		}
 	}
 
@@ -763,9 +805,9 @@ public class TransferPacketThread extends Thread {
 							tmp_mac = Util
 									.BytesToString(cmdReturn.Return_PSAMMAC);
 							sendJSONStringer
-									.key("mac")
-									.value(Util
-											.BytesToString(cmdReturn.Return_PSAMMAC));
+							.key("mac")
+							.value(Util
+									.BytesToString(cmdReturn.Return_PSAMMAC));
 							sendJSONStringer.endObject();
 
 							sendPacket();

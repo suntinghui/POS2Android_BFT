@@ -1,6 +1,5 @@
 package com.bft.pos.agent.client;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -13,6 +12,10 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
+
+
+
+
 
 import android.util.Log;
 
@@ -112,7 +115,7 @@ public class HttpManager {
 		return null;
 	}
 	
-	/**
+	/**m
 	 * @param type
 	 * @param transferCode
 	 * @param outBytes
@@ -121,12 +124,7 @@ public class HttpManager {
 	 * @throws HttpException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("unchecked")
-	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException, IOException{
-//		Part[] partss = new Part[]{};
-//		partss[0] = new FilePart("signImg", new File(filename+"图片1.png");
-//		partss[1] = new FilePart("signImg", new File(filename+"图片1.png");
-//		partss[2] = new FilePart("signImg", new File(filename+"图片1.png");
+	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException{
 		// 记录上行流量
 		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND, outBytes.length);
 		
@@ -162,13 +160,13 @@ public class HttpManager {
 
 				//5 设置实体
 				postMethod.setRequestEntity(entity);
+				
 			}else{
 				/*======普通=======*/
 				NameValuePair[] param = { new NameValuePair("common",req_json)};  
 				postMethod.setRequestBody(param);   
 				/*=============*/
 			}
-			
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
 		}
@@ -274,7 +272,6 @@ public class HttpManager {
 			Log.i("REQ_JSON:", req_json);
 			NameValuePair[] param = { new NameValuePair("common",req_json)};  
 			postMethod.setRequestBody(param);   
-		
 		} catch (Exception e1) {
 			throw new HttpException(e1.getMessage());
 		}

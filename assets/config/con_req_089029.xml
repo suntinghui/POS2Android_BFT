@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 注册 -->
+<root isJson="true" >
+
+    <field
+        key="modify-bk"
+        value="089029" />
+
+    <field
+        key="name"
+        value="张三" />
+
+    <field
+        key="pIdNo"
+        value="140106198806070614" />
+
+    <field
+        key="oldBkCardNo"
+        value="001" />
+
+    <field
+        key="bankNo"
+        value="003" />
+
+    <field
+        key="bkCardNo"
+        value="002" />
+
+    <field
+        key="verifyCode"
+        value="123456" />
+
+</root>

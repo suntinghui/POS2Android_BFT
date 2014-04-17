@@ -62,7 +62,7 @@ public class JSONUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return JSONString.toString();
+		return JSONString.toString()+"}";
 	}
 	
 	public static void main(String[] args) {

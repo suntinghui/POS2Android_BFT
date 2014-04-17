@@ -44,7 +44,7 @@ public class NetClient {
 		byte[] outMsg = null;
 		Log.i("sendXML", new String(data, Constant.ENCODING_8583));
 		try {
-			outMsg = HttpManager.getInstance().sendRequest(HttpManager.URL_XML_TYPE, "test", data);// 非动态还需要用到吗？？？
+			outMsg = HttpManager.getInstance().sendRequest(HttpManager.URL_XML_TYPE, "test", data,null);// 非动态还需要用到吗？？？
 			if (outMsg == null || outMsg.length == 0) {
 				Log.i("receiveXML", "无返回值");
 			} else {

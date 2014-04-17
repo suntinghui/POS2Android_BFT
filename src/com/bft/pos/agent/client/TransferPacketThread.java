@@ -1,12 +1,16 @@
 package com.bft.pos.agent.client;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -27,6 +31,7 @@ import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.ReversalModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
+import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
@@ -319,14 +324,53 @@ public class TransferPacketThread extends Thread {
 				respByte = StaticNetClient.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
-//				Map<String, Object> req_map = new HashMap<String, Object>();
-//				
-//				req_map = JSONUtil.JSONStr2MAP(sendJSONStringer.toString());
+					Map<String, Object> req_map = new HashMap<String, Object>();
+					Map<String, Object> temp_req_map = new HashMap<String, Object>();
+					String req_json = null;
+					String temp_req_json = null;
 					
+					temp_req_map = JSONUtil.JSONStr2MAP(sendJSONStringer.toString());
+					temp_req_json = (String) temp_req_map.get("arg");
+					temp_req_map = JSONUtil.JSONStr2MAP(temp_req_json);
 					
-					
-					respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, sendJSONStringer.toString().getBytes(Constant.ENCODING_JSON));
-					parseJson(new String(respByte, "UTF-8"));
+					req_map.putAll(temp_req_map);
+					req_json = JSONUtil.MAP2JSONStr(req_map);
+					if(temp_req_map.get("attachments") != null){
+						List<String> list = null;
+						String value = null;
+						Part[] parts = null;
+						int i = 1;
+
+						list = (List<String>) temp_req_map.get("attachments");
+						Iterator<String> itr = list.iterator();
+						temp_req_map.clear();
+
+						while (itr.hasNext()) {
+							value = itr.next();
+							temp_req_map.put(String.valueOf(i),value);
+							i++;
+						}
+						try {
+							String [] strs = null;
+							String str = null;
+							parts = new CustomFilePart[temp_req_map.size()];
+							for(int j=1; j<=temp_req_map.size(); j++){
+								str = (String) temp_req_map.get(String.valueOf(j));
+								strs = str.split("#");
+								parts[j-1] = new CustomFilePart(strs[0], new File(strs[1]));
+							}
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						parts[temp_req_map.size()] = new StringPart("common",req_json , Constant.ENCODING_JSON);
+						
+						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),parts);
+					}else{
+						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),null);
+					}
+					parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);
 					HashMap<String, Object> respMap = action.afterProcess(respByte);

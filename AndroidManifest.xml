@@ -401,6 +401,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.SetPayPwdActivity" >
         </activity>
+         <activity android:name="com.bft.pos.activity.PhoneCode" >
+        </activity>
     </application>
 
 </manifest>

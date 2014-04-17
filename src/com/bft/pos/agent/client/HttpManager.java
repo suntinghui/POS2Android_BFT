@@ -144,6 +144,7 @@ public class HttpManager {
 		
 		try {
 			String req_json = new String(outBytes);
+			Log.i("req:",req_json);
 			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
 			req_map = JSONUtil.JSONStr2MAP(req_json);
 			req_json = (String) req_map.get("arg");
@@ -260,6 +261,7 @@ public class HttpManager {
 		
 		try {
 			String req_json = new String(outBytes);
+			
 			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
 			req_map = JSONUtil.JSONStr2MAP(req_json);
 			req_json = (String) req_map.get("arg");
@@ -311,6 +313,7 @@ public class HttpManager {
 		}finally{
 			if(null != getHttpClient())
 				getHttpClient().getHttpConnectionManager().closeIdleConnections(0);
+				postMethod.releaseConnection();
 		}
 		
 		

@@ -4,8 +4,12 @@ package com.bft.pos.activity;
  * 登陆界面
  * 这个界面也是不需要侧滑的
  * */
+import java.util.HashMap;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,6 +22,8 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
@@ -170,12 +176,15 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	// 跳转，这里直接跳转到目录页
-	private void loginAction() {
+	@SuppressLint("DefaultLocale") private void loginAction() {
+		/**
+		 * 直接跳转到主菜单
+		 * */
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
-		// Intent intent = new Intent(LoginActivity.this, PhoneCode.class);
-		// startActivity(intent);
-
+		/**==============*/
+		
+		
 		// if (checkValue()) {
 
 		// Editor editor = ApplicationEnvironment.getInstance()
@@ -203,30 +212,28 @@ public class LoginActivity extends BaseActivity {
 		// }
 		// }
 
-		// Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-		// .edit();
-		// editor.putBoolean(Constant.kISREMEBER, isRemember);
-		// editor.putString(Constant.PHONENUM,
-		// userNameET.getText().toString());// userNameET.getText().toString()
-		// editor.commit();
-		// try {
-		// Event event = new Event(null, "login", null);
-		// event.setTransfer("089016");
-		// String fsk = "Get_ExtPsamNo|null";
-		// event.setFsk(fsk);
-		// HashMap<String, String> map = new HashMap<String, String>();
-		// map.put("login", userNameET.getText().toString());
-		// String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-		// .getText().toString() + et_pwd.getText())
-		// + "www.payfortune.com");
-		// map.put("lgnPass", pwd);
-		// map.put("verifyCode", "qwe123");
-		// // map.put("pIdImg0", "/user/abc.jpg");
-		// event.setStaticActivityDataMap(map);
-		// event.trigger();
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
+		editor.putBoolean(Constant.kISREMEBER, isRemember);
+		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
+		editor.commit();
+		try {
+			Event event = new Event(null, "login", null);
+			event.setTransfer("089016");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login", userNameET.getText().toString());
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
+					.getText().toString().toUpperCase() + et_pwd.getText())
+					+ "www.payfortune.com");
+			map.put("lgnPass", pwd);
+			map.put("verifyCode", "qwe123");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// if(checkValue()){

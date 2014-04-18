@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:id="@+id/layout" >
+
+    <include layout="@layout/titlebar" />
+    <com.bft.pos.activity.view.TopInfoView
+      	android:id="@+id/topInfoView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/black_17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dip"
+        android:layout_marginTop="25dip"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:text="请选择查询日期范围" />
+
+    <com.bft.pos.activity.view.PickerDateView
+        android:id="@+id/date_picker"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="25dip"
+        android:background="@drawable/button_bg"
+        android:text="确定"
+        android:textColor="@color/black"
+        android:textSize="18dip" />
+
+</LinearLayout>

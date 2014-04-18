@@ -1,5 +1,11 @@
 package com.bft.pos.activity;
-
+/**
+ * @author yaozeyu
+ * function:本类是要泽宇（本人）进行验证码和短信验证码的调试用类。
+ * 一般放在点击登录按钮之后。
+ * 很简单的Intent，看到就应该能明白
+ * 祝大家编程愉快（笑）
+ * */
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 

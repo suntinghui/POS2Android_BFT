@@ -23,6 +23,7 @@ public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickLis
 			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_pwd);
 			super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
+		this.initTitlebar("账户交易查询");
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);

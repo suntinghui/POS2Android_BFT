@@ -5,9 +5,8 @@ package com.bft.pos.activity;
  * 这个界面也是不需要侧滑的
  * */
 import java.util.HashMap;
-
 import org.jivesoftware.smack.util.StringUtils;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -19,7 +18,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
@@ -178,7 +176,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	// 跳转，这里直接跳转到目录页
-	private void loginAction() {
+	@SuppressLint("DefaultLocale") private void loginAction() {
 		/**
 		 * 直接跳转到主菜单
 		 * */
@@ -227,7 +225,7 @@ public class LoginActivity extends BaseActivity {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-					.getText().toString() + et_pwd.getText())
+					.getText().toString().toUpperCase() + et_pwd.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", "qwe123");

@@ -23,6 +23,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 /**
  * 注册界面
@@ -83,7 +84,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				.findViewById(R.id.et_login_pwd_again);
 		et_login_pwd_again.setIconAndHint(R.drawable.icon_pwd, "再次输入登陆密码");
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
-		// et_sms.setInputType(InputType.TYPE_CLASS_NUMBER);
 		ib_agree = (ImageButton) this.findViewById(R.id.ib_agree);// 同意服务协议
 		ib_agree.setOnClickListener(this);
 	}
@@ -134,9 +134,16 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			}
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("name", et_login_name.getText());
-			map.put("smscode", et_sms.getText().toString());
-			map.put("logpass", et_login_pwd_again.getEncryptPWD());
+			map.put("name", et_name.getText().toString());// 姓名
+			map.put("login", et_login_name.getText().toString());// 登录名
+			map.put("pldNo", et_id_card.getText().toString());// 身份证
+			map.put("", et_phone_num.getText().toString());// 安全手机号
+			String pwd = StringUtil.MD5Crypto(StringUtil
+					.MD5Crypto(et_login_name.getText().toString()
+							+ et_login_pwd_again.getText())
+					+ "www.payfortune.com");
+			map.put("lgnPass", pwd);// 登陆密码
+			map.put("verifyCode", et_sms.getText().toString());// 验证码
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
@@ -183,6 +190,14 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+
+		}
 	}
 
 	/*
@@ -232,6 +247,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			message.what = 1;
 			handler.sendMessage(message);
 		}
+	};
+
+	public void refreshSMSBtn() {
+		timer.schedule(task, 1000, 1000); // timeTask
 	};
 
 	/*

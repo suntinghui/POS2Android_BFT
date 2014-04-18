@@ -262,8 +262,6 @@ public class Event {
 				}
 			}
 
-			// ////////////////////////////////////////////////////////////////////////////////////
-
 			map.put("actionId", this.action);
 			for (String key : this.getParamSet()) {
 				Object value = this.getParam(key).getValue();

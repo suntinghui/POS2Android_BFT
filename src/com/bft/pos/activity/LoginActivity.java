@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity {
 				// if (firstLogin) {
 				// ed.putBoolean("firstLogin", false);
 				// } else {
-				loginAction();
+				// loginAction();
 				// }
 				// ed.commit();
 				// }

@@ -564,7 +564,6 @@ public class TransferLogic {
 	private void getSmsDone(HashMap<String, String> fieldMap) {
 		// 以短信形式接收
 		BaseActivity.getTopActivity().refreshSMSBtn();
-
 	}
 
 	/**

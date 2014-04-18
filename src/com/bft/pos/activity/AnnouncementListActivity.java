@@ -4,18 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
-import com.bft.pos.dynamic.component.ViewException;
-import com.bft.pos.dynamic.core.Event;
-import com.bft.pos.model.AnnouncementModel;
-import com.bft.pos.util.ActivityUtil;
-import com.bft.pos.util.DateUtil;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +19,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bft.pos.R;
+import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.component.ViewException;
+import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.model.AnnouncementModel;
+import com.bft.pos.util.ActivityUtil;
+import com.bft.pos.util.DateUtil;
 
 public class AnnouncementListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
 	

@@ -6,13 +6,11 @@ package com.bft.pos.activity;
  * */
 import java.util.HashMap;
 
-import org.jivesoftware.smack.util.StringUtils;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -178,11 +176,14 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	// 跳转，这里直接跳转到目录页
-	private void loginAction() {
+	@SuppressLint("DefaultLocale") private void loginAction() {
+		/**
+		 * 直接跳转到主菜单
+		 * */
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
-//		Intent intent = new Intent(LoginActivity.this, PhoneCode.class);
-//		startActivity(intent);
+		/**==============*/
+		
 		
 		// if (checkValue()) {
 
@@ -211,29 +212,28 @@ public class LoginActivity extends BaseActivity {
 		// }
 		// }
 
-//		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-//				.edit();
-//		editor.putBoolean(Constant.kISREMEBER, isRemember);
-//		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-//		editor.commit();
-//		try {
-//			Event event = new Event(null, "login", null);
-//			event.setTransfer("089016");
-//			String fsk = "Get_ExtPsamNo|null";
-//			event.setFsk(fsk);
-//			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("login", userNameET.getText().toString());
-//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-//					.getText().toString() + et_pwd.getText())
-//					+ "www.payfortune.com");
-//			map.put("lgnPass", pwd);
-//			map.put("verifyCode", "qwe123");
-//			// map.put("pIdImg0", "/user/abc.jpg");
-//			event.setStaticActivityDataMap(map);
-//			event.trigger();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
+		editor.putBoolean(Constant.kISREMEBER, isRemember);
+		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
+		editor.commit();
+		try {
+			Event event = new Event(null, "login", null);
+			event.setTransfer("089016");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login", userNameET.getText().toString());
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
+					.getText().toString().toUpperCase() + et_pwd.getText())
+					+ "www.payfortune.com");
+			map.put("lgnPass", pwd);
+			map.put("verifyCode", "qwe123");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// if(checkValue()){
@@ -244,9 +244,22 @@ public class LoginActivity extends BaseActivity {
 	// editor.commit();
 	// }
 
+	/*
+	 * 注册
+	 * 
+	 * @Fancong
+	 */
 	private void registerAction() {
-
+		Intent register_intent = new Intent(LoginActivity.this,
+				RegisterActivity.class);
+		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,

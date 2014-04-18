@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
 				// SharedPreferences.Editor ed = sp.edit();
 				// ed.putBoolean(Constant.kISREMEBER, isRemember);
 				// if (isRemember) {
-				// ed.putString(Constant.LOGINPWD, pwdET.getText()
+				// ed.putString(Constant.LOGINPWD, et_pwd.getText()
 				// .toString());
 				// } else {
 				// ed.putString(Constant.LOGINPWD, "");
@@ -167,7 +167,9 @@ public class LoginActivity extends BaseActivity {
 
 	// 用来判断输入内容的
 	private Boolean checkValue() {
+
 		if (userNameET.length() == 0) {
+
 			this.showToast("用户名不能为空！");
 			return false;
 		} else if (et_pwd.getText().length() == 0) {
@@ -182,14 +184,13 @@ public class LoginActivity extends BaseActivity {
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
 		// if (checkValue()) {
-
+		//
 		// Editor editor = ApplicationEnvironment.getInstance()
 		// .getPreferences().edit();
 		// editor.putBoolean(Constant.kISREMEBER, isRemember);
 		// Log.i("phone:", userNameET.getText().toString());
-		// Log.i("phone:", pwdET.getText().toString());
-		// editor.putString(Constant.PHONENUM,
-		// userNameET.getText().toString());
+		// Log.i("phone:", et_pwd.getText().toString());
+		// editor.putString(Constant.PHONENUM, userNameET.getText().toString());
 		// userNameET.getText().toString();
 		// editor.commit();
 		// try {
@@ -199,7 +200,7 @@ public class LoginActivity extends BaseActivity {
 		// event.setFsk(fsk);
 		// HashMap<String, String> map = new HashMap<String, String>();
 		// map.put("login", userNameET.getText().toString());
-		// map.put("lgnPass", pwdET.getText().toString());
+		// map.put("lgnPass", et_pwd.getText().toString());
 		// map.put("verifyCode", "qwe123");
 		// event.setStaticActivityDataMap(map);
 		// event.trigger();
@@ -207,30 +208,6 @@ public class LoginActivity extends BaseActivity {
 		// e.printStackTrace();
 		// }
 		// }
-
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-				.edit();
-		editor.putBoolean(Constant.kISREMEBER, isRemember);
-		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-		editor.commit();
-		try {
-			Event event = new Event(null, "login", null);
-			event.setTransfer("089016");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", userNameET.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-					.getText().toString() + et_pwd.getText())
-					+ "www.payfortune.com");
-			map.put("lgnPass", pwd);
-			map.put("verifyCode", "qwe123");
-			// map.put("pIdImg0", "/user/abc.jpg");
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	// if(checkValue()){

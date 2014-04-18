@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -24,23 +22,19 @@ import android.os.Message;
 import android.util.Log;
 
 import com.bft.pos.activity.BaseActivity;
-import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
+import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
-import com.bft.pos.activity.TransferDetailListActivity;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.dynamic.core.ViewPage;
 import com.bft.pos.fsk.FSKOperator;
-import com.bft.pos.model.AnnouncementModel;
-import com.bft.pos.model.BankModel;
 import com.bft.pos.model.FieldModel;
-import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.model.TransferSuccessModel;
-import com.bft.pos.model.UserModel;
 import com.bft.pos.util.AssetsUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
@@ -1118,6 +1112,9 @@ public class TransferLogic {
 	public void gotoCommonSuccessActivity(String prompt) {
 		if (null == prompt || "".equals(prompt.trim())) {
 			prompt = "交易成功";
+			Intent intent = new Intent(BaseActivity.getTopActivity(), SuccessActivity.class);
+			intent.putExtra("prompt", prompt);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 		}
 
 		try {
@@ -1137,11 +1134,9 @@ public class TransferLogic {
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-		
-
-//		Intent intent = new Intent(BaseActivity.getTopActivity(), FaileActivity.class);
-//		intent.putExtra("prompt", prompt);
-//		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		Intent intent = new Intent(BaseActivity.getTopActivity(), FailActivity.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

@@ -5,19 +5,19 @@ package com.bft.pos.activity;
  * 这个界面也是不需要侧滑的
  * */
 import java.util.HashMap;
-import org.jivesoftware.smack.util.StringUtils;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
@@ -229,7 +229,6 @@ public class LoginActivity extends BaseActivity {
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", "qwe123");
-			// map.put("pIdImg0", "/user/abc.jpg");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
@@ -245,9 +244,22 @@ public class LoginActivity extends BaseActivity {
 	// editor.commit();
 	// }
 
+	/*
+	 * 注册
+	 * 
+	 * @Fancong
+	 */
 	private void registerAction() {
-
+		Intent register_intent = new Intent(LoginActivity.this,
+				RegisterActivity.class);
+		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,

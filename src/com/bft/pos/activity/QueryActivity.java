@@ -29,7 +29,7 @@ public class QueryActivity extends MenuBaseActivity {
 			R.drawable.query_left_1, R.drawable.query_left_2,
 			R.drawable.query_left_3, R.drawable.query_left_4 };
 
-	private String[] titles = { "查询银行卡余额", "交易查询", "签购单查询", "公告查询", "流量统计" };
+	private String[] titles = { "账户余额查询", "交易查询", "签购单查询", "公告查询", "流量统计" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +53,11 @@ public class QueryActivity extends MenuBaseActivity {
 					long arg3) {
 				switch (arg2) {
 				case 0:
-					// 查询银行卡余额
-					// Intent intent0 = new Intent(QueryActivity.this,
-					// TransferDetailCollectActivity.class);
-					// intent0.putExtra("TAG", arg2);
-					// startActivity(intent0);
+//					 查询银行卡余额
+					 Intent intent0 = new Intent(QueryActivity.this,
+							 ASBalancePwdActivity.class);
+					 intent0.putExtra("TAG", arg2);
+					 startActivity(intent0);
 					break;
 				case 1:
 					// 交易查询
@@ -74,6 +74,13 @@ public class QueryActivity extends MenuBaseActivity {
 					startActivity(intent2);
 					break;
 				// 还有两个按钮 一个是公告查询，一个是流量统计
+				case 3:
+					//公告查询
+					Intent intent3=new Intent(QueryActivity.this,
+							AnnouncementListActivity.class);
+					intent3.putExtra("TAG", arg2);
+					startActivity(intent3);						
+					break;
 				default:
 					break;
 				}

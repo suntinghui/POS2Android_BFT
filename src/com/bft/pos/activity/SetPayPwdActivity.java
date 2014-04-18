@@ -8,15 +8,17 @@ import android.widget.EditText;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
+import com.bft.pos.activity.view.TextWithIconView;
 
 /**
  * 设置支付密码
  * 
- * @author Fancong
+ * @创建者 Fancong
  */
 public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, btn_confirm;
-	private PasswordWithIconView et_id_card, et_pay_pwd, et_pay_pwd_again;
+	private PasswordWithIconView et_pay_pwd, et_pay_pwd_again;
+	private TextWithIconView et_id_card;
 	private EditText et_sms;
 
 	@Override
@@ -33,8 +35,9 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 		btn_sms.setOnClickListener(this);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
-		et_id_card = (PasswordWithIconView) this.findViewById(R.id.et_id_card);
-		et_id_card.setIconAndHint(R.drawable.icon_login_1, "身份证号码");
+		et_id_card = (TextWithIconView) this.findViewById(R.id.et_id_card);
+		et_id_card.setIcon(R.drawable.icon_login_1);
+		et_id_card.setHintString("身份证号码");
 		et_pay_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pay_pwd);
 		et_pay_pwd.setIconAndHint(R.drawable.icon_pwd, "请输入支付密码");
 		et_pay_pwd_again = (PasswordWithIconView) this

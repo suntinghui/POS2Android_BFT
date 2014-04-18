@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/list_item_bg"
+    android:paddingBottom="10dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+
+    <RelativeLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="卡号："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_account1"
+                    style="@style/black_15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    style="@style/black_15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易金额：" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    style="@style/gree_17"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    style="@style/black_15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="交易流水号：" />
+
+                <TextView
+                    android:id="@+id/tv_local_log"
+                    style="@style/black_15"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="" />
+            </TableRow>
+        </TableLayout>
+
+        <ImageView
+            android:id="@+id/iv_revoke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/revoked" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/moreLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dip"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/more_button"
+            android:text="点击查看更多" />
+    </RelativeLayout>
+
+</RelativeLayout>

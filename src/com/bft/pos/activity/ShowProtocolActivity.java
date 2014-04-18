@@ -1,8 +1,8 @@
 package com.bft.pos.activity;
 
-import com.bft.pos.R;
-
 import android.os.Bundle;
+
+import com.bft.pos.R;
 
 /**
  * 服务协议

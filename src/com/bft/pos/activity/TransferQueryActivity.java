@@ -20,14 +20,12 @@ public class TransferQueryActivity extends BaseActivity implements
 		OnClickListener {
 
 	private PickerDateView date_picker = null;
-	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为30天。
+	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为7天。
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		this.setContentView(R.layout.activity_transfer_query);
-
 		this.findViewById(R.id.topInfoView);
 
 		Button btn_back = (Button) this.findViewById(R.id.btn_back);
@@ -146,5 +144,4 @@ public class TransferQueryActivity extends BaseActivity implements
 
 		return Integer.parseInt(String.valueOf(between_days));
 	}
-
 }

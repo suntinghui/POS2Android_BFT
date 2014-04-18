@@ -1,6 +1,5 @@
 package com.bft.pos.activity;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Timer;
@@ -20,9 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.bft.pos.R;
+import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
-import com.bft.pos.dynamic.component.ViewException;
+import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 /**
  * 注册界面
@@ -30,8 +31,10 @@ import com.bft.pos.dynamic.core.Event;
  * @创建者 Fancong
  */
 public class RegisterActivity extends BaseActivity implements OnClickListener {
-	private Button btn_back, btn_sms, btn_next;
+	private Button btn_back, btn_sms, btn_ok;
 	private TextWithIconView et_name, et_id_card, et_phone_num;
+	private PasswordWithIconView et_login_pwd, et_login_pwd_again;
+	private TextWithIconView et_login_name;
 	private EditText et_sms;
 	private ImageButton ib_agree;
 	private Button btn_protocol;
@@ -55,8 +58,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);// 获取短信验证码
 		btn_sms.setOnClickListener(this);
-		btn_next = (Button) this.findViewById(R.id.btn_next);// 下一步
-		btn_next.setOnClickListener(this);
+		btn_ok = (Button) this.findViewById(R.id.btn_ok);// 下一步
+		btn_ok.setOnClickListener(this);
 		btn_protocol = (Button) this.findViewById(R.id.btn_protocol);// 用户协议
 		btn_protocol.setOnClickListener(this);
 		et_name = (TextWithIconView) this.findViewById(R.id.et_name);// 真实姓名
@@ -70,8 +73,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		et_phone_num.setInputType(InputType.TYPE_CLASS_NUMBER);
 		et_phone_num.setHintString("手机号码");
 		et_phone_num.setIcon(R.drawable.icon_phone);
+		et_login_name = (TextWithIconView) this
+				.findViewById(R.id.et_login_name);
+		et_login_name.setIcon(R.drawable.icon_login_1);
+		et_login_name.setHintString("登录名");
+		et_login_pwd = (PasswordWithIconView) this
+				.findViewById(R.id.et_login_pwd);
+		et_login_pwd.setIconAndHint(R.drawable.icon_pwd, "登陆密码");
+		et_login_pwd_again = (PasswordWithIconView) this
+				.findViewById(R.id.et_login_pwd_again);
+		et_login_pwd_again.setIconAndHint(R.drawable.icon_pwd, "再次输入登陆密码");
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
-		et_sms.setInputType(InputType.TYPE_CLASS_NUMBER);
 		ib_agree = (ImageButton) this.findViewById(R.id.ib_agree);// 同意服务协议
 		ib_agree.setOnClickListener(this);
 	}
@@ -101,21 +113,42 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn_protocol:
 			actionShowProtocol();
 			break;
-		case R.id.btn_next:
+		case R.id.btn_ok:
 			if (checkValue()) {
-				actionNext();
+				actionRegister();
 			}
 			break;
 		}
 	}
 
 	/*
-	 * 填完个人信息后进入密码设置界面
+	 * 立即注册
 	 */
-	private void actionNext() {
-		Intent next = new Intent(RegisterActivity.this,
-				SetLoginPwdActivity.class);
-		startActivity(next);
+	private void actionRegister() {
+		try {
+			Event event = new Event(null, "register", null);
+			event.setTransfer("089001");
+			String fsk = "Get_PsamNo|null";
+			if (Constant.isAISHUA) {
+				fsk = "getKsn|null";
+			}
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("name", et_name.getText().toString());// 姓名
+			map.put("login", et_login_name.getText().toString());// 登录名
+			map.put("pldNo", et_id_card.getText().toString());// 身份证
+			map.put("", et_phone_num.getText().toString());// 安全手机号
+			String pwd = StringUtil.MD5Crypto(StringUtil
+					.MD5Crypto(et_login_name.getText().toString()
+							+ et_login_pwd_again.getText())
+					+ "www.payfortune.com");
+			map.put("lgnPass", pwd);// 登陆密码
+			map.put("verifyCode", et_sms.getText().toString());// 验证码
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -134,6 +167,24 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			this.showToast("手机号不能为空！");
 			return false;
 		}
+		if (et_login_name.getText().length() == 0) {
+			this.showToast("姓名不能为空！");
+			return false;
+		}
+		if (et_login_pwd.getText().length() == 0) {
+			this.showToast("密码不能为空！");
+			return false;
+		}
+		if (et_login_pwd_again.getText().length() == 0) {
+			this.showToast("密码不能为空！");
+			return false;
+		}
+		if (!(et_login_pwd.getMd5PWD().equals(et_login_pwd_again.getMd5PWD()))) {
+			this.showToast("密码输入不一致，请重新输入！");
+			et_login_pwd.setText("");
+			et_login_pwd_again.setText("");
+			return false;
+		}
 		if (!isAgree) {
 			this.showToast("请先阅读并同意服务协议！");
 			return false;
@@ -141,25 +192,34 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		return true;
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+
+		}
+	}
+
 	/*
 	 * 获取验证码
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private void actionGetSms() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
-		String date = dateFormat.format(new java.util.Date());
+		String date = sDateFormat.format(new java.util.Date());
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("tel", et_phone_num.getText());
-			map.put("time", date);
+			map.put("mobNo", et_phone_num.getText().toString());
+			map.put("sendTime", date);
+			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
-		} catch (ViewException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -187,6 +247,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			message.what = 1;
 			handler.sendMessage(message);
 		}
+	};
+
+	public void refreshSMSBtn() {
+		timer.schedule(task, 1000, 1000); // timeTask
 	};
 
 	/*

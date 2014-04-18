@@ -10,6 +10,9 @@ import org.jivesoftware.smack.util.StringUtils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
+import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,7 +20,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -178,7 +180,7 @@ public class LoginActivity extends BaseActivity {
 				// if (firstLogin) {
 				// ed.putBoolean("firstLogin", false);
 				// } else {
-				loginAction();
+				// loginAction();
 				// }
 				// ed.commit();
 				// }
@@ -245,9 +247,15 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	// 跳转，这里直接跳转到目录页
-	private void loginAction() {
+	@SuppressLint("DefaultLocale") private void loginAction() {
+		/**
+		 * 直接跳转到主菜单
+		 * */
 		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
+		/**==============*/
+		
+		
 		// if (checkValue()) {
 
 		// Editor editor = ApplicationEnvironment.getInstance()
@@ -288,11 +296,10 @@ public class LoginActivity extends BaseActivity {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-					.getText().toString() + et_pwd.getText())
+					.getText().toString().toUpperCase() + et_pwd.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", "qwe123");
-			// map.put("pIdImg0", "/user/abc.jpg");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
@@ -308,9 +315,22 @@ public class LoginActivity extends BaseActivity {
 	// editor.commit();
 	// }
 
+	/*
+	 * 注册
+	 * 
+	 * @Fancong
+	 */
 	private void registerAction() {
-
+		Intent register_intent = new Intent(LoginActivity.this,
+				RegisterActivity.class);
+		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,

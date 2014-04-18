@@ -1,18 +1,18 @@
 package com.bft.pos.activity;
 
-import android.os.Bundle;
-
 import com.bft.pos.R;
 
+import android.os.Bundle;
+
 /**
- * 服务协议
+ * 成功
  * 
- * @author Fancong
+ * @创建者 Fancong
  */
-public class ShowProtocolActivity extends BaseActivity{
+public class SuccessActivity extends BaseActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_protocol);
+		setContentView(R.layout.activity_success);
 	}
 }

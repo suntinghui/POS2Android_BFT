@@ -363,10 +363,14 @@ public class TransferPacketThread extends Thread {
 
 		try {
 			if (Constant.isStatic) {
-				respByte = StaticNetClient
-						.getMessageByTransCode(this.transferCode);
+				respByte = StaticNetClient.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
+					/**================
+					 * 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
+					 * 2、处理带附件交易
+					 * 
+					 * ================*/
 					Map<String, Object> req_map = new HashMap<String, Object>();
 					Map<String, Object> temp_req_map = new HashMap<String, Object>();
 					String req_json = null;
@@ -406,13 +410,12 @@ public class TransferPacketThread extends Thread {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
-						parts[temp_req_map.size()] = new StringPart("common",req_json , Constant.ENCODING_JSON);
-
+						
 						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),parts);
 					}else{
 						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),null);
 					}
+					/** ================*/
 					parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);

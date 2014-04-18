@@ -30,6 +30,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * 公告列表查询
+ *
+ */
 public class AnnouncementListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
 	
 	private Button btn_back = null;

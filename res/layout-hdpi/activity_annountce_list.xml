@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     android:background="@drawable/login_bg"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -18,7 +18,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="10dip"
-            android:background="@drawable/back_button" >
+            android:background="@drawable/back_button"
+            >
         </Button>
 
         <TextView
@@ -30,11 +31,11 @@
             android:textSize="18dip" />
     </RelativeLayout>
 
-    <com.bft.activity.view.TopInfoView
+      <com.bft.pos.activity.view.TopInfoView
         android:id="@+id/topInfoView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
+    
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="fill_parent"

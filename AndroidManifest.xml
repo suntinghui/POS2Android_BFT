@@ -359,6 +359,10 @@
                 <data android:scheme="info" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".activity.AnnouncementListActivity" />
+        <activity android:name=".activity.AnnouncementDetailActivity" />
+        
         <activity
             android:name=".activity.AuthenticationInfoActivity"
             android:exported="true"
@@ -437,6 +441,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
+        
     </application>
 
 </manifest>

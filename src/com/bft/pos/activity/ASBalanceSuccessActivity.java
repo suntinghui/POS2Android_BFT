@@ -10,18 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bft.pos.R;
+import com.bft.slidingmenu.MenuBaseActivity;
 
-public class ASBalanceSuccessActivity extends BaseActivity implements OnClickListener {
+public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClickListener {
 	
 	private TextView tv_balance = null;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_aishua_balance_success);
-
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+// 		依旧添加侧滑界面
+			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_success);
+			super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
+		this.initTitlebar("账户交易查询");
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);

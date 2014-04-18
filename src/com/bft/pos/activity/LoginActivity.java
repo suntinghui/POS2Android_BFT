@@ -5,14 +5,12 @@ package com.bft.pos.activity;
  * 这个界面也是不需要侧滑的
  * */
 import java.util.HashMap;
-
 import org.jivesoftware.smack.util.StringUtils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import android.annotation.SuppressLint;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -325,6 +323,12 @@ public class LoginActivity extends BaseActivity {
 				RegisterActivity.class);
 		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	/*
 	 * 找回密码

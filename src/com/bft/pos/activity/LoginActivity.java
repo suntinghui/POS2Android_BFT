@@ -10,6 +10,7 @@ import org.jivesoftware.smack.util.StringUtils;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -323,6 +324,12 @@ public class LoginActivity extends BaseActivity {
 				RegisterActivity.class);
 		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	/*
 	 * 找回密码

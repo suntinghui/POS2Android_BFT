@@ -13,12 +13,6 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.pos.model.AnnouncementModel;
 import com.dhc.dynamic.util.DateUtil;
-
-
- /**
- * 公告详情查询
- *
- */
 public class AnnouncementDetailActivity extends BaseActivity implements OnClickListener {
 	
 	private Button btn_back = null;
@@ -63,6 +57,7 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
 			break;
 		}
 	}
+
 }
 	
 

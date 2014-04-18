@@ -364,6 +364,12 @@ public class LoginActivity extends BaseActivity {
 	 * @Fancong
 	 */
 
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
+
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,
 				FindPasswordActivity.class);

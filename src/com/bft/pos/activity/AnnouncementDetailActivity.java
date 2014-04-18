@@ -59,3 +59,4 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
 	}
 
 }
+

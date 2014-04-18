@@ -180,7 +180,9 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 * */
-		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+//		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+//		startActivity(intent);
+		Intent intent = new Intent(LoginActivity.this, PhoneCode.class);
 		startActivity(intent);
 		/**==============*/
 		
@@ -212,28 +214,28 @@ public class LoginActivity extends BaseActivity {
 		// }
 		// }
 
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-				.edit();
-		editor.putBoolean(Constant.kISREMEBER, isRemember);
-		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-		editor.commit();
-		try {
-			Event event = new Event(null, "login", null);
-			event.setTransfer("089016");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", userNameET.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-					.getText().toString().toUpperCase() + et_pwd.getText())
-					+ "www.payfortune.com");
-			map.put("lgnPass", pwd);
-			map.put("verifyCode", "qwe123");
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+//				.edit();
+//		editor.putBoolean(Constant.kISREMEBER, isRemember);
+//		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
+//		editor.commit();
+//		try {
+//			Event event = new Event(null, "login", null);
+//			event.setTransfer("089016");
+//			String fsk = "Get_ExtPsamNo|null";
+//			event.setFsk(fsk);
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("login", userNameET.getText().toString());
+//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
+//					.getText().toString().toUpperCase() + et_pwd.getText())
+//					+ "www.payfortune.com");
+//			map.put("lgnPass", pwd);
+//			map.put("verifyCode", "qwe123");
+//			event.setStaticActivityDataMap(map);
+//			event.trigger();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	// if(checkValue()){

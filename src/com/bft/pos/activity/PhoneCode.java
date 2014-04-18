@@ -39,16 +39,34 @@ public class PhoneCode extends Activity{
 	}
 	
 	public void verifyCodes(){
+//		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+//				"yyyy-MM-dd hh:mm:ss");
+//		String date = sDateFormat.format(new java.util.Date());
+//		try {
+//			Event event = new Event(null, "verifyCodes", null);
+//			event.setTransfer("089021");
+//			String fsk = "Get_ExtPsamNo|null";
+//			event.setFsk(fsk);
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("sendTime", date);
+//			event.setStaticActivityDataMap(map);
+//			event.trigger();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
 		try {
-			Event event = new Event(null, "verifyCodes", null);
-			event.setTransfer("089021");
+			Event event = new Event(null, "getSms", null);
+			event.setTransfer("089006");
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("mobNo","13753102373");
 			map.put("sendTime", date);
+			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

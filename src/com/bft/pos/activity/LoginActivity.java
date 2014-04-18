@@ -9,6 +9,7 @@ import java.util.HashMap;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -321,6 +322,12 @@ public class LoginActivity extends BaseActivity {
 				RegisterActivity.class);
 		startActivity(register_intent);
 	}
+
+	/*
+	 * 找回密码
+	 * 
+	 * @Fancong
+	 */
 
 	/*
 	 * 找回密码

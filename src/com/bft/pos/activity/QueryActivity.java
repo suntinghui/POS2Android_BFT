@@ -83,6 +83,14 @@ public class QueryActivity extends MenuBaseActivity {
 					intent3.putExtra("TAG", arg2);
 					startActivity(intent3);						
 					break;
+			
+				case 5:
+					//账户交易查询
+					Intent intent5=new Intent(QueryActivity.this,
+							QBTransferHistory.class);
+					intent5.putExtra("TAG", arg2);
+					startActivity(intent5);						
+					break;
 				default:
 					break;
 				}

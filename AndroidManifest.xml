@@ -443,6 +443,12 @@
         </activity>
         <activity android:name="com.bft.pos.activity.ASBalanceSuccessActivity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.QBTransferHistory" >
+        </activity>
+        <activity android:name="com.bft.pos.activity.QBTransferTimer" >
+        </activity>
+        <activity android:name="com.bft.pos.activity.QBTransferDetail" >
+        </activity>
     </application>
 
 </manifest>

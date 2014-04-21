@@ -36,12 +36,12 @@ import com.bft.pos.util.StringUtil;
 public class LoginActivity extends BaseActivity {
 	// 获取组件
 	private EditText userNameET;
-//	新添加的两个验证码的组件
-	private EditText inputverifyCode ;
-	private ImageView verifyCode ; 
-//	设置验证码内容的字符串
+	// 新添加的两个验证码的组件
+	private EditText inputverifyCode;
+	private ImageView verifyCode;
+	// 设置验证码内容的字符串
 	private String code = "AK47";
-	
+
 	private PasswordWithIconView et_pwd;
 	private ImageView rememberIV;
 	private Button getPwdButton;
@@ -51,8 +51,7 @@ public class LoginActivity extends BaseActivity {
 	private Boolean isRemember;
 	private String url = null;
 
-	private SharedPreferences sp = ApplicationEnvironment.getInstance()
-			.getPreferences();
+	private SharedPreferences sp = ApplicationEnvironment.getInstance().getPreferences();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +59,9 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.activity_login);
 		// 设置标题
 		initTitleBar("登 录", false);
-		//获取有关验证码的组件
-		inputverifyCode = (EditText)findViewById(R.id.verifycode01);
-		verifyCode = (ImageView)findViewById(R.id.verifycode02);
+		// 获取有关验证码的组件
+		inputverifyCode = (EditText) findViewById(R.id.verifycode01);
+		verifyCode = (ImageView) findViewById(R.id.verifycode02);
 		verifyCode.setImageBitmap(SecurityCodeUtil.getInstance().createCodeBitmap(code));
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
@@ -71,8 +70,7 @@ public class LoginActivity extends BaseActivity {
 		// 这里是是否记住密码那儿的那个小勾勾
 		rememberIV = (ImageView) this.findViewById(R.id.rememberIV);
 		rememberIV.setOnClickListener(listener);
-		isRemember = ApplicationEnvironment.getInstance().getPreferences()
-				.getBoolean(Constant.kISREMEBER, false);
+		isRemember = ApplicationEnvironment.getInstance().getPreferences().getBoolean(Constant.kISREMEBER, false);
 		setRemeberImageView(isRemember);
 		// 取回密码
 		getPwdButton = (Button) this.findViewById(R.id.getPwdButton);
@@ -83,12 +81,12 @@ public class LoginActivity extends BaseActivity {
 		// 登陆按钮
 		loginButton = (Button) this.findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(listener);
-		
-		
+
 		getVersion();
 	}
+
 	//
-	private void getVersion(){
+	private void getVersion() {
 		try {
 
 			Event event = new Event(null, "version", null);
@@ -99,7 +97,7 @@ public class LoginActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showAlertView(Integer version, String url) {
 		this.url = url;
 		String appVersion = "";
@@ -117,31 +115,30 @@ public class LoginActivity extends BaseActivity {
 			dialog.setTitle("提示");
 			dialog.setMessage("有新版本，是否下载更新？");
 			dialog.setCancelable(false);
-			dialog.setPositiveButton("立即更新",
-					new DialogInterface.OnClickListener() {
+			dialog.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int arg1) {
-							dialog.dismiss();
-							Update(LoginActivity.this.url);
-						}
-					});
-			dialog.setNegativeButton("暂不更新",
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
+				@Override
+				public void onClick(DialogInterface dialog, int arg1) {
+					dialog.dismiss();
+					Update(LoginActivity.this.url);
+				}
+			});
+			dialog.setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
 
-						}
-					});
+				}
+			});
 
 			dialog.create().show();
 		} else {
 		}
 
 	}
-	private void Update(String url){
-		
+
+	private void Update(String url) {
+
 		DownloadFileRequest.sharedInstance().downloadAndOpen(this, url, "bft.apk");
 	}
 
@@ -197,8 +194,7 @@ public class LoginActivity extends BaseActivity {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
 					if (isRemember) {
-						ed.putString(Constant.LOGINPWD, et_pwd.getText()
-								.toString());
+						ed.putString(Constant.LOGINPWD, et_pwd.getText().toString());
 					} else {
 						ed.putString(Constant.LOGINPWD, "");
 					}
@@ -262,9 +258,8 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
-		startActivity(intent);
-		/** ============== */
+		// Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+		// startActivity(intent);
 
 		// if (checkValue()) {
 		//
@@ -292,9 +287,7 @@ public class LoginActivity extends BaseActivity {
 		// }
 		// }
 
-<<<<<<< HEAD
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-				.edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
 		editor.putBoolean(Constant.kISREMEBER, isRemember);
 		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
 		editor.commit();
@@ -305,10 +298,7 @@ public class LoginActivity extends BaseActivity {
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-					.getText().toString().toUpperCase()
-					+ et_pwd.getText())
-					+ "www.payfortune.com");
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET.getText().toString().toUpperCase() + et_pwd.getText()) + "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", "qwe123");
 			event.setStaticActivityDataMap(map);
@@ -316,30 +306,28 @@ public class LoginActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
-//		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-//				.edit();
-//		editor.putBoolean(Constant.kISREMEBER, isRemember);
-//		editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-//		editor.commit();
-//		try {
-//			Event event = new Event(null, "login", null);
-//			event.setTransfer("089016");
-//			String fsk = "Get_ExtPsamNo|null";
-//			event.setFsk(fsk);
-//			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("login", userNameET.getText().toString());
-//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-//					.getText().toString().toUpperCase() + et_pwd.getText())
-//					+ "www.payfortune.com");
-//			map.put("lgnPass", pwd);
-//			map.put("verifyCode", "qwe123");
-//			event.setStaticActivityDataMap(map);
-//			event.trigger();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
->>>>>>> branch 'master' of git@github.com:suntinghui/POS2Android_BFT.git
+		// Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+		// .edit();
+		// editor.putBoolean(Constant.kISREMEBER, isRemember);
+		// editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
+		// editor.commit();
+		// try {
+		// Event event = new Event(null, "login", null);
+		// event.setTransfer("089016");
+		// String fsk = "Get_ExtPsamNo|null";
+		// event.setFsk(fsk);
+		// HashMap<String, String> map = new HashMap<String, String>();
+		// map.put("login", userNameET.getText().toString());
+		// String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
+		// .getText().toString().toUpperCase() + et_pwd.getText())
+		// + "www.payfortune.com");
+		// map.put("lgnPass", pwd);
+		// map.put("verifyCode", "qwe123");
+		// event.setStaticActivityDataMap(map);
+		// event.trigger();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	// if(checkValue()){
@@ -356,8 +344,7 @@ public class LoginActivity extends BaseActivity {
 	 * @Fancong
 	 */
 	private void registerAction() {
-		Intent register_intent = new Intent(LoginActivity.this,
-				RegisterActivity.class);
+		Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
 		startActivity(register_intent);
 	}
 
@@ -368,9 +355,8 @@ public class LoginActivity extends BaseActivity {
 	 */
 
 	private void getPwdAction() {
-		Intent getpwd_intent = new Intent(LoginActivity.this,
-				FindPasswordActivity.class);
+		Intent getpwd_intent = new Intent(LoginActivity.this, FindPasswordActivity.class);
 		startActivity(getpwd_intent);
 	}
-	
+
 }

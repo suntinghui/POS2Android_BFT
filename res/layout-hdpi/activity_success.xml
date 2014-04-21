@@ -33,7 +33,7 @@
             android:ellipsize="marquee"
             android:gravity="center_horizontal"
             android:singleLine="true"
-            android:text="设置成功" />
+            android:text="交易成功" />
     </RelativeLayout>
 
     <com.bft.activity.view.TopInfoView

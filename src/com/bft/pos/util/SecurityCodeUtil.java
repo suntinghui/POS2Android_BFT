@@ -61,7 +61,7 @@ public class SecurityCodeUtil {
 	
 	private Random random = new Random();
 
-	private SecurityCodeUtil() {
+	public SecurityCodeUtil() {
 	}
 
 	public static SecurityCodeUtil getInstance() {

@@ -23,11 +23,18 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
 	private EditText userNameET;
+//	新添加的两个验证码的组件
+	private EditText inputverifyCode ;
+	private ImageView verifyCode ; 
+//	设置验证码内容的字符串
+	private String code = "AK47";
+	
 	private PasswordWithIconView et_pwd;
 	private ImageView rememberIV;
 	private Button getPwdButton;
@@ -45,6 +52,10 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.activity_login);
 		// 设置标题
 		initTitleBar("登 录", false);
+		//获取有关验证码的组件
+		inputverifyCode = (EditText)findViewById(R.id.verifycode01);
+		verifyCode = (ImageView)findViewById(R.id.verifycode02);
+		verifyCode.setImageBitmap(SecurityCodeUtil.getInstance().createCodeBitmap(code));
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
 		et_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pwd);
@@ -179,10 +190,8 @@ public class LoginActivity extends BaseActivity {
 	@SuppressLint("DefaultLocale") private void loginAction() {
 		/**
 		 * 直接跳转到主菜单
-		 * */
-//		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
-//		startActivity(intent);
-		Intent intent = new Intent(LoginActivity.this, PhoneCode.class);
+		 **/
+		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
 		startActivity(intent);
 		/**==============*/
 		

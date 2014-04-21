@@ -257,7 +257,7 @@ public class HttpManager {
 				bArray = postMethod.getResponseBody();
 				// 记录下行流量
 				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
-				Log.i("相应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
+				Log.i("响应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
 			}
 			/*登录时拿到cookie值*/
 			if(transferCode.equals("089016")){

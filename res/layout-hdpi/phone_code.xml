@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <Button
         android:id="@+id/getcode"
@@ -11,4 +11,16 @@
         android:layout_height="wrap_content"
         android:text="Button" />
 
+    <EditText
+        android:id="@+id/getString01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="输入四位密码"
+        />
+    
+    <ImageView 
+        android:id="@+id/show007"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

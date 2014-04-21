@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/topbg"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="13dip"
+            android:background="@drawable/back_button"
+            android:text="返回" >
+        </Button>
+
+        <TextView
+            android:id="@+id/titleBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改银行卡"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/black_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="金额"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_account"
+            style="@style/black_15"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/input_bg"
+            android:inputType="number"
+            android:paddingLeft="8dip" />
+
+        <TextView
+            style="@style/black_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="支付密码"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_paypassword"
+            style="@style/black_15"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/input_bg"
+            android:hint="支付密码"
+            android:inputType="number"
+            android:paddingLeft="8dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dip" >
+
+            <Button
+                android:id="@+id/btn_sms"
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/img_btn"
+                android:text="获取短信校验码" />
+
+            <EditText
+                android:id="@+id/et_sms"
+                style="@style/black_15"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_toLeftOf="@id/btn_sms"
+                android:background="@drawable/input_login"
+                android:hint="短信校验码"
+                android:inputType="numberDecimal"
+                android:paddingLeft="5dip" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/black_15"
+        android:layout_width="80dp"
+        android:layout_height="40dip"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/img_btn"
+        android:text="确认" />
+
+</LinearLayout>

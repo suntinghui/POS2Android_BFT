@@ -1,6 +1,7 @@
 package com.bft.pos.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,10 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
+/**
+ * 系統相关
+ *
+ */
 public class SystemActivity extends MenuBaseActivity {
 
 	private ListView listView;
@@ -23,9 +28,9 @@ public class SystemActivity extends MenuBaseActivity {
 	
 	private Integer[] imageIds = { R.drawable.system_left_0,
 			R.drawable.system_left_1, R.drawable.system_left_2,
-			R.drawable.system_left_3};
+			R.drawable.system_left_3,R.drawable.system_left_3,};
 	
-	private String[] titles = { "新手引导", "意见反馈", "关于系统", "检查更新"};
+	private String[] titles = { "新手引导", "意见反馈", "关于系统", "检查更新","退出登录"};
 	@Override
 	public void onCreate( Bundle savedInstanceState){
 		super.index = 1;
@@ -43,6 +48,18 @@ public class SystemActivity extends MenuBaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				Log.e("_--", "000");
+				switch (arg2) {
+				
+					//退出登录
+                case 4:
+                	Intent intent4 = new Intent(SystemActivity.this, LoginActivity.class);
+    				intent4.putExtra("TAG", arg2);
+    				startActivity(intent4);
+					break;	
+
+				default:
+					break;
+				}
 			}
 			
 		});

@@ -39,6 +39,7 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
 		String time_str = model.getNotice_time();
 		String tmp_data_time = DateUtil.formatDateTime(date_str+time_str); 
 
+
 		tv_title.setText(model.getNotice_title() == null ? "":model.getNotice_title());
 		tv_content.setText(model.getNotice_content() == null ? "":model.getNotice_content());
 		tv_time.setText(tmp_data_time);

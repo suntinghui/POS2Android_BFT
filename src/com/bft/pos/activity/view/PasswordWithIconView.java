@@ -95,7 +95,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 	public String getMd5PWD() {
 		return md5PWD;
 	}
-	
+
 	// 对密码进行RSA加密
 	public void encryptPassword(String pwd) throws Exception {
 		pwd = pwd + "FF";

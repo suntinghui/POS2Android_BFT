@@ -7,9 +7,15 @@ package com.bft.pos.activity;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +28,7 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
+import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 
@@ -35,6 +42,7 @@ public class LoginActivity extends BaseActivity {
 	private Button loginButton;
 	// 设定是否记住账号
 	private Boolean isRemember;
+	private String url = null;
 
 	private SharedPreferences sp = ApplicationEnvironment.getInstance()
 			.getPreferences();
@@ -64,6 +72,66 @@ public class LoginActivity extends BaseActivity {
 		// 登陆按钮
 		loginButton = (Button) this.findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(listener);
+		
+		
+		getVersion();
+	}
+	//
+	private void getVersion(){
+		try {
+
+			Event event = new Event(null, "version", null);
+			event.setTransfer("089018");
+			event.trigger();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAlertView(Integer version, String url) {
+		this.url = url;
+		String appVersion = "";
+		PackageManager manager = this.getPackageManager();
+		try {
+			PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+			appVersion = info.versionName; // 版本名
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Integer tmp_ver = Integer.valueOf(appVersion.replace(".", ""));
+		if (tmp_ver < version) {
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setTitle("提示");
+			dialog.setMessage("有新版本，是否下载更新？");
+			dialog.setCancelable(false);
+			dialog.setPositiveButton("立即更新",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int arg1) {
+							dialog.dismiss();
+							Update(LoginActivity.this.url);
+						}
+					});
+			dialog.setNegativeButton("暂不更新",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+
+						}
+					});
+
+			dialog.create().show();
+		} else {
+		}
+
+	}
+	private void Update(String url){
+		
+		DownloadFileRequest.sharedInstance().downloadAndOpen(this, url, "bft.apk");
 	}
 
 	// 这就是具体的方法,在点击的情况下,钩钩
@@ -266,4 +334,5 @@ public class LoginActivity extends BaseActivity {
 				FindPasswordActivity.class);
 		startActivity(getpwd_intent);
 	}
+	
 }

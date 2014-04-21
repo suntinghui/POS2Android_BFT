@@ -134,6 +134,8 @@ public class TransferLogic {
 
 		} else if ("089020".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
+		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
+			this.getVerifyCodesDone(fieldMap);
 
 		} else if ("089003".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
@@ -155,7 +157,7 @@ public class TransferLogic {
 
 		} else if ("086000".equals(transferCode)) { // 签到
 			this.signDone(fieldMap);
-
+			
 		} else if ("020022".equals(transferCode)) { // 收款
 			this.receiveTransDone(fieldMap);
 
@@ -559,6 +561,15 @@ public class TransferLogic {
 		// 以短信形式接收
 		BaseActivity.getTopActivity().refreshSMSBtn();
 	}
+	
+	/**
+	 * 验证码(生成图片)
+	 */
+	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
+		
+	}
+	
+	
 
 	/**
 	 * 获取提款银行账号

@@ -33,7 +33,12 @@
             android:textSize="18dip" />
     </RelativeLayout>
 
-        <ScrollView
+    <com.bft.pos.activity.view.TopInfoView
+        android:id="@+id/topInfoView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginBottom="15dip" >
@@ -49,7 +54,7 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                style="@style/TextView14sp_black"
+                style="@style/black_17"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

@@ -203,55 +203,30 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.TransferDetailListHistoryActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.TransferQueryActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.TransferQueryActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.QueryActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.QueryActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.BankSearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.BankSearchActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.GatherActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.GatherActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.DepositActivity"
@@ -379,12 +354,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-- 
-            <intent-filter>
-                <action android:name="com.bft.pos.QueryActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
 - 
         <activity
@@ -392,23 +361,12 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-- 
-            <intent-filter>
-                <action android:name="com.bft.pos.GatherActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.QueryBusinessDepositActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
-            <intent-filter>
-                <action android:name="com.bft.pos.QueryBusinessDepositActivity" />
-
-                <data android:scheme="info" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.bft.pos.activity.FindPasswordActivity"
@@ -418,6 +376,12 @@
         </activity>
         <activity
             android:name="com.bft.pos.activity.ModifyPaymentPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.ModifyLoginPwdActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
@@ -448,6 +412,18 @@
         </activity>
         <activity
             android:name="com.bft.pos.activity.ResetPayPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.SuccessActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
+            android:name="com.bft.pos.activity.FailActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >

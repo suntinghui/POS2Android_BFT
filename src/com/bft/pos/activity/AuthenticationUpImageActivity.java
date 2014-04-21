@@ -1,17 +1,23 @@
 package com.bft.pos.activity;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -19,6 +25,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -95,9 +103,10 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 
 	private EditText et_sms;
 	private Button btn_sms, bt_confirm;
-
+	private Uri mOutPutFileUri;
 	private Context context;
 	private Button btn_crop;
+	String photo1 = null;
 	/* 头像名称 */
 	private static final String IMAGE_FILE_NAME = "Acount.png";
 	private String[] items = new String[] { "本地图片", "拍照" };
@@ -160,19 +169,24 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		case R.id.bt_confirm:
 			try {
+
 				Event event = new Event(null, "newidentifyMerchant", null);
 				event.setTransfer("089021");
 				String fsk = "Get_ExtPsamNo|null";
 				event.setFsk(fsk);
+				// /mnt/sdcard/DCIM/Camera/IMG_20140419_202539.jpg
 				HashMap<String, String> map = new HashMap<String, String>();
+				List<String> list = new ArrayList<String>();
+				list.add("pIdImg0#photo1");
+				list.add("pIdImg1#photo1");// 身份证be面
+				list.add("bkCardImg#photo1");// 银行卡图片
+//				map.put("attachments", list);
 
-				map.put("pIdImg0", bitmap_str_1);// 身份证正面
-				map.put("pIdImg1", bitmap_str_2);// 身份证反面
 				map.put("bankNo", "10");// 银行卡开户行<12
 				map.put("bkCardNo", "11");// 银行卡号<19
-				map.put("bkCardImg", bitmap_str_3);// 银行卡图片
 				map.put("mctName", "山西");// 商户名
 				map.put("verifyCode", "123456");// 验证码
+
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (ViewException e) {
@@ -243,6 +257,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 					Log.i("bm1:", bm.toString());
 					bitmap_str_1 = bitmaptoString(bm);
 					iv_1.setImageBitmap(bm);
+
 					break;
 				case 2:
 					Log.i("bm2:", bm.toString());
@@ -262,8 +277,8 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			}
 		} else if (requestCode == 2) {
 			Uri uri = data.getData();
-			System.out.println("!!!!!!!!!!!!!!~~~uri");
-			Log.e("uri", uri.toString());
+			String photo1 = getPhotoPath(uri);
+			Log.i("uri", photo1.toString());
 			ContentResolver cr = this.getContentResolver();
 			switch (current_index) {
 			case 1:
@@ -423,8 +438,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	}
 
 	public void showDialog() {
-		new AlertDialog.Builder(this)
-				.setTitle("设置图片")
+		new AlertDialog.Builder(this).setTitle("设置图片")
 				.setItems(items, new DialogInterface.OnClickListener() {
 
 					@Override
@@ -434,16 +448,38 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 							Intent intent = new Intent();
 							intent.setType("image/*");
 							intent.setAction(Intent.ACTION_GET_CONTENT);
+
 							startActivityForResult(intent, 2);
 							break;
 						case 1:
 							Intent getImageByCamera = new Intent(
 									"android.media.action.IMAGE_CAPTURE");
+							Uri uri = null;
+							// try {
+							// uri = Uri.fromFile(new PhotoFileUtils()
+							// .createFileInSDCard("test.png", "/"));
+							// photo1=uri;
+							// } catch (Exception e) {
+							// e.printStackTrace();
+							// }
+							// 文件夹aaaa
+							photo1 = Environment.getExternalStorageDirectory()
+									.toString() + "/test";
+							File path1 = new File(photo1);
+							if (!path1.exists()) {
+								path1.mkdirs();
+							}
+							File file = new File(path1, System
+									.currentTimeMillis() + ".png");
+							mOutPutFileUri = Uri.fromFile(file);
+							getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT,
+									mOutPutFileUri);
 							startActivityForResult(getImageByCamera, 1);
 							break;
 						}
 					}
 				})
+
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -452,8 +488,31 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				}).show();
 
 	}
-	// public boolean hasSdcard() {
-	// return Environment.MEDIA_MOUNTED.equals(Environment
-	// .getExternalStorageState());
-	// }
+
+	public String getPhotoPath(Uri uri) {
+		String[] proj = { MediaStore.Images.Media.DATA };
+		// 好像是android多媒体数据库的封装接口，具体的看Android文档
+		Cursor cursor = managedQuery(uri, proj, null, null, null);
+		// 按我个人理解 这个是获得用户选择的图片的索引值
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		// 将光标移至开头 ，这个很重要，不小心很容易引起越界
+		cursor.moveToFirst();
+		// 最后根据索引值获取图片路
+		String path = cursor.getString(column_index);
+		return path;
+	}
+
+	public String saveImage(Bitmap photo, String spath) {
+		try {
+			BufferedOutputStream bos = new BufferedOutputStream(
+					new FileOutputStream(spath, false));
+			photo.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+			bos.flush();
+			bos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return spath;
+	}
 }

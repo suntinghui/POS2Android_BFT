@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.PatternUtil;
 
 /**
  * 找回密码
@@ -128,6 +129,10 @@ public class FindPasswordActivity extends BaseActivity implements
 		}
 		if (et_identy_card.getText().length() == 0) {
 			this.showToast("身份证号不能为空！");
+			return false;
+		}
+		if (!PatternUtil.isValidIDNum(et_identy_card.getText())) {
+			this.showToast("身份证号码不合法!");
 			return false;
 		}
 		return true;

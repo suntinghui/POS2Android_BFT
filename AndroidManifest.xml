@@ -412,6 +412,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
+            android:name="com.bft.pos.activity.ModifyLoginPwdActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
             android:name="com.bft.pos.activity.SetPayPwdActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -453,9 +459,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
-         <activity android:name="com.bft.pos.activity.PhoneCode" >
+        <activity android:name="com.bft.pos.activity.PhoneCode" >
         </activity>
-         <activity android:name="com.bft.pos.activity.ASBalancePwdActivity" >
+        <activity android:name="com.bft.pos.activity.ASBalancePwdActivity" >
         </activity>
         <activity android:name="com.bft.pos.activity.ASBalanceSuccessActivity" >
         </activity>

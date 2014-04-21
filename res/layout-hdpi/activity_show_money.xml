@@ -44,12 +44,12 @@
             style="@style/black_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="姓名"
+            android:layout_marginTop="50dp"
+            android:text="金额"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/name_account"
+            android:id="@+id/et_account"
             style="@style/black_15"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -63,85 +63,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="身份证号"
+            android:text="支付密码"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/shenfen_num"
+            android:id="@+id/et_paypassword"
             style="@style/black_15"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:background="@drawable/input_bg"
-            android:hint="身份证号"
-            android:inputType="number"
-            android:paddingLeft="8dip" />
-
-        <TextView
-            style="@style/black_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="原银行卡号"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/oldbanknum"
-            style="@style/black_15"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/input_bg"
-            android:hint="原银行卡号"
-            android:inputType="number"
-            android:paddingLeft="8dip" />
-
-        <TextView
-            style="@style/black_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="银行卡开户行"
-            android:textColor="@color/black" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip" >
-
-            <Spinner
-                android:id="@+id/spinner0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_bg"
-                android:padding="5dip"
-                android:prompt="@string/planet_prompt" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dip"
-                android:src="@drawable/arrow_down" />
-        </RelativeLayout>
-
-        <TextView
-            style="@style/black_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="银行卡号"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/banknum"
-            style="@style/black_15"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/input_bg"
-            android:hint="银行卡号"
+            android:hint="支付密码"
             android:inputType="number"
             android:paddingLeft="8dip" />
 
@@ -177,12 +109,12 @@
     <Button
         android:id="@+id/btn_submit"
         style="@style/black_15"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="40dip"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/img_btn"
-        android:text="确认修改" />
+        android:text="确认" />
 
 </LinearLayout>

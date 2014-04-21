@@ -20,14 +20,14 @@
 
             <Button
                 android:id="@+id/btn_back"
+                style="@style/TextView15_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="7dip"
                 android:layout_marginTop="10dip"
-                android:text="  返回"
-                style="@style/TextView15_white"
-                android:background="@drawable/back_button" >
+                android:background="@drawable/back_button"
+                android:text="  返回" >
             </Button>
 
             <TextView

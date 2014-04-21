@@ -39,7 +39,6 @@ public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClic
 		} else {
 			tv_balance.setText("交易成功");
 		}
-
 	}
 
 	@Override

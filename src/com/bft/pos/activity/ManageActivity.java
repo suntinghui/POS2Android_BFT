@@ -28,9 +28,10 @@ public class ManageActivity extends MenuBaseActivity {
 	// 四个按钮
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_2_n,
-			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n,
+			R.drawable.manager_right_3_n };
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号" };
+	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号", "提现" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,10 @@ public class ManageActivity extends MenuBaseActivity {
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;
-//					实名认证
+				// 实名认证
 				case 2:
 					Intent intent2 = new Intent(ManageActivity.this,
-							AuthenticationUpImageActivity.class);
+					AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
 					break;
@@ -86,6 +87,12 @@ public class ManageActivity extends MenuBaseActivity {
 							BankNumberActivity.class);
 					intent4.putExtra("TAG", arg2);
 					startActivity(intent4);
+					break;
+				case 5:
+					Intent intent5 = new Intent(ManageActivity.this,
+							ShowMoneyActivity.class);
+					intent5.putExtra("TAG", arg2);
+					startActivity(intent5);
 					break;
 				default:
 					break;

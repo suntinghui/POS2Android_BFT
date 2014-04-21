@@ -1,9 +1,7 @@
 package com.dhcc.pos.packets;
 
-import android.annotation.SuppressLint;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -61,7 +59,6 @@ public enum cnType {
 	}
 
 	// 日期格式化
-	@SuppressLint("SimpleDateFormat")
 	public String format(Date value) {
 		if (this == DATE10)
 			return new SimpleDateFormat("MMddHHmmss").format(value);

@@ -5,7 +5,6 @@ package com.bft.pos.activity;
  * */
 import java.util.ArrayList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 
-@SuppressLint("CommitPrefEdits")
 // 目录
 public class CatalogActivity extends BaseActivity {
 //这里是五个按钮

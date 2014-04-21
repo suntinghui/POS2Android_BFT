@@ -39,7 +39,7 @@
                 android:textSize="18dip" />
         </RelativeLayout>
 
-        <com.bft.activity.view.TopInfoView
+        <com.bft.pos.activity.view.TopInfoView
             android:id="@+id/topInfoView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
@@ -53,7 +53,7 @@
             android:layout_marginTop="5dip"
             android:layout_weight="1"
             android:orientation="vertical" >
-            <com.bft.activity.view.PasswordWithIconView
+            <com.bft.pos.activity.view.TextWithIconView
                 android:id="@+id/et_id_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -61,14 +61,14 @@
                 android:paddingTop="8dip" />
             
 
-            <com.bft.activity.view.PasswordWithIconView
+            <com.bft.pos.activity.view.PasswordWithIconView
                 android:id="@+id/et_pay_pwd"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
                 android:paddingTop="8dip" />
 
-            <com.bft.activity.view.PasswordWithIconView
+            <com.bft.pos.activity.view.PasswordWithIconView
                 android:id="@+id/et_pay_pwd_again"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

@@ -184,17 +184,19 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			}
 		case R.id.iv_1:
 			current_index = 1;
-			actionCamera();
+			showDialog();
+			// actionCamera();
 			break;
 
 		case R.id.iv_2:
 			current_index = 2;
-			actionCamera();
+			showDialog();
 			break;
 
 		case R.id.iv_3:
 			current_index = 3;
-			actionCamera();
+			showDialog();
+			// actionCamera();
 			break;
 		// 银行
 		case R.id.btn_bank_branch:
@@ -237,7 +239,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			}
 			if (bm != null) {
 				switch (current_index) {
-
 				case 1:
 					Log.i("bm1:", bm.toString());
 					bitmap_str_1 = bitmaptoString(bm);
@@ -261,6 +262,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			}
 		} else if (requestCode == 2) {
 			Uri uri = data.getData();
+			System.out.println("!!!!!!!!!!!!!!~~~uri");
 			Log.e("uri", uri.toString());
 			ContentResolver cr = this.getContentResolver();
 			switch (current_index) {
@@ -420,6 +422,36 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
+	public void showDialog() {
+		new AlertDialog.Builder(this)
+				.setTitle("设置图片")
+				.setItems(items, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which) {
+						case 0:
+							Intent intent = new Intent();
+							intent.setType("image/*");
+							intent.setAction(Intent.ACTION_GET_CONTENT);
+							startActivityForResult(intent, 2);
+							break;
+						case 1:
+							Intent getImageByCamera = new Intent(
+									"android.media.action.IMAGE_CAPTURE");
+							startActivityForResult(getImageByCamera, 1);
+							break;
+						}
+					}
+				})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).show();
+
+	}
 	// public boolean hasSdcard() {
 	// return Environment.MEDIA_MOUNTED.equals(Environment
 	// .getExternalStorageState());

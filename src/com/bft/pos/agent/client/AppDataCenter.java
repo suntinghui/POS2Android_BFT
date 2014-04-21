@@ -83,8 +83,8 @@ public class AppDataCenter {
 			} else if (fieldName.equals("__YYYYMMDD")) {
 				// return __SERVEREDATE; // 已由返回服务器更改为返回手机的日期
 				return DateUtil.formatDate2(new Date()); // 返回手机本地日期
-
-			} else if (fieldName.equals("__YYYY-MM-DD")) { // yyyy-MM-dd
+			} else if (fieldName.equals("__YYYY-MM-DD")) {
+				// yyyy-MM-dd
 				// return DateUtil.formatDateStr(__SERVEREDATE);
 				return DateUtil.getSystemDate();
 
@@ -103,7 +103,6 @@ public class AppDataCenter {
 
 			} else if (fieldName.equals("__PHONENUMWITHLABEL")) {
 				return getPhoneNumWithLabel();
-
 			} else if (fieldName.equals("__CURRENTVERSION")) {
 				return getCurrentVersion();
 

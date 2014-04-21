@@ -25,11 +25,13 @@ public class QueryActivity extends MenuBaseActivity {
 	private ListView listView;
 	private ManagerAdapter adapter = null;
 	// 依旧是图片的数组
+//	要泽宇：添加账号交易查询图片，与第一个图片相同的图片
 	private Integer[] imageIds = { R.drawable.query_left_0,
-			R.drawable.query_left_1, R.drawable.query_left_2,
-			R.drawable.query_left_3, R.drawable.query_left_4 };
+			 R.drawable.query_left_1, R.drawable.query_left_2,
+			 R.drawable.query_left_3, R.drawable.query_left_4,
+			 R.drawable.query_left_0 };//新加入的图片
 
-	private String[] titles = { "查询银行卡余额", "交易查询", "签购单查询", "公告查询", "流量统计" };
+	private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询", "流量统计","账户交易查询" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +55,11 @@ public class QueryActivity extends MenuBaseActivity {
 					long arg3) {
 				switch (arg2) {
 				case 0:
-					// 查询银行卡余额
-					// Intent intent0 = new Intent(QueryActivity.this,
-					// TransferDetailCollectActivity.class);
-					// intent0.putExtra("TAG", arg2);
-					// startActivity(intent0);
+//					 查询账户余额
+					 Intent intent0 = new Intent(QueryActivity.this,
+							 ASBalancePwdActivity.class);
+					 intent0.putExtra("TAG", arg2);
+					 startActivity(intent0);
 					break;
 				case 1:
 					// 交易查询
@@ -80,6 +82,14 @@ public class QueryActivity extends MenuBaseActivity {
 							AnnouncementListActivity.class);
 					intent3.putExtra("TAG", arg2);
 					startActivity(intent3);						
+					break;
+			
+				case 5:
+					//账户交易查询
+					Intent intent5=new Intent(QueryActivity.this,
+							QBTransferHistory.class);
+					intent5.putExtra("TAG", arg2);
+					startActivity(intent5);						
 					break;
 				default:
 					break;

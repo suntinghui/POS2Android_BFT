@@ -23,6 +23,8 @@ import android.util.Log;
 
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.FailActivity;
+import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.PhoneCode;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -134,6 +136,7 @@ public class TransferLogic {
 
 		} else if ("089020".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
+			
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
 
@@ -223,7 +226,7 @@ public class TransferLogic {
 			editor.commit();
 			Constant.status = receiveFieldMap.get("status");
 			// 登陆成功，跳转到菜单界面
-			BaseActivity.getTopActivity().startActivity(new Intent("com.bft.pos.lrcatalog"));
+			BaseActivity.getTopActivity().startActivity(new Intent("com.bft.pos.CatalogActivity"));
 			BaseActivity.getTopActivity().finish();
 
 		} else if ("0".equals(fieldMap.get("respmsg"))) {
@@ -566,7 +569,12 @@ public class TransferLogic {
 	 * 验证码(生成图片)
 	 */
 	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
-		
+//		String verifycode =Constant.ENCODING_JSON;
+		System.out.println("获得的验证码为："+"zero00");
+		Log.i("获得的验证码是","zero00" );
+//		Intent intent = new Intent(BaseActivity.getTopActivity(), PhoneCode.class);
+//		intent.putExtra("code", verifycode);
+//		BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 	}
 	
 	
@@ -1145,9 +1153,9 @@ public class TransferLogic {
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-		Intent intent = new Intent(BaseActivity.getTopActivity(), FailActivity.class);
-		intent.putExtra("prompt", prompt);
-		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+//		Intent intent = new Intent(BaseActivity.getTopActivity(), FailActivity.class);
+//		intent.putExtra("prompt", prompt);
+//		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

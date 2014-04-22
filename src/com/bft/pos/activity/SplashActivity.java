@@ -1,5 +1,8 @@
 package com.bft.pos.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +14,7 @@ import android.view.WindowManager;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.dynamic.core.Event;
 
 public class SplashActivity extends BaseActivity {
 
@@ -21,10 +25,28 @@ public class SplashActivity extends BaseActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
 
 		setContentView(R.layout.splash_activity);
-
+//		getverifycode();
 		new SplashTask().execute();
 	}
-
+	
+	private void getverifycode(){
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		try {
+			Event event = new Event(null, "verifyCodes", null);
+			event.setTransfer("089021");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("sendTime", date);
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override

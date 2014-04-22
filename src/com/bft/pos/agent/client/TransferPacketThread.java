@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -387,7 +388,20 @@ public class TransferPacketThread extends Thread {
 						Part[] parts = null;
 						int i = 1;
 
-						list = (List<String>) temp_req_map.get("attachments");
+						/**=====前端传送attachments参数非lsit时处理如下(ps:attachments字符串的格式为list格式)========*/
+						String tmp = (String) temp_req_map.get("attachments");
+						String demoArray[] = null;
+						tmp = tmp.substring(1, tmp.length()-1);
+						demoArray = tmp.split(",");
+
+						list = Arrays.asList(demoArray);
+						for(String str:list){
+							System.out.println(str);
+						}
+						/**======前端传送attachments参数为lsit时处理如下=======*/
+//						list = (List<String>) temp_req_map.get("attachments");
+						/**========================*/
+						
 						Iterator<String> itr = list.iterator();
 						temp_req_map.clear();
 

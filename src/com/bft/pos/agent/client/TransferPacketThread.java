@@ -32,6 +32,7 @@ import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.ReversalModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
+import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
@@ -383,46 +384,64 @@ public class TransferPacketThread extends Thread {
 					req_map.putAll(temp_req_map);
 					req_json = JSONUtil.MAP2JSONStr(req_map);
 					if(temp_req_map.get("attachments") != null){
-						List<String> list = null;
-						String value = null;
 						Part[] parts = null;
-						int i = 1;
-
-						/**=====前端传送attachments参数非lsit时处理如下(ps:attachments字符串的格式为list格式)========*/
+						/**=====前端传送attachments参数为json时处理如下(ps:attachments字符串的格式为json格式)========*/
 						String tmp = (String) temp_req_map.get("attachments");
-						String demoArray[] = null;
-						tmp = tmp.substring(1, tmp.length()-1);
-						demoArray = tmp.split(",");
-
-						list = Arrays.asList(demoArray);
-						for(String str:list){
-							System.out.println(str);
-						}
-						/**======前端传送attachments参数为lsit时处理如下=======*/
-//						list = (List<String>) temp_req_map.get("attachments");
-						/**========================*/
-						
-						Iterator<String> itr = list.iterator();
 						temp_req_map.clear();
-
-						while (itr.hasNext()) {
-							value = itr.next();
-							temp_req_map.put(String.valueOf(i),value);
-							i++;
-						}
+						temp_req_map = JSONUtil.JSONStr2MAP(tmp);
 						try {
-							String [] strs = null;
-							String str = null;
-							parts = new FilePart[temp_req_map.size()];
-							for(int j=1; j<=temp_req_map.size(); j++){
-								str = (String) temp_req_map.get(String.valueOf(j));
-								strs = str.split("#");
-								parts[j-1] = new FilePart(strs[0], new File(strs[1]));
-							}
+							parts = new CustomFilePart[temp_req_map.size()];
+							int j = 1;
+							for (Iterator<String> keys = temp_req_map.keySet().iterator(); keys.hasNext();) {
+								String key = (String) keys.next();
+								String value = map.get(key);
+								System.out.println("键"+key+"="+"值"+value);
+								parts[j-1] = new CustomFilePart(key, new File(value));
+								j++;
+							} 
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						
+						
+						
+						
+						/**=====前端传送attachments参数非lsit时处理如下(ps:attachments字符串的格式为list格式)========*/
+//						String tmp = (String) temp_req_map.get("attachments");
+//						String demoArray[] = null;
+//						tmp = tmp.substring(1, tmp.length()-1);
+//						demoArray = tmp.split(",");
+//
+//						list = Arrays.asList(demoArray);
+//						for(String str:list){
+//							System.out.println(str);
+//						}
+						/**======前端传送attachments参数为lsit时处理如下=======*/
+//						list = (List<String>) temp_req_map.get("attachments");
+						/**========================*/
+//						
+//						Iterator<String> itr = list.iterator();
+//						temp_req_map.clear();
+//
+//						while (itr.hasNext()) {
+//							value = itr.next();
+//							temp_req_map.put(String.valueOf(i),value);
+//							i++;
+//						}
+//						try {
+//							String [] strs = null;
+//							String str = null;
+//							parts = new FilePart[temp_req_map.size()];
+//							for(int j=1; j<=temp_req_map.size(); j++){
+//								str = (String) temp_req_map.get(String.valueOf(j));
+//								strs = str.split("#");
+//								parts[j-1] = new FilePart(strs[0], new File(strs[1]));
+//							}
+//						} catch (FileNotFoundException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 						
 						respByte = HttpManager.getInstance().sendRequest(HttpManager.URL_JSON_TYPE, this.transferCode, req_json.getBytes(Constant.ENCODING_JSON),parts);
 					}else{

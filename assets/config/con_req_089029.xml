@@ -7,6 +7,10 @@
         value="089029" />
 
     <field
+        key="psamNo"
+        value="__psamNo" />
+
+    <field
         key="name"
         value="张三" />
 

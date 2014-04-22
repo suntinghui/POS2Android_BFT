@@ -29,129 +29,145 @@ import com.bft.pos.model.AnnouncementModel;
 import com.bft.pos.util.ActivityUtil;
 import com.bft.pos.util.DateUtil;
 
-public class AnnouncementListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
-	
+public class AnnouncementListActivity extends BaseActivity implements
+		OnClickListener, OnItemClickListener {
+
 	private Button btn_back = null;
 	private ListView listView = null;
 	private Adapter adapter = null;
-	
+
 	private int totalPage;
 	private int currentPage = 0;
-	
+
 	private ArrayList<AnnouncementModel> modelList = new ArrayList<AnnouncementModel>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		this.setContentView(R.layout.activity_annountce_list);
-		
+
 		this.findViewById(R.id.topInfoView);
-		
+
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
-		
-		listView = (ListView)this.findViewById(R.id.listview);
-//		ActivityUtil.setEmptyView(listView);
-		
+
+		listView = (ListView) this.findViewById(R.id.listview);
+		// ActivityUtil.setEmptyView(listView);
+
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener(){
+		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				//TODO
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO
 				AnnouncementModel model = modelList.get(arg2);
-				Intent intent = new Intent(AnnouncementListActivity.this, AnnouncementDetailActivity.class);
+				Intent intent = new Intent(AnnouncementListActivity.this,
+						AnnouncementDetailActivity.class);
 				intent.putExtra("model", model);
 				AnnouncementListActivity.this.startActivityForResult(intent, 0);
 			}
-			
+
 		});
 		refresh();
 
 	}
-	
-	public final class ViewHolder{
+
+	public final class ViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
-		
+
 		public TextView tv_title;
 		public TextView tv_content;
 		public TextView timeText;
-		
+
 		public Button moreButton;
 	}
-	
-	public class Adapter extends BaseAdapter{
+
+	public class Adapter extends BaseAdapter {
 		private LayoutInflater mInflater;
+
 		public Adapter(Context context) {
 			this.mInflater = LayoutInflater.from(context);
 		}
-		
-		public int getCount(){
-			if (currentPage+1 < totalPage){
+
+		public int getCount() {
+			if (currentPage + 1 < totalPage) {
 				return modelList.size() + 1;
 			} else {
-				Log.i("size:", modelList.size()+"");
+				Log.i("size:", modelList.size() + "");
 				return modelList.size();
 			}
 		}
-		
-		public Object getItem(int arg0){
+
+		public Object getItem(int arg0) {
 			return modelList.get(arg0);
 		}
-		
-		public long getItemId(int arg0){
+
+		public long getItemId(int arg0) {
 			return arg0;
 		}
-		
-		public View getView(int position, View convertView, ViewGroup parent){
+
+		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
-			if (null == convertView){
+			if (null == convertView) {
 				holder = new ViewHolder();
-				
-				convertView = mInflater.inflate(R.layout.list_item_announce, null);
-				
-				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
-				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
-				
-				holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-				holder.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
+
+				convertView = mInflater.inflate(R.layout.list_item_announce,
+						null);
+
+				holder.contentLayout = (RelativeLayout) convertView
+						.findViewById(R.id.contentLayout);
+				holder.moreLayout = (RelativeLayout) convertView
+						.findViewById(R.id.moreLayout);
+
+				holder.tv_title = (TextView) convertView
+						.findViewById(R.id.tv_title);
+				holder.tv_content = (TextView) convertView
+						.findViewById(R.id.tv_content);
 				holder.tv_content.setMinLines(2);
-				holder.timeText = (TextView) convertView.findViewById(R.id.timeText);
-				holder.moreButton = (Button) convertView.findViewById(R.id.moreButton);
-				holder.moreButton.setOnClickListener(AnnouncementListActivity.this);
-				
+				holder.timeText = (TextView) convertView
+						.findViewById(R.id.timeText);
+				holder.moreButton = (Button) convertView
+						.findViewById(R.id.moreButton);
+				holder.moreButton
+						.setOnClickListener(AnnouncementListActivity.this);
+
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			
+
 			String date_str = modelList.get(position).getNotice_date();
 			String time_str = modelList.get(position).getNotice_time();
-			String tmp_data_time = DateUtil.formatDateTime(date_str+time_str); 
-			if (currentPage+1 < totalPage) {
-				if (position == modelList.size()){
+			String tmp_data_time = DateUtil.formatDateTime(date_str + time_str);
+			if (currentPage + 1 < totalPage) {
+				if (position == modelList.size()) {
 					holder.contentLayout.setVisibility(View.GONE);
 					holder.moreLayout.setVisibility(View.VISIBLE);
 				} else {
 					holder.contentLayout.setVisibility(View.VISIBLE);
 					holder.moreLayout.setVisibility(View.GONE);
-					
-					holder.tv_title.setText(modelList.get(position).getNotice_title());
-					holder.tv_content.setText(modelList.get(position).getNotice_content());
+
+					holder.tv_title.setText(modelList.get(position)
+							.getNotice_title());
+					holder.tv_content.setText(modelList.get(position)
+							.getNotice_content());
 					holder.timeText.setText(tmp_data_time);
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
 				holder.moreLayout.setVisibility(View.GONE);
-				
-				holder.tv_title.setText(modelList.get(position).getNotice_title());
-				holder.tv_content.setText(modelList.get(position).getNotice_content());
+
+				holder.tv_title.setText(modelList.get(position)
+						.getNotice_title());
+				holder.tv_content.setText(modelList.get(position)
+						.getNotice_content());
 				holder.timeText.setText(tmp_data_time);
 			}
-			
+
 			return convertView;
 		}
 	}
@@ -159,7 +175,7 @@ public class AnnouncementListActivity extends BaseActivity implements OnClickLis
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -174,14 +190,15 @@ public class AnnouncementListActivity extends BaseActivity implements OnClickLis
 			break;
 		}
 	}
-	
-	public void refresh(){
-		Event event = new Event(null,"announcelist", null);
-        event.setTransfer("089004");
-        HashMap<String, String> map = new HashMap<String, String>();
-		map.put("tel", ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, ""));
-        event.setStaticActivityDataMap(map);
-        try {
+
+	public void refresh() {
+		Event event = new Event(null, "announcelist", null);
+		event.setTransfer("089004");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("tel", ApplicationEnvironment.getInstance().getPreferences()
+				.getString(Constant.PHONENUM, ""));
+		event.setStaticActivityDataMap(map);
+		try {
 			event.trigger();
 		} catch (ViewException e) {
 			// TODO Auto-generated catch block
@@ -191,20 +208,21 @@ public class AnnouncementListActivity extends BaseActivity implements OnClickLis
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected void onNewIntent(Intent intent) {
 
 		super.onNewIntent(intent);
 
 		setIntent(intent);// must store the new intent unless getIntent() will
-									// return the old one
-		modelList = (ArrayList<AnnouncementModel>) intent.getSerializableExtra("array");
-		if(modelList != null){
-			adapter.notifyDataSetChanged();			
-		}else{
+							// return the old one
+		modelList = (ArrayList<AnnouncementModel>) intent
+				.getSerializableExtra("array");
+		if (modelList != null) {
+			adapter.notifyDataSetChanged();
+		} else {
 			ActivityUtil.setEmptyView(listView);
 		}
-		
+
 	}
 }

@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -31,7 +32,6 @@ import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.ReversalModel;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
-import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
@@ -388,7 +388,20 @@ public class TransferPacketThread extends Thread {
 						Part[] parts = null;
 						int i = 1;
 
-						list = (List<String>) temp_req_map.get("attachments");
+						/**=====前端传送attachments参数非lsit时处理如下(ps:attachments字符串的格式为list格式)========*/
+						String tmp = (String) temp_req_map.get("attachments");
+						String demoArray[] = null;
+						tmp = tmp.substring(1, tmp.length()-1);
+						demoArray = tmp.split(",");
+
+						list = Arrays.asList(demoArray);
+						for(String str:list){
+							System.out.println(str);
+						}
+						/**======前端传送attachments参数为lsit时处理如下=======*/
+//						list = (List<String>) temp_req_map.get("attachments");
+						/**========================*/
+						
 						Iterator<String> itr = list.iterator();
 						temp_req_map.clear();
 
@@ -400,11 +413,11 @@ public class TransferPacketThread extends Thread {
 						try {
 							String [] strs = null;
 							String str = null;
-							parts = new CustomFilePart[temp_req_map.size()];
+							parts = new FilePart[temp_req_map.size()];
 							for(int j=1; j<=temp_req_map.size(); j++){
 								str = (String) temp_req_map.get(String.valueOf(j));
 								strs = str.split("#");
-								parts[j-1] = new CustomFilePart(strs[0], new File(strs[1]));
+								parts[j-1] = new FilePart(strs[0], new File(strs[1]));
 							}
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block

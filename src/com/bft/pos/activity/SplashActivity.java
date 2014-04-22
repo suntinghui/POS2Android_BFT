@@ -68,8 +68,7 @@ public class SplashActivity extends BaseActivity {
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 				// TODO
-				LKAlertDialog dialog = new LKAlertDialog(
-						BaseActivity.getTopActivity());
+				LKAlertDialog dialog = new LKAlertDialog(SplashActivity.this);
 				dialog.setTitle("提示");
 				dialog.setCancelable(false);
 				dialog.setMessage(SplashActivity.this.getResources().getString(

@@ -231,9 +231,10 @@ public class HttpManager {
 			//2确定请求方式 new UTF8PostMethod()解决中文乱码
 			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
-		if(!transferCode.equals("089021"))
+		if(!transferCode.equals("089021")){
 			 //每次访问需授权的网址时需带上前面的 cookie 作为通行证
 			postMethod.setRequestHeader("cookie", cookie);
+		}
 
 		/**
 		 * 设置cookie
@@ -291,14 +292,14 @@ public class HttpManager {
 				Cookie[] cookies_ = httpClient.getState().getCookies();
 				for(Cookie c:cookies_){
 					String[] str = null;
-					/**cookies所有制拼接一块*/
+					/**cookies所有拼接一块*/
 //					cookies += c.toString()+";";
 					str = c.toString().split("=");
 					map.put(c.getName(), c.getValue());
 //					Log.i("cookie:" , c.toString());
 				}
 				cookie = (String) map.get("uuid");
-				Log.i("cookies:" , cookie);
+				Log.i("UUID:" , cookie);
 			}else{
 
 			}

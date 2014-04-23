@@ -4,9 +4,8 @@ package com.bft.pos.activity;
  * 登陆界面
  * 这个界面也是不需要侧滑的
  * */
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
-
-import android.annotation.SuppressLint;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -85,7 +84,6 @@ public class LoginActivity extends BaseActivity {
 		getVersion();
 	}
 
-	//
 	private void getVersion() {
 		try {
 
@@ -93,6 +91,24 @@ public class LoginActivity extends BaseActivity {
 			event.setTransfer("089018");
 			event.trigger();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void getverifycode(){
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		try {
+			Event event = new Event(null, "verifyCodes", null);
+			event.setTransfer("089021");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("sendTime", date);
+			event.setStaticActivityDataMap(map);
+			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,6 +178,10 @@ public class LoginActivity extends BaseActivity {
 				setRemeberImageView(isRemember);
 				break;
 			}
+			case R.id.verifycode02: {// 获取验证码
+				getverifycode();
+				break;
+			}
 			case R.id.getPwdButton: {// 取回密码
 				getPwdAction();
 				break;
@@ -209,9 +229,7 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			}
-
 		}
-
 	};
 
 	// // 不明觉厉
@@ -248,12 +266,14 @@ public class LoginActivity extends BaseActivity {
 		} else if (et_pwd.getText().length() == 0) {
 			this.showToast("密码不能为空！");
 			return false;
+		}else if (inputverifyCode.getText().length() == 0) {
+			this.showToast("验证码不能为空！");
+			return false;
 		}
 		return true;
 	}
 
 	// 跳转，这里直接跳转到目录页
-	@SuppressLint("DefaultLocale")
 	private void loginAction() {
 		/**
 		 * 直接跳转到主菜单
@@ -300,7 +320,7 @@ public class LoginActivity extends BaseActivity {
 			map.put("login", userNameET.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET.getText().toString().toUpperCase() + et_pwd.getText()) + "www.payfortune.com");
 			map.put("lgnPass", pwd);
-			map.put("verifyCode", "qwe123");
+			map.put("verifyCode", inputverifyCode.getText().toString());
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

@@ -50,22 +50,36 @@ public class PhoneCode extends Activity{
 	}
 	
 	public void verifyCodes(){
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
-		String date = sDateFormat.format(new java.util.Date());
+//		图片验证码接口 目前已接通
+//		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+//				"yyyy-MM-dd hh:mm:ss");
+//		String date = sDateFormat.format(new java.util.Date());
+//		try {
+//			Event event = new Event(null, "verifyCodes", null);
+//			event.setTransfer("089021");
+//			String fsk = "Get_ExtPsamNo|null";
+//			event.setFsk(fsk);
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("sendTime", date);
+//			event.setStaticActivityDataMap(map);
+//			event.trigger();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
+//		账户余额查询
 		try {
-			Event event = new Event(null, "verifyCodes", null);
-			event.setTransfer("089021");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
+			Event event = new Event(null, "querybal", null);
+			event.setTransfer("089027");
+//			String fsk = "Get_ExtPsamNo|null";
+//			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("sendTime", date);
+			map.put("login", "admin");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 //		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 //				"yyyy-MM-dd hh:mm:ss");
 //		String date = sDateFormat.format(new java.util.Date());

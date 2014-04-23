@@ -3,7 +3,6 @@ package com.bft.pos.activity;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -94,7 +93,6 @@ public class FindPasswordActivity extends BaseActivity implements
 	/*
 	 * 获取验证码
 	 */
-	@SuppressLint("SimpleDateFormat")
 	private void actionGetSms() {
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");

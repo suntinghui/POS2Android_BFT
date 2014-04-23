@@ -387,6 +387,7 @@ public class TransferPacketThread extends Thread {
 						Part[] parts = null;
 						/**=====前端传送attachments参数为json时处理如下(ps:attachments字符串的格式为json格式)========*/
 						String tmp = (String) temp_req_map.get("attachments");
+
 						temp_req_map.clear();
 						temp_req_map = JSONUtil.JSONStr2MAP(tmp);
 						try {

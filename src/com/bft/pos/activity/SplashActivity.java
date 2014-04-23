@@ -1,5 +1,8 @@
 package com.bft.pos.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +14,7 @@ import android.view.WindowManager;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.dynamic.core.Event;
 
 public class SplashActivity extends BaseActivity {
 
@@ -21,10 +25,8 @@ public class SplashActivity extends BaseActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
 
 		setContentView(R.layout.splash_activity);
-
 		new SplashTask().execute();
 	}
-
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override

@@ -7,8 +7,4 @@
 	<field key="sendTime" value="__sendTime"/>
 	<field key="type" value="__type" />
 	<field key="psamNo" value="__PSAMNO" />
-<<<<<<< HEAD
 </root>
-=======
-</root>
->>>>>>> branch 'master' of git@github.com:suntinghui/POS2Android_BFT.git

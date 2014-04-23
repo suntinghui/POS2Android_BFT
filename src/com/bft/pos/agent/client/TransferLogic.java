@@ -587,7 +587,11 @@ public class TransferLogic {
 	 * 验证码(生成图片)
 	 */
 	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
-		// String verifycode =Constant.ENCODING_JSON;
+//		String verifycode = fieldMap.get("verifyCode");
+//		Intent intent = new Intent(BaseActivity.getTopActivity().getIntent().getAction());
+//		 intent.putExtra("code", verifycode);
+//		 BaseActivity.getTopActivity().startActivity(intent);
+		 
 		String verifycode = fieldMap.get("verifyCode");
 		System.out.println("获得的验证码是：" + verifycode);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),

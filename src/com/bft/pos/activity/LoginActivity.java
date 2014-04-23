@@ -60,6 +60,7 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.activity_login);
 		// 设置标题
 		initTitleBar("登 录", false);
+		this.getIntent().setAction("com.bft.login");
 		// getverifycode();
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -69,6 +70,14 @@ public class LoginActivity extends BaseActivity {
 		verifyCode = (ImageView) findViewById(R.id.verifycode02);
 		verifyCode.setImageBitmap(SecurityCodeUtil.getInstance()
 				.createCodeBitmap(code));
+		verifyCode.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+					System.out.println("helloworld");
+					 getverifycode();
+			}
+		});
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
 		et_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pwd);
@@ -122,6 +131,19 @@ public class LoginActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		String code01 = intent.getStringExtra("code");
+		verifyCode.setImageBitmap(SecurityCodeUtil.getInstance()
+				.createCodeBitmap(code01));
+		System.out.println("new intent");
+	}
+	
 	public void showAlertView(Integer version, String url) {
 		this.url = url;
 		String appVersion = "";
@@ -187,11 +209,6 @@ public class LoginActivity extends BaseActivity {
 			case R.id.rememberIV: {// 记住密码
 				isRemember = !isRemember;
 				setRemeberImageView(isRemember);
-				break;
-			}
-			case R.id.verifycode02: {// 获取验证码
-				getverifycode();
-				System.out.println("hello world");
 				break;
 			}
 			case R.id.getPwdButton: {// 取回密码

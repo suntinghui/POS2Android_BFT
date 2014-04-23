@@ -22,7 +22,7 @@ import android.util.Log;
 public class SecurityCodeUtil {
 
 	private static final int DEFAULT_CODE_LENGTH = 4;
-	private static final int DEFAULT_FONT_SIZE = 30;
+	private static final int DEFAULT_FONT_SIZE = 28;
 	private static final int DEFAULT_LINE_NUMBER = 3;
 	private static final int BASE_PADDING_LEFT = 5;
 	private static final int RANGE_PADDING_LEFT = 10;
@@ -86,7 +86,7 @@ public class SecurityCodeUtil {
 	 * @return
 	 */
 	public Bitmap createCodeBitmap(String captcha) {
-		padding_left = 10;
+		padding_left = 5;
 		base_padding_left = width / codeLength;
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);

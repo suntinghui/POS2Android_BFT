@@ -20,6 +20,6 @@
 
     <field
         key="verifyCode"
-        value="qwe123" />
+        value="__verifyCode" />
 
 </root>

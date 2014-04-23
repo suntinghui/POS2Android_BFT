@@ -80,7 +80,8 @@ public class TransferLogic {
 		};
 
 		/** 进行逻辑处理 **/
-		TransferPacketThread thread = new TransferPacketThread(transferCode, map, transferHandler);
+		TransferPacketThread thread = new TransferPacketThread(transferCode,
+				map, transferHandler);
 
 		if (transferCode.equals("089014")) { // 签购单上传 500000001
 			transferMap.put(TransferLogic.UPLOADSIGNIMAGETRANSFER, thread);
@@ -107,7 +108,7 @@ public class TransferLogic {
 			this.registrDone(fieldMap);
 
 		} else if ("089007".equals(transferCode)) { // 获取提款银行账号
-//			BaseActivity.getTopActivity().hideDialog(BaseActivity.COUNTUP_DIALOG);
+			// BaseActivity.getTopActivity().hideDialog(BaseActivity.COUNTUP_DIALOG);
 			this.getBankAccountDone(fieldMap);
 
 		} else if ("089004".equals(transferCode)) { // 公告列表
@@ -136,7 +137,7 @@ public class TransferLogic {
 
 		} else if ("089020".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
-			
+
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
 
@@ -160,17 +161,17 @@ public class TransferLogic {
 
 		} else if ("086000".equals(transferCode)) { // 签到
 			this.signDone(fieldMap);
-			
+
 		} else if ("020022".equals(transferCode)) { // 收款
 			this.receiveTransDone(fieldMap);
 
 		} else if ("020023".equals(transferCode)) { // 收款撤销
 			this.revokeTransDone(fieldMap);
 
-		}  else if ("080003".equals(transferCode)) { // 商户余额查询
+		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
+		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
 		} else if ("200001111".equals(transferCode)) { // 银行卡付款
@@ -201,7 +202,8 @@ public class TransferLogic {
 	 */
 	@SuppressLint("CommitPrefEdits")
 	private void loginDone(HashMap<String, String> fieldMap) {
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
 		if ("1".equals(fieldMap.get("respmsg"))) {
 
 			String jsonStr = fieldMap.get("apires");
@@ -222,23 +224,26 @@ public class TransferLogic {
 				e.printStackTrace();
 			}
 			editor.putString(Constant.MD5KEY, receiveFieldMap.get("md5key"));
-			editor.putString(Constant.MERCHERNAME, receiveFieldMap.get("merchant_name"));
+			editor.putString(Constant.MERCHERNAME,
+					receiveFieldMap.get("merchant_name"));
 			editor.commit();
 			Constant.status = receiveFieldMap.get("status");
 			// 登陆成功，跳转到菜单界面
-			BaseActivity.getTopActivity().startActivity(new Intent("com.bft.pos.CatalogActivity"));
+			BaseActivity.getTopActivity().startActivity(
+					new Intent("com.bft.pos.CatalogActivity"));
 			BaseActivity.getTopActivity().finish();
 
 		} else if ("0".equals(fieldMap.get("respmsg"))) {
 			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
-		} 
+		}
 	}
 
 	/**
 	 * 登陆和签到
 	 */
 	private void loginSignDone(HashMap<String, String> fieldMap) {
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
 
 		try {
 
@@ -262,7 +267,8 @@ public class TransferLogic {
 
 				// 保存商户名称
 				if (fieldMap.containsKey("field43")) {
-					editor.putString(Constant.MERCHERNAME, fieldMap.get("filed43"));
+					editor.putString(Constant.MERCHERNAME,
+							fieldMap.get("filed43"));
 				}
 				if (fieldMap.containsKey("field41")) {
 					AppDataCenter.setField41(fieldMap.get("field41"));
@@ -272,7 +278,8 @@ public class TransferLogic {
 				}
 
 				// 启动超时退出服务
-				Intent intent = new Intent(BaseActivity.getTopActivity(), TimeoutService.class);
+				Intent intent = new Intent(BaseActivity.getTopActivity(),
+						TimeoutService.class);
 				BaseActivity.getTopActivity().startService(intent);
 
 				// 根据62域字符串切割得到工作密钥
@@ -286,7 +293,8 @@ public class TransferLogic {
 
 						// 标准
 						pinKey = newKey.substring(0, 40);
-						macKey = newKey.substring(40, 56) + newKey.substring(72);
+						macKey = newKey.substring(40, 56)
+								+ newKey.substring(72);
 						// macKey = newKey.substring(40, 80);
 						stackKey = pinKey;
 
@@ -304,8 +312,10 @@ public class TransferLogic {
 						switch (msg.what) {
 						case 0:
 							// 登陆成功，跳转到菜单界面
-							BaseActivity.getTopActivity().showDialog(BaseActivity.PROGRESS_DIALOG, "登录成功");
-							BaseActivity.getTopActivity().startActivity(new Intent("com.bft.pos.lrcatalog"));
+							BaseActivity.getTopActivity().showDialog(
+									BaseActivity.PROGRESS_DIALOG, "登录成功");
+							BaseActivity.getTopActivity().startActivity(
+									new Intent("com.bft.pos.lrcatalog"));
 							BaseActivity.getTopActivity().finish();
 							break;
 						}
@@ -314,7 +324,9 @@ public class TransferLogic {
 				};
 
 				StringBuffer sb = new StringBuffer();
-				sb.append("Get_RenewKey|string:").append(pinKey).append(",string:").append(macKey).append(",string:").append(stackKey);
+				sb.append("Get_RenewKey|string:").append(pinKey)
+						.append(",string:").append(macKey).append(",string:")
+						.append(stackKey);
 				FSKOperator.execute(sb.toString(), handler);
 
 			} else {
@@ -332,7 +344,8 @@ public class TransferLogic {
 
 	private void setVendorTerId(String vendor, String terid) {
 		Event event = new Event(null, "login", null);
-		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s", vendor, terid);
+		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s",
+				vendor, terid);
 		event.setFsk(fsk);
 		try {
 			event.trigger();
@@ -352,15 +365,18 @@ public class TransferLogic {
 	 */
 	private void signDone(final HashMap<String, String> fieldMap) {
 		// 更新批次号
-		String batchNum = fieldMap.get("field60").replace(" ", "").substring(2, 8); // 60域不带长度信息
+		String batchNum = fieldMap.get("field60").replace(" ", "")
+				.substring(2, 8); // 60域不带长度信息
 		verndor = fieldMap.get("field42");
 		terid = fieldMap.get("field41");
 
 		// 启动超时退出服务
-		Intent intent = new Intent(BaseActivity.getTopActivity(), TimeoutService.class);
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				TimeoutService.class);
 		BaseActivity.getTopActivity().startService(intent);
 
-		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
 		// 保存商户名称
 		if (fieldMap.containsKey("field43")) {
 			editor.putString(Constant.MERCHERNAME, fieldMap.get("filed43"));
@@ -434,7 +450,8 @@ public class TransferLogic {
 			TransferLogic.getInstance().gotoCommonSuccessActivity(tips);
 		} else {
 			StringBuffer sb = new StringBuffer();
-			sb.append("Get_RenewKey|string:").append(pinKey).append(",string:").append(macKey).append(",string:").append(stackKey);
+			sb.append("Get_RenewKey|string:").append(pinKey).append(",string:")
+					.append(macKey).append(",string:").append(stackKey);
 			FSKOperator.execute(sb.toString(), handler);
 		}
 
@@ -454,12 +471,15 @@ public class TransferLogic {
 
 			HashMap<String, String> tempMap = new HashMap<String, String>();
 			tempMap.put("fieldMessage", fieldMap.get("fieldMessage"));
-			tempMap.put("debitAmount", StringUtil.String2SymbolAmount(debitAmount));
+			tempMap.put("debitAmount",
+					StringUtil.String2SymbolAmount(debitAmount));
 			tempMap.put("debitCount", debitCount);
-			tempMap.put("creditAmount", StringUtil.String2SymbolAmount(creditAmount));
+			tempMap.put("creditAmount",
+					StringUtil.String2SymbolAmount(creditAmount));
 			tempMap.put("creditCount", creditCount);
 
-			Intent intent = new Intent(BaseActivity.getTopActivity(), SettlementSuccessActivity.class);
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SettlementSuccessActivity.class);
 			intent.putExtra("map", tempMap);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 
@@ -489,7 +509,8 @@ public class TransferLogic {
 			} else if ("2".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance().gotoCommonFaileActivity("用户已被注册");
 			} else if ("3".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("未检测到设备，请插入购买的刷卡头");
+				TransferLogic.getInstance().gotoCommonFaileActivity(
+						"未检测到设备，请插入购买的刷卡头");
 			} else if ("4".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance().gotoCommonFaileActivity("设备未录入");
 			}
@@ -515,7 +536,6 @@ public class TransferLogic {
 	 */
 	private void authenticationDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -523,7 +543,6 @@ public class TransferLogic {
 	 */
 	private void findPwdDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -533,7 +552,8 @@ public class TransferLogic {
 
 		if (fieldMap.containsKey("respmsg")) {
 			if ("1".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonSuccessActivity("设置新密码成功");
+				TransferLogic.getInstance()
+						.gotoCommonSuccessActivity("设置新密码成功");
 
 			} else if ("0".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance().gotoCommonFaileActivity("设置新密码失败");
@@ -546,7 +566,6 @@ public class TransferLogic {
 	 */
 	private void getVersionDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -554,7 +573,6 @@ public class TransferLogic {
 	 */
 	private void modifyPwdDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -564,54 +582,53 @@ public class TransferLogic {
 		// 以短信形式接收
 		BaseActivity.getTopActivity().refreshSMSBtn();
 	}
-	
+
 	/**
 	 * 验证码(生成图片)
 	 */
 	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
-//		String verifycode =Constant.ENCODING_JSON;
-		System.out.println("获得的验证码为："+"zero00");
-		Log.i("获得的验证码是","zero00" );
-//		Intent intent = new Intent(BaseActivity.getTopActivity(), PhoneCode.class);
-//		intent.putExtra("code", verifycode);
-//		BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+		// String verifycode =Constant.ENCODING_JSON;
+		String verifycode = fieldMap.get("verifyCode");
+		System.out.println("获得的验证码是：" + verifycode);
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				LoginActivity.class);
+		intent.putExtra("code", verifycode);
+		BaseActivity.getTopActivity().startActivity(intent);
 	}
-	
-	
 
 	/**
 	 * 获取提款银行账号
 	 */
 	private void getBankAccountDone(HashMap<String, String> fieldMap) {
-		
+
 	}
 
 	/**
 	 * 交易流水
 	 */
 	private void QueryTransListDone(HashMap<String, String> fieldMap) {
-		
+
 	}
 
 	/**
 	 * 公告查询
 	 */
 	private void getAnnounceListDone(HashMap<String, String> fieldMap) {
-		
+
 	}
 
 	/**
 	 * 获取商户注册信息
 	 */
 	private void getMerchantInfoDone(HashMap<String, String> fieldMap) {
-		
+
 	}
 
 	/**
 	 * 获取支行
 	 */
 	private void getBranchBankDone(HashMap<String, String> fieldMap) {
-		
+
 	}
 
 	/**
@@ -619,7 +636,6 @@ public class TransferLogic {
 	 */
 	private void addBankAccountDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -627,7 +643,6 @@ public class TransferLogic {
 	 */
 	private void modifyBankAccountDone(HashMap<String, String> fieldMap) {
 
-		
 	}
 
 	/**
@@ -696,7 +711,8 @@ public class TransferLogic {
 	 *            要请求的当前页面
 	 */
 	public void queryHistoryAction(String currentPage) {
-		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER).getSendMap();
+		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER)
+				.getSendMap();
 		// 验证上次请求的信息是否还存在，如果存在则直接更新上次的请求页面直接请求数据，否则失败让用户重新操作
 
 		if (null != sendMap && sendMap.containsKey("fieldTrancode")) {
@@ -706,32 +722,40 @@ public class TransferLogic {
 			sendMap.put("pageNo", currentPage); // 替换查询页码
 			this.transferAction(sendMap.get("fieldTrancode"), sendMap);
 		} else {
-			TransferLogic.getInstance().gotoCommonFaileActivity("查询明细时出现异常，请重试！");
+			TransferLogic.getInstance().gotoCommonFaileActivity(
+					"查询明细时出现异常，请重试！");
 		}
 	}
 
 	private void queryHistoryGroupDone(HashMap<String, String> fieldMap) {
-		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER).getSendMap();
-		if (null != sendMap && sendMap.containsKey("BeginDate") && sendMap.containsKey("EndDate")) {
-			Intent intent = new Intent("com.bft.pos.queryTransferHistoryGroupActivity");
+		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER)
+				.getSendMap();
+		if (null != sendMap && sendMap.containsKey("BeginDate")
+				&& sendMap.containsKey("EndDate")) {
+			Intent intent = new Intent(
+					"com.bft.pos.queryTransferHistoryGroupActivity");
 			intent.putExtra("detail", fieldMap.get("detail"));
 			intent.putExtra("BeginDate", sendMap.get("BeginDate"));
 			intent.putExtra("EndDate", sendMap.get("EndDate"));
 			BaseActivity.getTopActivity().startActivity(intent);
 		} else {
-			TransferLogic.getInstance().gotoCommonFaileActivity("查询明细时出现异常，请重试！");
+			TransferLogic.getInstance().gotoCommonFaileActivity(
+					"查询明细时出现异常，请重试！");
 		}
 	}
 
 	private void queryHistoryListDone(HashMap<String, String> fieldMap) {
-		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER).getSendMap();
+		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER)
+				.getSendMap();
 		if (null != sendMap && sendMap.containsKey("totalCount")) {
 			Intent intent = new Intent("com.bft.pos.queryTransferHistoryList");
 			intent.putExtra("map", fieldMap);
-			intent.putExtra("totalCount", Integer.parseInt(sendMap.get("totalCount")));
+			intent.putExtra("totalCount",
+					Integer.parseInt(sendMap.get("totalCount")));
 			BaseActivity.getTopActivity().startActivity(intent);
 		} else {
-			TransferLogic.getInstance().gotoCommonFaileActivity("查询明细时出现异常，请重试！");
+			TransferLogic.getInstance().gotoCommonFaileActivity(
+					"查询明细时出现异常，请重试！");
 		}
 	}
 
@@ -740,14 +764,18 @@ public class TransferLogic {
 	 */
 	private void queryBalanceDone(final HashMap<String, String> fieldMap) {
 		if (Constant.isAISHUA) {
-			Intent intent = new Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName() + ".showBalanceAishua");
+			Intent intent = new Intent(ApplicationEnvironment.getInstance()
+					.getApplication().getPackageName()
+					+ ".showBalanceAishua");
 			intent.putExtra("balance", fieldMap.get("field54"));
 			intent.putExtra("availableBalance", fieldMap.get("field4"));
 			intent.putExtra("accountNo", fieldMap.get("field2"));
 			intent.putExtra("message", fieldMap.get("fieldMessage"));
 			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		} else {
-			Intent intent = new Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName() + ".showBalance");
+			Intent intent = new Intent(ApplicationEnvironment.getInstance()
+					.getApplication().getPackageName()
+					+ ".showBalance");
 			intent.putExtra("balance", fieldMap.get("field54"));
 			intent.putExtra("availableBalance", fieldMap.get("field4"));
 			intent.putExtra("accountNo", fieldMap.get("field2"));
@@ -785,20 +813,25 @@ public class TransferLogic {
 		try {
 			if (Constant.isAISHUA) {
 				ViewPage transferViewPage = new ViewPage("transfersuccess");
-				Event event = new Event(transferViewPage, "transfersuccess", "transfersuccess");
+				Event event = new Event(transferViewPage, "transfersuccess",
+						"transfersuccess");
 				event.setStaticActivityDataMap(fieldMap);
 				transferViewPage.addAnEvent(event);
 				event.trigger();
 			} else {
-				if (AppDataCenter.getValue("__TERSERIALNO").startsWith("001917")) {
+				if (AppDataCenter.getValue("__TERSERIALNO")
+						.startsWith("001917")) {
 					// 打印
-					Intent intent = new Intent("com.bft.pos.PrintReceiptActivity");
+					Intent intent = new Intent(
+							"com.bft.pos.PrintReceiptActivity");
 					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+					BaseActivity.getTopActivity().startActivityForResult(
+							intent, 0);
 
 				} else {
 					ViewPage transferViewPage = new ViewPage("transfersuccess");
-					Event event = new Event(transferViewPage, "transfersuccess", "transfersuccess");
+					Event event = new Event(transferViewPage,
+							"transfersuccess", "transfersuccess");
 					event.setStaticActivityDataMap(fieldMap);
 					transferViewPage.addAnEvent(event);
 					event.trigger();
@@ -831,34 +864,40 @@ public class TransferLogic {
 		 ****/
 	}
 
-	/** 
+	/**
 	 * 收款撤销
 	 */
 	private void revokeTransDone(HashMap<String, String> fieldMap) {
 		fieldMap.put("flag", "1");
 		recordSuccessTransfer(fieldMap);
 
-		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER).getSendMap();
+		HashMap<String, String> sendMap = transferMap.get(GENERALTRANSFER)
+				.getSendMap();
 		TransferSuccessDBHelper helper = new TransferSuccessDBHelper();
 		helper.updateRevokeFalg(sendMap.get("field61").substring(6));
 
 		try {
 			if (Constant.isAISHUA) {
 				ViewPage transferViewPage = new ViewPage("transfersuccess");
-				Event event = new Event(transferViewPage, "transfersuccess", "transfersuccess");
+				Event event = new Event(transferViewPage, "transfersuccess",
+						"transfersuccess");
 				event.setStaticActivityDataMap(fieldMap);
 				transferViewPage.addAnEvent(event);
 				event.trigger();
 			} else {
-				if (AppDataCenter.getValue("__TERSERIALNO").startsWith("001917")) {
+				if (AppDataCenter.getValue("__TERSERIALNO")
+						.startsWith("001917")) {
 					// 打印
-					Intent intent = new Intent("com.bft.pos.PrintReceiptActivity");
+					Intent intent = new Intent(
+							"com.bft.pos.PrintReceiptActivity");
 					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+					BaseActivity.getTopActivity().startActivityForResult(
+							intent, 0);
 
 				} else {
 					ViewPage transferViewPage = new ViewPage("transfersuccess");
-					Event event = new Event(transferViewPage, "transfersuccess", "transfersuccess");
+					Event event = new Event(transferViewPage,
+							"transfersuccess", "transfersuccess");
 					event.setStaticActivityDataMap(fieldMap);
 					transferViewPage.addAnEvent(event);
 					event.trigger();
@@ -890,22 +929,26 @@ public class TransferLogic {
 		 * }catch(Exception e){ e.printStackTrace(); }
 		 ***/
 	}
-	
-	/** 
+
+	/**
 	 * 商户余额查询
 	 */
 	private void balanceQueryDone(HashMap<String, String> fieldMap) {
 		if (Constant.isAISHUA) {
-			Intent intent = new Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName() + ".showTiKuanBalanceAishua");
+			Intent intent = new Intent(ApplicationEnvironment.getInstance()
+					.getApplication().getPackageName()
+					+ ".showTiKuanBalanceAishua");
 			intent.putExtra("balance", fieldMap.get("field54"));
 			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		} else {
-//			Intent intent = new Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName() + ".showBalance");
-//			intent.putExtra("balance", fieldMap.get("field54"));
-//			intent.putExtra("availableBalance", fieldMap.get("field4"));
-//			intent.putExtra("accountNo", fieldMap.get("field2"));
-//			intent.putExtra("message", fieldMap.get("fieldMessage"));
-//			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+			// Intent intent = new
+			// Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName()
+			// + ".showBalance");
+			// intent.putExtra("balance", fieldMap.get("field54"));
+			// intent.putExtra("availableBalance", fieldMap.get("field4"));
+			// intent.putExtra("accountNo", fieldMap.get("field2"));
+			// intent.putExtra("message", fieldMap.get("fieldMessage"));
+			// BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		}
 	}
 
@@ -913,7 +956,9 @@ public class TransferLogic {
 	 * 银行账户转账 (付款)
 	 */
 	private void bankTransferDone(HashMap<String, String> fieldMap) {
-		Intent intent = new Intent(ApplicationEnvironment.getInstance().getApplication().getPackageName() + ".transferSuccessSendSms");
+		Intent intent = new Intent(ApplicationEnvironment.getInstance()
+				.getApplication().getPackageName()
+				+ ".transferSuccessSendSms");
 		intent.putExtra("map", fieldMap);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 	}
@@ -981,7 +1026,8 @@ public class TransferLogic {
 			map.put("fieldMobile", fieldsMap.get("receivePhoneNo"));
 
 			if (fieldsMap.containsKey("signImageName")) {
-				String imagePath = Constant.SIGNIMAGESPATH + fieldsMap.get("signImageName") + ".JPEG";
+				String imagePath = Constant.SIGNIMAGESPATH
+						+ fieldsMap.get("signImageName") + ".JPEG";
 				map.put("img", StringUtil.Image2Base64(imagePath));
 
 				// 删除签名图片
@@ -1001,7 +1047,8 @@ public class TransferLogic {
 
 			// 写入数据库
 			UploadSignImageDBHelper helper = new UploadSignImageDBHelper();
-			if (helper.insertATransfer(fieldsMap.get("field11"), fieldsMap.get("receivePhoneNo"), map)) {
+			if (helper.insertATransfer(fieldsMap.get("field11"),
+					fieldsMap.get("receivePhoneNo"), map)) {
 				Log.e("sign image", "成功写入数据库");
 			} else {
 				Log.e("sign image", "写入数据库失败");
@@ -1012,7 +1059,8 @@ public class TransferLogic {
 
 		} finally {
 			try {
-				BaseActivity.getTopActivity().startService(new Intent("com.bft.pos.uploadSignImageService"));
+				BaseActivity.getTopActivity().startService(
+						new Intent("com.bft.pos.uploadSignImageService"));
 
 				BaseActivity.getTopActivity().setResult(BaseActivity.RESULT_OK);
 				BaseActivity.getTopActivity().finish();
@@ -1026,7 +1074,8 @@ public class TransferLogic {
 	 * 签购单上传完成
 	 */
 	private void uploadReceiptDone(HashMap<String, String> fieldMap) {
-		String field11 = transferMap.get(UPLOADSIGNIMAGETRANSFER).getSendMap().get("field11");
+		String field11 = transferMap.get(UPLOADSIGNIMAGETRANSFER).getSendMap()
+				.get("field11");
 
 		UploadSignImageDBHelper helper = new UploadSignImageDBHelper();
 
@@ -1059,14 +1108,16 @@ public class TransferLogic {
 	private void downloadSecurityCode(HashMap<String, String> fieldMap) {
 
 		// 跳转到哪一个页面不确定。注意一定要在欲跳转的页面设置setAction("');
-		Intent intent = new Intent(BaseActivity.getTopActivity().getIntent().getAction());
+		Intent intent = new Intent(BaseActivity.getTopActivity().getIntent()
+				.getAction());
 		intent.putExtra("flag", "getSecurityCode");
 		intent.putExtra("securityCode", fieldMap.get("captcha"));
 		BaseActivity.getTopActivity().startActivity(intent);
 		BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_DIALOG);
-	} 
+	}
 
-	public TransferModel parseConfigXML(String confName) throws FileNotFoundException {
+	public TransferModel parseConfigXML(String confName)
+			throws FileNotFoundException {
 		TransferModel transfer = new TransferModel();
 
 		InputStream stream = null;
@@ -1087,8 +1138,10 @@ public class TransferLogic {
 				switch (eventType) {
 				case XmlPullParser.START_TAG:
 					if ("root".equalsIgnoreCase(parser.getName())) {
-						transfer.setShouldMac(parser.getAttributeValue(null, "shouldMac"));
-						transfer.setIsJson(parser.getAttributeValue(null, "isJson"));
+						transfer.setShouldMac(parser.getAttributeValue(null,
+								"shouldMac"));
+						transfer.setIsJson(parser.getAttributeValue(null,
+								"isJson"));
 					} else if ("field".equalsIgnoreCase(parser.getName())) {
 						field = new FieldModel();
 						field.setKey(parser.getAttributeValue(null, "key"));
@@ -1131,7 +1184,8 @@ public class TransferLogic {
 	public void gotoCommonSuccessActivity(String prompt) {
 		if (null == prompt || "".equals(prompt.trim())) {
 			prompt = "交易成功";
-			Intent intent = new Intent(BaseActivity.getTopActivity(), SuccessActivity.class);
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SuccessActivity.class);
 			intent.putExtra("prompt", prompt);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 		}
@@ -1140,7 +1194,8 @@ public class TransferLogic {
 			ViewPage transferViewPage = new ViewPage("tradesuccess");
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("message", prompt);
-			Event event = new Event(transferViewPage, "tradesuccess", "tradesuccess");
+			Event event = new Event(transferViewPage, "tradesuccess",
+					"tradesuccess");
 			event.setStaticActivityDataMap(map);
 			transferViewPage.addAnEvent(event);
 			event.trigger();
@@ -1153,9 +1208,10 @@ public class TransferLogic {
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-//		Intent intent = new Intent(BaseActivity.getTopActivity(), FailActivity.class);
-//		intent.putExtra("prompt", prompt);
-//		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		// Intent intent = new Intent(BaseActivity.getTopActivity(),
+		// FailActivity.class);
+		// intent.putExtra("prompt", prompt);
+		// BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**
@@ -1163,7 +1219,8 @@ public class TransferLogic {
 	 */
 	private boolean loadSystemConfig() {
 		try {
-			InputStream stream = AssetsUtil.getInputStreamFromPhone("systemconfig.xml");
+			InputStream stream = AssetsUtil
+					.getInputStreamFromPhone("systemconfig.xml");
 			KXmlParser parser = new KXmlParser();
 			parser.setInput(stream, "utf-8");
 			int eventType = parser.getEventType();
@@ -1173,17 +1230,23 @@ public class TransferLogic {
 					if ("item".equalsIgnoreCase(parser.getName())) {
 						String key = parser.getAttributeValue(null, "key");
 						if (key.equals("sendSMS")) {
-							SystemConfig.setSendSMS(parser.getAttributeValue(null, "value"));
+							SystemConfig.setSendSMS(parser.getAttributeValue(
+									null, "value"));
 						} else if (key.equals("pageSize")) {
-							SystemConfig.setPageSize(parser.getAttributeValue(null, "value"));
+							SystemConfig.setPageSize(parser.getAttributeValue(
+									null, "value"));
 						} else if (key.equals("historyInterval")) {
-							SystemConfig.setHistoryInterval(parser.getAttributeValue(null, "value"));
+							SystemConfig.setHistoryInterval(parser
+									.getAttributeValue(null, "value"));
 						} else if (key.equals("maxReversalCount")) {
-							SystemConfig.setMaxReversalCount(parser.getAttributeValue(null, "value"));
+							SystemConfig.setMaxReversalCount(parser
+									.getAttributeValue(null, "value"));
 						} else if (key.equals("maxTransferTimeout")) {
-							SystemConfig.setMaxTransferTimeout(parser.getAttributeValue(null, "value"));
+							SystemConfig.setMaxTransferTimeout(parser
+									.getAttributeValue(null, "value"));
 						} else if (key.equals("maxLockTimeout")) {
-							SystemConfig.setMaxLockTimeout(parser.getAttributeValue(null, "value"));
+							SystemConfig.setMaxLockTimeout(parser
+									.getAttributeValue(null, "value"));
 						}
 					}
 

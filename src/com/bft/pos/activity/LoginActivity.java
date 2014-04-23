@@ -191,6 +191,7 @@ public class LoginActivity extends BaseActivity {
 			}
 			case R.id.verifycode02: {// 获取验证码
 				getverifycode();
+				System.out.println("hello world");
 				break;
 			}
 			case R.id.getPwdButton: {// 取回密码

@@ -86,7 +86,7 @@ public class SecurityCodeUtil {
 	 * @return
 	 */
 	public Bitmap createCodeBitmap(String captcha) {
-		padding_left = 20;
+		padding_left = 10;
 		base_padding_left = width / codeLength;
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);

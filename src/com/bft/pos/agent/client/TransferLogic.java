@@ -22,6 +22,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.bft.pos.activity.BaseActivity;
+import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.PhoneCode;
@@ -200,40 +201,42 @@ public class TransferLogic {
 	/**
 	 * 登陆
 	 */
+	@SuppressWarnings("unchecked")
 	@SuppressLint("CommitPrefEdits")
 	private void loginDone(HashMap<String, String> fieldMap) {
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
-		if ("1".equals(fieldMap.get("respmsg"))) {
+		if ("00".equals(fieldMap.get("rtCd"))) {
 
 			String jsonStr = fieldMap.get("apires");
 			HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
-
+		
 			try {
-				JSONTokener parse = new JSONTokener(jsonStr);
-				JSONObject content = (JSONObject) parse.nextValue();
-
-				@SuppressWarnings("unchecked")
-				Iterator<String> keys = content.keys();
-				while (keys.hasNext()) {
-					String key = (String) keys.next();
-					receiveFieldMap.put(key, content.getString(key));
-
+				if(jsonStr != null){
+					JSONTokener parse = new JSONTokener(jsonStr);
+					JSONObject content = (JSONObject) parse.nextValue();
+					
+					Iterator<String> keys = content.keys();
+					while (keys.hasNext()) {
+						String key = (String) keys.next();
+						receiveFieldMap.put(key, content.getString(key));
+					}
+					
+					editor.putString(Constant.MD5KEY, receiveFieldMap.get("md5key"));
+					editor.putString(Constant.MERCHERNAME,
+							receiveFieldMap.get("merchant_name"));
+					editor.commit();
+					Constant.status = receiveFieldMap.get("status");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			editor.putString(Constant.MD5KEY, receiveFieldMap.get("md5key"));
-			editor.putString(Constant.MERCHERNAME,
-					receiveFieldMap.get("merchant_name"));
-			editor.commit();
-			Constant.status = receiveFieldMap.get("status");
 			// 登陆成功，跳转到菜单界面
-			BaseActivity.getTopActivity().startActivity(
-					new Intent("com.bft.pos.CatalogActivity"));
+			Intent intent0 = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent0);
 			BaseActivity.getTopActivity().finish();
 
-		} else if ("0".equals(fieldMap.get("respmsg"))) {
+		} else if ("01".equals(fieldMap.get("rtCd"))) {
 			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
 		}
 	}

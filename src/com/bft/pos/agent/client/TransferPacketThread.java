@@ -589,7 +589,7 @@ public class TransferPacketThread extends Thread {
 			}
 
 			if (this.transferCode!="089021") {
-			String arg_str = receiveFieldMap.get("apires").replace(",", "");
+			String arg_str = receiveFieldMap.get("apires")!=null?receiveFieldMap.get("apires").replace(",", ""):null;
 			}
 			// 如果是上传签购单交易 500000001
 			if (this.transferCode.equals("089014")) {

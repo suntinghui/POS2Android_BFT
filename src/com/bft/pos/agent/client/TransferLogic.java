@@ -65,7 +65,6 @@ public class TransferLogic {
 
 	// 动态机制通过此方法执行相应的逻辑。
 	public void transferAction(String transferCode, HashMap<String, String> map) {
-
 		Handler transferHandler = new Handler() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -579,7 +578,6 @@ public class TransferLogic {
 	 * 找回密码 设置新密码
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
-
 		if (fieldMap.containsKey("respmsg")) {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance()

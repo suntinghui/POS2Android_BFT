@@ -12,8 +12,6 @@ import com.bft.pos.activity.view.TextWithIconView;
 
 /**
  * 设置支付密码
- * 
- * @创建者 Fancong
  */
 public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, btn_confirm;

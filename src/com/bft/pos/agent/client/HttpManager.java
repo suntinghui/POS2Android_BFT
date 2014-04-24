@@ -1,9 +1,12 @@
 package com.bft.pos.agent.client;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NameValuePair;
@@ -19,7 +22,7 @@ import com.bft.pos.client.exception.HttpException;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
-	private static String cookies			= null;
+	private static String cookie			= null;
 
 	private static boolean isHttpsFlag				= false;
 	/**
@@ -132,6 +135,9 @@ public class HttpManager {
 			} else {
 				//				httpClient = initHttp();
 				httpClient = initHttpClient();
+
+				//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+				httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 			}
 		}
 
@@ -177,16 +183,29 @@ public class HttpManager {
 			return httpClient;
 		}else{
 			httpClient = new HttpClient();
-
-			//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
-			httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
 		}
 		return httpClient;
 	}
 
 	private HttpClient initHttps() {
 		return null;
+	}
+	
+	/**
+	 * 设置cookie参数
+	 */
+	public void setCookie(){
+		//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+		httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+		
+		HttpState initalState = new HttpState();
+		
+		Cookie cookie = new Cookie();
+		//		cookie.setDomain(arg0);
+		//		cookie.setPath(path);
+		//		cookie.setName(name);
+		//		cookie.setValue(value);;
+		initalState.addCookie(cookie);
 	}
 
 	/**m
@@ -212,10 +231,16 @@ public class HttpManager {
 			//2确定请求方式 new UTF8PostMethod()解决中文乱码
 			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
-		if(!transferCode.equals("089016"))
+		if(!transferCode.equals("089021")){
 			 //每次访问需授权的网址时需带上前面的 cookie 作为通行证
-			postMethod.setRequestHeader("cookie", cookies);
+			postMethod.setRequestHeader("cookie", cookie);
+		}
 
+		/**
+		 * 设置cookie
+		 * */
+//		setCookie();
+		/**================================*/
 		try {
 			String req_json = new String(outBytes);
 			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
@@ -260,14 +285,21 @@ public class HttpManager {
 				Log.i("响应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
 			}
 			/*登录时拿到cookie值*/
-			if(transferCode.equals("089016")){
+			if(transferCode.equals("089021")){
+				Map<String,Object> map = new HashMap<String,Object>();
+				
 				//获得登陆后的 Cookie
 				Cookie[] cookies_ = httpClient.getState().getCookies();
-
 				for(Cookie c:cookies_){
-					cookies += c.toString()+";";
+					String[] str = null;
+					/**cookies所有拼接一块*/
+//					cookies += c.toString()+";";
+					str = c.toString().split("=");
+					map.put(c.getName(), c.getValue());
+//					Log.i("cookie:" , c.toString());
 				}
-				Log.i("cookies:" , cookies);
+				cookie = (String) map.get("uuid");
+				Log.i("UUID:" , cookie);
 			}else{
 
 			}

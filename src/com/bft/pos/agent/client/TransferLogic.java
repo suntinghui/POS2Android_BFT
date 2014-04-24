@@ -170,7 +170,9 @@ public class TransferLogic {
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
+		} else if("".equals(transferCode)){//重置支付密码
+			this.resetPayPwd(fieldMap);
+		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
 		} else if ("200001111".equals(transferCode)) { // 银行卡付款
@@ -194,6 +196,13 @@ public class TransferLogic {
 		} else {
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 		}
+	}
+	
+	/**
+	 * 重置支付密码
+	 */
+	private void resetPayPwd(HashMap<String, String> fieldMap){
+		
 	}
 
 	/**

@@ -572,7 +572,6 @@ public class TransferLogic {
 		}
 	}
 
-
 	/**
 	 * 找回密码 设置新密码
 	 */
@@ -582,6 +581,7 @@ public class TransferLogic {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance()
 						.gotoCommonSuccessActivity("设置新密码成功");
+
 			} else if ("0".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance().gotoCommonFaileActivity("设置新密码失败");
 			}
@@ -614,11 +614,12 @@ public class TransferLogic {
 	 * 验证码(生成图片)
 	 */
 	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
-//		String verifycode = fieldMap.get("verifyCode");
-//		Intent intent = new Intent(BaseActivity.getTopActivity().getIntent().getAction());
-//		 intent.putExtra("code", verifycode);
-//		 BaseActivity.getTopActivity().startActivity(intent);
-		 
+		// String verifycode = fieldMap.get("verifyCode");
+		// Intent intent = new
+		// Intent(BaseActivity.getTopActivity().getIntent().getAction());
+		// intent.putExtra("code", verifycode);
+		// BaseActivity.getTopActivity().startActivity(intent);
+
 		String verifycode = fieldMap.get("verifyCode");
 		System.out.println("获得的验证码是：" + verifycode);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),

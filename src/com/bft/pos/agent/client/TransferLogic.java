@@ -20,9 +20,11 @@ import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
+import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.ModifyLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
@@ -231,12 +233,13 @@ public class TransferLogic {
 				e.printStackTrace();
 			}
 			// 登陆成功，跳转到菜单界面
-			Intent intent0 = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent0);
+			Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
 		} else if ("01".equals(fieldMap.get("rtCd"))) {
-			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
+//			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
+			Toast.makeText(BaseActivity.getTopActivity(), "登陆失败",2).show();			
 		}
 	}
 
@@ -1243,10 +1246,10 @@ public class TransferLogic {
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-		// Intent intent = new Intent(BaseActivity.getTopActivity(),
-		// FailActivity.class);
-		// intent.putExtra("prompt", prompt);
-		// BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		 Intent intent = new Intent(BaseActivity.getTopActivity(),
+		 FailActivity.class);
+		 intent.putExtra("prompt", prompt);
+		 BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

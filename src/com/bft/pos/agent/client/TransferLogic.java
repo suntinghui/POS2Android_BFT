@@ -562,7 +562,7 @@ public class TransferLogic {
 				}
 				Intent intent = new Intent(BaseActivity.getTopActivity(),
 						ModifyLoginPwdActivity.class);
-				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
+//				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
 				if (Constant.PASS.equals("logpass")) {
 					intent.putExtra("b_flag", false);
 				} else {

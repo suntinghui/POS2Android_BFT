@@ -81,7 +81,6 @@ public class SplashActivity extends BaseActivity {
 //						LoginActivity.class);
 //				SplashActivity.this.startActivity(intent);
 //				SplashActivity.this.finish();
-
 			} else {// 检查网络
 				Intent intent = new Intent(SplashActivity.this,
 						LoginActivity.class);
@@ -100,7 +99,7 @@ public class SplashActivity extends BaseActivity {
 								Intent intent = new Intent(
 										Settings.ACTION_WIRELESS_SETTINGS);
 								startActivity(intent);
-
+				
 								finish();
 							}
 						});

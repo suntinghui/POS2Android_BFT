@@ -22,7 +22,7 @@ import android.util.Log;
 public class SecurityCodeUtil {
 
 	private static final int DEFAULT_CODE_LENGTH = 4;
-	private static final int DEFAULT_FONT_SIZE = 28;
+	private static final int DEFAULT_FONT_SIZE = 25;
 	private static final int DEFAULT_LINE_NUMBER = 3;
 	private static final int BASE_PADDING_LEFT = 5;
 	private static final int RANGE_PADDING_LEFT = 10;
@@ -30,6 +30,9 @@ public class SecurityCodeUtil {
 	private static final int RANGE_PADDING_TOP = 10;
 	private static final int DEFAULT_WIDTH = 100;
 	private static final int DEFAULT_HEIGHT = 39;
+	private static final int PADDING_LEFT = 7;
+	private static final int PADDING_TOP = 20;
+	
 
 	private static final char[] CHARS = { '0', '1', '2', '3', '4', '5', '6',
 		'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
@@ -51,7 +54,8 @@ public class SecurityCodeUtil {
 	private int fontSize = DEFAULT_FONT_SIZE;
 
 	private String code;
-	private int padding_left, padding_top;
+	private int padding_left = PADDING_LEFT;
+	private int padding_top = PADDING_TOP;
 	/**
 	 * 1：验证码生成为随机生成
 	 * 2：验证码生成为自定义字符串
@@ -81,21 +85,26 @@ public class SecurityCodeUtil {
 
 	/**生成图片验证码
 	 * @param captcha	字符验证码：
-	 * 	null:	自动生成验证码
-	 * 非null：	自定义验证码
+	 * captcha 	=	null:	自动生成验证码
+	 * captcha != 	null：	自定义验证码
 	 * @return
 	 */
 	public Bitmap createCodeBitmap(String captcha) {
-		padding_left = 5;
 		base_padding_left = width / codeLength;
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
-		code = createCode();
-		Log.i("code:", code);
+			
+//		Log.i("code:", code);
 		canvas.drawColor(Color.WHITE);
 		Paint paint = new Paint();
 		paint.setTextSize(fontSize);
 		paint.setColor(Color.BLUE);
+		if(captcha != null){
+			type = 2;
+		}else{
+			code = createCode();
+		}
+		
 		switch (type) {
 		case 1:
 			for (int i = 0; i < code.length(); i++) {

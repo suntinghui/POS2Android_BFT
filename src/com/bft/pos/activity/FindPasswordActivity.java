@@ -1,9 +1,8 @@
 package com.bft.pos.activity;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.HashMap;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -13,21 +12,19 @@ import android.widget.Button;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconView;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
 
 /**
  * 找回密码
- * 
- * @创建者 Fancong
  */
 public class FindPasswordActivity extends BaseActivity implements
 		OnClickListener {
 	private Button btn_back;// 返回
-	private Button btn_sms;// 获取短信验证码
-	private Button btn_confirm;// 下一步
-	private TextWithIconView et_phone;// 安全手机号
-	private TextWithIconView et_name;// 真实姓名
+	private Button btn_confirm;// 身份验证
+	private TextWithIconView et_phone_num;// 真实姓名
 	private TextWithIconView et_identy_card;// 身份证号
 
 	@Override
@@ -43,19 +40,14 @@ public class FindPasswordActivity extends BaseActivity implements
 	private void init() {
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
-		btn_sms = (Button) findViewById(R.id.btn_sms);
-		btn_sms.setOnClickListener(this);
 		btn_confirm = (Button) findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
-		et_phone = (TextWithIconView) this.findViewById(R.id.et_phone);
-		et_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-		et_phone.setHintString("手机号码");
-		et_phone.setIcon(R.drawable.icon_phone);
-		et_name = (TextWithIconView) this.findViewById(R.id.et_name);
+		et_phone_num = (TextWithIconView) this.findViewById(R.id.et_phone_num);
 		et_identy_card = (TextWithIconView) this
 				.findViewById(R.id.et_identy_card);
 		et_identy_card.setIcon(R.drawable.icon_idcard);
-		et_name.setHintString("真实姓名");
+		et_phone_num.setHintString("安全手机号");
+		et_phone_num.setInputType(InputType.TYPE_CLASS_NUMBER);
 		et_identy_card.setHintString("身份证");
 		et_identy_card.getEditText().setFilters(
 				new InputFilter[] { new InputFilter.LengthFilter(18) });
@@ -70,19 +62,9 @@ public class FindPasswordActivity extends BaseActivity implements
 		case R.id.btn_back:// 返回
 			finish();
 			break;
-		case R.id.btn_sms:// 获取短信验证码
-			if (et_phone.getText().length() == 0) {
-				FindPasswordActivity.this.showToast("手机号不能为空!");
-			} else {
-				FindPasswordActivity.this.showToast("短信已发送，请注意查收!");
-				actionGetSms();
-			}
-			break;
-		case R.id.btn_confirm:// 下一步
+		case R.id.btn_confirm:// 身份验证
 			if (checkValue()) {
-				Intent confirm = new Intent(FindPasswordActivity.this,
-						ModifyLoginPwdActivity.class);
-				startActivity(confirm);
+				actionNext();
 			}
 			break;
 		default:
@@ -91,24 +73,27 @@ public class FindPasswordActivity extends BaseActivity implements
 	}
 
 	/*
-	 * 获取验证码
+	 * 身份验证
 	 */
-	private void actionGetSms() {
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
-		String date = sDateFormat.format(new java.util.Date());
+	private void actionNext() {
+//		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+//				.edit();
+//		editor.commit();
+		Constant.PASS = "logpass";
 		try {
-			Event event = new Event(null, "getSms", null);
-			event.setTransfer("089006");
+			Event event = new Event(null, "checkInfo", null);
+			event.setTransfer("089002");
+			//获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", et_phone.getText().toString());
-			map.put("sendTime", date);
-			map.put("type", "0");
+			map.put("sctMobNo", et_phone_num.getText().toString());
+			map.put("pIdNo", et_identy_card.getText().toString());
 			event.setStaticActivityDataMap(map);
 			event.trigger();
-		} catch (Exception e) {
+		} catch (ViewException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -117,11 +102,7 @@ public class FindPasswordActivity extends BaseActivity implements
 	 * 判断输入框的输入内容
 	 */
 	private Boolean checkValue() {
-		if (et_phone.getText().length() == 0) {
-			this.showToast("手机号不能为空！");
-			return false;
-		}
-		if (et_name.getText().length() == 0) {
+		if (et_phone_num.getText().length() == 0) {
 			this.showToast("真实姓名不能为空！");
 			return false;
 		}

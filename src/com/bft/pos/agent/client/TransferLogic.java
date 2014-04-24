@@ -23,9 +23,8 @@ import android.util.Log;
 
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
-import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
-import com.bft.pos.activity.PhoneCode;
+import com.bft.pos.activity.ModifyLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -545,7 +544,35 @@ public class TransferLogic {
 	 * 找回密码 验证用户信息
 	 */
 	private void findPwdDone(HashMap<String, String> fieldMap) {
-
+		if (fieldMap.containsKey("respmsg")) {
+			if ("1".equals(fieldMap.get("respmsg"))) {
+				String jsonStr = fieldMap.get("apires");
+				HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
+				try {
+					JSONTokener parse = new JSONTokener(jsonStr);
+					JSONObject content = (JSONObject) parse.nextValue();
+					@SuppressWarnings("unchecked")
+					Iterator<String> keys = content.keys();
+					while (keys.hasNext()) {
+						String key = (String) keys.next();
+						receiveFieldMap.put(key, content.getString(key));
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				Intent intent = new Intent(BaseActivity.getTopActivity(),
+						ModifyLoginPwdActivity.class);
+				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
+				if (Constant.PASS.equals("logpass")) {
+					intent.putExtra("b_flag", false);
+				} else {
+					intent.putExtra("b_flag", true);
+				}
+				BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+			} else if ("0".equals(fieldMap.get("respmsg"))) {
+				TransferLogic.getInstance().gotoCommonFaileActivity("验证用户信息失败");
+			}
+		}
 	}
 
 	/**
@@ -590,11 +617,12 @@ public class TransferLogic {
 	 * 验证码(生成图片)
 	 */
 	private void getVerifyCodesDone(HashMap<String, String> fieldMap) {
-//		String verifycode = fieldMap.get("verifyCode");
-//		Intent intent = new Intent(BaseActivity.getTopActivity().getIntent().getAction());
-//		 intent.putExtra("code", verifycode);
-//		 BaseActivity.getTopActivity().startActivity(intent);
-		 
+		// String verifycode = fieldMap.get("verifyCode");
+		// Intent intent = new
+		// Intent(BaseActivity.getTopActivity().getIntent().getAction());
+		// intent.putExtra("code", verifycode);
+		// BaseActivity.getTopActivity().startActivity(intent);
+
 		String verifycode = fieldMap.get("verifyCode");
 		System.out.println("获得的验证码是：" + verifycode);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),

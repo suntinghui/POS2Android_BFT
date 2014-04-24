@@ -2,6 +2,7 @@ package com.bft.pos.activity.view;
 
 import com.bft.pos.R;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,6 +57,8 @@ public class LKScheduleDialog extends Dialog {
 		this.negativeButtonClickListener = listener;
 	}
 
+	@SuppressWarnings("deprecation")
+	@SuppressLint("WrongViewCast") 
 	public LKScheduleDialog create() {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// instantiate the dialog with the custom Theme

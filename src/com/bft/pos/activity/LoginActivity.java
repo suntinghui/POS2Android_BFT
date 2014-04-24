@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity {
 	private EditText inputverifyCode;
 	private ImageView verifyCode;
 	// 设置验证码内容的字符串
-	private String code = "AK47";
+	private String code = null;
 
 	private PasswordWithIconView et_pwd;
 	private ImageView rememberIV;
@@ -61,7 +61,6 @@ public class LoginActivity extends BaseActivity {
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");
-		// getverifycode();
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		code = bundle.getString("code");
@@ -70,14 +69,7 @@ public class LoginActivity extends BaseActivity {
 		verifyCode = (ImageView) findViewById(R.id.verifycode02);
 		verifyCode.setImageBitmap(SecurityCodeUtil.getInstance()
 				.createCodeBitmap(code));
-		verifyCode.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-					System.out.println("helloworld");
-					 getverifycode();
-			}
-		});
+		verifyCode.setOnClickListener(listener);
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
 		et_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pwd);
@@ -112,8 +104,9 @@ public class LoginActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
-
+//获取图片验证码的方法
 	private void getverifycode() {
+//		获取即时时间
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
@@ -135,7 +128,8 @@ public class LoginActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		
 	}
-	
+//	在manifest里标注 android:launchMode="singleTop"之后，再有Intent传来就必须走这里。
+//	算是一个比较另类的异步刷新，更新的只是局部，用户输入的内容都在。
 	@Override
 	protected void onNewIntent(Intent intent) {
 		String code01 = intent.getStringExtra("code");
@@ -213,6 +207,10 @@ public class LoginActivity extends BaseActivity {
 			}
 			case R.id.getPwdButton: {// 取回密码
 				getPwdAction();
+				break;
+			}
+			case R.id.verifycode02: {// 获取图片验证码
+				getverifycode();
 				break;
 			}
 			case R.id.registerButton: {// 注册

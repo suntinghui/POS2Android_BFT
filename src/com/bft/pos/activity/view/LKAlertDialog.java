@@ -2,7 +2,7 @@ package com.bft.pos.activity.view;
 
 
 import com.bft.pos.R;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -84,7 +84,7 @@ public class LKAlertDialog extends Dialog {
 		return this;
 	}
 
-	public LKAlertDialog create() {
+	@SuppressLint("WrongViewCast") public LKAlertDialog create() {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// instantiate the dialog with the custom Theme
 		View layout = inflater.inflate(R.layout.alert_dialog_layout, null);

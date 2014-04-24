@@ -393,8 +393,6 @@ public class LoginActivity extends BaseActivity {
 
 	/*
 	 * 注册
-	 * 
-	 * @Fancong
 	 */
 	private void registerAction() {
 		Intent register_intent = new Intent(LoginActivity.this,
@@ -404,8 +402,6 @@ public class LoginActivity extends BaseActivity {
 
 	/*
 	 * 找回密码
-	 * 
-	 * @Fancong
 	 */
 
 	private void getPwdAction() {

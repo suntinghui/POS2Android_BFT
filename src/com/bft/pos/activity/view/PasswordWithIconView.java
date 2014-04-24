@@ -97,7 +97,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 	}
 
 	// 对密码进行RSA加密
-	public void encryptPassword(String pwd) throws Exception {
+	public String encryptPassword(String pwd) throws Exception {
 		pwd = pwd + "FF";
 
 		// 公钥初始化
@@ -134,7 +134,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 			throw new Exception(this.getResources().getString(
 					R.string.noPublicKey));
 		}
-
+		return pwd;
 	}
 
 	// 取密码的MD5值

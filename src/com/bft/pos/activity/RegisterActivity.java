@@ -26,9 +26,7 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 
 /**
- * 注册界面
- * 
- * @创建者 Fancong
+ * 注册
  */
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, btn_ok;

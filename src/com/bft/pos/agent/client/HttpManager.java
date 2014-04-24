@@ -135,9 +135,6 @@ public class HttpManager {
 			} else {
 				//				httpClient = initHttp();
 				httpClient = initHttpClient();
-
-				//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
-				httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 			}
 		}
 
@@ -233,7 +230,7 @@ public class HttpManager {
 		}
 		if(!transferCode.equals("089021")){
 			 //每次访问需授权的网址时需带上前面的 cookie 作为通行证
-			postMethod.setRequestHeader("cookie", cookie);
+			postMethod.setRequestHeader("cookie2", cookie);
 		}
 
 		/**

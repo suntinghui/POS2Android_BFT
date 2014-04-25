@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 实名认证 -->
-<root shouldMac = "true" isJson = "true">
-	<field key="fieldTrancode" value="089020" />
-	
-	<field key="tel" value="__tel"  />
-	<field key="merchant_id" value="__merchant_id" />
-	<field key="img13" value="__img13"/>
-	<field key="img17" value="__img17"/>
-	<field key="img14" value="__img14"/>
-	<field key="img15" value="__img15"/>
-	<field key="macstr" value="tel,merchant_id" />
+<root
+    isJson="true"
+    shouldMac="false" >
+
+    <field
+        key="newidentifyMerchant"
+        value="089021" />
+
+    <field
+        key="psamNo"
+        value="__PsamNo" />
+
+    <field
+        key="pIdImg0"
+        value="__pIdImg0" />
+
+    <field
+        key="pIdImg1"
+        value="__pIdImg1" />
+
+    <field
+        key="bankNo"
+        value="123456789" />
+
+    <field
+        key="bkCardNo"
+        value="1234567890" />
+
+    <field
+        key="bkCardImg"
+        value="__bkCardImg" />
+
+    <field
+        key="mctName"
+        value="建行" />
+
+    <field
+        key="verifyCode"
+        value="1q2w3r" />
+
 </root>

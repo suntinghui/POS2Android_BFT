@@ -46,15 +46,12 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn_submit:
 			try {
 				Event event = new Event(null, "modify-bk", null);
-				event.setTransfer("089029");
+				event.setTransfer("089025");
 				String fsk = "Get_ExtPsamNo|null";
 				event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("name", "张三");// name
-				map.put("pIdNo", "140106198806070614");// 身份证号
-				map.put("oldBkCardNo", "001");// 原银行卡号
-				map.put("bankNo", "003");// 银行卡开户
-				map.put("bkCardNo", "002");// 银行卡号
+				map.put("money", et_account.getText().toString());
+				map.put("payPass", et_paypassword.getText().toString());
 				map.put("verifyCode", "123456");// 验证码
 				event.setStaticActivityDataMap(map);
 				event.trigger();

@@ -19,8 +19,6 @@ import com.bft.pos.dynamic.core.Event;
 
 /**
  * 重置支付密码
- * 
- * @创建者 Fancong
  */
 public class ResetPayPwdActivity extends BaseActivity implements
 		OnClickListener {

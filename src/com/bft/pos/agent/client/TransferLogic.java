@@ -20,10 +20,12 @@ import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
+import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.ModifyLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
@@ -66,7 +68,6 @@ public class TransferLogic {
 
 	// 动态机制通过此方法执行相应的逻辑。
 	public void transferAction(String transferCode, HashMap<String, String> map) {
-
 		Handler transferHandler = new Handler() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -175,7 +176,9 @@ public class TransferLogic {
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
+		} else if("".equals(transferCode)){//重置支付密码
+			this.resetPayPwd(fieldMap);
+		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
 		} else if ("200001111".equals(transferCode)) { // 银行卡付款
@@ -199,6 +202,13 @@ public class TransferLogic {
 		} else {
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 		}
+	}
+	
+	/**
+	 * 重置支付密码
+	 */
+	private void resetPayPwd(HashMap<String, String> fieldMap){
+		
 	}
 
 
@@ -236,12 +246,13 @@ public class TransferLogic {
 				e.printStackTrace();
 			}
 			// 登陆成功，跳转到菜单界面
-			Intent intent0 = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent0);
+			Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
 		} else if ("01".equals(fieldMap.get("rtCd"))) {
-			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
+//			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
+			Toast.makeText(BaseActivity.getTopActivity(), "登陆失败",2).show();			
 		}
 	}
 
@@ -567,7 +578,7 @@ public class TransferLogic {
 				}
 				Intent intent = new Intent(BaseActivity.getTopActivity(),
 						ModifyLoginPwdActivity.class);
-				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
+//				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
 				if (Constant.PASS.equals("logpass")) {
 					intent.putExtra("b_flag", false);
 				} else {
@@ -584,7 +595,6 @@ public class TransferLogic {
 	 * 找回密码 设置新密码
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
-
 		if (fieldMap.containsKey("respmsg")) {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance()
@@ -1255,10 +1265,10 @@ public class TransferLogic {
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-		// Intent intent = new Intent(BaseActivity.getTopActivity(),
-		// FailActivity.class);
-		// intent.putExtra("prompt", prompt);
-		// BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		 Intent intent = new Intent(BaseActivity.getTopActivity(),
+		 FailActivity.class);
+		 intent.putExtra("prompt", prompt);
+		 BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

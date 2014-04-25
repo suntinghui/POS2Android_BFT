@@ -1,6 +1,14 @@
 package com.bft.pos.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -9,17 +17,20 @@ import android.widget.EditText;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.core.Event;
 
 /**
  * 设置支付密码
- * 
- * @创建者 Fancong
  */
 public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, btn_confirm;
 	private PasswordWithIconView et_pay_pwd, et_pay_pwd_again;
 	private TextWithIconView et_id_card;
 	private EditText et_sms;
+	private int recLen = 10;
+	Timer timer = new Timer();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +65,107 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.btn_sms:
 			this.showToast("短信已发送，请注意查收!");
+			actionGetSms();
 			break;
 		case R.id.btn_confirm:
-
+			if (checkValue()) {
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("pIdNo", et_id_card.getText().toString());
+				map.put("payPass", et_pay_pwd_again.getEncryptPWD());
+				map.put("verifyCode", et_sms.getText().toString());
+				try {
+					Event event = new Event(null, "modifyPayPwd", null);
+					event.setTransfer("089017");
+					String fsk = "Get_ExtPsamNo|null";
+					event.setFsk(fsk);
+					event.setStaticActivityDataMap(map);
+					event.trigger();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			break;
 		default:
 			break;
 		}
+	}
+	
+	/*
+	 * 获取验证码
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private void actionGetSms() {
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		try {
+			Event event = new Event(null, "getSms", null);
+			event.setTransfer("089006");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("sendTime", date);
+			map.put("type", "0");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * 判断输入框的输入内容
+	 */
+	private Boolean checkValue() {
+		if (et_id_card.getText().length() == 0) {
+			this.showToast("身份证不能为空！");
+			return false;
+		}
+		if (et_pay_pwd.getText().length() == 0) {
+			this.showToast("密码不能为空！");
+			return false;
+		}
+		if (et_pay_pwd_again.getText().length() == 0) {
+			this.showToast("确认密码不能为空！");
+			return false;
+		}
+		if (!et_pay_pwd.getText().equals(et_pay_pwd_again.getText())) {
+			this.showToast("密码输入不一致，请重新输入！");
+			et_pay_pwd.setText("");
+			et_pay_pwd_again.setText("");
+			return false;
+		}
+		return true;
+	}
+	
+	@SuppressLint("HandlerLeak")
+	final Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				btn_sms.setText(String.format("请等待短信，%d秒", recLen));
+				if (recLen < 0) {
+					btn_sms.setText("获取短信校验码");
+					timer.cancel();
+				}
+			}
+		}
+	};
+
+	TimerTask task = new TimerTask() {
+		@Override
+		public void run() {
+			recLen--;
+			Message message = new Message();
+			message.what = 1;
+			handler.sendMessage(message);
+		}
+	};
+
+	public void refreshSMSBtn() {
+		timer.schedule(task, 1000, 1000); // timeTask
 	}
 }

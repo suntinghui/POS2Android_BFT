@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity {
 		loginButton = (Button) this.findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(listener);
 
-//		getVersion();
+		// getVersion();
 	}
 
 	private void getVersion() {
@@ -104,9 +104,10 @@ public class LoginActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
-//获取图片验证码的方法
+
+	// 获取图片验证码的方法
 	private void getverifycode() {
-//		获取即时时间
+		// 获取即时时间
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
@@ -126,10 +127,11 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+
 	}
-//	在manifest里标注 android:launchMode="singleTop"之后，再有Intent传来就必须走这里。
-//	算是一个比较另类的异步刷新，更新的只是局部，用户输入的内容都在。
+
+	// 在manifest里标注 android:launchMode="singleTop"之后，再有Intent传来就必须走这里。
+	// 算是一个比较另类的异步刷新，更新的只是局部，用户输入的内容都在。
 	@Override
 	protected void onNewIntent(Intent intent) {
 		String code01 = intent.getStringExtra("code");
@@ -137,7 +139,7 @@ public class LoginActivity extends BaseActivity {
 				.createCodeBitmap(code01));
 		System.out.println("new intent");
 	}
-	
+
 	public void showAlertView(Integer version, String url) {
 		this.url = url;
 		String appVersion = "";
@@ -250,10 +252,10 @@ public class LoginActivity extends BaseActivity {
 					if (firstLogin) {
 						ed.putBoolean("firstLogin", false);
 					} else {
-						loginAction();
-					}
-					ed.commit();
-				}
+				loginAction();
+				 }
+				 ed.commit();
+				 }
 				break;
 			}
 			}
@@ -306,33 +308,8 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		// Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
-		// startActivity(intent);
-		// if (checkValue()) {
-		//
-		// Editor editor = ApplicationEnvironment.getInstance()
-		// .getPreferences().edit();
-		// editor.putBoolean(Constant.kISREMEBER, isRemember);
-		// Log.i("phone:", userNameET.getText().toString());
-		// Log.i("phone:", et_pwd.getText().toString());
-		// editor.putString(Constant.PHONENUM, userNameET.getText().toString());
-		// userNameET.getText().toString();
-		// editor.commit();
-		// try {
-		// Event event = new Event(null, "login", null);
-		// event.setTransfer("089016");
-		// String fsk = "Get_ExtPsamNo|null";
-		// event.setFsk(fsk);
-		// HashMap<String, String> map = new HashMap<String, String>();
-		// map.put("login", userNameET.getText().toString());
-		// map.put("lgnPass", et_pwd.getText().toString());
-		// map.put("verifyCode", "qwe123");
-		// event.setStaticActivityDataMap(map);
-		// event.trigger();
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
+//		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
+//		startActivity(intent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
@@ -357,28 +334,7 @@ public class LoginActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-		// .edit();
-		// editor.putBoolean(Constant.kISREMEBER, isRemember);
-		// editor.putString(Constant.PHONENUM, userNameET.getText().toString());// userNameET.getText().toString()
-		// editor.commit();
-		// try {
-		// Event event = new Event(null, "login", null);
-		// event.setTransfer("089016");
-		// String fsk = "Get_ExtPsamNo|null";
-		// event.setFsk(fsk);
-		// HashMap<String, String> map = new HashMap<String, String>();
-		// map.put("login", userNameET.getText().toString());
-		// String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
-		// .getText().toString().toUpperCase() + et_pwd.getText())
-		// + "www.payfortune.com");
-		// map.put("lgnPass", pwd);
-		// map.put("verifyCode", "qwe123");
-		// event.setStaticActivityDataMap(map);
-		// event.trigger();
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
+
 	}
 
 	// if(checkValue()){
@@ -407,6 +363,5 @@ public class LoginActivity extends BaseActivity {
 				FindPasswordActivity.class);
 		startActivity(getpwd_intent);
 	}
-
 
 }

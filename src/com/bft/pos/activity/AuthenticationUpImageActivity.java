@@ -207,12 +207,10 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			showDialog();
 			// actionCamera();
 			break;
-
 		case R.id.iv_2:
 			current_index = 2;
 			showDialog();
 			break;
-
 		case R.id.iv_3:
 			current_index = 3;
 			showDialog();
@@ -446,8 +444,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		// default:
 		// break;
 		// }
-		//
-		// }
 	}
 
 	private void setImageToView(Intent data) {
@@ -477,7 +473,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	}
 
 	class BankAdapter implements OnItemSelectedListener {
-
 		/**
 		 * (non-Javadoc)
 		 * 
@@ -567,9 +562,9 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	}
 
 	public void showDialog() {
-		new AlertDialog.Builder(this).setTitle("设置图片")
+		new AlertDialog.Builder(this)
+				.setTitle("设置图片")
 				.setItems(items, new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						switch (which) {
@@ -611,14 +606,12 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 						}
 					}
 				})
-
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
 				}).show();
-
 	}
 
 	public String getPhotoPath(Uri uri) {

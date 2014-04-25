@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 重置支付密码 -->
+<root shouldMac = "false" isJson = "true">
+	<field key="fieldTrancode" value="089023" />
+	
+	<field key="payPass" value="__payPass"  />
+	<field key="pIdNo" value="__pIdNo"/>
+	<field key="bkCardNo" value="__bkCardNo" />
+	<field key="verifyCode" value="__verifyCode"/>
+	<field key="psamNo" value="__PSAMNO" />
+</root>

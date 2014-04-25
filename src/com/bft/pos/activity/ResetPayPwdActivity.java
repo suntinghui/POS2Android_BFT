@@ -78,11 +78,29 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			break;
 		case R.id.btn_ok:
 			if(checkValue()){
-				
+				actionResertPwd();
 			}
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void actionResertPwd(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("payPass", et_new_pwd.getEncryptPWD());
+		map.put("pIdNo", et_id_card.getText().toString());
+		map.put("bkCardNo", et_bank_card.getText().toString());
+		map.put("verifyCode", et_sms.getText().toString());
+		try {
+			Event event = new Event(null, "modifyPayPwd", null);
+			event.setTransfer("089023");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

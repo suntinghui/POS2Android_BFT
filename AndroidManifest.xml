@@ -445,6 +445,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.QBTransferDetail" >
         </activity>
+        <activity android:name="com.bft.pos.activity.QBPwd" >
+        </activity>
     </application>
 
 </manifest>

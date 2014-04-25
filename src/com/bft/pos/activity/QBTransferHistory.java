@@ -231,14 +231,16 @@ public class QBTransferHistory extends MenuBaseActivity implements
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.btn_back:
+			Intent intent = new Intent(QBTransferHistory.this,CatalogActivity.class);
+			this.startActivity(intent);
 			this.finish();
 			break;
 		case R.id.moreButton:
 			loadMoreData();
 			break;
 		case R.id.btn_history:
-			Intent intent = new Intent(this, QBTransferTimer.class);
-			this.startActivity(intent);
+			Intent intent1 = new Intent(this, QBTransferTimer.class);
+			this.startActivity(intent1);
 			break;
 		default:
 			break;

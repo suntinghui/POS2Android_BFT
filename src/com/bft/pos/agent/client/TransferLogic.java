@@ -26,7 +26,7 @@ import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
-import com.bft.pos.activity.ModifyLoginPwdActivity;
+import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -572,7 +572,7 @@ public class TransferLogic {
 					e.printStackTrace();
 				}
 				Intent intent = new Intent(BaseActivity.getTopActivity(),
-						ModifyLoginPwdActivity.class);
+						SetNewLoginPwdActivity.class);
 //				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
 				if (Constant.PASS.equals("logpass")) {
 					intent.putExtra("b_flag", false);

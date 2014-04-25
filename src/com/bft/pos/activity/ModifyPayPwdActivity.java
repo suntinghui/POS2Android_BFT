@@ -23,7 +23,7 @@ import com.bft.pos.dynamic.core.Event;
 /**
  * 修改支付密码
  */
-public class ModifyPaymentPwdActivity extends BaseActivity implements
+public class ModifyPayPwdActivity extends BaseActivity implements
 		OnClickListener {
 	private PasswordWithIconView et_pwd_old;
 	private PasswordWithIconView et_pwd_new;
@@ -70,7 +70,7 @@ public class ModifyPaymentPwdActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_sms:
-			ModifyPaymentPwdActivity.this.showToast("短信已发送，请注意查收!");
+			ModifyPayPwdActivity.this.showToast("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		case R.id.btn_confirm:

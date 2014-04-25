@@ -27,7 +27,7 @@ public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClic
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
-		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm02);
 		btn_confirm.setOnClickListener(this);
 		
 		tv_balance = (TextView) this.findViewById(R.id.tv_balance);
@@ -48,7 +48,7 @@ public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClic
 			Intent intent = new Intent(ASBalanceSuccessActivity.this,ASBalancePwdActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.btn_confirm:
+		case R.id.btn_confirm02:
 			this.setResult(RESULT_OK);
 			Intent intent1 = new Intent(ASBalanceSuccessActivity.this,CatalogActivity.class);
 			startActivity(intent1);

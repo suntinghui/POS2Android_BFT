@@ -22,6 +22,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
@@ -141,6 +142,9 @@ public class TransferLogic {
 
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
+			
+		} else if ("089027".equals(transferCode)) { // 账户余额查询
+			this.getbalanceDone(fieldMap);
 
 		} else if ("089003".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
@@ -206,6 +210,7 @@ public class TransferLogic {
 	private void resetPayPwd(HashMap<String, String> fieldMap){
 		
 	}
+
 
 	/**
 	 * 登陆
@@ -641,6 +646,13 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
+	private void getbalanceDone(HashMap<String, String> fieldMap) {
+		System.out.println("账户余额获取");
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				ASBalanceSuccessActivity.class);
+		BaseActivity.getTopActivity().startActivity(intent);
+	}
+	
 	/**
 	 * 获取提款银行账号
 	 */

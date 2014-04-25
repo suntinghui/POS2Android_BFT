@@ -4,5 +4,5 @@
 	<field key="fieldTrancode" value="089027" />
 	
 	<field key="login" value="__login"  />
-	<field key="psamNo" value="44294568" />
+	<field key="payPass" value="__payPass"  />
 </root>

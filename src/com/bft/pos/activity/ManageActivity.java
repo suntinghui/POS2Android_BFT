@@ -71,7 +71,7 @@ public class ManageActivity extends MenuBaseActivity {
 					break;
 				case 3:
 					Intent intent = new Intent(ManageActivity.this,
-							ModifyPaymentPwdActivity.class);
+							ModifyPayPwdActivity.class);
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;

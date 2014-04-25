@@ -187,7 +187,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/img_btn"
+                android:background="@drawable/input_login"
                 android:hint="银行卡号"
                 android:inputType="number"
                 android:paddingLeft="8dip" />
@@ -232,7 +232,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/input_bg"
+                android:background="@drawable/input_login"
                 android:hint="商户名"
                 android:inputType="number"
                 android:paddingLeft="8dip" />
@@ -267,16 +267,16 @@
 
             <Button
                 android:id="@+id/bt_confirm"
-                style="@style/black_15"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:layout_alignParentRight="true"
-                 android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/blue_btn"
-                android:text="上传" >
-            </Button>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/button_bg"
+                android:text="上   传"
+                android:textColor="@color/black"
+                android:textSize="18dip" />
         </LinearLayout>
     </ScrollView>
 

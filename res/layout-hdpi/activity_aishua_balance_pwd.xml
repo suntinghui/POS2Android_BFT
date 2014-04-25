@@ -47,7 +47,7 @@
         <!-- begin 20121206 xxm update margin属性 -->
 
         <Button
-            android:id="@+id/btn_confirm"
+            android:id="@+id/btn_confirm01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

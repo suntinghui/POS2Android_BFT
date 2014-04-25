@@ -54,6 +54,13 @@ public class BaseActivity extends Activity {
 	// for countUp
 	private String transferCode = null;
 	private CountUpTask countUpTask = null;
+	
+	/**
+	 * 初始化控件
+	 */
+	public void initControl(){
+		
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

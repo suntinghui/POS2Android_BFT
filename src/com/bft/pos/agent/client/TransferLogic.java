@@ -22,11 +22,12 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
-import com.bft.pos.activity.ModifyLoginPwdActivity;
+import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -141,6 +142,9 @@ public class TransferLogic {
 
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
+			
+		} else if ("089027".equals(transferCode)) { // 账户余额查询
+			this.getbalanceDone(fieldMap);
 
 		} else if ("089003".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
@@ -172,7 +176,7 @@ public class TransferLogic {
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		} else if("".equals(transferCode)){//重置支付密码
+		} else if("089023".equals(transferCode)){//重置支付密码
 			this.resetPayPwd(fieldMap);
 		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
@@ -204,8 +208,20 @@ public class TransferLogic {
 	 * 重置支付密码
 	 */
 	private void resetPayPwd(HashMap<String, String> fieldMap){
-		
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"重置支付密码成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"重置支付密码失败":desc;
+			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
+		}
 	}
+
 
 	/**
 	 * 登陆
@@ -213,9 +229,10 @@ public class TransferLogic {
 	@SuppressWarnings("unchecked")
 	@SuppressLint("CommitPrefEdits")
 	private void loginDone(HashMap<String, String> fieldMap) {
+		String desc = null;
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
-		if ("00".equals(fieldMap.get("rtCd"))) {
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 
 			String jsonStr = fieldMap.get("apires");
 			HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
@@ -245,9 +262,11 @@ public class TransferLogic {
 			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
-		} else if ("01".equals(fieldMap.get("rtCd"))) {
-//			TransferLogic.getInstance().gotoCommonFaileActivity("登录失败");
-			Toast.makeText(BaseActivity.getTopActivity(), "登陆失败",2).show();			
+		} else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"登陆失败":desc;
+			Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();			
 		}
 	}
 
@@ -572,7 +591,7 @@ public class TransferLogic {
 					e.printStackTrace();
 				}
 				Intent intent = new Intent(BaseActivity.getTopActivity(),
-						ModifyLoginPwdActivity.class);
+						SetNewLoginPwdActivity.class);
 //				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
 				if (Constant.PASS.equals("logpass")) {
 					intent.putExtra("b_flag", false);
@@ -641,6 +660,13 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
+	private void getbalanceDone(HashMap<String, String> fieldMap) {
+		System.out.println("账户余额获取");
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				ASBalanceSuccessActivity.class);
+		BaseActivity.getTopActivity().startActivity(intent);
+	}
+	
 	/**
 	 * 获取提款银行账号
 	 */

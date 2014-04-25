@@ -37,13 +37,11 @@ public class ModifyPaymentPwdActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_pay_pwd);
-		init();
+		initControl();
 	}
 
-	/*
-	 * 初始化控件
-	 */
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);// 获取验证码

@@ -16,18 +16,19 @@ import android.widget.EditText;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
-import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 
 /**
- * 设置支付密码
+ * 修改支付密码
  */
-public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
+public class ModifyPayPwdActivity extends BaseActivity implements
+		OnClickListener {
+	private PasswordWithIconView et_pwd_old;
+	private PasswordWithIconView et_pwd_new;
+	private PasswordWithIconView et_pwd_confirm;
 	private Button btn_back, btn_sms, btn_confirm;
-	private PasswordWithIconView et_pay_pwd, et_pay_pwd_again;
-	private TextWithIconView et_id_card;
 	private EditText et_sms;
 	private int recLen = 10;
 	Timer timer = new Timer();
@@ -35,29 +36,33 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_pay_pwd);
-		initControl();
+		setContentView(R.layout.activity_modify_pay_pwd);
+		init();
 	}
 
-	@Override
-	public void initControl() {
-		btn_back = (Button) this.findViewById(R.id.btn_back);
+	/*
+	 * 初始化控件
+	 */
+	private void init() {
+		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
 		btn_back.setOnClickListener(this);
-		btn_sms = (Button) this.findViewById(R.id.btn_sms);
+		btn_sms = (Button) this.findViewById(R.id.btn_sms);// 获取验证码
 		btn_sms.setOnClickListener(this);
-		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);// 确定
 		btn_confirm.setOnClickListener(this);
-		et_id_card = (TextWithIconView) this.findViewById(R.id.et_id_card);
-		et_id_card.setIcon(R.drawable.icon_login_1);
-		et_id_card.setHintString("身份证号码");
-		et_pay_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pay_pwd);
-		et_pay_pwd.setIconAndHint(R.drawable.icon_pwd, "请输入支付密码");
-		et_pay_pwd_again = (PasswordWithIconView) this
-				.findViewById(R.id.et_pay_pwd_again);
-		et_pay_pwd_again.setIconAndHint(R.drawable.icon_pwd, "请再次输入支付密码");
-		et_sms = (EditText) this.findViewById(R.id.et_sms);
+		et_pwd_old = (PasswordWithIconView) this.findViewById(R.id.et_pwd_old);// 原支付密码
+		et_pwd_old.setIconAndHint(R.drawable.icon_pwd, "原支付密码");
+		et_pwd_new = (PasswordWithIconView) this.findViewById(R.id.et_pwd_new);// 新支付密码
+		et_pwd_new.setIconAndHint(R.drawable.icon_pwd, "新支付密码");
+		et_pwd_confirm = (PasswordWithIconView) this
+				.findViewById(R.id.et_pwd_confirm);// 确认支付密码
+		et_pwd_confirm.setIconAndHint(R.drawable.icon_pwd, "确认支付密码");
+		et_sms = (EditText) this.findViewById(R.id.et_sms);// 短信校验码
 	}
 
+	/*
+	 * 按钮监听事件
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -65,20 +70,21 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.btn_sms:
-			this.showToast("短信已发送，请注意查收!");
+			ModifyPayPwdActivity.this.showToast("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("pIdNo", et_id_card.getText().toString());
-				map.put("payPass", et_pay_pwd_again.getEncryptPWD());
+				map.put("oldPass", et_pwd_old.getEncryptPWD());
+				map.put("newPass", et_pwd_new.getEncryptPWD());
 				map.put("verifyCode", et_sms.getText().toString());
+				map.put("type", "2");
+//				map.put("tel", ApplicationEnvironment.getInstance()
+//						.getPreferences().getString(Constant.PHONENUM, ""));
 				try {
 					Event event = new Event(null, "modifyPayPwd", null);
-					event.setTransfer("089017");
-					String fsk = "Get_ExtPsamNo|null";
-					event.setFsk(fsk);
+					event.setTransfer("089003");
 					event.setStaticActivityDataMap(map);
 					event.trigger();
 				} catch (Exception e) {
@@ -90,7 +96,32 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-	
+
+	/*
+	 * 判断输入框的输入内容
+	 */
+	private Boolean checkValue() {
+		if (et_pwd_old.getText().length() == 0) {
+			this.showToast("原密码不能为空！");
+			return false;
+		}
+		if (et_pwd_new.getText().length() == 0) {
+			this.showToast("新密码不能为空！");
+			return false;
+		}
+		if (et_pwd_confirm.getText().length() == 0) {
+			this.showToast("确认密码不能为空！");
+			return false;
+		}
+		if (!et_pwd_new.getText().equals(et_pwd_confirm.getText())) {
+			this.showToast("密码输入不一致，请重新输入！");
+			et_pwd_new.setText("");
+			et_pwd_confirm.setText("");
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * 获取验证码
 	 */
@@ -115,32 +146,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
-	
-	/*
-	 * 判断输入框的输入内容
-	 */
-	private Boolean checkValue() {
-		if (et_id_card.getText().length() == 0) {
-			this.showToast("身份证不能为空！");
-			return false;
-		}
-		if (et_pay_pwd.getText().length() == 0) {
-			this.showToast("密码不能为空！");
-			return false;
-		}
-		if (et_pay_pwd_again.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
-			return false;
-		}
-		if (!et_pay_pwd.getText().equals(et_pay_pwd_again.getText())) {
-			this.showToast("密码输入不一致，请重新输入！");
-			et_pay_pwd.setText("");
-			et_pay_pwd_again.setText("");
-			return false;
-		}
-		return true;
-	}
-	
+
 	@SuppressLint("HandlerLeak")
 	final Handler handler = new Handler() {
 		@Override

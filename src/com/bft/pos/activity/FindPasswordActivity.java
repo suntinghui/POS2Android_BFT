@@ -33,13 +33,11 @@ public class FindPasswordActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_password);
-		init();
+		initControl();
 	}
 
-	/*
-	 * 初始化控件
-	 */
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_confirm = (Button) findViewById(R.id.btn_confirm);

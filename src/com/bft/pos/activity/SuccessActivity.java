@@ -17,10 +17,11 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_success);
-		init();
+		initControl();
 	}
 
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);

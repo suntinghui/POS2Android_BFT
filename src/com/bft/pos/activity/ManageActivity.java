@@ -29,9 +29,9 @@ public class ManageActivity extends MenuBaseActivity {
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_2_n,
 			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n,
-			R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n};
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号", "提现" };
+	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号", "提现", "重置支付密码"};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,12 @@ public class ManageActivity extends MenuBaseActivity {
 							ShowMoneyActivity.class);
 					intent5.putExtra("TAG", arg2);
 					startActivity(intent5);
+					break;
+				case 6:
+					Intent intent6 = new Intent(ManageActivity.this,
+							ResetPayPwdActivity.class);
+					intent6.putExtra("TAG", arg2);
+					startActivity(intent6);
 					break;
 				default:
 					break;

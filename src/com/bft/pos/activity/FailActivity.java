@@ -16,10 +16,11 @@ public class FailActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fail);
-		init();
+		initControl();
 	}
 	
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back=(Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 		btn_confirm=(Button) this.findViewById(R.id.btn_confirm);

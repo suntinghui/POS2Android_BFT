@@ -32,10 +32,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reset_pay_pwd);
-		init();
+		initControl();
 	}
 
-	private void init() {
+	@Override
+	public void initControl() {
 		// 返回
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);

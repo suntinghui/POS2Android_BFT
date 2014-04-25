@@ -36,10 +36,11 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_set_pay_pwd);
-		init();
+		initControl();
 	}
 
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);

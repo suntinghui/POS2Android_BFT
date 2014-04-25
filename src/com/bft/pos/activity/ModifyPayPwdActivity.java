@@ -79,7 +79,7 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 				map.put("oldPass", et_pwd_old.getEncryptPWD());
 				map.put("newPass", et_pwd_new.getEncryptPWD());
 				map.put("verifyCode", et_sms.getText().toString());
-				map.put("type", "1");
+				map.put("type", "2");
 //				map.put("tel", ApplicationEnvironment.getInstance()
 //						.getPreferences().getString(Constant.PHONENUM, ""));
 				try {

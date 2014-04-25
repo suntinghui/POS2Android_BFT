@@ -9,8 +9,6 @@ import android.widget.Button;
 
 /**
  * 成功
- * 
- * @创建者 Fancong
  */
 public class SuccessActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_confirm;

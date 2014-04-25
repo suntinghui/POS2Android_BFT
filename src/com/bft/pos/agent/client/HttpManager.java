@@ -252,6 +252,10 @@ public class HttpManager {
 
 			if(parts != null){
 				/**=====带附件========*/
+				for(Part str:parts){
+					
+					Log.i("parts:", parts.toString());
+				}
 				parts[parts.length] = new StringPart("common",req_json , Constant.ENCODING_JSON);
 				//4 构建实体
 				MultipartRequestEntity entity = new MultipartRequestEntity(parts, postMethod.getParams());

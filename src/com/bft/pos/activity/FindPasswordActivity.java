@@ -3,6 +3,7 @@ package com.bft.pos.activity;
 import java.io.IOException;
 import java.util.HashMap;
 
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.widget.Button;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
@@ -76,9 +78,9 @@ public class FindPasswordActivity extends BaseActivity implements
 	 * 身份验证
 	 */
 	private void actionNext() {
-//		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
-//				.edit();
-//		editor.commit();
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
+				.edit();
+		editor.commit();
 		Constant.PASS = "logpass";
 		try {
 			Event event = new Event(null, "checkInfo", null);

@@ -93,17 +93,17 @@ public class SecurityCodeUtil {
 		base_padding_left = width / codeLength;
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
-			
-//		Log.i("code:", code);
+		code = createCode();
+		Log.i("code:", code);
 		canvas.drawColor(Color.WHITE);
+		/**字体的样式style*/
 		Paint paint = new Paint();
+		//设置字体大小
 		paint.setTextSize(fontSize);
+//		设置字体颜色
 		paint.setColor(Color.BLUE);
-		if(captcha != null){
+		if(captcha != null)
 			type = 2;
-		}else{
-			code = createCode();
-		}
 		
 		switch (type) {
 		case 1:
@@ -116,6 +116,13 @@ public class SecurityCodeUtil {
 			break;
 		case 2:
 				randomTextStyle(paint);
+				/**字体在整个图片中的位置坐标
+				 * 参数
+				 * 1：字符验证码
+				 * 2：x坐标左右填充
+				 * 3：y坐标上下填充
+				 * 4：字体的一个样式 style
+				 * */
 				canvas.drawText(captcha, padding_left,
 						base_padding_top + range_padding_top, paint);
 			break;

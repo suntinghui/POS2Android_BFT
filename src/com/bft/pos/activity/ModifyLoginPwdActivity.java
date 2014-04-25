@@ -33,7 +33,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_login_pwd);
 		init();
-		//身份验证后直接收取到一个短信验证码
+		// 身份验证后直接收取到一个短信验证码
 		actionGetSms();
 	}
 
@@ -113,7 +113,8 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			map.put("type", type);
 			map.put("tel", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
-			map.put(Constant.PASS, iconView.encryptPassword(et_pwd_confirm.getText().toString()));
+			String pwd = et_pwd_confirm.getEncryptPWD();
+			map.put("logpass", pwd);
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

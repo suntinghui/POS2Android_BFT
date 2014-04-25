@@ -68,16 +68,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.btn_sms:
-			if (ApplicationEnvironment.getInstance().getPreferences()
-					.getString(Constant.PHONENUM, "").length() == 0) {
-				ResetPayPwdActivity.this.showToast("手机号不能为空!");
-			} else {
-				ResetPayPwdActivity.this.showToast("短信已发送，请注意查收!");
-				actionGetSms();
-			}
+			ResetPayPwdActivity.this.showToast("短信已发送，请注意查收!");
+			actionGetSms();
 			break;
 		case R.id.btn_ok:
-			if(checkValue()){
+			if (checkValue()) {
 				actionResertPwd();
 			}
 			break;
@@ -85,8 +80,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	private void actionResertPwd(){
+
+	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("payPass", et_new_pwd.getEncryptPWD());
 		map.put("pIdNo", et_id_card.getText().toString());
@@ -103,7 +98,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * 获取验证码
 	 */
@@ -118,8 +113,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo",ApplicationEnvironment.getInstance().getPreferences()
-					.getString(Constant.PHONENUM, ""));
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
@@ -128,7 +123,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * 输入框不能为空
 	 */

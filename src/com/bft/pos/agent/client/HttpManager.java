@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
@@ -23,6 +24,7 @@ import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
 	private static String cookie			= null;
+	
 
 	private static boolean isHttpsFlag				= false;
 	/**
@@ -281,6 +283,13 @@ public class HttpManager {
 			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
 			if(status == HttpStatus.SC_OK){
 				bArray = postMethod.getResponseBody();
+				if(postMethod.getRequestHeaders() != null){
+					Constant.HEADER_MAP = new HashMap<String, Object>();
+					for(Header head:postMethod.getResponseHeaders()){
+						if(!head.getName().equals("Content-Type")&&!head.getName().equals("Set-Cookie"))
+							Constant.HEADER_MAP.put(head.getName(), head.getValue());
+					}
+				}
 				// 记录下行流量
 				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
 				Log.i("响应报文====》\t", new String(bArray,Constant.ENCODING_JSON));

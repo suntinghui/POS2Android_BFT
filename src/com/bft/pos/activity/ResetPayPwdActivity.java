@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 
 /**
  * 重置支付密码
@@ -68,8 +70,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.btn_sms:
-			if (ApplicationEnvironment.getInstance().getPreferences()
-					.getString(Constant.PHONENUM, "").length() == 0) {
+			if (ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, "").length() == 0) {
 				ResetPayPwdActivity.this.showToast("手机号不能为空!");
 			} else {
 				ResetPayPwdActivity.this.showToast("短信已发送，请注意查收!");
@@ -88,7 +89,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 	
 	private void actionResertPwd(){
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("payPass", et_new_pwd.getEncryptPWD());
+	Log.i("payPass:", Constant.PUBLICKEY);
+		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY, (et_new_pwd.getText().toString()+"FF").getBytes(),1);
+		Log.i("pwd:", et_new_pwd.getText().toString());
+		Log.i("payPass2:", payPass);
+		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());
 		map.put("verifyCode", et_sms.getText().toString());

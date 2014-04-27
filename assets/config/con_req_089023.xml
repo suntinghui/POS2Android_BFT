@@ -7,5 +7,6 @@
 	<field key="pIdNo" value="__pIdNo"/>
 	<field key="bkCardNo" value="__bkCardNo" />
 	<field key="verifyCode" value="__verifyCode"/>
-	<field key="psamNo" value="__PSAMNO" />
+	<!-- <field key="psamNo" value="__PSAMNO" /> -->
+	<field key="psamNo" value="44294568" />
 </root>

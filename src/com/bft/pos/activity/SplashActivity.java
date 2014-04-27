@@ -77,6 +77,7 @@ public class SplashActivity extends BaseActivity {
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
 				getverifycode();
+				
 //				Intent intent = new Intent(SplashActivity.this,
 //						LoginActivity.class);
 //				SplashActivity.this.startActivity(intent);

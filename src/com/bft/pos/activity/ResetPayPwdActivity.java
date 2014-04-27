@@ -78,7 +78,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_ok:
-			if(checkValue()){
+			if (checkValue()) {
 				actionResertPwd();
 			}
 			break;
@@ -86,8 +86,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	private void actionResertPwd(){
+
+	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
 	Log.i("payPass:", Constant.PUBLICKEY);
 		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY, (et_new_pwd.getText().toString()+"FF").getBytes(),1);
@@ -108,7 +108,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * 获取验证码
 	 */
@@ -123,8 +123,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo",ApplicationEnvironment.getInstance().getPreferences()
-					.getString(Constant.PHONENUM, ""));
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
@@ -133,7 +133,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * 输入框不能为空
 	 */

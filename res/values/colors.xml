@@ -11,5 +11,6 @@
     <color name="clear">#00000000</color>
     <color name="green">#33FF99</color>
     <color name="lightblack">#ff202020</color>
+    <color name="instructions">#828282</color>
 
 </resources>

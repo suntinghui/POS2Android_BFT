@@ -65,23 +65,19 @@ public class InstructionsForUseView extends LinearLayout {
 						return parser.getAttributeValue(null, "value").replace(
 								"/n", "\n");
 					}
-
 					break;
 				}
 				eventType = parser.next();// 进入下一个元素并触发相应事件
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 		}
-
 		return "";
 	}
 
 	public TextView getInstructionsText() {
 		return instructionsText;
 	}
-
 }

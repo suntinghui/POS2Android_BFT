@@ -78,7 +78,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		try {
 //			String type = "0";
 			Event event = new Event(null, "getPassword", null);
-			event.setTransfer("089015");
+			event.setTransfer("089032");
 			//获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);

@@ -5,12 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -105,9 +101,6 @@ public class TransferLogic {
 		} else if ("089000".equals(transferCode)) { // 交易流水
 			this.QueryTransListDone(fieldMap);
 
-		} else if ("089002".equals(transferCode)) { // 找回密码 验证用户信息
-			this.findPwdDone(fieldMap);
-
 		} else if ("089001".equals(transferCode)) { // 注册
 			this.registrDone(fieldMap);
 
@@ -129,9 +122,6 @@ public class TransferLogic {
 
 		} else if ("089013".equals(transferCode)) { // 获取商户注册信息
 			this.getMerchantInfoDone(fieldMap);
-
-		} else if ("089015".equals(transferCode)) { // 设置新密码 登录
-			this.getSetNewPwdDone(fieldMap);
 
 		} else if ("089017".equals(transferCode)) { // 设置新密码 支付
 			this.getSetNewPwdDone(fieldMap);
@@ -183,6 +173,12 @@ public class TransferLogic {
 
 		} else if("089023".equals(transferCode)){//重置支付密码
 			this.resetPayPwdDone(fieldMap);
+			
+		} else if ("089031".equals(transferCode)) { // 找回密码 验证用户信息
+			this.findPwdDone(fieldMap);
+			
+		} else if ("089032".equals(transferCode)) { // 设置新密码 登录
+			this.getSetNewPwdDone(fieldMap);
 			
 		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));

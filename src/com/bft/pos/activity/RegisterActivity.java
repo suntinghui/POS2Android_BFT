@@ -47,6 +47,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.activity_register);
 		initControl();
 	}
+
 	@Override
 	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回

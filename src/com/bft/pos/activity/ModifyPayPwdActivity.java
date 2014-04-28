@@ -37,13 +37,11 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_pay_pwd);
-		init();
+		initControl();
 	}
 
-	/*
-	 * 初始化控件
-	 */
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);// 获取验证码
@@ -79,7 +77,7 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 				map.put("oldPass", et_pwd_old.getEncryptPWD());
 				map.put("newPass", et_pwd_new.getEncryptPWD());
 				map.put("verifyCode", et_sms.getText().toString());
-				map.put("type", "2");
+				map.put("type", "1");
 //				map.put("tel", ApplicationEnvironment.getInstance()
 //						.getPreferences().getString(Constant.PHONENUM, ""));
 				try {

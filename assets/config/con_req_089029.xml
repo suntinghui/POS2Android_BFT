@@ -12,11 +12,11 @@
 
     <field
         key="name"
-        value="张三" />
+        value="__name" />
 
     <field
         key="pIdNo"
-        value="140106198806070614" />
+        value="140106198806070616" />
 
     <field
         key="oldBkCardNo"
@@ -32,6 +32,6 @@
 
     <field
         key="verifyCode"
-        value="123456" />
+        value="15034078477" />
 
 </root>

@@ -69,12 +69,12 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/tv_promt"
+                android:id="@+id/tv_prompt"
                 style="@style/TextView18_1sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dip"
-                android:text="success" />
+                 />
         </LinearLayout>
     </LinearLayout>
 

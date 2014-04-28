@@ -1,7 +1,7 @@
 package com.bft.pos.util;
 
 import java.util.Random;
-
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -89,7 +89,9 @@ public class SecurityCodeUtil {
 	 * captcha != 	null：	自定义验证码
 	 * @return
 	 */
+	@SuppressLint("DefaultLocale") 
 	public Bitmap createCodeBitmap(String captcha) {
+		captcha = captcha.toUpperCase();
 		base_padding_left = width / codeLength;
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);

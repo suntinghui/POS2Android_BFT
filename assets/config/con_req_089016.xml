@@ -11,10 +11,6 @@
         value="__login" />
 
     <field
-        key="psamNo"
-        value="__PSAMNO" />
-
-    <field
         key="lgnPass"
         value="__lgnPass" />
 

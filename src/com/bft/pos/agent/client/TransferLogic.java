@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.bft.pos.activity.ASBalanceSuccessActivity;
@@ -177,7 +179,8 @@ public class TransferLogic {
 			this.balanceQueryDone(fieldMap);
 
 		} else if("089023".equals(transferCode)){//重置支付密码
-			this.resetPayPwd(fieldMap);
+			this.resetPayPwdDone(fieldMap);
+			
 		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
@@ -207,7 +210,7 @@ public class TransferLogic {
 	/**
 	 * 重置支付密码
 	 */
-	private void resetPayPwd(HashMap<String, String> fieldMap){
+	private void resetPayPwdDone(HashMap<String, String> fieldMap){
 		String desc = null;
 		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
@@ -226,7 +229,6 @@ public class TransferLogic {
 	/**
 	 * 登陆
 	 */
-	@SuppressWarnings("unchecked")
 	@SuppressLint("CommitPrefEdits")
 	private void loginDone(HashMap<String, String> fieldMap) {
 		String desc = null;
@@ -234,7 +236,14 @@ public class TransferLogic {
 				.edit();
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 
-			String jsonStr = fieldMap.get("apires");
+			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
+		
+				if(HEADER_MAP != null){
+					Constant.PUBLICKEY = (String) HEADER_MAP.get("pk")!=null?(String) HEADER_MAP.get("pk"):null;
+				}
+			
+			
+/*			String jsonStr = fieldMap.get("apires");
 			HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
 		
 			try {
@@ -256,7 +265,7 @@ public class TransferLogic {
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
-			}
+			}*/
 			// 登陆成功，跳转到菜单界面
 			Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
 			BaseActivity.getTopActivity().startActivity(intent);
@@ -266,7 +275,12 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc==null)?"登陆失败":desc;
-			Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();			
+			//屏幕下弹窗
+//			Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
 		}
 	}
 
@@ -661,9 +675,11 @@ public class TransferLogic {
 	}
 
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
-		System.out.println("账户余额获取");
+		String accBlc = fieldMap.get("accBlc");
+		System.out.println("账户余额获取"+accBlc);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				ASBalanceSuccessActivity.class);
+		intent.putExtra("accBlc", accBlc);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 	
@@ -1253,23 +1269,20 @@ public class TransferLogic {
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonSuccessActivity(String prompt) {
-		if (null == prompt || "".equals(prompt.trim())) {
-			prompt = "交易成功";
 			Intent intent = new Intent(BaseActivity.getTopActivity(),
 					SuccessActivity.class);
 			intent.putExtra("prompt", prompt);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
-		}
 
 		try {
-			ViewPage transferViewPage = new ViewPage("tradesuccess");
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("message", prompt);
-			Event event = new Event(transferViewPage, "tradesuccess",
-					"tradesuccess");
-			event.setStaticActivityDataMap(map);
-			transferViewPage.addAnEvent(event);
-			event.trigger();
+//			ViewPage transferViewPage = new ViewPage("tradesuccess");
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("message", prompt);
+//			Event event = new Event(transferViewPage, "tradesuccess",
+//					"tradesuccess");
+//			event.setStaticActivityDataMap(map);
+//			transferViewPage.addAnEvent(event);
+//			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

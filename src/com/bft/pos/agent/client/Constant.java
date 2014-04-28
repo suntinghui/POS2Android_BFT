@@ -1,6 +1,9 @@
 package com.bft.pos.agent.client;
 
+import java.util.Map;
+
 public class Constant {
+	
 	public static float version								= 1.0f;
 	public static boolean isStatic							= false;
 	public static boolean isAISHUA							= false;
@@ -26,7 +29,8 @@ public class Constant {
 	public static String XMLURL = "http://58.221.92.138:9999";
 
 //	public static String JSONURL = "https://58.221.92.138:8443/yunpaiApi/api/"; // 9200   8443
-	public static String JSONURL = "http://114.80.227.152:2005/mobile/";
+//	public static String JSONURL = "http://114.80.227.152:2005/mobile/";
+	public static String JSONURL = "http://www.payfortune.com:2399/mobile/";
 	
 //	public static String JSONURL = "https://api.vastpay.cn:8443/yunpaiApi/api/"; // 9200   8443
 	
@@ -74,6 +78,7 @@ public class Constant {
 	public static final String SERVER_ANNOUNCEMENT_LASTEST_NUM		= "ServerAnnouncementLastestNum";
 	
 	// 公钥
+	public static String PUBLICKEY						= "publicKey";
 	public static final String PUBLICKEY_MOD						= "publickey_mod";
 	public static final String PUBLICKEY_EXP						= "publickey_exp";
 	public static final String PUBLICKEY_VERSION					= "publickey_version";
@@ -92,8 +97,12 @@ public class Constant {
 	public static String terIndex									= "terIndex";
 	public static String recievePhone								="";
 	
+	
+	
+	/**头文件信息*/
+	public static Map<String,Object> HEADER_MAP						= null;
 	//JSON编码
-	public static final String ENCODING_8583								="UTF-8";
-	public static final String ENCODING_JSON								="UTF-8";
-//	public static final String ENCODING_JSON							="GBK";
+	public static final String ENCODING_8583						="UTF-8";
+	public static final String ENCODING_JSON						="UTF-8";
+//	public static final String ENCODING_JSON						="GBK";
 }

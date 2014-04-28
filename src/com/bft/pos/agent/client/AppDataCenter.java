@@ -36,12 +36,9 @@ public class AppDataCenter {
 	private static String __PAN = null; // PAN
 	private static String __ENCCARDNO = null; // 卡号密文
 	private static String __VENDOR = null; // 商户号
-
 	private static String __TERID = null; // 终端号
-
 	private static String field41 = null; // 终端号 本地保存
 	private static String field42 = null; // 商户号 本地保存
-
 	private static String __CARDNO = null; // 磁卡卡号
 
 	// 爱刷相关

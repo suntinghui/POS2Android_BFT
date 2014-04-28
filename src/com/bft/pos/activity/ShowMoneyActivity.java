@@ -28,12 +28,11 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		et_account = (EditText) findViewById(R.id.et_account);
 		et_paypassword = (EditText) findViewById(R.id.et_paypassword);
 		et_sms = (EditText) findViewById(R.id.et_sms);
-
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) findViewById(R.id.btn_sms);
 		btn_sms.setOnClickListener(this);
-		btn_submit = (Button) findViewById(R.id.btn_submit);
+		btn_submit = (Button) findViewById(R.id.bt_confirm);
 		btn_submit.setOnClickListener(this);
 	}
 
@@ -43,7 +42,7 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn_back:
 			this.finish();
 			break;
-		case R.id.btn_submit:
+		case R.id.bt_confirm:
 			try {
 				Event event = new Event(null, "modify-bk", null);
 				event.setTransfer("089025");
@@ -89,6 +88,5 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

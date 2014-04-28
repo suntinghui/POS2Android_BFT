@@ -252,10 +252,10 @@ public class LoginActivity extends BaseActivity {
 					if (firstLogin) {
 						ed.putBoolean("firstLogin", false);
 					} else {
-				loginAction();
-				 }
-				 ed.commit();
-				 }
+						loginAction();
+					}
+					ed.commit();
+				}
 				break;
 			}
 			}
@@ -308,8 +308,9 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-//		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
-//		startActivity(intent);
+		// Intent intent = new Intent(LoginActivity.this,
+		// CatalogActivity.class);
+		// startActivity(intent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
@@ -357,7 +358,6 @@ public class LoginActivity extends BaseActivity {
 	/*
 	 * 找回密码
 	 */
-
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,
 				FindPasswordActivity.class);

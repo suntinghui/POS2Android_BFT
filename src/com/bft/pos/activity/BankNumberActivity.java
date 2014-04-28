@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bft.pos.R;
@@ -15,29 +16,36 @@ import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 
 public class BankNumberActivity extends BaseActivity implements OnClickListener {
-	private Button btn_back, btn_sms, btn_submit;
+	private Button btn_back, btn_sms, btn_ok;
 	private TextView titleBank;
-	private EditText name_account, shenfen_num, oldbanknum, banknum, et_sms;
+	private EditText et_name, et_idcard, old_backcard, et_banknum, et_sms;
+	private Spinner bankspinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bankcard);
+		et_name = (EditText) findViewById(R.id.et_name);
 
-		btn_back = (Button) findViewById(R.id.btn_back);
+		et_idcard = (EditText) findViewById(R.id.et_idcard);
+		old_backcard = (EditText) findViewById(R.id.et_idcard);
+		et_banknum = (EditText) findViewById(R.id.et_idcard);
+		et_sms = (EditText) findViewById(R.id.btn_sms);
+
+		btn_back = (Button) findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
-		btn_submit = (Button) findViewById(R.id.btn_submit);
-		btn_submit.setOnClickListener(this);
+		btn_ok = (Button) findViewById(R.id.btn_ok);
+		btn_ok.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			this.finish();
 			break;
-		case R.id.btn_submit:
+		case R.id.btn_ok:
 			try {
 				Event event = new Event(null, "modify-bk", null);
 				event.setTransfer("089029");

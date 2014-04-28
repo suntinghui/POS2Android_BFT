@@ -106,17 +106,18 @@
         </RelativeLayout>
     </LinearLayout>
 
-     <Button
-                android:id="@+id/bt_confirm"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:background="@drawable/button_bg"
-                android:text="提 现"
-                android:textColor="@color/black"
-                android:textSize="18dip" />
+    <Button
+        android:id="@+id/bt_confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_bg"
+        android:text="提 现"
+        android:textColor="@color/black"
+        android:textSize="18dip" />
 
 </LinearLayout>

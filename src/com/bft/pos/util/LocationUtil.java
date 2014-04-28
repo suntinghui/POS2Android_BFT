@@ -7,10 +7,7 @@ import java.util.Date;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 

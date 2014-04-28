@@ -78,6 +78,22 @@ public class QBPwd extends MenuBaseActivity implements OnClickListener {
 	}
 //	这里是获取交易信息的接口
 	public void gettranferdetail(){
-	
+		try {
+			Event event = new Event(null, "querybal", null);
+			event.setTransfer("089028");
+
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			String pwd01 = et_pwd.getEncryptPWD();
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
+					.getString(Constant.PHONENUM, ""));
+			map.put("payPass", pwd01);
+			map.put("currPage", "1");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

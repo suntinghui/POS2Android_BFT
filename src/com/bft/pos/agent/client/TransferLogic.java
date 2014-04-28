@@ -147,6 +147,9 @@ public class TransferLogic {
 			
 		} else if ("089027".equals(transferCode)) { // 账户余额查询
 			this.getbalanceDone(fieldMap);
+			
+		} else if ("089028".equals(transferCode)) { // 账户交易查询
+			this.QBTDone(fieldMap);
 
 		} else if ("089003".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
@@ -207,6 +210,8 @@ public class TransferLogic {
 		}
 	}
 	
+	
+
 	/**
 	 * 重置支付密码
 	 */
@@ -666,7 +671,10 @@ public class TransferLogic {
 		intent.putExtra("code", verifycode);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
-
+	
+	/**
+	 * 验证码(生成图片)
+	 */
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
 		String accBlc = fieldMap.get("accBlc");
 		System.out.println("账户余额获取"+accBlc);
@@ -676,6 +684,10 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 	
+	private void QBTDone(HashMap<String, String> fieldMap) {
+		// TODO Auto-generated method stub
+		
+	}
 	/**
 	 * 获取提款银行账号
 	 */

@@ -372,7 +372,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.bft.pos.activity.FindPasswordActivity"
+            android:name="com.bft.pos.activity.FindLoginPwdActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >

@@ -668,9 +668,11 @@ public class TransferLogic {
 	}
 
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
-		System.out.println("账户余额获取");
+		String accBlc = fieldMap.get("accBlc");
+		System.out.println("账户余额获取"+accBlc);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				ASBalanceSuccessActivity.class);
+		intent.putExtra("accBlc", accBlc);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 	

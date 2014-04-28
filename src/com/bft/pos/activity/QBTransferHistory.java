@@ -94,7 +94,7 @@ public class QBTransferHistory extends MenuBaseActivity implements
 			}
 
 		});
-		refresh();
+//		refresh();
 
 	}
 
@@ -165,52 +165,52 @@ public class QBTransferHistory extends MenuBaseActivity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			if (currentPage < totalPage) {
-				if (position == modelList.size()) {
-					holder.contentLayout.setVisibility(View.GONE);
-					holder.moreLayout.setVisibility(View.VISIBLE);
-				} else {
-					holder.contentLayout.setVisibility(View.VISIBLE);
-					holder.moreLayout.setVisibility(View.GONE);
-
-					TransferDetailModel model = modelList.get(position);
-					if (model.getFlag().equals("3")) {
-						holder.iv_revoke.setVisibility(View.VISIBLE);
-					} else {
-						holder.iv_revoke.setVisibility(View.GONE);
-					}
-
-					holder.tv_account1.setText(modelList.get(position)
-							.getAccount1() == null ? "" : modelList.get(
-							position).getAccount1());
-					holder.tv_amount.setText(modelList.get(position)
-							.getAmount() == null ? "" : ("¥ " + modelList.get(
-							position).getAmount()));
-					holder.tv_local_log.setText(modelList.get(position)
-							.getSnd_log() == null ? "" : modelList
-							.get(position).getSnd_log());
-				}
-			} else {
-				holder.contentLayout.setVisibility(View.VISIBLE);
-				holder.moreLayout.setVisibility(View.GONE);
-
-				TransferDetailModel model = modelList.get(position);
-				if (model.getFlag().equals("3")) {
-					holder.iv_revoke.setVisibility(View.VISIBLE);
-				} else {
-					holder.iv_revoke.setVisibility(View.GONE);
-				}
-
-				holder.tv_account1.setText(modelList.get(position)
-						.getAccount1() == null ? "" : modelList.get(position)
-						.getAccount1());
-				holder.tv_amount
-						.setText(modelList.get(position).getAmount() == null ? ""
-								: ("¥ " + modelList.get(position).getAmount()));
-				holder.tv_local_log.setText(modelList.get(position)
-						.getSnd_log() == null ? "" : modelList.get(position)
-						.getSnd_log());
-			}
+//			if (currentPage < totalPage) {
+//				if (position == modelList.size()) {
+//					holder.contentLayout.setVisibility(View.GONE);
+//					holder.moreLayout.setVisibility(View.VISIBLE);
+//				} else {
+//					holder.contentLayout.setVisibility(View.VISIBLE);
+//					holder.moreLayout.setVisibility(View.GONE);
+//
+//					TransferDetailModel model = modelList.get(position);
+//					if (model.getFlag().equals("3")) {
+//						holder.iv_revoke.setVisibility(View.VISIBLE);
+//					} else {
+//						holder.iv_revoke.setVisibility(View.GONE);
+//					}
+//
+//					holder.tv_account1.setText(modelList.get(position)
+//							.getAccount1() == null ? "" : modelList.get(
+//							position).getAccount1());
+//					holder.tv_amount.setText(modelList.get(position)
+//							.getAmount() == null ? "" : ("¥ " + modelList.get(
+//							position).getAmount()));
+//					holder.tv_local_log.setText(modelList.get(position)
+//							.getSnd_log() == null ? "" : modelList
+//							.get(position).getSnd_log());
+//				}
+//			} else {
+//				holder.contentLayout.setVisibility(View.VISIBLE);
+//				holder.moreLayout.setVisibility(View.GONE);
+//
+//				TransferDetailModel model = modelList.get(position);
+//				if (model.getFlag().equals("3")) {
+//					holder.iv_revoke.setVisibility(View.VISIBLE);
+//				} else {
+//					holder.iv_revoke.setVisibility(View.GONE);
+//				}
+//
+//				holder.tv_account1.setText(modelList.get(position)
+//						.getAccount1() == null ? "" : modelList.get(position)
+//						.getAccount1());
+//				holder.tv_amount
+//						.setText(modelList.get(position).getAmount() == null ? ""
+//								: ("¥ " + modelList.get(position).getAmount()));
+//				holder.tv_local_log.setText(modelList.get(position)
+//						.getSnd_log() == null ? "" : modelList.get(position)
+//						.getSnd_log());
+//			}
 
 			return convertView;
 		}

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
 
+//選擇日历
 public class TransferQueryActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -28,7 +29,7 @@ public class TransferQueryActivity extends BaseActivity implements
 		this.setContentView(R.layout.activity_transfer_query);
 		this.findViewById(R.id.topInfoView);
 
-		Button btn_back = (Button) this.findViewById(R.id.btn_back);
+		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
 		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
@@ -41,7 +42,7 @@ public class TransferQueryActivity extends BaseActivity implements
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			this.finish();
 			break;
 		case R.id.btn_confirm:

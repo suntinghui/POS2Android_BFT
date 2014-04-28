@@ -44,6 +44,7 @@ public class SplashActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
+
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override

@@ -72,6 +72,8 @@ public class LoginActivity extends BaseActivity {
 		verifyCode.setOnClickListener(listener);
 		// 账号和密码的输入框
 		userNameET = (EditText) this.findViewById(R.id.usernameET);
+		userNameET.setText(ApplicationEnvironment.getInstance()
+				.getPreferences().getString(Constant.PHONENUM, ""));
 		et_pwd = (PasswordWithIconView) this.findViewById(R.id.et_pwd);
 		et_pwd.setIconAndHint(R.drawable.icon_pwd, "密码");
 		// 这里是是否记住密码那儿的那个小勾勾
@@ -80,6 +82,10 @@ public class LoginActivity extends BaseActivity {
 		isRemember = ApplicationEnvironment.getInstance().getPreferences()
 				.getBoolean(Constant.kISREMEBER, false);
 		setRemeberImageView(isRemember);
+		if (isRemember) {
+			et_pwd.setText(ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.LOGINPWD, ""));
+		}
 		// 取回密码
 		getPwdButton = (Button) this.findViewById(R.id.getPwdButton);
 		getPwdButton.setOnClickListener(listener);
@@ -240,6 +246,7 @@ public class LoginActivity extends BaseActivity {
 				// }
 
 				if (checkValue()) {
+
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
 					if (isRemember) {
@@ -252,10 +259,10 @@ public class LoginActivity extends BaseActivity {
 					if (firstLogin) {
 						ed.putBoolean("firstLogin", false);
 					} else {
-				loginAction();
-				 }
-				 ed.commit();
-				 }
+						loginAction();
+					}
+					ed.commit();
+				}
 				break;
 			}
 			}
@@ -308,8 +315,9 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-//		Intent intent = new Intent(LoginActivity.this, CatalogActivity.class);
-//		startActivity(intent);
+		// Intent intent = new Intent(LoginActivity.this,
+		// CatalogActivity.class);
+		// startActivity(intent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();

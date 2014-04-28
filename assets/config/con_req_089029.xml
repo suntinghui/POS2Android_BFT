@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 注册 -->
+<!-- 银行卡修改 -->
 <root isJson="true" >
 
     <field
@@ -12,11 +12,11 @@
 
     <field
         key="name"
-        value="张三" />
+        value="__name" />
 
     <field
         key="pIdNo"
-        value="140106198806070614" />
+        value="__pIdNo" />
 
     <field
         key="oldBkCardNo"
@@ -31,7 +31,7 @@
         value="002" />
 
     <field
-        key="verifyCode"
-        value="123456" />
-
+        key="mobNo"
+        value="__mobNo" />
+    
 </root>

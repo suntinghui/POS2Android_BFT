@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 短信验证码 -->
+<<<<<<< HEAD
+<root
+    isJson="true"
+    shouldMac="false" >
+
+    <field
+        key="fieldTrancode"
+        value="089006" />
+
+    <!-- <field key="mobNo" value="__mobNo"  /> -->
+
+    <field
+        key="mobNo"
+        value="__mobNo" />
+
+    <field
+        key="sendTime"
+        value="__sendTime" />
+
+    <field
+        key="type"
+        value="__type" />
+
+</root>
+=======
 <root shouldMac = "false" isJson = "true">
 	<field key="fieldTrancode" value="089006" />
 	
 <!-- 	<field key="mobNo" value="__mobNo"  /> -->
-	<field key="mobNo" value="__mobNo"  />
+	<field key="mobNo" value="13753102373"  />
 	<field key="sendTime" value="__sendTime"/>
 	<field key="type" value="__type" />
 </root>
+>>>>>>> branch 'master' of git@github.com:suntinghui/POS2Android_BFT.git

@@ -12,13 +12,15 @@
         android:background="@drawable/topbg" >
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/backButton"
+            style="@style/TextView15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/back_button" >
+            android:background="@drawable/back_button"
+            android:gravity="center"
+            android:text="返回" >
         </Button>
 
         <TextView
@@ -38,7 +40,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
             android:layout_marginTop="10dip"
-            android:background="@drawable/login_button"
+            android:background="@drawable/back_button_n1"
             android:text="历史查询" >
         </Button>
     </RelativeLayout>
@@ -46,8 +48,7 @@
     <com.bft.pos.activity.view.TopInfoView
         android:id="@+id/topInfoView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/layout"

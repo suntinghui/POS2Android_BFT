@@ -17,39 +17,39 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 
+import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bft.pos.client.exception.HttpException;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
-	private static String cookie			= null;
-	
+	private static String cookie = null;
 
-	private static boolean isHttpsFlag				= false;
+	private static boolean isHttpsFlag = false;
 	/**
 	 * 类的实例
 	 */
-	private static HttpManager instance 			= null;
+	private static HttpManager instance = null;
 
-	private final static int ConnectionTimeout 		= 27000;
-	private final static int SocketTimeout 			= 32000;
-	private final static int SocketBufferSize 		= 8192;
+	private final static int ConnectionTimeout = 27000;
+	private final static int SocketTimeout = 32000;
+	private final static int SocketBufferSize = 8192;
 
 	byte[] reqHeaderLenght = new byte[2];// 报文头
 
 	/**
 	 * HttpClient实例
 	 */
-	private HttpClient httpClient 					= getHttpClient();
-	private PostMethod postMethod 						= null;
-	private boolean aborted 						= false;
+	private HttpClient httpClient = getHttpClient();
+	private PostMethod postMethod = null;
+	private boolean aborted = false;
 
 	private static final int port = 9200;
 
 	public static final int URL_XML_TYPE = 1;
-	public static final int URL_JSON_TYPE  = 2;
-
+	public static final int URL_JSON_TYPE = 2;
 
 	/**
 	 * 链接的超时数,默认为30秒,此处要做成可配置
@@ -67,7 +67,8 @@ public class HttpManager {
 	private static final int MAX_TOTAL_CONNECTIONS = 20;
 
 	/** 日志对象 */
-	//    private static final DebugLog logger = LogFactory.getDebugLog(HttpTools.class);
+	// private static final DebugLog logger =
+	// LogFactory.getDebugLog(HttpTools.class);
 
 	/**
 	 * http的header中的content-type属性的名字
@@ -89,8 +90,6 @@ public class HttpManager {
 	 */
 	private static final String UTF_8 = "UTF-8";
 
-
-
 	public static HttpManager getInstance() {
 
 		if (instance == null) {
@@ -98,6 +97,7 @@ public class HttpManager {
 		}
 		return instance;
 	}
+
 	/**
 	 * 构造Http客户端对象 <功能详细描述>
 	 * 
@@ -107,8 +107,7 @@ public class HttpManager {
 	 * @exception throws [违例类型] [违例说明]
 	 * @see [类、类#方法、类#成员]
 	 */
-	private HttpClient initHttpClient()
-	{
+	private HttpClient initHttpClient() {
 		// 此处运用连接池技术。
 		MultiThreadedHttpConnectionManager manager = new MultiThreadedHttpConnectionManager();
 
@@ -124,18 +123,20 @@ public class HttpManager {
 		HttpClient client = new HttpClient(manager);
 
 		// 设置超时时间
-		client.getHttpConnectionManager().getParams().setConnectionTimeout(CONNECTION_TIME_OUT);
+		client.getHttpConnectionManager().getParams()
+				.setConnectionTimeout(CONNECTION_TIME_OUT);
 
-		//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+		// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
 		client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 		return client;
 	}
-	private HttpClient getHttpClient(){
-		if (null == httpClient){
-			if(isHttpsFlag){
+
+	private HttpClient getHttpClient() {
+		if (null == httpClient) {
+			if (isHttpsFlag) {
 				httpClient = initHttps();
 			} else {
-				//				httpClient = initHttp();
+				// httpClient = initHttp();
 				httpClient = initHttpClient();
 			}
 		}
@@ -144,25 +145,14 @@ public class HttpManager {
 	}
 
 	/***
-	public static String getUrl() {
-		return replace(URL, "{0}", serverIp);
-	}
-
-	public String replace(String text, String oldStr, String newStr) {
-		int oldLen = oldStr.length();
-		int k = 0;
-		while (k + oldLen < text.length()) {
-			k = text.indexOf(oldStr, k);
-			if (k == -1) {
-				return text;
-			}
-
-			text = text.substring(0, k) + newStr
-					+ text.substring(k += oldLen, text.length());
-		}
-		return text;
-	}
-
+	 * public static String getUrl() { return replace(URL, "{0}", serverIp); }
+	 * 
+	 * public String replace(String text, String oldStr, String newStr) { int
+	 * oldLen = oldStr.length(); int k = 0; while (k + oldLen < text.length()) {
+	 * k = text.indexOf(oldStr, k); if (k == -1) { return text; }
+	 * 
+	 * text = text.substring(0, k) + newStr + text.substring(k += oldLen,
+	 * text.length()); } return text; }
 	 ****/
 
 	public void abort() {
@@ -176,11 +166,10 @@ public class HttpManager {
 		aborted = true;
 	}
 
-
 	private HttpClient initHttp() {
-		if(httpClient != null){
+		if (httpClient != null) {
 			return httpClient;
-		}else{
+		} else {
 			httpClient = new HttpClient();
 		}
 		return httpClient;
@@ -189,86 +178,95 @@ public class HttpManager {
 	private HttpClient initHttps() {
 		return null;
 	}
-	
+
 	/**
 	 * 设置cookie参数
 	 */
-	public void setCookie(){
-		//设置 HttpClient 接收 Cookie,用与浏览器一样的策略
-		httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-		
+	public void setCookie() {
+		// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+		httpClient.getParams().setCookiePolicy(
+				CookiePolicy.BROWSER_COMPATIBILITY);
+
 		HttpState initalState = new HttpState();
-		
+
 		Cookie cookie = new Cookie();
-		//		cookie.setDomain(arg0);
-		//		cookie.setPath(path);
-		//		cookie.setName(name);
-		//		cookie.setValue(value);;
+		// cookie.setDomain(arg0);
+		// cookie.setPath(path);
+		// cookie.setName(name);
+		// cookie.setValue(value);;
 		initalState.addCookie(cookie);
 	}
 
-	/**m
+	/**
+	 * m
+	 * 
 	 * @param type
 	 * @param transferCode
 	 * @param outBytes
-	 * @param MREntity 实体
+	 * @param MREntity
+	 *            实体
 	 * @return
 	 * @throws HttpException
 	 * @throws IOException
 	 */
-	public byte[] sendRequest(int type, String transferCode ,byte[] outBytes,Part[] parts) throws HttpException{
+	public byte[] sendRequest(int type, String transferCode, byte[] outBytes,
+			Part[] parts) throws HttpException {
 		// 记录上行流量
-		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND, outBytes.length);
+		TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_SEND,
+				outBytes.length);
 
 		byte[] bArray = null;
 		int status = -1;
 
-		if (type == HttpManager.URL_JSON_TYPE){
-			//2确定请求方式 new ENCODEPostMethod()解决中文乱码
-			postMethod = new ENCODEPostMethod(Constant.JSONURL+AppDataCenter.getMethod_Json(transferCode));
+		if (type == HttpManager.URL_JSON_TYPE) {
+			// 2确定请求方式 new ENCODEPostMethod()解决中文乱码
+			postMethod = new ENCODEPostMethod(Constant.JSONURL
+					+ AppDataCenter.getMethod_Json(transferCode));
 		} else {
-			//2确定请求方式 new UTF8PostMethod()解决中文乱码
+			// 2确定请求方式 new UTF8PostMethod()解决中文乱码
 			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
-		if(!transferCode.equals("089021")){
-			 //每次访问需授权的网址时需带上前面的 cookie 作为通行证
+		if (!transferCode.equals("089021")) {
+			// 每次访问需授权的网址时需带上前面的 cookie 作为通行证
 			postMethod.setRequestHeader("cookie2", cookie);
 		}
 
 		/**
 		 * 设置cookie
 		 * */
-//		setCookie();
-		/**================================*/
+		// setCookie();
+		/** ================================ */
 		try {
 			String req_json = new String(outBytes);
-			/*==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================*/
-			//			Map<String,Object> req_map;
-			//			req_map = JSONUtil.JSONStr2MAP(req_json);
-			//			req_json = (String) req_map.get("arg");
-			//			req_map.clear();
-			//			req_map = JSONUtil.JSONStr2MAP(req_json);
-			//			
-			//			req_json = JSONUtil.MAP2JSONStr(req_map);
-			/*==============================*/
+			/* ==============由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：================ */
+			// Map<String,Object> req_map;
+			// req_map = JSONUtil.JSONStr2MAP(req_json);
+			// req_json = (String) req_map.get("arg");
+			// req_map.clear();
+			// req_map = JSONUtil.JSONStr2MAP(req_json);
+			//
+			// req_json = JSONUtil.MAP2JSONStr(req_map);
+			/* ============================== */
 
-			if(parts != null){
-				/**=====带附件========*/
-				for(Part str:parts){
-					
+			if (parts != null) {
+				/** =====带附件======== */
+				for (Part str : parts) {
+
 					Log.i("parts:", parts.toString());
 				}
-				parts[parts.length] = new StringPart("common",req_json , Constant.ENCODING_JSON);
-				//4 构建实体
-				MultipartRequestEntity entity = new MultipartRequestEntity(parts, postMethod.getParams());
+				parts[parts.length] = new StringPart("common", req_json,
+						Constant.ENCODING_JSON);
+				// 4 构建实体
+				MultipartRequestEntity entity = new MultipartRequestEntity(
+						parts, postMethod.getParams());
 
-				//5 设置实体
+				// 5 设置实体
 				postMethod.setRequestEntity(entity);
 
-			}else{
-				/**======普通=======*/
-				NameValuePair[] param = { new NameValuePair("common",req_json)};  
-				postMethod.setRequestBody(param);   
+			} else {
+				/** ======普通======= */
+				NameValuePair[] param = { new NameValuePair("common", req_json) };
+				postMethod.setRequestBody(param);
 			}
 			Log.i("REQ_JSON:", req_json);
 
@@ -276,41 +274,44 @@ public class HttpManager {
 			throw new HttpException(e1.getMessage());
 		}
 		try {
-			//6 执行请求
+			// 6 执行请求
 			status = httpClient.executeMethod(postMethod);
 
 			Log.i("STATUS:", String.valueOf(status));
 			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
-			if(status == HttpStatus.SC_OK){
+			if (status == HttpStatus.SC_OK) {
 				bArray = postMethod.getResponseBody();
-				if(postMethod.getRequestHeaders() != null){
+				if (postMethod.getRequestHeaders() != null) {
 					Constant.HEADER_MAP = new HashMap<String, Object>();
-					for(Header head:postMethod.getResponseHeaders()){
-						if(!head.getName().equals("Content-Type")&&!head.getName().equals("Set-Cookie"))
-							Constant.HEADER_MAP.put(head.getName(), head.getValue());
+					for (Header head : postMethod.getResponseHeaders()) {
+						if (!head.getName().equals("Content-Type")
+								&& !head.getName().equals("Set-Cookie"))
+							Constant.HEADER_MAP.put(head.getName(),
+									head.getValue());
 					}
 				}
 				// 记录下行流量
-				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE, bArray.length);
-				Log.i("响应报文====》\t", new String(bArray,Constant.ENCODING_JSON));
+				TrafficUtil.getInstance().setTraffic(TrafficUtil.TYPE_RECEIVE,
+						bArray.length);
+				Log.i("响应报文====》\t", new String(bArray, Constant.ENCODING_JSON));
+
 			}
-			/*登录时拿到cookie值*/
-			if(transferCode.equals("089021")){
-				Map<String,Object> map = new HashMap<String,Object>();
-				
-				//获得登陆后的 Cookie
+			/* 登录时拿到cookie值 */
+			if (transferCode.equals("089021")) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				// 获得登陆后的 Cookie
 				Cookie[] cookies_ = httpClient.getState().getCookies();
-				for(Cookie c:cookies_){
+				for (Cookie c : cookies_) {
 					String[] str = null;
-					/**cookies所有拼接一块*/
-//					cookies += c.toString()+";";
+					/** cookies所有拼接一块 */
+					// cookies += c.toString()+";";
 					str = c.toString().split("=");
 					map.put(c.getName(), c.getValue());
-//					Log.i("cookie:" , c.toString());
+					// Log.i("cookie:" , c.toString());
 				}
 				cookie = (String) map.get("uuid");
-				Log.i("UUID:" , cookie);
-			}else{
+				Log.i("UUID:", cookie);
+			} else {
 
 			}
 
@@ -318,31 +319,31 @@ public class HttpManager {
 			e1.printStackTrace();
 			// IOException - in case of a problem or the connection was aborted
 			throw new HttpException(903);
-		}finally{
-			if(null != httpClient)
+		} finally {
+			if (null != httpClient)
 				httpClient.getHttpConnectionManager().closeIdleConnections(0);
-			if(null != postMethod)
+			if (null != postMethod)
 				postMethod.releaseConnection();
 		}
-
 
 		return bArray;
 
 	}
 
 	/**
-	 * 重载PostMethod的getRequestCharSet()方法, 返回我们需要的编码(字符集)名称, 就可以解决 UTF-8 或者其它非默认编码提交 POST 请求时的乱码问题了
+	 * 重载PostMethod的getRequestCharSet()方法, 返回我们需要的编码(字符集)名称, 就可以解决 UTF-8
+	 * 或者其它非默认编码提交 POST 请求时的乱码问题了
 	 * */
-	public static class ENCODEPostMethod extends PostMethod{     
-		public ENCODEPostMethod(String url){     
-			super(url);     
-		}     
-		@Override    
-		public String getRequestCharSet() {     
-			//return super.getRequestCharSet();     
-			return Constant.ENCODING_JSON;     
-		}     
-	}  
+	public static class ENCODEPostMethod extends PostMethod {
+		public ENCODEPostMethod(String url) {
+			super(url);
+		}
 
+		@Override
+		public String getRequestCharSet() {
+			// return super.getRequestCharSet();
+			return Constant.ENCODING_JSON;
+		}
+	}
 
 }

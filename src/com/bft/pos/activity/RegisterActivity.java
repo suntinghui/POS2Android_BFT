@@ -123,16 +123,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		try {
 			Event event = new Event(null, "register", null);
 			event.setTransfer("089001");
+			//获取PSAM卡号
 			String fsk = "Get_PsamNo|null";
 			if (Constant.isAISHUA) {
 				fsk = "getKsn|null";
 			}
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("sctMobNo", et_phone_num.getText().toString());// 安全手机号
 			map.put("name", et_name.getText().toString());// 姓名
+			map.put("pIdNo", et_id_card.getText().toString());// 身份证
 			map.put("login", et_login_name.getText().toString());// 登录名
-			map.put("pldNo", et_id_card.getText().toString());// 身份证
-			map.put("", et_phone_num.getText().toString());// 安全手机号
 			String pwd = StringUtil.MD5Crypto(StringUtil
 					.MD5Crypto(et_login_name.getText().toString()
 							+ et_login_pwd_again.getText())

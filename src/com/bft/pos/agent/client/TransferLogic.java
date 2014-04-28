@@ -147,6 +147,9 @@ public class TransferLogic {
 			
 		} else if ("089027".equals(transferCode)) { // 账户余额查询
 			this.getbalanceDone(fieldMap);
+			
+		} else if ("089028".equals(transferCode)) { // 账户交易查询
+			this.QBTDone(fieldMap);
 
 		} else if ("089003".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
@@ -207,6 +210,8 @@ public class TransferLogic {
 		}
 	}
 	
+	
+
 	/**
 	 * 重置支付密码
 	 */
@@ -368,24 +373,20 @@ public class TransferLogic {
 					}
 
 				};
-
 				StringBuffer sb = new StringBuffer();
 				sb.append("Get_RenewKey|string:").append(pinKey)
 						.append(",string:").append(macKey).append(",string:")
 						.append(stackKey);
 				FSKOperator.execute(sb.toString(), handler);
-
 			} else {
 				this.gotoCommonFaileActivity("服务器返回异常");
 			}
-
 		} catch (Exception e) {
 			this.gotoCommonFaileActivity("服务器返回异常");
 			e.printStackTrace();
 		} finally {
 			editor.commit();
 		}
-
 	}
 
 	private void setVendorTerId(String vendor, String terid) {
@@ -505,7 +506,6 @@ public class TransferLogic {
 
 	/**
 	 * 结算
-	 * 
 	 */
 	private void settlementDone(HashMap<String, String> fieldMap) {
 		try {
@@ -567,7 +567,6 @@ public class TransferLogic {
 	 * 完善注册
 	 */
 	private void registImproveDone(HashMap<String, String> fieldMap) {
-
 		if (fieldMap.containsKey("respmsg")) {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				gotoCommonSuccessActivity("注册信息已完善");
@@ -627,7 +626,6 @@ public class TransferLogic {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance()
 						.gotoCommonSuccessActivity("设置新密码成功");
-
 			} else if ("0".equals(fieldMap.get("respmsg"))) {
 				TransferLogic.getInstance().gotoCommonFaileActivity("设置新密码失败");
 			}
@@ -673,7 +671,10 @@ public class TransferLogic {
 		intent.putExtra("code", verifycode);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
-
+	
+	/**
+	 * 验证码(生成图片)
+	 */
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
 		String accBlc = fieldMap.get("accBlc");
 		System.out.println("账户余额获取"+accBlc);
@@ -683,6 +684,10 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 	
+	private void QBTDone(HashMap<String, String> fieldMap) {
+		// TODO Auto-generated method stub
+		
+	}
 	/**
 	 * 获取提款银行账号
 	 */

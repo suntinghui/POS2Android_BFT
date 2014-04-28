@@ -33,7 +33,6 @@ import com.bft.pos.dynamic.model.OptionEntity;
 import com.bft.pos.dynamic.model.SelectEntity;
 import com.bft.pos.dynamic.template.os.ButtonTemplate;
 import com.bft.pos.dynamic.template.os.CSSTemplate;
-import com.bft.pos.dynamic.template.os.ImageViewTemplate;
 import com.bft.pos.dynamic.template.os.LabelTemplate;
 import com.bft.pos.dynamic.template.os.layout.LinearLayoutParamsTemplate;
 import com.bft.pos.dynamic.template.os.layout.LinearLayoutTemplate;
@@ -44,10 +43,6 @@ import com.bft.pos.dynamic.template.os.view.GridViewTemplate;
 import com.bft.pos.dynamic.template.os.view.ListViewTemplate;
 import com.bft.pos.util.AssetsUtil;
 import com.bft.pos.util.StringUtil;
-import com.dhc.dynamic.component.os.OSDatePicker;
-import com.dhc.dynamic.component.os.OSInstructionsView;
-import com.dhc.dynamic.component.os.OSPassword;
-import com.dhc.dynamic.component.os.OSText;
 
 public final class ParseView {
 	public static final String ACTION_TYPE_LOCAL				= "LOCAL";

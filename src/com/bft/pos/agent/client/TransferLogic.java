@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -29,6 +31,7 @@ import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
@@ -40,6 +43,8 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.dynamic.core.ViewPage;
 import com.bft.pos.fsk.FSKOperator;
 import com.bft.pos.model.FieldModel;
+import com.bft.pos.model.TransferDetailModel;
+import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.model.TransferSuccessModel;
 import com.bft.pos.util.AssetsUtil;
@@ -673,7 +678,7 @@ public class TransferLogic {
 	}
 	
 	/**
-	 * 验证码(生成图片)
+	 * 账户余额查询
 	 */
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
 		String accBlc = fieldMap.get("accBlc");
@@ -684,9 +689,57 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
 	
+	/**
+	 * 账户交易流水
+	 */
 	private void QBTDone(HashMap<String, String> fieldMap) {
-		// TODO Auto-generated method stub
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
+		String rtCd = fieldMap.get("rtCd");
+		if(rtCd.equals("00")){
+			String jsonStr = fieldMap.get("pageList");
+			System.out.println(jsonStr);
+			try {
+				JSONObject result = new JSONObject(jsonStr);
+				JSONArray jsonArray = result.getJSONArray("pageList");
+				
+				String page_count = result.getString("totalNum");
+				map.put("total", page_count);
+				if(jsonArray!=null&&jsonArray.length()>0){
+					for(int i = 0;i<jsonArray.length();i++){
+						JSONObject picsObj = (JSONObject)jsonArray.opt(i);
+						TransferDetailModel1 model = new TransferDetailModel1();
+						model.setTradeDate(picsObj.optString("tradeDate", ""));
+						System.out.println("tradeDate:"+picsObj.optString("tradeDate", ""));
+						model.setPayMoney(picsObj.optString("payMoney", ""));
+						model.setTradeTypeKey(picsObj.optString("tradeTypeKey", ""));
+						model.setPayDate(picsObj.optString("payDate", ""));
+						model.setOrderStatus(picsObj.optString("orderStatus", ""));
+						
+						arrayModel.add(model);
+					}
+				}
+				map.put("list", arrayModel);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					QBTransferHistory.class);
+			intent.putExtra("map", map);
+			BaseActivity.getTopActivity().startActivity(intent);
+		}else {
+//			暂且做一下简单的处理
+			System.out.println("获取账户交易信息失败");
+		}
+//				QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
+//				activity.fromLogic(map);
+//
+//			} else if ("0".equals(fieldMap.get("respmsg"))) {
+//				TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
+//			}
+//		}
 	}
 	/**
 	 * 获取提款银行账号

@@ -3,6 +3,7 @@ package com.bft.pos.activity;
  * 收款界面
  * */
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,10 @@ public class GatherActivity extends MenuBaseActivity {
 				
 				switch (arg2) {
 				case 0:
+					Intent intent0 = new Intent(GatherActivity.this,
+							InputMoneyActivity.class);
+					intent0.putExtra("TAG", arg2);
+					startActivity(intent0);
 					break;
 				case 1:
 					break;

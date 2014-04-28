@@ -11,13 +11,15 @@
         android:background="@drawable/topbg" >
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/backButton"
+            style="@style/TextView15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/back_button" >
+            android:background="@drawable/back_button"
+            android:gravity="center"
+            android:text="返回" >
         </Button>
 
         <TextView

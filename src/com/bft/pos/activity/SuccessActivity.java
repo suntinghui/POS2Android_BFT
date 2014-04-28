@@ -28,7 +28,7 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 		btn_back.setOnClickListener(this);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
-		
+
 		Intent intent = this.getIntent();
 		TextView tv_prompt = (TextView) findViewById(R.id.tv_prompt);
 		tv_prompt.setText(intent.getStringExtra("prompt"));

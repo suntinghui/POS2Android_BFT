@@ -3,12 +3,15 @@ package com.bft.pos.activity;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -46,7 +49,6 @@ import com.bft.pos.util.BankParse;
 import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
-import com.bft.pos.util.StringUtil;
 
 //实名认证 上图图片
 public class AuthenticationUpImageActivity extends BaseActivity implements
@@ -61,7 +63,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	private String bitmap_str_1 = null;
 	private String bitmap_str_2 = null;
 	private String bitmap_str_3 = null;
-
 	private String merchant_id;
 
 	private int current_index = 0;
@@ -122,7 +123,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.activity_authentication_upimage);
 
-		Button btn_back = (Button) this.findViewById(R.id.btn_back);
+		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
 		btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
@@ -170,7 +171,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			this.finish();
 			break;
 		case R.id.bt_confirm:
@@ -228,7 +229,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		// 短信验证
 		case R.id.btn_sms:
-			phoneverifcode();
+			actionGetSms();
 			break;
 		default:
 			break;
@@ -262,14 +263,42 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 
 			// 读取相册缩放图片
 			if (requestCode == PHOTOZOOM) {
+				// ContentResolver resolver = getContentResolver();
+				// Uri originalUri = data.getData(); // 获得图片的uri
+				// File picture1 = new File(
+				// Environment.getExternalStorageDirectory() + "/temp.jpg");
+				// pIdImg0_path = Environment.getExternalStorageDirectory()
+				// + "/temp.jpg";
+				// System.out.println("---------xc---------------" +
+				// pIdImg0_path);
 				ContentResolver resolver = getContentResolver();
 				Uri originalUri = data.getData(); // 获得图片的uri
-				File picture1 = new File(
-						Environment.getExternalStorageDirectory() + "/temp.jpg");
-				pIdImg0_path = Environment.getExternalStorageDirectory()
-						+ "/temp.jpg";
-				System.out.println("---------xc---------------" + pIdImg0_path);
-				startPhotoZoom(originalUri);
+				try {
+					bm = MediaStore.Images.Media.getBitmap(resolver,
+							originalUri);
+					String[] proj = { MediaStore.Images.Media.DATA };
+					// 好像是android多媒体数据库的封装接口，具体的看Android文档
+					Cursor cursor = managedQuery(originalUri, proj, null, null,
+							null);
+					// 按我个人理解 这个是获得用户选择的图片的索引值
+					int column_index = cursor
+							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					// 将光标移至开头 ，这个很重要，不小心很容易引起越界
+					cursor.moveToFirst();
+					// 最后根据索引值获取图片路径
+					String path = cursor.getString(column_index);
+					pIdImg0_path = path;
+					System.out.println("---------xc---------------"
+							+ pIdImg0_path);
+					// startPhotoZoom(originalUri);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 			// 处理结果
 			if (requestCode == PHOTORESOULT) {
@@ -278,7 +307,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 					Bitmap photo = extras.getParcelable("data");
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 					photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0
-																			// -
 					iv_1.setImageBitmap(photo);
 				}
 			}
@@ -318,8 +346,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				if (extras != null) {
 					Bitmap photo = extras.getParcelable("data");
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-					photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0
-																			// -
+					photo.compress(CompressFormat.PNG, 100, stream);
 					iv_2.setImageBitmap(photo);
 				}
 			}
@@ -540,7 +567,11 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
-	public void phoneverifcode() {
+	/*
+	 * 获取验证码
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private void actionGetSms() {
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
@@ -553,7 +584,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
-			map.put("type", "1");
+			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
@@ -578,30 +609,33 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 							startActivityForResult(intent, 2);
 							break;
 						case 1:
+							Intent getImageByCamera = new Intent(
+									"android.media.action.IMAGE_CAPTURE");
+							startActivityForResult(getImageByCamera, 1);
 							// 拍照
-							Intent intent1 = new Intent(
-									MediaStore.ACTION_IMAGE_CAPTURE);
-							intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri
-									.fromFile(new File(Environment
-											.getExternalStorageDirectory(),
-											"temp.jpg")));
-							System.out.println("============="
-									+ Environment.getExternalStorageDirectory());
-							// photo1 =
-							// Environment.getExternalStorageDirectory()
-							// .toString() + "/test";
-							// File path1 = new File(photo1);
-							// if (!path1.exists()) {
-							// path1.mkdirs();
-							// }
-							// File file = new File(path1, System
-							// .currentTimeMillis() + ".png");
-							//
-							// intent1.putExtra(MediaStore.EXTRA_OUTPUT,
-							// Uri.fromFile(file));
-							System.out.println("============="
-									+ Environment.getExternalStorageDirectory());
-							startActivityForResult(intent1, 1);
+							// Intent intent1 = new Intent(
+							// MediaStore.ACTION_IMAGE_CAPTURE);
+							// intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+							// .fromFile(new File(Environment
+							// .getExternalStorageDirectory(),
+							// "temp.jpg")));
+							// System.out.println("============="
+							// + Environment.getExternalStorageDirectory());
+							// // photo1 =
+							// // Environment.getExternalStorageDirectory()
+							// // .toString() + "/test";
+							// // File path1 = new File(photo1);
+							// // if (!path1.exists()) {
+							// // path1.mkdirs();
+							// // }
+							// // File file = new File(path1, System
+							// // .currentTimeMillis() + ".png");
+							// //
+							// // intent1.putExtra(MediaStore.EXTRA_OUTPUT,
+							// // Uri.fromFile(file));
+							// System.out.println("============="
+							// + Environment.getExternalStorageDirectory());
+							// startActivityForResult(intent1, 1);
 							break;
 						}
 					}

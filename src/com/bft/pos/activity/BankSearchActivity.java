@@ -48,7 +48,7 @@ public class BankSearchActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bank_search);
 
-		btn_back = (Button) this.findViewById(R.id.btn_back);
+		btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(listener);
 
 		Intent intent = this.getIntent();
@@ -177,7 +177,7 @@ public class BankSearchActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_back:
+			case R.id.backButton:
 				finish();
 				break;
 			case R.id.ll_search:

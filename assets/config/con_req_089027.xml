@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 短信验证码 -->
+<!-- 账户余额查询-->
 <root shouldMac = "false" isJson = "true">
 	<field key="fieldTrancode" value="089027" />
 	

@@ -79,11 +79,7 @@ public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickLis
 		try {
 			Event event = new Event(null, "querybal", null);
 			event.setTransfer("089027");
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(editText
-					.getText().toString().toUpperCase()
-					+ et_pwd.getText())
-					+ "www.payfortune.com");
-			
+		
 			String pwd01 = et_pwd.getEncryptPWD();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login",ApplicationEnvironment.getInstance().getPreferences()

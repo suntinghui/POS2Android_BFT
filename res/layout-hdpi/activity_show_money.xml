@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/login_bg"
     android:orientation="vertical" >
 
@@ -34,225 +34,234 @@
             android:textSize="18dip" />
     </RelativeLayout>
 
-    <LinearLayout
+    <com.bft.pos.activity.view.TopInfoView
+        android:id="@+id/topInfoView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="10dip"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
-        android:layout_marginTop="10dip"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/prompt_cnt"
-            android:orientation="vertical"
-            android:padding="8dip" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="姓名" />
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="某某" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号" />
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="15011203030" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="当日可提现余额" />
-
-                <TextView
-                    android:id="@+id/tv_current_day_money"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="¥0.00" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="不可提款余额" />
-
-                <TextView
-                    android:id="@+id/tv_unbalance"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="¥0.00" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="收款银行" />
-
-                <TextView
-                    android:id="@+id/tv_bank"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="中国建设银行" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="开启行所在城市" />
-
-                <TextView
-                    android:id="@+id/tv_city"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="江苏省 南通市" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="银行账户" />
-
-                <TextView
-                    android:id="@+id/tv_account"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="622801272900" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="联行号" />
-
-                <TextView
-                    android:id="@+id/tv_bankno"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/et_money"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
             android:layout_marginTop="10dip"
-            android:background="@drawable/input_bg"
-            android:hint="提现金额"
-            android:inputType="numberDecimal"
-            android:paddingLeft="5dip" />
+            android:orientation="vertical" >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip" >
-
-            <Spinner
-                android:id="@+id/spinner0"
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="70dip"
-                android:background="@drawable/input_bg"
-                android:padding="5dip"
-                android:prompt="@string/planet_prompt" />
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dip"
-                android:src="@drawable/arrow_down" />
-        </RelativeLayout>
+                android:background="@drawable/prompt_cnt"
+                android:orientation="vertical"
+                android:padding="8dip" >
 
-        <Button
-            android:id="@+id/bt_next"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dip"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_bg"
-            android:text="下一步"
-            android:textColor="@color/black"
-            android:textSize="18dip" />
-    </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="某某" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机号" />
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="15011203030" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当日可提现余额" />
+
+                    <TextView
+                        android:id="@+id/tv_current_day_money"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="¥0.00" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不可提款余额" />
+
+                    <TextView
+                        android:id="@+id/tv_unbalance"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="¥0.00" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收款银行" />
+
+                    <TextView
+                        android:id="@+id/tv_bank"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="中国建设银行" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开启行所在城市" />
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="江苏省 南通市" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="银行账户" />
+
+                    <TextView
+                        android:id="@+id/tv_account"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="622801272900" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dip" >
+
+                    <TextView
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联行号" />
+
+                    <TextView
+                        android:id="@+id/tv_bankno"
+                        style="@style/black_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/input_bg"
+                android:hint="提现金额"
+                android:inputType="numberDecimal"
+                android:paddingLeft="5dip" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dip" >
+
+                <Spinner
+                    android:id="@+id/spinner0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="70dip"
+                    android:background="@drawable/input_bg"
+                    android:padding="5dip"
+                    android:prompt="@string/planet_prompt" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/bt_next"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dip"
+                android:layout_marginTop="50dip"
+                android:background="@drawable/button_bg"
+                android:text="下一步"
+                android:textColor="@color/black"
+                android:textSize="18dip" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

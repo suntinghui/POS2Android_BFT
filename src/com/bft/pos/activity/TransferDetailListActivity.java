@@ -75,7 +75,6 @@ public class TransferDetailListActivity extends BaseActivity implements
 			date_s = t_date_s.replace("-", "");
 			date_e = t_date_e.replace("-", "");
 		}
-
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {

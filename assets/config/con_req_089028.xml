@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 账户交易查询 -->
+<root shouldMac = "false" isJson = "true">
+	<field key="fieldTrancode" value="089028" />
+	<field key="psamNo" value="__PSAMNO" />
+	<field key="login" value="__login"  />
+	<field key="payPass" value="__payPass"  />
+	<field key="currPage" value="__currPage"  />
+	<field key="pageNum" value="10"  />
+	
+</root>

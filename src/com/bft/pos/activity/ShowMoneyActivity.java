@@ -10,6 +10,7 @@ import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,8 +32,7 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		et_money = (EditText) findViewById(R.id.et_money);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
-		btn_sms = (Button) findViewById(R.id.btn_sms);
-		btn_sms.setOnClickListener(this);
+		et_money = (EditText) findViewById(R.id.et_money);
 		bt_next = (Button) findViewById(R.id.bt_next);
 		bt_next.setOnClickListener(this);
 	}
@@ -44,27 +44,31 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.bt_next:
-			try {
-				Event event = new Event(null, "modify-bk", null);
-				event.setTransfer("089025");
-				String fsk = "Get_ExtPsamNo|null";
-				event.setFsk(fsk);
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("money", et_account.getText().toString());
-				map.put("payPass", et_paypassword.getText().toString());
-				map.put("verifyCode", "123456");// 验证码
-				event.setStaticActivityDataMap(map);
-				event.trigger();
-			} catch (ViewException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		case R.id.btn_sms:
-			getCode();
-			this.finish();
+			Intent intent = new Intent(ShowMoneyActivity.this,
+					ShowManeyPayActivity.class);
+			startActivity(intent);
 			break;
+		// try {
+		// Event event = new Event(null, "modify-bk", null);
+		// event.setTransfer("089025");
+		// String fsk = "Get_ExtPsamNo|null";
+		// event.setFsk(fsk);
+		// HashMap<String, String> map = new HashMap<String, String>();
+		// map.put("money", et_account.getText().toString());
+		// map.put("payPass", et_paypassword.getText().toString());
+		// map.put("verifyCode", "123456");// 验证码
+		// event.setStaticActivityDataMap(map);
+		// event.trigger();
+		// } catch (ViewException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		// case R.id.btn_sms:
+		// getCode();
+		// this.finish();
+		// break;
 		default:
 			break;
 		}

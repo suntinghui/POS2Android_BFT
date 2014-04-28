@@ -116,7 +116,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
 	/*
 	 * 立即注册
 	 */

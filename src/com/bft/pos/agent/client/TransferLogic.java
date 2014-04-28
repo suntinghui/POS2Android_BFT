@@ -1264,18 +1264,6 @@ public class TransferLogic {
 			intent.putExtra("prompt", prompt);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
-		try {
-			ViewPage transferViewPage = new ViewPage("tradesuccess");
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("message", prompt);
-			Event event = new Event(transferViewPage, "tradesuccess",
-					"tradesuccess");
-			event.setStaticActivityDataMap(map);
-			transferViewPage.addAnEvent(event);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

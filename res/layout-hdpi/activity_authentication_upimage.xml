@@ -170,9 +170,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
+                android:padding="5dip"
                 android:background="@drawable/blue_btn"
                 android:gravity="left"
-                android:text="xx支行/xx储蓄所/xx分理处" />
+                android:text="选择支行" />
 
             <TextView
                 style="@style/black_15"
@@ -271,8 +272,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
                 android:background="@drawable/button_bg"
                 android:text="上   传"
                 android:textColor="@color/black"

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -228,7 +229,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		// 短信验证
 		case R.id.btn_sms:
-			phoneverifcode();
+			actionGetSms();
 			break;
 		default:
 			break;
@@ -566,7 +567,11 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
-	public void phoneverifcode() {
+	/*
+	 * 获取验证码
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private void actionGetSms() {
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
@@ -579,7 +584,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
-			map.put("type", "1");
+			map.put("type", "0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

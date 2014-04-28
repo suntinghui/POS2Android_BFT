@@ -25,7 +25,6 @@
         android:layout_weight="1"
         android:background="@null"
         android:longClickable="false"
-        android:numeric="integer"
         android:singleLine="true" />
 
 </LinearLayout>

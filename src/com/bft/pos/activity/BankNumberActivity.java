@@ -29,8 +29,8 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 	private TextView titleBank;
 	private EditText et_idcard, et_sms;
 	private Spinner spinner0;
-	private TextWithIconView et_id_card, old_backcard, et_banknum;
-	private TextWithIconViewTwo et_name;
+	private TextWithIconViewTwo et_id_card, old_backcard, et_banknum;
+	private TextWithIconView et_name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +43,17 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		btn_sms.setOnClickListener(this);
 		btn_ok = (Button) this.findViewById(R.id.btn_ok);// 下一步
 		btn_ok.setOnClickListener(this);
-		et_name = (TextWithIconViewTwo) this.findViewById(R.id.et_name);// 真实姓名
+		et_name = (TextWithIconView) this.findViewById(R.id.et_name);// 真实姓名
 		et_name.setHintString("真实姓名");
-		et_id_card = (TextWithIconView) this.findViewById(R.id.et_id_card);// 身份证号
+		et_id_card = (TextWithIconViewTwo) this.findViewById(R.id.et_id_card);// 身份证号
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证");
 		et_id_card.getEditText().setFilters(
 				new InputFilter[] { new InputFilter.LengthFilter(18) });
-		old_backcard = (TextWithIconView) this.findViewById(R.id.old_backcard);
+		old_backcard = (TextWithIconViewTwo) this
+				.findViewById(R.id.old_backcard);
 		old_backcard.setHintString("原银行卡号");
-		et_banknum = (TextWithIconView) this.findViewById(R.id.et_banknum);
+		et_banknum = (TextWithIconViewTwo) this.findViewById(R.id.et_banknum);
 		et_banknum.setHintString("银行卡号");
 
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
@@ -67,7 +68,6 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			this.finish();
 			break;
 		case R.id.btn_ok:
-
 			try {
 				Event event = new Event(null, "modify-bk", null);
 				event.setTransfer("089029");
@@ -79,10 +79,9 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				map.put("oldBkCardNo", "001");// 原银行卡号
 				map.put("bankNo", "003");// 银行卡开户
 				map.put("bkCardNo", "002");// 银行卡号
-				map.put("verifyCode", "123456");// 验证码
+				map.put("verifyCode", et_sms.getText().toString());// 验证码
 				event.setStaticActivityDataMap(map);
 				event.trigger();
-
 			} catch (ViewException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

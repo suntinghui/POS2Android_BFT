@@ -24,7 +24,7 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initControl() {
-		btn_back = (Button) this.findViewById(R.id.backButton);
+		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
@@ -37,7 +37,7 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.backButton:
+		case R.id.btn_back:
 			finish();
 			break;
 		case R.id.btn_confirm:

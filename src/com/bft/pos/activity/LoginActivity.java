@@ -360,7 +360,7 @@ public class LoginActivity extends BaseActivity {
 
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,
-				FindPasswordActivity.class);
+				FindLoginPwdActivity.class);
 		startActivity(getpwd_intent);
 	}
 

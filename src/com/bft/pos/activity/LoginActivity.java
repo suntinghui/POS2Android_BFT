@@ -323,7 +323,7 @@ public class LoginActivity extends BaseActivity {
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(userNameET
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
 					.getText().toString().toUpperCase()
 					+ et_pwd.getText())
 					+ "www.payfortune.com");

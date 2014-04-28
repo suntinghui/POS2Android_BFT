@@ -11,8 +11,6 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 
@@ -89,9 +87,9 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 //			map.put("type", type);
 //			map.put("tel", ApplicationEnvironment.getInstance()
 //					.getPreferences().getString(Constant.PHONENUM, ""));
-			String pwd = StringUtil.MD5Crypto(StringUtil
-					.MD5Crypto(et_pwd_confirm.getText().toString()
-							+ et_pwd_confirm.getText())
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_confirm
+					.getText().toString().toUpperCase()
+					+ et_pwd_confirm.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			event.setStaticActivityDataMap(map);

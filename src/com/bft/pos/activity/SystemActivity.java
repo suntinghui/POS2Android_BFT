@@ -26,11 +26,11 @@ public class SystemActivity extends MenuBaseActivity {
 	private ListView listView;
 	private ManagerAdapter adapter = null;
 	
-	private Integer[] imageIds = { R.drawable.system_left_0,
+	private Integer[] imageIds = {
 			R.drawable.system_left_1, R.drawable.system_left_2,
-			R.drawable.system_left_3,R.drawable.system_left_3,};
+			R.drawable.system_left_3,};
 	
-	private String[] titles = { "新手引导", "意见反馈", "关于系统", "检查更新","退出登录"};
+	private String[] titles = {  "意见反馈", "关于系统", "检查更新"};
 	@Override
 	public void onCreate( Bundle savedInstanceState){
 		super.index = 1;

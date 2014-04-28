@@ -29,7 +29,7 @@ public class CatalogActivity extends BaseActivity {
 //这里是五个按钮
 	private Integer[] imageIds = { R.drawable.catalog_1_button, R.drawable.catalog_2_button, R.drawable.catalog_3_button, R.drawable.catalog_4_button, R.drawable.catalog_5_button };
 //这里是五个按钮要的内容
-	private String[] titles = { "我的管理", "我要查询", "我要收款", "我的存款", "系统相关" };
+	private String[] titles = { "我的管理", "我要查询", "我要收款", "我要提款", "系统相关" };
 //	网格布局
 	private GridView gridView = null;
 //	适配器
@@ -89,11 +89,17 @@ public class CatalogActivity extends BaseActivity {
 				startActivity(intent2);
 				break;
 			case 3:
+//              跳转：我要提款
+				Intent intent3 = new Intent(CatalogActivity.this, DrawingsActivity.class);
+				intent3.putExtra("TAG", arg2);
+				startActivity(intent3);
+				break;
+/*			case 3:
 //				跳转：我的存款
 				Intent intent3 = new Intent(CatalogActivity.this, QueryBusinessDepositActivity.class);
 				intent3.putExtra("TAG", arg2);
 				startActivity(intent3);
-				break;
+				break;*/
 			case 4:
 //				跳转：系统相关
 				Intent intent4 = new Intent(CatalogActivity.this, SystemActivity.class);

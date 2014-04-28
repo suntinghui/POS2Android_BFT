@@ -6,6 +6,9 @@ import java.util.Random;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 
+/**
+ * 密码键盘
+ */
 public class RandomPWDKeyboard extends Keyboard {
 
 	public RandomPWDKeyboard(Context context, int xmlLayoutResId) {

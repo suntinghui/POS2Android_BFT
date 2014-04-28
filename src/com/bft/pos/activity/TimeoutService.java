@@ -64,7 +64,7 @@ public class TimeoutService extends Service {
 		
 		this.stopSelf();
 		
-		Intent intent = new Intent("com.dhc.pos.login");
+		Intent intent = new Intent("com.bft.pos.login");
 		intent.putExtra("TIMEOUT", true);
 		BaseActivity.getTopActivity().startActivity(intent);
 		

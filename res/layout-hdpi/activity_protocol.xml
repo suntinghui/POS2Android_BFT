@@ -15,14 +15,14 @@
 
         <Button
             android:id="@+id/btn_back"
+            style="@style/TextView15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="13dip"
             android:background="@drawable/back_button"
-            android:text="返回"
-            style="@style/TextView15_white" >
+            android:text="返回" >
         </Button>
 
         <TextView
@@ -49,15 +49,14 @@
             android:orientation="vertical"
             android:paddingBottom="20dip" >
 
-
             <Button
                 android:id="@+id/btn_agree"
+                style="@style/black_18"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dip"
                 android:background="@drawable/button_bg"
-                android:text="确定" 
-                style="@style/black_18"/>
+                android:text="确定" />
         </LinearLayout>
     </ScrollView>
 

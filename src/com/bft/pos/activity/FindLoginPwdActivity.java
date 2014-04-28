@@ -80,7 +80,7 @@ public class FindLoginPwdActivity extends BaseActivity implements
 		editor.commit();
 		try {
 			Event event = new Event(null, "checkInfo", null);
-			event.setTransfer("089002");
+			event.setTransfer("089031");
 			//获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);

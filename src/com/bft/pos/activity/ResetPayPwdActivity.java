@@ -70,7 +70,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.btn_sms:
-			if (ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, "").length() == 0) {
+			if (ApplicationEnvironment.getInstance().getPreferences()
+					.getString(Constant.PHONENUM, "").length() == 0) {
 				ResetPayPwdActivity.this.showToast("手机号不能为空!");
 			} else {
 				ResetPayPwdActivity.this.showToast("短信已发送，请注意查收!");
@@ -89,8 +90,9 @@ public class ResetPayPwdActivity extends BaseActivity implements
 
 	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
-	Log.i("payPass:", Constant.PUBLICKEY);
-		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY, (et_new_pwd.getText().toString()+"FF").getBytes(),1);
+		Log.i("payPass:", Constant.PUBLICKEY);
+		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
 		Log.i("pwd:", et_new_pwd.getText().toString());
 		Log.i("payPass2:", payPass);
 		map.put("payPass", payPass);

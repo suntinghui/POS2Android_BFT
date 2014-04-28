@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.model.AnnouncementModel;
-import com.dhc.dynamic.util.DateUtil;
+import com.bft.pos.util.DateUtil;
 public class AnnouncementDetailActivity extends BaseActivity implements OnClickListener {
 	
 	private Button btn_back = null;

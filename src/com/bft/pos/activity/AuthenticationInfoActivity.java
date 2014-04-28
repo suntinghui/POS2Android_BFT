@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
-import com.dhc.dynamic.core.Event;
+import com.bft.pos.dynamic.core.Event;
 
 //实名认证 信息展示
 public class AuthenticationInfoActivity extends BaseActivity implements

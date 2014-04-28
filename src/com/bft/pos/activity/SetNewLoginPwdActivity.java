@@ -1,9 +1,8 @@
 package com.bft.pos.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +14,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 /**
  * 找回密码,验证身份后设置新的密码
@@ -32,8 +32,6 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_set_new_login_pwd);
 		init();
-		// 身份验证后直接收取到一个短信验证码
-		actionGetSms();
 	}
 
 	/*
@@ -52,31 +50,8 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		et_sms = (TextWithIconView) this.findViewById(R.id.et_sms);// 短信校验码
 		et_sms.setHintString("短信校验码");
 		et_sms.setIcon(R.drawable.icon_mail);
-	}
-
-	/*
-	 * 获取验证码
-	 */
-	@SuppressLint("SimpleDateFormat")
-	private void actionGetSms() {
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
-		String date = sDateFormat.format(new java.util.Date());
-		try {
-			Event event = new Event(null, "getSms", null);
-			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("sendTime", date);
-			map.put("type", "0");
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Intent intent = this.getIntent();
+		smscode = intent.getStringExtra("smscode");
 	}
 
 	/*
@@ -103,16 +78,22 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 */
 	private void setNewPwd() {
 		try {
-			String type = "0";
+//			String type = "0";
 			Event event = new Event(null, "getPassword", null);
 			event.setTransfer("089015");
+			//获取PSAM卡号
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("smscode", smscode);
-			map.put("type", type);
-			map.put("tel", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
-			String pwd = et_pwd_confirm.getEncryptPWD();
-			map.put("logpass", pwd);
+			map.put("verifyCode", smscode);
+//			map.put("type", type);
+//			map.put("tel", ApplicationEnvironment.getInstance()
+//					.getPreferences().getString(Constant.PHONENUM, ""));
+			String pwd = StringUtil.MD5Crypto(StringUtil
+					.MD5Crypto(et_pwd_confirm.getText().toString()
+							+ et_pwd_confirm.getText())
+					+ "www.payfortune.com");
+			map.put("lgnPass", pwd);
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

@@ -35,7 +35,7 @@ public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickLis
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_pwd);
 		super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
-		this.initTitlebar("账户交易查询");
+		this.initTitlebar("账户余额查询");
 
 		editText = (EditText) this.findViewById(R.id.text);
 		
@@ -79,11 +79,7 @@ public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickLis
 		try {
 			Event event = new Event(null, "querybal", null);
 			event.setTransfer("089027");
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(editText
-					.getText().toString().toUpperCase()
-					+ et_pwd.getText())
-					+ "www.payfortune.com");
-			
+		
 			String pwd01 = et_pwd.getEncryptPWD();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login",ApplicationEnvironment.getInstance().getPreferences()

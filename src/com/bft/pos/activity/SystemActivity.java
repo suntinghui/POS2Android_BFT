@@ -26,11 +26,11 @@ public class SystemActivity extends MenuBaseActivity {
 	private ListView listView;
 	private ManagerAdapter adapter = null;
 	
-	private Integer[] imageIds = { R.drawable.system_left_0,
+	private Integer[] imageIds = {
 			R.drawable.system_left_1, R.drawable.system_left_2,
-			R.drawable.system_left_3,R.drawable.system_left_3,};
+			R.drawable.system_left_3,};
 	
-	private String[] titles = { "新手引导", "意见反馈", "关于系统", "检查更新","退出登录"};
+	private String[] titles = {  "意见反馈", "关于系统", "检查更新"};
 	@Override
 	public void onCreate( Bundle savedInstanceState){
 		super.index = 1;
@@ -49,13 +49,6 @@ public class SystemActivity extends MenuBaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				Log.e("_--", "000");
 				switch (arg2) {
-				
-					//退出登录
-                case 4:
-                	Intent intent4 = new Intent(SystemActivity.this, LoginActivity.class);
-    				intent4.putExtra("TAG", arg2);
-    				startActivity(intent4);
-					break;	
 
 				default:
 					break;

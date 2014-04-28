@@ -27,11 +27,12 @@ public class ManageActivity extends MenuBaseActivity {
 	private ManagerAdapter adapter = null;
 	// 四个按钮
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
-			R.drawable.manager_right_1_n, R.drawable.manager_right_2_n,
-			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n,
-			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n};
+			R.drawable.manager_right_1_n, R.drawable.manager_right_3_n,
+			R.drawable.manager_right_2_n, R.drawable.manager_right_3_n,
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "实名认证", "修改支付密码", "修改银行卡号", "提现", "重置支付密码"};
+	private String[] titles = { "签到", "结算", "签退","实名认证", "修改银行卡","支付密码设置",
+			"重置支付密码" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,19 +70,17 @@ public class ManageActivity extends MenuBaseActivity {
 					intent1.putExtra("TAG", arg2);
 					startActivity(intent1);
 					break;
-				case 3:
-					Intent intent = new Intent(ManageActivity.this,
-							ModifyPayPwdActivity.class);
-					intent.putExtra("TAG", arg2);
-					startActivity(intent);
-					break;
-				// 实名认证
+					//签退
 				case 2:
+					break;
+					// 实名认证
+				case 3:
 					Intent intent2 = new Intent(ManageActivity.this,
-					AuthenticationUpImageActivity.class);
+							AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
 					break;
+					// 修改银行卡
 				case 4:
 					Intent intent4 = new Intent(ManageActivity.this,
 							BankNumberActivity.class);
@@ -89,11 +88,22 @@ public class ManageActivity extends MenuBaseActivity {
 					startActivity(intent4);
 					break;
 				case 5:
+					// 修改支付密码
+					Intent intent = new Intent(ManageActivity.this,
+							ModifyPayPwdActivity.class);
+					intent.putExtra("TAG", arg2);
+					startActivity(intent);
+					break;
+				
+				
+					//提现
+				/*case 5:
 					Intent intent5 = new Intent(ManageActivity.this,
 							ShowMoneyActivity.class);
 					intent5.putExtra("TAG", arg2);
 					startActivity(intent5);
-					break;
+					break;*/
+					//重置支付密码
 				case 6:
 					Intent intent6 = new Intent(ManageActivity.this,
 							ResetPayPwdActivity.class);

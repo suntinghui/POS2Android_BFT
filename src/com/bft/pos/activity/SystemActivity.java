@@ -49,13 +49,6 @@ public class SystemActivity extends MenuBaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				Log.e("_--", "000");
 				switch (arg2) {
-				
-					//退出登录
-                case 4:
-                	Intent intent4 = new Intent(SystemActivity.this, LoginActivity.class);
-    				intent4.putExtra("TAG", arg2);
-    				startActivity(intent4);
-					break;	
 
 				default:
 					break;

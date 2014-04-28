@@ -541,20 +541,17 @@ public class TransferLogic {
 	 * 注册
 	 */
 	private void registrDone(HashMap<String, String> fieldMap) {
-
-		if (fieldMap.containsKey("respmsg")) {
-			if ("1".equals(fieldMap.get("respmsg"))) {
-				gotoCommonSuccessActivity("注册成功");
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("注册失败");
-			} else if ("2".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("用户已被注册");
-			} else if ("3".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity(
-						"未检测到设备，请插入购买的刷卡头");
-			} else if ("4".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("设备未录入");
-			}
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"注册成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"注册失败":desc;
+			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
 		}
 	}
 
@@ -1268,14 +1265,14 @@ public class TransferLogic {
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
 		try {
-//			ViewPage transferViewPage = new ViewPage("tradesuccess");
-//			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("message", prompt);
-//			Event event = new Event(transferViewPage, "tradesuccess",
-//					"tradesuccess");
-//			event.setStaticActivityDataMap(map);
-//			transferViewPage.addAnEvent(event);
-//			event.trigger();
+			ViewPage transferViewPage = new ViewPage("tradesuccess");
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("message", prompt);
+			Event event = new Event(transferViewPage, "tradesuccess",
+					"tradesuccess");
+			event.setStaticActivityDataMap(map);
+			transferViewPage.addAnEvent(event);
+			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

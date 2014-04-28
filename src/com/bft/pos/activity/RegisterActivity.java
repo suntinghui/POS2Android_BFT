@@ -119,6 +119,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	/*
 	 * 立即注册
 	 */
+	@SuppressLint("DefaultLocale")
 	private void actionRegister() {
 		try {
 			Event event = new Event(null, "register", null);
@@ -134,9 +135,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			map.put("name", et_name.getText().toString());// 姓名
 			map.put("pIdNo", et_id_card.getText().toString());// 身份证
 			map.put("login", et_login_name.getText().toString());// 登录名
-			String pwd = StringUtil.MD5Crypto(StringUtil
-					.MD5Crypto(et_login_name.getText().toString()
-							+ et_login_pwd_again.getText())
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_login_pwd_again
+					.getText().toString().toUpperCase()
+					+ et_login_pwd_again.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);// 登陆密码
 			map.put("verifyCode", et_sms.getText().toString());// 验证码

@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
@@ -22,7 +21,7 @@ import com.bft.pos.util.PatternUtil;
 /**
  * 找回密码
  */
-public class FindPasswordActivity extends BaseActivity implements
+public class FindLoginPwdActivity extends BaseActivity implements
 		OnClickListener {
 	private Button btn_back;// 返回
 	private Button btn_confirm;// 身份验证
@@ -79,7 +78,6 @@ public class FindPasswordActivity extends BaseActivity implements
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
 		editor.commit();
-		Constant.PASS = "logpass";
 		try {
 			Event event = new Event(null, "checkInfo", null);
 			event.setTransfer("089002");

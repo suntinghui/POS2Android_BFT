@@ -551,20 +551,17 @@ public class TransferLogic {
 	 * 注册
 	 */
 	private void registrDone(HashMap<String, String> fieldMap) {
-
-		if (fieldMap.containsKey("respmsg")) {
-			if ("1".equals(fieldMap.get("respmsg"))) {
-				gotoCommonSuccessActivity("注册成功");
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("注册失败");
-			} else if ("2".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("用户已被注册");
-			} else if ("3".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity(
-						"未检测到设备，请插入购买的刷卡头");
-			} else if ("4".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("设备未录入");
-			}
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"注册成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"注册失败":desc;
+			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
 		}
 	}
 
@@ -592,34 +589,22 @@ public class TransferLogic {
 	 * 找回密码 验证用户信息
 	 */
 	private void findPwdDone(HashMap<String, String> fieldMap) {
-		if (fieldMap.containsKey("respmsg")) {
-			if ("1".equals(fieldMap.get("respmsg"))) {
-				String jsonStr = fieldMap.get("apires");
-				HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
-				try {
-					JSONTokener parse = new JSONTokener(jsonStr);
-					JSONObject content = (JSONObject) parse.nextValue();
-					@SuppressWarnings("unchecked")
-					Iterator<String> keys = content.keys();
-					while (keys.hasNext()) {
-						String key = (String) keys.next();
-						receiveFieldMap.put(key, content.getString(key));
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				Intent intent = new Intent(BaseActivity.getTopActivity(),
-						SetNewLoginPwdActivity.class);
-//				intent.putExtra("smscode", receiveFieldMap.get("smscode"));
-				if (Constant.PASS.equals("logpass")) {
-					intent.putExtra("b_flag", false);
-				} else {
-					intent.putExtra("b_flag", true);
-				}
-				BaseActivity.getTopActivity().startActivityForResult(intent, 0);
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("验证用户信息失败");
-			}
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SetNewLoginPwdActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent);;
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"验证失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
 		}
 	}
 
@@ -1333,14 +1318,14 @@ public class TransferLogic {
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
 		try {
-//			ViewPage transferViewPage = new ViewPage("tradesuccess");
-//			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("message", prompt);
-//			Event event = new Event(transferViewPage, "tradesuccess",
-//					"tradesuccess");
-//			event.setStaticActivityDataMap(map);
-//			transferViewPage.addAnEvent(event);
-//			event.trigger();
+			ViewPage transferViewPage = new ViewPage("tradesuccess");
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("message", prompt);
+			Event event = new Event(transferViewPage, "tradesuccess",
+					"tradesuccess");
+			event.setStaticActivityDataMap(map);
+			transferViewPage.addAnEvent(event);
+			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

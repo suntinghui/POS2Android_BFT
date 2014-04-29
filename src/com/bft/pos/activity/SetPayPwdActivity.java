@@ -20,6 +20,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 
 /**
  * 设置支付密码
@@ -72,7 +73,9 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
-				map.put("paypass", et_pay_pwd_again.getEncryptPWD());
+				String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
+				map.put("paypass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());
 				try {
 					Event event = new Event(null, "SetPayPwd", null);

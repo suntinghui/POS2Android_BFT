@@ -215,16 +215,18 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		case R.id.iv_1:
 			current_index = 1;
-			showDialog();
-			// actionCamera();
+			// showDialog();
+			actionCamera();
 			break;
 		case R.id.iv_2:
 			current_index = 2;
-			showDialog();
+			actionCamera();
+			// showDialog();
 			break;
 		case R.id.iv_3:
 			current_index = 3;
-			showDialog();
+			actionCamera();
+			// showDialog();
 			// actionCamera();
 			break;
 		// 银行
@@ -247,11 +249,11 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 
 	}
 
-	// private void actionCamera() {
-	// Intent getImageByCamera = new Intent(
-	// "android.media.action.IMAGE_CAPTURE");
-	// startActivityForResult(getImageByCamera, 1);
-	// }
+	private void actionCamera() {
+		Intent getImageByCamera = new Intent(
+				"android.media.action.IMAGE_CAPTURE");
+		startActivityForResult(getImageByCamera, 1);
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -764,15 +766,16 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 					public void onClick(DialogInterface dialog, int which) {
 						switch (which) {
 						case 0:
+							return;
 							// 本地
-							Intent intent = new Intent();
-							/* 开启Pictures画面Type设定为image */
-							intent.setType("image/*");
-							/* 使用Intent.ACTION_GET_CONTENT这个Action */
-							intent.setAction(Intent.ACTION_GET_CONTENT);
-							/* 取得相片后返回本画面 */
-							startActivityForResult(intent, 2);
-							break;
+							// Intent intent = new Intent();
+							// /* 开启Pictures画面Type设定为image */
+							// intent.setType("image/*");
+							// /* 使用Intent.ACTION_GET_CONTENT这个Action */
+							// intent.setAction(Intent.ACTION_GET_CONTENT);
+							// /* 取得相片后返回本画面 */
+							// startActivityForResult(intent, 2);
+							// break;
 						case 1:
 							Intent getImageByCamera = new Intent(
 									"android.media.action.IMAGE_CAPTURE");
@@ -902,4 +905,5 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		return fileName;
 
 	}
+
 }

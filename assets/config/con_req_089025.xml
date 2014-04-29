@@ -2,7 +2,7 @@
 <!-- 提现 -->
 <root
     isJson="true"
-    shouldMac="true" >
+    shouldMac="false" >
 
     <field
         key="fieldTrancode"

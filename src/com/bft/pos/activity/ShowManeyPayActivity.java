@@ -1,19 +1,32 @@
 package com.bft.pos.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.JSONUtil;
+import com.bft.pos.util.StringUtil;
 
 public class ShowManeyPayActivity extends BaseActivity implements
 		OnClickListener {
-
-	private Button btn_back, btn_confirm;
+	private EditText et_sms;
+	private Button btn_back, btn_confirm, btn_sms;
 	private PasswordWithIconView et_pwd_pay;
+	private TextView tv_money;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,10 +35,21 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.show_manypay);
 		super.onCreate(savedInstanceState);
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		String money = bundle.getString("et_money");
+		tv_money = (TextView) findViewById(R.id.tv_money);
+		tv_money.setText(money);
+		System.out.println(money + "~~~~~~~~~~~~~~~~~~" + "");
 		btn_back = (Button) findViewById(R.id.btn_back);
+		btn_back.setOnClickListener(this);
 		et_pwd_pay = (PasswordWithIconView) findViewById(R.id.et_pwd_pay);
 		et_pwd_pay.setHint("请输入交易密码");
-		btn_confirm = (Button) findViewById(R.id.btn_confirm);
+		btn_sms = (Button) findViewById(R.id.btn_sms);
+		btn_sms.setOnClickListener(this);
+		et_sms = (EditText) findViewById(R.id.et_sms);
+		btn_confirm = (Button) findViewById(R.id.btn_confirm01);
+		btn_confirm.setOnClickListener(this);
 	}
 
 	@Override
@@ -36,11 +60,55 @@ public class ShowManeyPayActivity extends BaseActivity implements
 					ShowMoneyActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.btn_confirm:
-
+		case R.id.btn_confirm01:
+			try {
+				Event event = new Event(null, "draw-cash", null);
+				event.setTransfer("089025");
+				// 获取PSAM卡号
+				String fsk = "Get_ExtPsamNo|null";
+				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("money", tv_money.getText().toString());
+				map.put("payPass", et_pwd_pay.getText().toString());
+				map.put("verifyCode", et_pwd_pay.getText().toString());
+				event.setStaticActivityDataMap(map);
+				event.trigger();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case R.id.btn_sms:
+			actionGetSms();
+			break;
 		default:
 			break;
 		}
 	}
 
+	/*
+	 * 获取验证码
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private void actionGetSms() {
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		try {
+			Event event = new Event(null, "getSms", null);
+			event.setTransfer("089006");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			// map.put("mobNo", ApplicationEnvironment.getInstance()
+			// .getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("sendTime", date);
+			map.put("type", "7");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

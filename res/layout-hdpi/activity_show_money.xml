@@ -224,33 +224,12 @@
                 android:id="@+id/et_money"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="20dip"
                 android:background="@drawable/input_bg"
                 android:hint="提现金额"
                 android:inputType="numberDecimal"
                 android:paddingLeft="5dip" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dip" >
-
-                <Spinner
-                    android:id="@+id/spinner0"
-                    android:layout_width="fill_parent"
-                    android:layout_height="70dip"
-                    android:background="@drawable/input_bg"
-                    android:padding="5dip"
-                    android:prompt="@string/planet_prompt" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dip"
-                    android:src="@drawable/arrow_down" />
-            </RelativeLayout>
 
             <Button
                 android:id="@+id/bt_next"

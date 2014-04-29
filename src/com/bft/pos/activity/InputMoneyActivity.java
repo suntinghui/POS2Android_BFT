@@ -150,9 +150,9 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 
 	private void pressSubmitButton() {
 		if (Constant.isAISHUA) {
-			// Intent intent = new Intent(this,
-			// ASBalancePwd2Activity.class);
-			// this.startActivityForResult(intent, 0);
+			Intent intent = new Intent(this,
+			ASBalancePwd2Activity.class);
+			this.startActivityForResult(intent, 0);
 
 			try {
 

@@ -45,6 +45,11 @@ public class QBTransferHistory extends MenuBaseActivity implements
 
 	private String date_s = null;
 	private String date_e = null;
+	private String t_date_s = null;
+	private String t_date_e = null ;
+//	传入的密码段
+	private String pwdcode = null;
+	
 
 	private ArrayList<TransferDetailModel> modelList = new ArrayList<TransferDetailModel>();
 
@@ -64,10 +69,17 @@ public class QBTransferHistory extends MenuBaseActivity implements
 
 		listView = (ListView) this.findViewById(R.id.listview);
 		// ActivityUtil.setEmptyView(listView);
-
+//		还没有想到什么好办法，暂时用这样来处理，虽然觉得似乎有点不靠谱
 		Intent intent = this.getIntent();
-		String t_date_s = intent.getStringExtra("date_s");
-		String t_date_e = intent.getStringExtra("date_e");
+		if(intent.getStringExtra("date_s")!=null){
+			t_date_s = intent.getStringExtra("date_s");
+			t_date_e = intent.getStringExtra("date_e");
+		}else if(intent.getStringExtra("pwdcode")!=null){
+//			获取传入的密码字段
+			pwdcode =  intent.getStringExtra("pwdcode");
+		}
+		
+
 		if (t_date_s == null || t_date_s.length() == 0) {
 			Calendar c = Calendar.getInstance();
 			String year = c.get(Calendar.YEAR) + "";

@@ -76,14 +76,18 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("oldPass", StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_old
-						.getText().toString().toUpperCase()
-						+ et_pwd_old.getText())
-						+ "www.payfortune.com"));
-				map.put("newPass", StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_new
-						.getText().toString().toUpperCase()
-						+ et_pwd_new.getText())
-						+ "www.payfortune.com"));
+				String oldpass = StringUtil.MD5Crypto(StringUtil
+						.MD5Crypto(et_pwd_old.getText().toString()
+								.toUpperCase()
+								+ et_pwd_old.getText())
+						+ "www.payfortune.com");
+				map.put("oldPass", oldpass);
+				String newpass = StringUtil.MD5Crypto(StringUtil
+						.MD5Crypto(et_pwd_new.getText().toString()
+								.toUpperCase()
+								+ et_pwd_new.getText())
+						+ "www.payfortune.com");
+				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "1");
 				try {

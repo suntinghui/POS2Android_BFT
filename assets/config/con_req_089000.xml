@@ -2,7 +2,7 @@
 <!-- 交易流水 -->
 <root
     isJson="true"
-    shouldMac="true" >
+    shouldMac="false" >
 
     <field
         key="fieldTrancode"
@@ -21,15 +21,11 @@
         value="__type" />
 
     <field
-        key="begin_date"
-        value="__begin_date" />
+        key="currPage"
+        value="__currPage" />
 
     <field
-        key="end_date"
-        value="__end_date" />
-
-    <field
-        key="macstr"
-        value="tel,page_current,page_size" />
+        key="pageNum"
+        value="__pageNum" />
 
 </root>

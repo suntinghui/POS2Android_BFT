@@ -28,6 +28,6 @@
         android:ellipsize="marquee"
         android:gravity="center_horizontal"
         android:singleLine="true"
-        android:text="标题" />
+        android:text="交易明细" />
 
 </RelativeLayout>

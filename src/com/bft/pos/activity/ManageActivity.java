@@ -90,7 +90,7 @@ public class ManageActivity extends MenuBaseActivity {
 				case 5:
 					// 支付密码设置0
 					Intent intent = new Intent(ManageActivity.this,
-							SetPayPwdActivity.class);
+							ModifyLoginPwdActivity.class);
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;

@@ -74,7 +74,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 				map.put("type", "1");
 				try {
 					Event event = new Event(null, "modifyLoginPwd", null);
-					event.setTransfer("089003");
+					event.setTransfer("089024");
 					// 获取PSAM卡号
 					String fsk = "Get_PsamNo|null";
 					if (Constant.isAISHUA) {

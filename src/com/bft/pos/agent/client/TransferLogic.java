@@ -149,7 +149,7 @@ public class TransferLogic {
 		} else if ("089028".equals(transferCode)) { // 账户交易查询
 			this.QBTDone(fieldMap);
 
-		} else if ("089003".equals(transferCode)) { // 修改密码
+		} else if ("089024".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
 
 		} else if ("089006".equals(transferCode)) { // 短信验证码

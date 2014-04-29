@@ -17,9 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.slidingmenu.MenuBaseActivity;
 
-public class DrawingsActivity extends MenuBaseActivity {
+public class DrawingsActivity extends BaseActivity {
 //	定义各种组件
 //	定义列表视图
 	private ListView listView;

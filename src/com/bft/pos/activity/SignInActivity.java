@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class SignInActivity extends MenuBaseActivity {
+public class SignInActivity extends BaseActivity {
 		private Button btn_sign;
 		@Override
 		public void onCreate( Bundle savedInstanceState){

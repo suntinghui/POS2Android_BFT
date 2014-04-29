@@ -18,9 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.slidingmenu.MenuBaseActivity;
 
-public class ManageActivity extends MenuBaseActivity {
+public class ManageActivity extends BaseActivity {
 	// 定义组件 列表视图
 	private ListView listView;
 	// 适配器

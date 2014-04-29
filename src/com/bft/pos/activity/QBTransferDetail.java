@@ -18,7 +18,7 @@ import com.bft.pos.util.DateUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QBTransferDetail extends MenuBaseActivity implements OnClickListener {
+public class QBTransferDetail extends BaseActivity implements OnClickListener {
 	
 	private Button backButton = null;
 	private Button okButton = null;

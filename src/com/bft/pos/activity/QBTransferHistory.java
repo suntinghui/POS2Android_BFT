@@ -32,7 +32,7 @@ import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.util.ActivityUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QBTransferHistory extends MenuBaseActivity implements
+public class QBTransferHistory extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 
 	private Button btn_back = null;

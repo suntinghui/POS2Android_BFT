@@ -706,7 +706,7 @@ public class TransferLogic {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-			QBTransferHistory activity = (QBTransferHistory) MenuBaseActivity.getTopActivity();
+			QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
 			activity.fromLogic(map);
 			
 			} else if ("0".equals(fieldMap.get("respmsg"))) {

@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com.bft.pos.activity.ManageActivity;
 import com.bft.pos.activity.QueryActivity;
 import com.bft.pos.activity.QueryBusinessDepositActivity;
 import com.bft.pos.activity.SystemActivity;
+import com.bft.pos.activity.TimeoutService;
 import com.bft.pos.agent.client.AppDataCenter;
 import com.bft.pos.agent.client.HttpManager;
 import com.bft.pos.agent.client.SystemConfig;
@@ -83,6 +85,7 @@ public class MenuBaseActivity extends SlidingMenuActivity implements OnClickList
 		setLayoutIds(menuLayout, contentLayout);
 		setAnimationDuration(300);
 		setAnimationType(MENU_TYPE_SLIDEOVER);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		
 		layout = (LinearLayout) findViewById(R.id.layout);
@@ -161,13 +164,21 @@ public class MenuBaseActivity extends SlidingMenuActivity implements OnClickList
 				default:
 					break;
 				}
-				
-				
 			}
 		});
-		
+		// 更新超时时间
+			TimeoutService.LastSystemTimeMillis = System.currentTimeMillis();
+			stack.push(this);
 	}
 	
+	public void initControl(){
+		}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == Activity.RESULT_OK) {
@@ -175,7 +186,6 @@ public class MenuBaseActivity extends SlidingMenuActivity implements OnClickList
 			this.finish();
 		}
 	}
-	
 	public void initTitleBar(String title, Boolean hasBack) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);

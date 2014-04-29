@@ -10,9 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.slidingmenu.MenuBaseActivity;
 
-public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClickListener {
+public class ASBalanceSuccessActivity extends BaseActivity implements OnClickListener {
 	
 	private TextView tv_balance = null;
 	private String accBlc= null;

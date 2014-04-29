@@ -24,9 +24,12 @@ public class TransferQueryActivity extends BaseActivity implements
 	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为7天。
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_transfer_query);
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.activity_transfer_query);
 		this.findViewById(R.id.topInfoView);
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);

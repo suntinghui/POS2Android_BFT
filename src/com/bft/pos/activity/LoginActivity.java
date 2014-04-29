@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class LoginActivity extends MenuBaseActivity {
+public class LoginActivity extends BaseActivity {
 	// 获取组件
 	private EditText userNameET;
 	// 新添加的两个验证码的组件
@@ -64,7 +65,7 @@ public class LoginActivity extends MenuBaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-		
+	
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");

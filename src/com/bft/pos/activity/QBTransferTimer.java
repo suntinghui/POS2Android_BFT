@@ -20,7 +20,7 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QBTransferTimer extends MenuBaseActivity implements OnClickListener {
+public class QBTransferTimer extends BaseActivity implements OnClickListener {
 
 	private PickerDateView date_picker = null;
 	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为7天。

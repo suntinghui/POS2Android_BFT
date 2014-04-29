@@ -71,13 +71,11 @@ public class QBTransferHistory extends MenuBaseActivity implements
 		// ActivityUtil.setEmptyView(listView);
 //		还没有想到什么好办法，暂时用这样来处理，虽然觉得似乎有点不靠谱
 		Intent intent = this.getIntent();
-		if(intent.getStringExtra("date_s")!=null){
 			t_date_s = intent.getStringExtra("date_s");
 			t_date_e = intent.getStringExtra("date_e");
-		}else if(intent.getStringExtra("pwdcode")!=null){
 //			获取传入的密码字段
-			pwdcode =  intent.getStringExtra("pwdcode");
-		}
+//			pwdcode =  intent.getStringExtra("pwdcode");
+//			System.out.println(pwdcode);
 		
 
 		if (t_date_s == null || t_date_s.length() == 0) {

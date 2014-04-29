@@ -32,8 +32,9 @@ import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
+import com.bft.slidingmenu.MenuBaseActivity;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends MenuBaseActivity {
 	// 获取组件
 	private EditText userNameET;
 	// 新添加的两个验证码的组件
@@ -55,9 +56,15 @@ public class LoginActivity extends BaseActivity {
 			.getPreferences();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");

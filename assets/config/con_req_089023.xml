@@ -3,10 +3,9 @@
 <root shouldMac = "false" isJson = "true">
 	<field key="fieldTrancode" value="089023" />
 	
+	<field key="psamNo" value="__psamNo" />
 	<field key="payPass" value="__payPass"  />
 	<field key="pIdNo" value="__pIdNo"/>
 	<field key="bkCardNo" value="__bkCardNo" />
 	<field key="verifyCode" value="__verifyCode"/>
-	<!-- <field key="psamNo" value="__PSAMNO" /> -->
-	<field key="psamNo" value="44294568" />
 </root>

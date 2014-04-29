@@ -68,8 +68,8 @@ public class QBPwd extends MenuBaseActivity implements OnClickListener {
 		case R.id.btn_confirm01:
 			if (checkValue()) {
 				gettranferdetail();
-				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
-				startActivity(intent1);
+//				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
+//				startActivity(intent1);
 			}
 			break;
 		default:

@@ -22,6 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bft.pos.client.exception.HttpException;
+import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
@@ -248,17 +249,19 @@ public class HttpManager {
 			// req_json = JSONUtil.MAP2JSONStr(req_map);
 			/* ============================== */
 
-			if (parts != null) {
+ 			if (parts != null) {
 				/** =====带附件======== */
-				for (Part str : parts) {
+				//
+				Part[] part = new Part[parts.length + 1];
 
-					Log.i("parts:", parts.toString());
+				for(int i=0; i<=parts.length-1; i++){
+					part[i] = parts[i];
 				}
-				parts[parts.length] = new StringPart("common", req_json,
+				part[parts.length] = new StringPart("common", req_json,
 						Constant.ENCODING_JSON);
 				// 4 构建实体
 				MultipartRequestEntity entity = new MultipartRequestEntity(
-						parts, postMethod.getParams());
+						part, postMethod.getParams());
 
 				// 5 设置实体
 				postMethod.setRequestEntity(entity);
@@ -271,6 +274,7 @@ public class HttpManager {
 			Log.i("REQ_JSON:", req_json);
 
 		} catch (Exception e1) {
+			Log.i("error:", e1.getMessage());
 			throw new HttpException(e1.getMessage());
 		}
 		try {

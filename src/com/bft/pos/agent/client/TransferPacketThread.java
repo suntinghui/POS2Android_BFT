@@ -374,6 +374,7 @@ public class TransferPacketThread extends Thread {
 					 * ================*/
 					Map<String, Object> req_map = new HashMap<String, Object>();
 					Map<String, Object> temp_req_map = new HashMap<String, Object>();
+					Map<String, Object> temp_req_map_2 = new HashMap<String, Object>();
 					String req_json = null;
 					String temp_req_json = null;
 
@@ -382,6 +383,7 @@ public class TransferPacketThread extends Thread {
 					temp_req_map = JSONUtil.JSONStr2MAP(temp_req_json);
 
 					req_map.putAll(temp_req_map);
+					req_map.remove("attachments");
 					req_json = JSONUtil.MAP2JSONStr(req_map);
 					if(temp_req_map.get("attachments") != null){
 						Part[] parts = null;
@@ -390,14 +392,23 @@ public class TransferPacketThread extends Thread {
 
 						temp_req_map.clear();
 						temp_req_map = JSONUtil.JSONStr2MAP(tmp);
+						
 						try {
-							parts = new CustomFilePart[temp_req_map.size()];
-							int j = 1;
 							for (Iterator<String> keys = temp_req_map.keySet().iterator(); keys.hasNext();) {
 								String key = (String) keys.next();
-								String value = map.get(key);
+								String value = (String) temp_req_map.get(key);
 								System.out.println("键"+key+"="+"值"+value);
-								parts[j-1] = new CustomFilePart(key, new File(value));
+								if(!value.equals("") && value != null)
+									temp_req_map_2.put(key, value);
+							} 
+							parts = new CustomFilePart[temp_req_map_2.size()];
+							int j = 1;
+							for (Iterator<String> keys = temp_req_map_2.keySet().iterator(); keys.hasNext();) {
+								String key = (String) keys.next();
+								String value = (String) temp_req_map_2.get(key);
+								System.out.println("键"+key+"="+"值"+value);
+								if(!value.equals("") && value != null)
+									parts[j-1] = new CustomFilePart(key, new File(value));
 								j++;
 							} 
 						} catch (FileNotFoundException e) {

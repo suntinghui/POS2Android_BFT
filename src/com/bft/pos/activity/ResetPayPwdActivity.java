@@ -94,7 +94,6 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
 		Log.i("pwd:", et_new_pwd.getText().toString());
-		Log.i("payPass2:", payPass);
 		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());

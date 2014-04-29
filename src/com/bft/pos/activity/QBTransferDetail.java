@@ -78,7 +78,7 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.finish();
+			QBTransferDetail.this.finish();
 			break;
 		case R.id.okButton:
 			this.finish();

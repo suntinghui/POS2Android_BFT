@@ -44,7 +44,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dip"
+                android:layout_marginLeft="15dip"
                 android:background="#00000000"
                 android:hint="@string/hint_username" />
         </LinearLayout>

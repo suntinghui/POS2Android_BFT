@@ -140,10 +140,12 @@ public class TransferLogic {
 		} else if ("089018".equals(transferCode)) { // 版本号
 			this.getVersionDone(fieldMap);
 
-		} else if ("089020".equals(transferCode)) { // 实名认证
-			this.drawCashDone(fieldMap);
 		} else if ("089025".equals(transferCode)) { // 实名认证
+			this.drawCashDone(fieldMap);
+			
+		} else if ("089020".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
+			
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
 			

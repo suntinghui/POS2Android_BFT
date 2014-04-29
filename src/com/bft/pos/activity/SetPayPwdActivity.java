@@ -112,7 +112,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
-			map.put("type", "0");
+			map.put("type", "8");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

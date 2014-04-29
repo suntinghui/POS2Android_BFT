@@ -137,7 +137,7 @@ public class QBTransferHistory extends BaseActivity implements
 
 		public int getCount() {
 
-			if (currentPage < totalPage) {
+			if (currentPage+1 < totalPage) {
 				return modelList.size() + 1;
 			} else {
 				return modelList.size();
@@ -183,7 +183,7 @@ public class QBTransferHistory extends BaseActivity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			if (currentPage < totalPage) {
+			if (currentPage+1 < totalPage) {
 				if (position == modelList.size()) {
 					holder.contentLayout.setVisibility(View.GONE);
 					holder.moreLayout.setVisibility(View.VISIBLE);
@@ -241,7 +241,7 @@ public class QBTransferHistory extends BaseActivity implements
 				QBTransferDetail.class);
 		intent.putExtra("model", modelList.get(arg2));
 		startActivity(intent);
-
+		QBTransferHistory.this.onPause();
 	}
 
 	@Override
@@ -257,8 +257,8 @@ public class QBTransferHistory extends BaseActivity implements
 			loadMoreData();
 			break;
 		case R.id.btn_history:
-			Intent intent1 = new Intent(this, QBTransferTimer.class);
-			this.startActivity(intent1);
+//			Intent intent1 = new Intent(this, QBTransferTimer.class);
+//			this.startActivity(intent1);
 			break;
 		default:
 			break;

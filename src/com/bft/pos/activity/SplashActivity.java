@@ -33,23 +33,6 @@ public class SplashActivity extends BaseActivity {
 		new SplashTask().execute();
 	}
 	
-	private void getverifycode(){
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
-		String date = sDateFormat.format(new java.util.Date());
-		try {
-			Event event = new Event(null, "verifyCodes", null);
-			event.setTransfer("089021");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("sendTime", date);
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
@@ -83,12 +66,11 @@ public class SplashActivity extends BaseActivity {
 		@Override
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
-				getverifycode();
 				
-//				Intent intent = new Intent(SplashActivity.this,
-//						LoginActivity.class);
-//				SplashActivity.this.startActivity(intent);
-//				SplashActivity.this.finish();
+				Intent intent = new Intent(SplashActivity.this,
+						LoginActivity.class);
+				SplashActivity.this.startActivity(intent);
+				SplashActivity.this.finish();
 			} else {// 检查网络
 				Intent intent = new Intent(SplashActivity.this,
 						LoginActivity.class);

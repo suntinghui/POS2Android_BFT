@@ -87,7 +87,7 @@
     <RelativeLayout
         android:id="@+id/moreLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:visibility="gone" >
 

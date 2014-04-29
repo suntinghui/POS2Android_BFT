@@ -36,6 +36,7 @@ public class ManageActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
+		System.out.println("走了OnCreate方法");
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_manage);

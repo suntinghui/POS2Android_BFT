@@ -35,7 +35,6 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 		
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("账户余额查询");
-
 		editText = (EditText) this.findViewById(R.id.text);
 		
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
@@ -61,7 +60,7 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backButton:
-			Intent intent0 = new Intent(ASBalancePwdActivity.this,CatalogActivity.class);
+			Intent intent0 = new Intent(ASBalancePwdActivity.this,QueryActivity.class);
 			startActivity(intent0);
 			break;
 		case R.id.btn_confirm01:

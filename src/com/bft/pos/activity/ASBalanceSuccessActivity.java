@@ -51,6 +51,7 @@ public class ASBalanceSuccessActivity extends BaseActivity implements OnClickLis
 		case R.id.backButton:
 			Intent intent = new Intent(ASBalanceSuccessActivity.this,CatalogActivity.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case R.id.btn_confirm02:
 			this.setResult(RESULT_OK);

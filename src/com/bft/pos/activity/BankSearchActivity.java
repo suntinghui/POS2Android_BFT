@@ -28,6 +28,7 @@ import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.BankModel;
 import com.bft.pos.util.ActivityUtil;
+import com.bft.slidingmenu.MenuBaseActivity;
 
 public class BankSearchActivity extends BaseActivity {
 	private Button btn_back;
@@ -44,11 +45,14 @@ public class BankSearchActivity extends BaseActivity {
 	private int firstSearch = 0;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_bank_search);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bank_search);
 
-		btn_back = (Button) this.findViewById(R.id.btn_back);
+		btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(listener);
 
 		Intent intent = this.getIntent();
@@ -177,7 +181,7 @@ public class BankSearchActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_back:
+			case R.id.backButton:
 				finish();
 				break;
 			case R.id.ll_search:

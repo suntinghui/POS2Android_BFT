@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QueryActivity extends MenuBaseActivity {
+public class QueryActivity extends BaseActivity {
 	// 获取组件
 	private ListView listView;
 	private ManagerAdapter adapter = null;

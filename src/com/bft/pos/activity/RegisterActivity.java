@@ -42,11 +42,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_register);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register);
 		initControl();
 	}
+
 	@Override
 	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
@@ -115,7 +121,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
 	/*
 	 * 立即注册
 	 */
@@ -124,7 +129,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		try {
 			Event event = new Event(null, "register", null);
 			event.setTransfer("089001");
-			//获取PSAM卡号
+			// 获取PSAM卡号
 			String fsk = "Get_PsamNo|null";
 			if (Constant.isAISHUA) {
 				fsk = "getKsn|null";
@@ -135,9 +140,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			map.put("name", et_name.getText().toString());// 姓名
 			map.put("pIdNo", et_id_card.getText().toString());// 身份证
 			map.put("login", et_login_name.getText().toString());// 登录名
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_login_pwd_again
-					.getText().toString().toUpperCase()
-					+ et_login_pwd_again.getText())
+			String pwd = StringUtil.MD5Crypto(StringUtil
+					.MD5Crypto(et_login_pwd_again.getText().toString()
+							.toUpperCase()
+							+ et_login_pwd_again.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);// 登陆密码
 			map.put("verifyCode", et_sms.getText().toString());// 验证码

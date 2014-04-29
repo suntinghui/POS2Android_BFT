@@ -19,7 +19,7 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
 
 /**
- * 找回密码
+ * 找回密码 身份验证
  */
 public class FindLoginPwdActivity extends BaseActivity implements
 		OnClickListener {
@@ -29,9 +29,12 @@ public class FindLoginPwdActivity extends BaseActivity implements
 	private TextWithIconView et_identy_card;// 身份证号
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_find_password);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_find_password);
 		initControl();
 	}
 
@@ -80,7 +83,7 @@ public class FindLoginPwdActivity extends BaseActivity implements
 		editor.commit();
 		try {
 			Event event = new Event(null, "checkInfo", null);
-			event.setTransfer("089002");
+			event.setTransfer("089031");
 			//获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);

@@ -24,8 +24,7 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 	private PasswordWithLabelView et_pwd = null;
 	private String field4 = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_aishua_balance_pwd2);

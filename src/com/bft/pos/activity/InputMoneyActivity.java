@@ -50,7 +50,7 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 	private Button button_clear = null;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.input_money);

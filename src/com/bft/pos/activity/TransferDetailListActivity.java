@@ -45,11 +45,12 @@ public class TransferDetailListActivity extends BaseActivity implements
 	private ArrayList<TransferDetailModel> modelList = new ArrayList<TransferDetailModel>();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_transfer_detail_list);
 		super.onCreate(savedInstanceState);
-
-		this.setContentView(R.layout.activity_transfer_detail_list);
-
 		this.findViewById(R.id.topInfoView);
 
 		btn_back = (Button) this.findViewById(R.id.btn_back);
@@ -75,7 +76,6 @@ public class TransferDetailListActivity extends BaseActivity implements
 			date_s = t_date_s.replace("-", "");
 			date_e = t_date_e.replace("-", "");
 		}
-
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {

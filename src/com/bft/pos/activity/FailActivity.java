@@ -5,6 +5,7 @@ import com.bft.pos.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,18 +14,20 @@ import android.widget.TextView;
  * 失败
  */
 public class FailActivity extends BaseActivity implements OnClickListener{
-	private Button btn_back,btn_confirm;
+	private Button btn_confirm;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_fail);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_fail);
 		initControl();
 	}
 	
 	@Override
 	public void initControl() {
-		btn_back=(Button) this.findViewById(R.id.backButton);
-		btn_back.setOnClickListener(this);
 		btn_confirm=(Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
 		
@@ -36,10 +39,8 @@ public class FailActivity extends BaseActivity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.backButton:
-			finish();
-			break;
 		case R.id.btn_confirm:
+			finish();
 			break;
 		default:
 			break;

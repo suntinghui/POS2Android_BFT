@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/layout">
 
     <RelativeLayout
         android:id="@+id/topbarLayout"
@@ -13,14 +14,14 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/backButton"
+            style="@style/TextView15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="13dip"
             android:background="@drawable/back_button"
-            android:text="返回" >
+            android:gravity="center"
+            android:text="  返回" >
         </Button>
 
         <TextView
@@ -172,7 +173,8 @@
                 android:layout_marginTop="10dip"
                 android:background="@drawable/blue_btn"
                 android:gravity="left"
-                android:text="xx支行/xx储蓄所/xx分理处" />
+                android:padding="5dip"
+                android:text="选择支行" />
 
             <TextView
                 style="@style/black_15"
@@ -261,7 +263,6 @@
                     android:layout_toLeftOf="@id/btn_sms"
                     android:background="@drawable/input_login"
                     android:hint="短信校验码"
-                    android:inputType="numberDecimal"
                     android:paddingLeft="5dip" />
             </RelativeLayout>
 
@@ -271,8 +272,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
                 android:background="@drawable/button_bg"
                 android:text="上   传"
                 android:textColor="@color/black"

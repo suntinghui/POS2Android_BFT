@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/login_bg" >
+    android:background="@drawable/login_bg"
+	android:id="@+id/layout"    
+     >
 
     <RelativeLayout
         android:id="@+id/topbarLayout"
@@ -14,17 +16,6 @@
         android:paddingLeft="10dip"
         android:paddingRight="10dip" >
 
-        <Button
-            android:id="@+id/backButton"
-            style="@style/TextView15_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@drawable/back_button"
-            android:gravity="center"
-            android:text="返回" >
-        </Button>
-
         <TextView
             android:id="@+id/title"
             style="@style/TextView17sp"
@@ -34,7 +25,7 @@
             android:ellipsize="marquee"
             android:gravity="center_horizontal"
             android:singleLine="true"
-            android:text="交易失败" />
+             />
     </RelativeLayout>
 
     <com.bft.pos.activity.view.TopInfoView

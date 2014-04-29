@@ -20,6 +20,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 
 /**
  * 设置支付密码
@@ -33,9 +34,12 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_set_pay_pwd);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_pay_pwd);
 		initControl();
 	}
 
@@ -72,11 +76,13 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
-				map.put("payPass", et_pay_pwd_again.getEncryptPWD());
+				String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
+				map.put("payPass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());
 				try {
-					Event event = new Event(null, "modifyPayPwd", null);
-					event.setTransfer("089017");
+					Event event = new Event(null, "SetPayPwd", null);
+					event.setTransfer("089022");
 					String fsk = "Get_ExtPsamNo|null";
 					event.setFsk(fsk);
 					event.setStaticActivityDataMap(map);

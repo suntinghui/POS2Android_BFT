@@ -3,22 +3,12 @@
 <root
     isJson="true"
     shouldMac="false" >
-
-    <field
-        key="newidentifyMerchant"
-        value="089021" />
+<field key="fieldTrancode" value="089020" />
 
     <field
         key="psamNo"
         value="__PsamNo" />
 
-    <field
-        key="pIdImg0"
-        value="__pIdImg0" />
-
-    <field
-        key="pIdImg1"
-        value="__pIdImg1" />
 
     <field
         key="bankNo"
@@ -26,11 +16,7 @@
 
     <field
         key="bkCardNo"
-        value="1234567890" />
-
-    <field
-        key="bkCardImg"
-        value="__bkCardImg" />
+        value="1234567890"/>
 
     <field
         key="mctName"
@@ -38,6 +24,11 @@
 
     <field
         key="verifyCode"
-        value="1q2w3r" />
+        value="__verifyCode" />
+    
+     <field
+        key="attachments"
+        value="__attachments" />
+    
 
 </root>

@@ -13,22 +13,25 @@ import android.widget.TextView;
  * 成功
  */
 public class SuccessActivity extends BaseActivity implements OnClickListener {
-	private Button btn_back, btn_confirm;
+	private Button btn_confirm;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_success);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_success);
 		initControl();
 	}
 
 	@Override
 	public void initControl() {
-		btn_back = (Button) this.findViewById(R.id.btn_back);
-		btn_back.setOnClickListener(this);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
-		
+
 		Intent intent = this.getIntent();
 		TextView tv_prompt = (TextView) findViewById(R.id.tv_prompt);
 		tv_prompt.setText(intent.getStringExtra("prompt"));
@@ -37,10 +40,8 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_back:
-			finish();
-			break;
 		case R.id.btn_confirm:
+			finish();
 			break;
 		default:
 			break;

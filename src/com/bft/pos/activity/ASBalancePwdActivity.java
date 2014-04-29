@@ -19,10 +19,8 @@ import com.bft.pos.activity.view.PasswordWithLabelView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
-import com.bft.pos.util.StringUtil;
-import com.bft.slidingmenu.MenuBaseActivity;
 
-public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickListener {
+public class ASBalancePwdActivity extends BaseActivity implements OnClickListener {
 	private PasswordWithLabelView et_pwd = null;
 	private LinearLayout rootLayout		= null;
 	private TextView textView			= null;
@@ -34,6 +32,7 @@ public class ASBalancePwdActivity extends MenuBaseActivity implements OnClickLis
 // 		依旧添加侧滑界面
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_pwd);
 		super.onCreate( savedInstanceState);
+		
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("账户余额查询");
 

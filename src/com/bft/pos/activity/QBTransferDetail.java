@@ -5,6 +5,7 @@ package com.bft.pos.activity;
  * */
 import java.util.HashMap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,16 +13,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.agent.client.AppDataCenter;
 import com.bft.pos.agent.client.TransferLogic;
-import com.bft.pos.util.DateUtil;
-import com.bft.pos.util.StringUtil;
-import com.bft.slidingmenu.MenuBaseActivity;
+import com.bft.pos.model.TransferDetailModel;
+import com.bft.pos.model.TransferDetailModel1;
 
-public class QBTransferDetail extends MenuBaseActivity implements OnClickListener {
+public class QBTransferDetail extends BaseActivity implements OnClickListener {
 	
 	private Button backButton = null;
 	private Button okButton = null;
+	private TransferDetailModel1 model = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,35 +36,37 @@ public class QBTransferDetail extends MenuBaseActivity implements OnClickListene
 		backButton.setOnClickListener(this);
 		okButton = (Button) this.findViewById(R.id.okButton);
 		okButton.setOnClickListener(this);
+		model = (TransferDetailModel1) getIntent().getSerializableExtra("model");
 		
-		@SuppressWarnings("unchecked")
-		HashMap<String, String> map = (HashMap<String, String>) this.getIntent().getSerializableExtra("map");
-		if (null == map || map.size() == 0){
-			TransferLogic.getInstance().gotoCommonFaileActivity("交易明细查询出错，请重试");
-			return;
-		}
+//		@SuppressWarnings("unchecked")
+//		HashMap<String, String> map = (HashMap<String, String>) this.getIntent().getSerializableExtra("map");
+//		if (null == map || map.size() == 0){
+//			TransferLogic.getInstance().gotoCommonFaileActivity("交易明细查询出错，请重试");
+//			return;
+//		}
 		
 		try{
-			((TextView)this.findViewById(R.id.qhTransferSerial)).setText(map.get("tranSerial"));
-			((TextView)this.findViewById(R.id.qhTransType)).setText(AppDataCenter.getTransferName(map.get("tranCode")));
-			((TextView)this.findViewById(R.id.qhTransTime)).setText(DateUtil.formatDateTime(map.get("tranDate")+map.get("tranTime")));
-			((TextView)this.findViewById(R.id.qhAmount)).setText(StringUtil.String2SymbolAmount(map.get("tranAmt")));
-			((TextView)this.findViewById(R.id.qhAccountNo)).setText(StringUtil.formatAccountNo(map.get("cardNo")));
-			((TextView)this.findViewById(R.id.qhBank)).setText(map.get("issueBank"));
-			((TextView)this.findViewById(R.id.qhBatchNo)).setText(map.get("batchNo"));
-			((TextView)this.findViewById(R.id.qhaimCardNo)).setText(map.get("aimCardNo"));
-			((TextView)this.findViewById(R.id.qhReferNo)).setText(map.get("hostSerial"));
-			((TextView)this.findViewById(R.id.qhSettleDate)).setText(DateUtil.formatDateStr(map.get("settleDate")));
-			((TextView)this.findViewById(R.id.qhSettleFlag)).setText(map.get("settleFlag").equals("0") ? "未清算" : "已清算");
-			((TextView)this.findViewById(R.id.qhTranFlag)).setText(this.getTranFlag(map.get("tranFlag")));
+//			((TextView)this.findViewById(R.id.qhTransferSerial)).setText(map.get("tranSerial"));
+//			((TextView)this.findViewById(R.id.qhAccountNo)).setText(StringUtil.formatAccountNo(map.get("cardNo")));
+//			((TextView)this.findViewById(R.id.qhBank)).setText(map.get("issueBank"));
+//			((TextView)this.findViewById(R.id.qhBatchNo)).setText(map.get("batchNo"));
+//			((TextView)this.findViewById(R.id.qhaimCardNo)).setText(map.get("aimCardNo"));
+//			((TextView)this.findViewById(R.id.qhReferNo)).setText(map.get("hostSerial"));
+//			((TextView)this.findViewById(R.id.qhSettleFlag)).setText(map.get("settleFlag").equals("0") ? "未清算" : "已清算");
+			
+			((TextView)this.findViewById(R.id.qhTransType)).setText(model.getTradeTypeKey());
+			((TextView)this.findViewById(R.id.qhTransTime)).setText(model.getTradeDate());
+			((TextView)this.findViewById(R.id.qhAmount)).setText(model.getPayMoney());
+			((TextView)this.findViewById(R.id.qhSettleDate)).setText(model.getPayDate());
+			((TextView)this.findViewById(R.id.qhTranFlag)).setText(model.getOrderStatus());
 			
 			// 只有付款交易（以后可能会扩充）才会有转入卡号。
-			TextView aimCardNoView = (TextView) this.findViewById(R.id.qhaimCardNo);
-			if (map.get("tranCode").equals("200001111")){
-				aimCardNoView.setVisibility(View.VISIBLE);
-			} else {
-				aimCardNoView.setVisibility(View.GONE);
-			}
+//			TextView aimCardNoView = (TextView) this.findViewById(R.id.qhaimCardNo);
+//			if (map.get("tranCode").equals("200001111")){
+//				aimCardNoView.setVisibility(View.VISIBLE);
+//			} else {
+//				aimCardNoView.setVisibility(View.GONE);
+//			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -76,6 +78,8 @@ public class QBTransferDetail extends MenuBaseActivity implements OnClickListene
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
+			this.finish();
+			break;
 		case R.id.okButton:
 			this.finish();
 			break;

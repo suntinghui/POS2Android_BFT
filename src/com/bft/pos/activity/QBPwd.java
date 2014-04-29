@@ -22,11 +22,12 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QBPwd extends MenuBaseActivity implements OnClickListener {
+public class QBPwd extends BaseActivity implements OnClickListener {
 	private PasswordWithLabelView et_pwd = null;
 	private LinearLayout rootLayout		= null;
 	private TextView textView			= null;
 	private EditText editText			= null;
+	private String pwdcode = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,33 +68,14 @@ public class QBPwd extends MenuBaseActivity implements OnClickListener {
 			break;
 		case R.id.btn_confirm01:
 			if (checkValue()) {
-				gettranferdetail();
+				pwdcode = et_pwd.getEncryptPWD();
 				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
+				intent1.putExtra("pwdcode", pwdcode);
 				startActivity(intent1);
 			}
 			break;
 		default:
 			break;
-		}
-	}
-//	这里是获取交易信息的接口
-	public void gettranferdetail(){
-		try {
-			Event event = new Event(null, "querybal", null);
-			event.setTransfer("089028");
-
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			String pwd01 = et_pwd.getEncryptPWD();
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
-					.getString(Constant.PHONENUM, ""));
-			map.put("payPass", pwd01);
-			map.put("currPage", "1");
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

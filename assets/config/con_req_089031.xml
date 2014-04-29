@@ -1,45 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 注册 -->
 
+<!-- 找回密码 身份验证 -->
 <root isJson="true" >
 
     <field
         key="fieldTrancode"
-        value="089001" />
+        value="089031" />
+
     <!-- PSAM卡号 -->
 
     <field
         key="psamNo"
         value="__psamNo" />
+
     <!-- 安全手机号 -->
 
     <field
         key="sctMobNo"
         value="__sctMobNo" />
-    <!-- 姓名 -->
 
-    <field
-        key="name"
-        value="__name" />
     <!-- 身份证号 -->
 
     <field
         key="pIdNo"
         value="__pIdNo" />
-    <!-- 登录名 -->
 
     <field
-        key="login"
-        value="__login" />
-    <!-- 登录密码 -->
-
-    <field
-        key="lgnPass"
-        value="__lgnPass" />
-    <!-- 验证码 -->
-
-    <field
-        key="verifyCode"
-        value="__verifyCode" />
+        key="macstr"
+        value="sctMobNo,smscode" />
 
 </root>

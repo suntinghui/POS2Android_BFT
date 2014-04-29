@@ -39,9 +39,14 @@ public class CatalogActivity extends BaseActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.catalog_activity);
 		super.onCreate(savedInstanceState);
 //	三列，好多行的布局
-		setContentView(R.layout.catalog_activity);
 //	获取组件 添加点击相应 绑定适配器
 		initTitleBar("主界面", false);
 		gridView = (GridView) findViewById(R.id.gridveiw);

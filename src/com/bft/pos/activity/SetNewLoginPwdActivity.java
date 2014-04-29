@@ -26,9 +26,12 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	private String smscode;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_set_new_login_pwd);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_new_login_pwd);
 		init();
 	}
 
@@ -76,17 +79,13 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 */
 	private void setNewPwd() {
 		try {
-//			String type = "0";
 			Event event = new Event(null, "getPassword", null);
-			event.setTransfer("089015");
+			event.setTransfer("089032");
 			//获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("verifyCode", smscode);
-//			map.put("type", type);
-//			map.put("tel", ApplicationEnvironment.getInstance()
-//					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("verifyCode", et_sms.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_confirm
 					.getText().toString().toUpperCase()
 					+ et_pwd_confirm.getText())

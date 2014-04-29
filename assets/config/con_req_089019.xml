@@ -5,10 +5,6 @@
     shouldMac="false" >
 
     <field
-        key="newidentifyMerchant"
-        value="089021" />
-
-    <field
         key="psamNo"
         value="__PsamNo" />
 

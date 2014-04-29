@@ -30,7 +30,7 @@ public class ManageActivity extends BaseActivity {
 			R.drawable.manager_right_2_n, R.drawable.manager_right_3_n,
 			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "签退","实名认证", "修改银行卡","支付密码设置",
+	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡", "支付密码设置",
 			"重置支付密码" };
 
 	@Override
@@ -69,17 +69,17 @@ public class ManageActivity extends BaseActivity {
 					intent1.putExtra("TAG", arg2);
 					startActivity(intent1);
 					break;
-					//签退
+				// 签退
 				case 2:
 					break;
-					// 实名认证
+				// 实名认证
 				case 3:
 					Intent intent2 = new Intent(ManageActivity.this,
 							AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
 					break;
-					// 修改银行卡
+				// 修改银行卡
 				case 4:
 					Intent intent4 = new Intent(ManageActivity.this,
 							BankNumberActivity.class);
@@ -87,22 +87,20 @@ public class ManageActivity extends BaseActivity {
 					startActivity(intent4);
 					break;
 				case 5:
-					// 修改支付密码
+					// 支付密码设置0
 					Intent intent = new Intent(ManageActivity.this,
-							ModifyPayPwdActivity.class);
+							SetPayPwdActivity.class);
 					intent.putExtra("TAG", arg2);
 					startActivity(intent);
 					break;
-				
-				
-					//提现
-				/*case 5:
-					Intent intent5 = new Intent(ManageActivity.this,
-							ShowMoneyActivity.class);
-					intent5.putExtra("TAG", arg2);
-					startActivity(intent5);
-					break;*/
-					//重置支付密码
+
+				// 提现
+				/*
+				 * case 5: Intent intent5 = new Intent(ManageActivity.this,
+				 * ShowMoneyActivity.class); intent5.putExtra("TAG", arg2);
+				 * startActivity(intent5); break;
+				 */
+				// 重置支付密码
 				case 6:
 					Intent intent6 = new Intent(ManageActivity.this,
 							ResetPayPwdActivity.class);

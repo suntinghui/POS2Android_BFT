@@ -40,11 +40,12 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		initControl();
 		// 身份验证后直接收取到一个短信验证码
 		actionGetSms();
+		this.setContentView(R.layout.activity_modify_login_pwd);
 		initControl();
 	}
 
-@Override
-public void initControl() {
+	@Override
+	public void initControl() {
 		et_pwd_old = (PasswordWithIconView) this.findViewById(R.id.et_pwd_old);
 		et_pwd_old.setIconAndHint(R.drawable.icon_pwd, "原登录密码");
 		et_pwd_new = (PasswordWithIconView) this.findViewById(R.id.et_pwd_new);
@@ -78,11 +79,15 @@ public void initControl() {
 				map.put("newPass", et_pwd_new.getEncryptPWD());
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "1");
-//				map.put("tel", ApplicationEnvironment.getInstance()
-//						.getPreferences().getString(Constant.PHONENUM, ""));
 				try {
 					Event event = new Event(null, "modifyLoginPwd", null);
-					event.setTransfer("089003");
+					event.setTransfer("089024");
+					// 获取PSAM卡号
+					String fsk = "Get_PsamNo|null";
+					if (Constant.isAISHUA) {
+						fsk = "getKsn|null";
+					}
+					event.setFsk(fsk);
 					event.setStaticActivityDataMap(map);
 					event.trigger();
 				} catch (Exception e) {

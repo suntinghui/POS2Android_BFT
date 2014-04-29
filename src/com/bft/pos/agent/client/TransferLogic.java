@@ -132,7 +132,7 @@ public class TransferLogic {
 		} else if ("089013".equals(transferCode)) { // 获取商户注册信息
 			this.getMerchantInfoDone(fieldMap);
 
-		} else if ("089017".equals(transferCode)) { // 设置新密码 支付
+		} else if ("089022".equals(transferCode)) { // 设置新密码 支付
 			this.getSetNewPwdDone(fieldMap);
 
 		} else if ("089018".equals(transferCode)) { // 版本号
@@ -150,7 +150,7 @@ public class TransferLogic {
 		} else if ("089028".equals(transferCode)) { // 账户交易查询
 			this.QBTDone(fieldMap);
 
-		} else if ("089003".equals(transferCode)) { // 修改密码
+		} else if ("089024".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
 
 		} else if ("089006".equals(transferCode)) { // 短信验证码

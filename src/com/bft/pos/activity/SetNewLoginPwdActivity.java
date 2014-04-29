@@ -79,7 +79,6 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 */
 	private void setNewPwd() {
 		try {
-//			String type = "0";
 			Event event = new Event(null, "getPassword", null);
 			event.setTransfer("089032");
 			//获取PSAM卡号
@@ -87,9 +86,6 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("verifyCode", smscode);
-//			map.put("type", type);
-//			map.put("tel", ApplicationEnvironment.getInstance()
-//					.getPreferences().getString(Constant.PHONENUM, ""));
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_confirm
 					.getText().toString().toUpperCase()
 					+ et_pwd_confirm.getText())

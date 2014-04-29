@@ -78,14 +78,18 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("oldPass", et_pwd_old.getEncryptPWD());
-				map.put("newPass", et_pwd_new.getEncryptPWD());
+				map.put("newPass", et_pwd_confirm.getEncryptPWD());
 				map.put("verifyCode", et_sms.getText().toString());
-				map.put("type", "1");
-//				map.put("tel", ApplicationEnvironment.getInstance()
-//						.getPreferences().getString(Constant.PHONENUM, ""));
+				map.put("type", "2");
 				try {
 					Event event = new Event(null, "modifyPayPwd", null);
-					event.setTransfer("089003");
+					event.setTransfer("089024");
+					// 获取PSAM卡号
+					String fsk = "Get_PsamNo|null";
+					if (Constant.isAISHUA) {
+						fsk = "getKsn|null";
+					}
+					event.setFsk(fsk);
 					event.setStaticActivityDataMap(map);
 					event.trigger();
 				} catch (Exception e) {

@@ -93,17 +93,15 @@ public class ResetPayPwdActivity extends BaseActivity implements
 
 	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		Log.i("payPass:", Constant.PUBLICKEY);
 		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
 		Log.i("pwd:", et_new_pwd.getText().toString());
-		Log.i("payPass2:", payPass);
 		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());
 		map.put("verifyCode", et_sms.getText().toString());
 		try {
-			Event event = new Event(null, "modifyPayPwd", null);
+			Event event = new Event(null, "resertPayPwd", null);
 			event.setTransfer("089023");
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);

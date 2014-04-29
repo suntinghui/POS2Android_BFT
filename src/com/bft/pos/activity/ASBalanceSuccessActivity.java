@@ -24,7 +24,7 @@ public class ASBalanceSuccessActivity extends MenuBaseActivity implements OnClic
 			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_success);
 			super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
-		this.initTitlebar("账户交易查询");
+		this.initTitlebar("余额查询");
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();

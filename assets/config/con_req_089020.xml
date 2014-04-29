@@ -4,9 +4,6 @@
     isJson="true"
     shouldMac="false" >
 
-    <field
-        key="newidentifyMerchant"
-        value="089021" />
 
     <field
         key="psamNo"
@@ -38,6 +35,6 @@
 
     <field
         key="verifyCode"
-        value="1q2w3r" />
+        value="__verifyCode" />
 
 </root>

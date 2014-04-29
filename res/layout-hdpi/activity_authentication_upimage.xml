@@ -170,9 +170,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:padding="5dip"
                 android:background="@drawable/blue_btn"
                 android:gravity="left"
+                android:padding="5dip"
                 android:text="选择支行" />
 
             <TextView
@@ -262,7 +262,6 @@
                     android:layout_toLeftOf="@id/btn_sms"
                     android:background="@drawable/input_login"
                     android:hint="短信校验码"
-                    android:inputType="numberDecimal"
                     android:paddingLeft="5dip" />
             </RelativeLayout>
 

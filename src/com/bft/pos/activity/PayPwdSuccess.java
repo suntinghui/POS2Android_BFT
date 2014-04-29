@@ -10,28 +10,26 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * 成功
+ * 有关支付密码的交易成功后跳转的界面
  */
-public class SuccessActivity extends BaseActivity implements OnClickListener {
+public class PayPwdSuccess extends BaseActivity implements OnClickListener {
 	private Button btn_confirm;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
-		this.mSlideTitleBar = true ;
+		this.mSlideTitleBar = true;
 		super.index = 0;
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_success);
 		super.onCreate(savedInstanceState);
-		initControl();
+		init();
 	}
 
-	@Override
-	public void initControl() {
+	private void init() {
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		btn_confirm.setOnClickListener(this);
-
 		Intent intent = this.getIntent();
 		TextView tv_prompt = (TextView) findViewById(R.id.tv_prompt);
 		tv_prompt.setText(intent.getStringExtra("prompt"));
@@ -41,7 +39,8 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
-			Intent intent=new Intent(SuccessActivity.this,LoginActivity.class);
+			Intent intent = new Intent(PayPwdSuccess.this,
+					CatalogActivity.class);
 			startActivity(intent);
 			break;
 		default:

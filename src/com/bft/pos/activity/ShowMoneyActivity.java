@@ -34,7 +34,6 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		et_money = (EditText) findViewById(R.id.et_money);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
-		et_money = (EditText) findViewById(R.id.et_money);
 		bt_next = (Button) findViewById(R.id.bt_next);
 		bt_next.setOnClickListener(this);
 	}
@@ -46,8 +45,10 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.bt_next:
-			Intent intent = new Intent(ShowMoneyActivity.this,
-					ShowManeyPayActivity.class);
+			Intent intent = new Intent();
+
+			intent.setClass(ShowMoneyActivity.this, ShowManeyPayActivity.class);
+			intent.putExtra("et_money", et_money.getText().toString());
 			startActivity(intent);
 			break;
 		// try {

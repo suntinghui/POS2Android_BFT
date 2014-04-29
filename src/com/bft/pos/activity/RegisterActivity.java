@@ -44,7 +44,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
-		this.mSlideTitleBar = true ;
+		this.mSlideTitleBar = true;
 		super.index = 0;
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
@@ -121,6 +121,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
+
 	/*
 	 * 立即注册
 	 */

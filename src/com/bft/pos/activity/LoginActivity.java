@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity {
 	private EditText inputverifyCode;
 	private ImageView verifyCode;
 	// 设置验证码内容的字符串
-	private String code = null;
+	private String code = "";
 
 	private PasswordWithIconView et_pwd;
 	private ImageView rememberIV;
@@ -65,13 +65,10 @@ public class LoginActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-	
+		getverifycode();
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		code = bundle.getString("code");
 		// 获取有关验证码的组件
 		inputverifyCode = (EditText) findViewById(R.id.verifycode01);
 		verifyCode = (ImageView) findViewById(R.id.verifycode02);
@@ -128,8 +125,6 @@ public class LoginActivity extends BaseActivity {
 		try {
 			Event event = new Event(null, "verifyCodes", null);
 			event.setTransfer("089021");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("sendTime", date);
 			event.setStaticActivityDataMap(map);
@@ -226,6 +221,7 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.verifycode02: {// 获取图片验证码
+				inputverifyCode.setText("");
 				getverifycode();
 				break;
 			}
@@ -234,24 +230,6 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-
-				// if (checkValue()) {
-				// SharedPreferences.Editor ed = sp.edit();
-				// ed.putBoolean(Constant.kISREMEBER, isRemember);
-				// if (isRemember) {
-				// ed.putString(Constant.LOGINPWD, et_pwd.getText()
-				// .toString());
-				// } else {
-				// ed.putString(Constant.LOGINPWD, "");
-				// }
-				// Boolean firstLogin = sp.getBoolean("firstLogin", true);
-				// if (firstLogin) {
-				// ed.putBoolean("firstLogin", false);
-				// } else {
-				// loginAction();
-				// }
-				// ed.commit();
-				// }
 
 				if (checkValue()) {
 
@@ -276,22 +254,6 @@ public class LoginActivity extends BaseActivity {
 			}
 		}
 	};
-
-	// // 不明觉厉
-	// private void shangsong() {
-	// try {
-	// Event event = new Event();
-	// event.setTransfer("032000");// 050000
-	//
-	// String fsk = "Get_VendorTerID|null";
-	// event.setFsk(fsk);
-	//
-	// event.trigger();
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
 
 	// 这里是菜单键,按出来能得个Setting
 	@Override
@@ -323,9 +285,6 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		// Intent intent = new Intent(LoginActivity.this,
-		// CatalogActivity.class);
-		// startActivity(intent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
@@ -335,8 +294,6 @@ public class LoginActivity extends BaseActivity {
 		try {
 			Event event = new Event(null, "login", null);
 			event.setTransfer("089016");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
@@ -352,15 +309,6 @@ public class LoginActivity extends BaseActivity {
 		}
 
 	}
-
-	// if(checkValue()){
-	//
-	// Editor editor =
-	// ApplicationEnvironment.getInstance().getPreferences().edit();
-	// editor.putBoolean(Constant.kISREMEBER, isRemember);
-	// editor.commit();
-	// }
-
 	/*
 	 * 注册
 	 */

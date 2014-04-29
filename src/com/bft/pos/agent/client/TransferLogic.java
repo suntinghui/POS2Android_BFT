@@ -141,8 +141,9 @@ public class TransferLogic {
 			this.getVersionDone(fieldMap);
 
 		} else if ("089020".equals(transferCode)) { // 实名认证
+			this.drawCashDone(fieldMap);
+		} else if ("089025".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
-
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
 			
@@ -683,7 +684,26 @@ public class TransferLogic {
 	private void getVersionDone(HashMap<String, String> fieldMap) {
 
 	}
-
+	/**
+	 * 提现
+	 */
+	private void drawCashDone(HashMap<String, String> fieldMap) {
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+	}
 	/**
 	 * 修改密码
 	 */

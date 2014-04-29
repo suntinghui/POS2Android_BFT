@@ -8,8 +8,6 @@
         key="fieldTrancode"
         value="089006" />
 
-    <!-- <field key="mobNo" value="__mobNo"  /> -->
-
     <field
         key="mobNo"
         value="13520072513" />

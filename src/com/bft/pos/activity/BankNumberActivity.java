@@ -75,7 +75,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("name", et_name.getText().toString());// name
-				map.put("pIdNo", et_id_card.getText().toString());// 身份证号
+				map.put("pldNo", et_id_card.getText().toString());// 身份证号
 				map.put("oldBkCardNo", "001");// 原银行卡号
 				map.put("bankNo", "003");// 银行卡开户
 				map.put("bkCardNo", "002");// 银行卡号
@@ -118,7 +118,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("mobNo", et_sms.getText().toString());
 			map.put("sendTime", date);
-			map.put("type", "0");
+			map.put("type", "7");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

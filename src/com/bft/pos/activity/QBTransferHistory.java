@@ -25,10 +25,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bft.pos.R;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.TransferDetailModel;
+import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.util.ActivityUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
@@ -49,10 +51,9 @@ public class QBTransferHistory extends BaseActivity implements
 	private String t_date_e = null ;
 //	传入的密码段
 	private String pwdcode = null;
+	private ArrayList<TransferDetailModel1> modelList = new ArrayList<TransferDetailModel1>();
 	
-
-	private ArrayList<TransferDetailModel> modelList = new ArrayList<TransferDetailModel>();
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
@@ -60,6 +61,7 @@ public class QBTransferHistory extends BaseActivity implements
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_transfer_detail_list1);
 		super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
+		System.out.println("走了oncreate方法");
 
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
@@ -68,15 +70,15 @@ public class QBTransferHistory extends BaseActivity implements
 		btn_history.setOnClickListener(this);
 
 		listView = (ListView) this.findViewById(R.id.listview);
-		// ActivityUtil.setEmptyView(listView);
+//	 	ActivityUtil.setEmptyView(listView);
 //		还没有想到什么好办法，暂时用这样来处理，虽然觉得似乎有点不靠谱
 		Intent intent = this.getIntent();
 			t_date_s = intent.getStringExtra("date_s");
 			t_date_e = intent.getStringExtra("date_e");
 //			获取传入的密码字段
-//			pwdcode =  intent.getStringExtra("pwdcode");
-//			System.out.println(pwdcode);
-		
+			pwdcode =  intent.getStringExtra("pwdcode");
+			System.out.println(pwdcode);
+			gettranferdetail();
 
 		if (t_date_s == null || t_date_s.length() == 0) {
 			Calendar c = Calendar.getInstance();
@@ -92,22 +94,28 @@ public class QBTransferHistory extends BaseActivity implements
 
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = new Intent(QBTransferHistory.this,
-						QBTransferDetail.class);
-				intent.putExtra("model", modelList.get(arg2));
-				QBTransferHistory.this.startActivity(intent);
-			}
-
-		});
-//		refresh();
-
+		listView.setOnItemClickListener(this);
 	}
 
+	public void gettranferdetail(){
+		try {
+			Event event = new Event(null, "querybal", null);
+			event.setTransfer("089028");
+
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
+					.getString(Constant.PHONENUM, ""));
+			map.put("payPass", pwdcode);
+			map.put("currPage", "1");
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public final class ViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
@@ -175,52 +183,52 @@ public class QBTransferHistory extends BaseActivity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-//			if (currentPage < totalPage) {
-//				if (position == modelList.size()) {
-//					holder.contentLayout.setVisibility(View.GONE);
-//					holder.moreLayout.setVisibility(View.VISIBLE);
-//				} else {
-//					holder.contentLayout.setVisibility(View.VISIBLE);
-//					holder.moreLayout.setVisibility(View.GONE);
-//
-//					TransferDetailModel model = modelList.get(position);
-//					if (model.getFlag().equals("3")) {
-//						holder.iv_revoke.setVisibility(View.VISIBLE);
-//					} else {
-//						holder.iv_revoke.setVisibility(View.GONE);
-//					}
-//
-//					holder.tv_account1.setText(modelList.get(position)
-//							.getAccount1() == null ? "" : modelList.get(
-//							position).getAccount1());
-//					holder.tv_amount.setText(modelList.get(position)
-//							.getAmount() == null ? "" : ("¥ " + modelList.get(
-//							position).getAmount()));
-//					holder.tv_local_log.setText(modelList.get(position)
-//							.getSnd_log() == null ? "" : modelList
-//							.get(position).getSnd_log());
-//				}
-//			} else {
-//				holder.contentLayout.setVisibility(View.VISIBLE);
-//				holder.moreLayout.setVisibility(View.GONE);
-//
-//				TransferDetailModel model = modelList.get(position);
-//				if (model.getFlag().equals("3")) {
-//					holder.iv_revoke.setVisibility(View.VISIBLE);
-//				} else {
-//					holder.iv_revoke.setVisibility(View.GONE);
-//				}
-//
-//				holder.tv_account1.setText(modelList.get(position)
-//						.getAccount1() == null ? "" : modelList.get(position)
-//						.getAccount1());
-//				holder.tv_amount
-//						.setText(modelList.get(position).getAmount() == null ? ""
-//								: ("¥ " + modelList.get(position).getAmount()));
-//				holder.tv_local_log.setText(modelList.get(position)
-//						.getSnd_log() == null ? "" : modelList.get(position)
-//						.getSnd_log());
-//			}
+			if (currentPage < totalPage) {
+				if (position == modelList.size()) {
+					holder.contentLayout.setVisibility(View.GONE);
+					holder.moreLayout.setVisibility(View.VISIBLE);
+				} else {
+					holder.contentLayout.setVisibility(View.VISIBLE);
+					holder.moreLayout.setVisibility(View.GONE);
+
+					TransferDetailModel1 model = modelList.get(position);
+					if (model.getTradeTypeKey().equals("3")) {
+						holder.iv_revoke.setVisibility(View.VISIBLE);
+					} else {
+						holder.iv_revoke.setVisibility(View.GONE);
+					}
+
+					holder.tv_account1.setText(modelList.get(position)
+							.getPayDate() == null ? "" : modelList.get(
+							position).getPayDate());
+					holder.tv_amount.setText(modelList.get(position)
+							.getPayMoney() == null ? "" : ("¥ " + modelList.get(
+							position).getPayMoney()));
+					holder.tv_local_log.setText(modelList.get(position)
+							.getOrderStatus() == null ? "" : modelList
+							.get(position).getOrderStatus());
+				}
+			} else {
+				holder.contentLayout.setVisibility(View.VISIBLE);
+				holder.moreLayout.setVisibility(View.GONE);
+
+				TransferDetailModel1 model = modelList.get(position);
+				if (model.getTradeTypeKey().equals("3")) {
+					holder.iv_revoke.setVisibility(View.VISIBLE);
+				} else {
+					holder.iv_revoke.setVisibility(View.GONE);
+				}
+
+				holder.tv_account1.setText(modelList.get(position)
+						.getPayDate() == null ? "" : modelList.get(position)
+						.getPayDate());
+				holder.tv_amount
+						.setText(modelList.get(position).getPayMoney() == null ? ""
+								: ("¥ " + modelList.get(position).getPayMoney()));
+				holder.tv_local_log.setText(modelList.get(position)
+						.getOrderStatus() == null ? "" : modelList.get(position)
+						.getOrderStatus());
+			}
 
 			return convertView;
 		}
@@ -230,9 +238,9 @@ public class QBTransferHistory extends BaseActivity implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
 		Intent intent = new Intent(QBTransferHistory.this,
-				TransferDetailActivity.class);
+				QBTransferDetail.class);
 		intent.putExtra("model", modelList.get(arg2));
-		QBTransferHistory.this.startActivity(intent);
+		startActivity(intent);
 
 	}
 
@@ -258,31 +266,30 @@ public class QBTransferHistory extends BaseActivity implements
 	}
 
 	public void refresh() {
-		Event event = new Event(null, "queryTransList", null);
-		event.setTransfer("089000");
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("page_current", ++currentPage + "");
-		map.put("page_size", Constant.PAGESIZE);
-		map.put("begin_date", date_s);
-		map.put("end_date", date_e);
-		event.setStaticActivityDataMap(map);
 		try {
+			Event event = new Event(null, "querybal", null);
+			event.setTransfer("089028");
+
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
+					.getString(Constant.PHONENUM, ""));
+			map.put("payPass", pwdcode);
+			map.put("currPage", "2");
+			event.setStaticActivityDataMap(map);
 			event.trigger();
-		} catch (ViewException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public void fromLogic(HashMap<String, Object> map) {
-		ArrayList<TransferDetailModel> list = (ArrayList<TransferDetailModel>) map
+		ArrayList<TransferDetailModel1> list = (ArrayList<TransferDetailModel1>) map
 				.get("list");
 		modelList.addAll(list);
-		int count = Integer.valueOf((String) map.get("total"));
+		int count = Integer.parseInt((String) map.get("total"));
 
 		totalPage = (count + Integer.parseInt(Constant.PAGESIZE) - 1)
 				/ Integer.parseInt(Constant.PAGESIZE);
@@ -295,6 +302,6 @@ public class QBTransferHistory extends BaseActivity implements
 	}
 
 	private void loadMoreData() {
-		refresh();
+//		refresh();
 	}
 }

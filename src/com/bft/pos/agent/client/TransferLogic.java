@@ -30,6 +30,7 @@ import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.PayPwdSuccess;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SetPayPwdActivity;
@@ -228,7 +229,7 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc==null)?"重置支付密码成功":desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
 		}else{
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
@@ -628,7 +629,7 @@ public class TransferLogic {
 	}
 
 	/**
-	 * 找回密码 设置新密码
+	 * 找回密码 设置新登陆密码
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
@@ -656,7 +657,16 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc==null)?"设置支付密码成功":desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+//			Intent intent = new Intent(ApplicationEnvironment.getInstance()
+//					.getApplication().getPackageName()
+//					+ ".showBalanceAishua");
+//			intent.putExtra("balance", fieldMap.get("field54"));
+//			intent.putExtra("availableBalance", fieldMap.get("field4"));
+//			intent.putExtra("accountNo", fieldMap.get("field2"));
+//			intent.putExtra("message", fieldMap.get("fieldMessage"));
+//			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+			
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
 		}else{
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
@@ -743,6 +753,7 @@ public class TransferLogic {
 	 * 账户交易流水
 	 */
 	private void QBTDone(HashMap<String, String> fieldMap) {
+		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
 		
@@ -750,10 +761,12 @@ public class TransferLogic {
 		if(rtCd.equals("00")){
 			try {
 				String jsonStr = fieldMap.get("pageList");
+				String page_count = fieldMap.get("totalNum");
+				map.put("total", page_count);
 				JSONTokener parse = new JSONTokener(jsonStr);
 				JSONArray jsonArray = (JSONArray) parse.nextValue();
 				if(jsonArray!=null&&jsonArray.length()>0){
-					for(int i = 0;i<jsonArray.length();i++){
+					for(i = 0;i<jsonArray.length();i++){
 						JSONObject picsObj = (JSONObject)jsonArray.opt(i);
 						TransferDetailModel1 model = new TransferDetailModel1();
 						model.setTradeDate(picsObj.optString("tradeDate", ""));
@@ -774,7 +787,7 @@ public class TransferLogic {
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
 			activity.fromLogic(map);
 			
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
+			} else {
 				TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
 			}
 	}
@@ -1369,6 +1382,28 @@ public class TransferLogic {
 			intent.putExtra("prompt", prompt);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
+	}
+
+	/**
+	 * 跳转到通用的成功界面，只显示一行提示信息
+	 */
+	public void gotoCommonSuccessActivity(String prompt,Map<String, Object> fieldMap) {
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SuccessActivity.class);
+			intent.putExtra("prompt", prompt);
+			intent.putExtra("fieldTrancode", (String)fieldMap.get("fieldTrancode"));
+			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+
+	}
+	
+	/**
+	 * 支付密码设置成功后跳转到通用的成功界面，只显示一行提示信息
+	 */
+	public void gotoCommonPayPwdSuccessActivity(String prompt) {
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					PayPwdSuccess.class);
+			intent.putExtra("prompt", prompt);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

@@ -688,7 +688,21 @@ public class TransferLogic {
 	 * 修改密码
 	 */
 	private void modifyPwdDone(HashMap<String, String> fieldMap) {
-
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"修改密码成功":desc;
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"修改密码失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
 	}
 
 	/**

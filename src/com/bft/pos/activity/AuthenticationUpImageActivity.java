@@ -33,10 +33,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -126,10 +124,12 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	private String[] items = new String[] { "本地图片", "拍照" };
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_authentication_upimage);
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.setContentView(R.layout.activity_authentication_upimage);
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
@@ -258,8 +258,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		if (requestCode == 1) {
 			String sdStatus = Environment.getExternalStorageState();
 			if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-				Log.v("TestFile",
-						"SD card is not avaiable/writeable right now.");
 				return;
 			}
 			new DateFormat();

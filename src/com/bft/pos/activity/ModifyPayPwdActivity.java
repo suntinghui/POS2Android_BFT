@@ -19,6 +19,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 
 /**
  * 修改支付密码
@@ -34,9 +35,12 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_modify_pay_pwd);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_modify_pay_pwd);
 		initControl();
 	}
 
@@ -74,15 +78,23 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("oldPass", et_pwd_old.getEncryptPWD());
-				map.put("newPass", et_pwd_new.getEncryptPWD());
+				String oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+				map.put("oldPass", oldpass);
+				String newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
-				map.put("type", "1");
-//				map.put("tel", ApplicationEnvironment.getInstance()
-//						.getPreferences().getString(Constant.PHONENUM, ""));
+				map.put("type", "2");
 				try {
 					Event event = new Event(null, "modifyPayPwd", null);
-					event.setTransfer("089003");
+					event.setTransfer("089024");
+					// 获取PSAM卡号
+					String fsk = "Get_PsamNo|null";
+					if (Constant.isAISHUA) {
+						fsk = "getKsn|null";
+					}
+					event.setFsk(fsk);
 					event.setStaticActivityDataMap(map);
 					event.trigger();
 				} catch (Exception e) {

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class SignBillActivity extends MenuBaseActivity {
+public class SignBillActivity extends BaseActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

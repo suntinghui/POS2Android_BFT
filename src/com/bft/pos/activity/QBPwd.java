@@ -22,11 +22,12 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QBPwd extends MenuBaseActivity implements OnClickListener {
+public class QBPwd extends BaseActivity implements OnClickListener {
 	private PasswordWithLabelView et_pwd = null;
 	private LinearLayout rootLayout		= null;
 	private TextView textView			= null;
 	private EditText editText			= null;
+	private String pwdcode = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,9 @@ public class QBPwd extends MenuBaseActivity implements OnClickListener {
 		case R.id.btn_confirm01:
 			if (checkValue()) {
 				gettranferdetail();
+//				pwdcode = et_pwd.getEncryptPWD();
 //				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
+//				intent1.putExtra("pwdcode", pwdcode);
 //				startActivity(intent1);
 			}
 			break;

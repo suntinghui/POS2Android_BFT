@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class QueryBusinessDepositActivity extends MenuBaseActivity {
+public class QueryBusinessDepositActivity extends BaseActivity {
 //	定义各种组件
 //	定义列表视图
 	private ListView listView;

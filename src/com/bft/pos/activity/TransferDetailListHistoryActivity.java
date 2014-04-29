@@ -46,10 +46,12 @@ public class TransferDetailListHistoryActivity extends BaseActivity implements
 
 	// 流水查询
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_transfer_detail_list);
 		super.onCreate(savedInstanceState);
-
-		this.setContentView(R.layout.activity_transfer_detail_list);
 
 		this.findViewById(R.id.topInfoView);
 

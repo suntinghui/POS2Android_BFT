@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import org.apache.commons.httpclient.HttpStatus;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -15,12 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.activity.view.TextWithIconViewTwo;
-import com.bft.pos.agent.client.NetClient;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 
@@ -33,9 +29,12 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 	private TextWithIconView et_name;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.bankcard);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.bankcard);
 		spinner0 = (Spinner) findViewById(R.id.spinner0);
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
 		btn_back.setOnClickListener(this);

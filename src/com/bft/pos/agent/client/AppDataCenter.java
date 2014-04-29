@@ -475,7 +475,7 @@ public class AppDataCenter {
 	public static String getMethod_Json(String transferCode) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("089000", "queryTransList");
-		map.put("089001", "register");
+		map.put("089001", "register");// 注册
 		map.put("089002", "checkInfo");
 		map.put("089003", "modifyPassword");
 		map.put("089004", "bulletin");
@@ -497,17 +497,17 @@ public class AppDataCenter {
 
 		map.put("089019", "newidentifyMerchant");
 		map.put("089021", "verifyCodes");
-		map.put("089022", "set-pay-pwd");
-		map.put("089023", "reset-pay-pwd");
-		map.put("089024", "modify-pwd");
+		map.put("089022", "set-pay-pwd");// 设置支付密码
+		map.put("089023", "reset-pay-pwd");// 重置支付密码
+		map.put("089024", "modify-pwd");// 修改密码
 		map.put("089025", "draw-cash");
 		map.put("089026", "query-card-trade");
 		map.put("089027", "query-bal");
 		map.put("089028", "query-acc-trade");
 		map.put("089029", "modify-bk");
 		map.put("089030", "logout");
-		map.put("089031", "checkInfo");
-		map.put("089032", "set-login-pwd");
+		map.put("089031", "checkInfo");// 身份验证
+		map.put("089032", "set-login-pwd");// 设置登录密码
 
 		return map.get(transferCode);
 

@@ -3,7 +3,7 @@
 <root
     isJson="true"
     shouldMac="false" >
-
+<field key="fieldTrancode" value="089020" />
 
     <field
         key="psamNo"

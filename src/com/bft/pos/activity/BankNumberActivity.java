@@ -55,7 +55,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				.findViewById(R.id.old_backcard);
 		old_backcard.setHintString("原银行卡号");
 		et_banknum = (TextWithIconViewTwo) this.findViewById(R.id.et_banknum);
-		et_banknum.setHintString("银行卡号");
+		et_banknum.setHintString("新银行卡号");
 
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
 		btn_ok = (Button) findViewById(R.id.btn_ok);
@@ -77,9 +77,9 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("name", et_name.getText().toString());// name
 				map.put("pldNo", et_id_card.getText().toString());// 身份证号
-				map.put("oldBkCardNo", "123456788012");// 原银行卡号
-				map.put("bankNo", "1234567");// 银行卡开户
-				map.put("bkCardNo", "123456789012");// 银行卡号
+				map.put("oldBkCardNo", old_backcard.getText().toString());// 原银行卡号
+				map.put("bankNo", "111111111111");// 银行卡开户
+				map.put("bkCardNo", et_banknum.getText().toString());// 银行卡号
 				map.put("verifyCode", et_sms.getText().toString());// 验证码
 				event.setStaticActivityDataMap(map);
 				event.trigger();
@@ -91,7 +91,6 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			break;
 		case R.id.btn_sms:
 			actionGetSms();
-
 			break;
 		default:
 			break;
@@ -109,8 +108,6 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			// map.put("mobNo", ApplicationEnvironment.getInstance()
 			// .getPreferences().getString(Constant.PHONENUM, ""));

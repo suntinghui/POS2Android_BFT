@@ -17,12 +17,9 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 
-import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.bft.pos.client.exception.HttpException;
-import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.TrafficUtil;
 
 public class HttpManager {
@@ -228,7 +225,7 @@ public class HttpManager {
 			postMethod = new ENCODEPostMethod(Constant.XMLURL);
 		}
 		if (!transferCode.equals("089021")) {
-			// 每次访问需授权的网址时需带上前面的 cookie 作为通行证
+			// 每次访问需授权的网址时需带上前面的 cookie 作为通行证;由于cookie 这个key被系统强行占用 故此定义cookie2；
 			postMethod.setRequestHeader("cookie2", cookie);
 		}
 

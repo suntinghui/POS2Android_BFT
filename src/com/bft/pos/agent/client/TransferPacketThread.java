@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -369,7 +366,8 @@ public class TransferPacketThread extends Thread {
 			} else {
 				if (transferModel.isJson()) {
 					/**
-					 * ================ 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
+					 * ================
+					 * 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
 					 * 2、处理带附件交易
 					 * 
 					 * ================
@@ -404,8 +402,6 @@ public class TransferPacketThread extends Thread {
 									.iterator(); keys.hasNext();) {
 								String key = (String) keys.next();
 								String value = (String) temp_req_map.get(key);
-								System.out.println("键" + key + "=" + "值"
-										+ value);
 								if (!value.equals("") && value != null)
 									temp_req_map_2.put(key, value);
 							}
@@ -415,8 +411,6 @@ public class TransferPacketThread extends Thread {
 									.keySet().iterator(); keys.hasNext();) {
 								String key = (String) keys.next();
 								String value = (String) temp_req_map_2.get(key);
-								System.out.println("键" + key + "=" + "值"
-										+ value);
 								if (!value.equals("") && value != null)
 									parts[j - 1] = new CustomFilePart(key,
 											new File(value));
@@ -426,21 +420,6 @@ public class TransferPacketThread extends Thread {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
-						/**
-						 * =====前端传送attachments参数非lsit时处理如下(ps:
-						 * attachments字符串的格式为list格式)========
-						 */
-						// String tmp = (String)
-						// temp_req_map.get("attachments");
-						// String demoArray[] = null;
-						// tmp = tmp.substring(1, tmp.length()-1);
-						// demoArray = tmp.split(",");
-						//
-						// list = Arrays.asList(demoArray);
-						// for(String str:list){
-						// System.out.println(str);
-						// }
 						/** ======前端传送attachments参数为lsit时处理如下======= */
 						// list = (List<String>)
 						// temp_req_map.get("attachments");

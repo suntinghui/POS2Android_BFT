@@ -154,7 +154,10 @@ public class TransferLogic {
 			
 		} else if ("089028".equals(transferCode)) { // 账户交易查询
 			this.QBTDone(fieldMap);
-
+			
+		} else if ("089029".equals(transferCode)) { // 账户交易查询
+			this.modifyBankNoDone(fieldMap);
+			
 		} else if ("089024".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
 
@@ -240,6 +243,27 @@ public class TransferLogic {
 		}
 	}
 
+	/**
+	 * 修改银行卡号
+	 */
+	private void modifyBankNoDone(HashMap<String, String> fieldMap){
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"修改银行卡号成功":desc;
+			/**需要完善处理 此处暂已支付密码成功页面使用*/
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"修改银行卡号失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+	}
 
 	/**
 	 * 登陆

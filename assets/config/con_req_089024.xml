@@ -8,5 +8,5 @@
 	<field key="oldPass" value="__oldPass" />
 	<field key="newPass" value="__newPass"/>
 	<field key="verifyCode" value="__verifyCode"/>
-	<field key="macstr" value="tel,verifyCode"  />
+	<!-- <field key="macstr" value="tel,verifyCode"  /> -->
 </root>

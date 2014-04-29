@@ -30,6 +30,7 @@ import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.PayPwdSuccess;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SetPayPwdActivity;
@@ -140,8 +141,9 @@ public class TransferLogic {
 			this.getVersionDone(fieldMap);
 
 		} else if ("089020".equals(transferCode)) { // 实名认证
+			this.drawCashDone(fieldMap);
+		} else if ("089025".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
-
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
 			
@@ -227,7 +229,7 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc==null)?"重置支付密码成功":desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
 		}else{
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
@@ -627,7 +629,7 @@ public class TransferLogic {
 	}
 
 	/**
-	 * 找回密码 设置新密码
+	 * 找回密码 设置新登陆密码
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
@@ -655,7 +657,16 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc==null)?"设置支付密码成功":desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+//			Intent intent = new Intent(ApplicationEnvironment.getInstance()
+//					.getApplication().getPackageName()
+//					+ ".showBalanceAishua");
+//			intent.putExtra("balance", fieldMap.get("field54"));
+//			intent.putExtra("availableBalance", fieldMap.get("field4"));
+//			intent.putExtra("accountNo", fieldMap.get("field2"));
+//			intent.putExtra("message", fieldMap.get("fieldMessage"));
+//			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+			
+			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
 		}else{
 			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
@@ -673,7 +684,26 @@ public class TransferLogic {
 	private void getVersionDone(HashMap<String, String> fieldMap) {
 
 	}
-
+	/**
+	 * 提现
+	 */
+	private void drawCashDone(HashMap<String, String> fieldMap) {
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+	}
 	/**
 	 * 修改密码
 	 */
@@ -1352,6 +1382,28 @@ public class TransferLogic {
 			intent.putExtra("prompt", prompt);
 			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
+	}
+
+	/**
+	 * 跳转到通用的成功界面，只显示一行提示信息
+	 */
+	public void gotoCommonSuccessActivity(String prompt,Map<String, Object> fieldMap) {
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SuccessActivity.class);
+			intent.putExtra("prompt", prompt);
+			intent.putExtra("fieldTrancode", (String)fieldMap.get("fieldTrancode"));
+			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+
+	}
+	
+	/**
+	 * 支付密码设置成功后跳转到通用的成功界面，只显示一行提示信息
+	 */
+	public void gotoCommonPayPwdSuccessActivity(String prompt) {
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					PayPwdSuccess.class);
+			intent.putExtra("prompt", prompt);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

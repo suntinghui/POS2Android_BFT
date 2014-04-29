@@ -9,6 +9,10 @@
         value="089025" />
 
     <field
+        key="psamNo"
+        value="__psamNo" />
+
+    <field
         key="money"
         value="__money" />
 

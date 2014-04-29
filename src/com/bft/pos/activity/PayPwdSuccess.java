@@ -40,7 +40,7 @@ public class PayPwdSuccess extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
 			Intent intent = new Intent(PayPwdSuccess.this,
-					CatalogActivity.class);
+					ManageActivity.class);
 			startActivity(intent);
 			break;
 		default:

@@ -19,6 +19,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 
 /**
  * 修改支付密码
@@ -77,8 +78,12 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("oldPass", et_pwd_old.getEncryptPWD());
-				map.put("newPass", et_pwd_confirm.getEncryptPWD());
+				String oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+				map.put("oldPass", oldpass);
+				String newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "2");
 				try {

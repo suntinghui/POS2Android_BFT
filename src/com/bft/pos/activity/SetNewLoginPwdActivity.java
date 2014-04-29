@@ -85,7 +85,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("verifyCode", smscode);
+			map.put("verifyCode", et_sms.getText().toString());
 			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_confirm
 					.getText().toString().toUpperCase()
 					+ et_pwd_confirm.getText())

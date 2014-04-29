@@ -19,7 +19,7 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
 
 /**
- * 找回密码
+ * 找回密码 身份验证
  */
 public class FindLoginPwdActivity extends BaseActivity implements
 		OnClickListener {

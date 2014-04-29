@@ -32,6 +32,7 @@ import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
+import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -133,7 +134,7 @@ public class TransferLogic {
 			this.getMerchantInfoDone(fieldMap);
 
 		} else if ("089022".equals(transferCode)) { // 设置新密码 支付
-			this.getSetNewPwdDone(fieldMap);
+			this.SetNewPayPwdDone(fieldMap);
 
 		} else if ("089018".equals(transferCode)) { // 版本号
 			this.getVersionDone(fieldMap);
@@ -582,7 +583,24 @@ public class TransferLogic {
 	 * 实名认证
 	 */
 	private void authenticationDone(HashMap<String, String> fieldMap) {
-
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SetPayPwdActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent);;
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"认证失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+		
 	}
 
 	/**
@@ -612,13 +630,40 @@ public class TransferLogic {
 	 * 找回密码 设置新密码
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
-		if (fieldMap.containsKey("respmsg")) {
-			if ("1".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance()
-						.gotoCommonSuccessActivity("设置新密码成功");
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("设置新密码失败");
-			}
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置登陆密码成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置登陆密码失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+	}
+	/**
+	 * 设置支付密码
+	 */
+	private void SetNewPayPwdDone(HashMap<String, String> fieldMap) {
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码成功":desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"设置支付密码失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
 		}
 	}
 

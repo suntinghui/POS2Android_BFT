@@ -103,7 +103,6 @@
                     android:layout_marginRight="10dip"
                     android:background="@drawable/input_login"
                     android:layout_toLeftOf="@id/btn_sms"
-                    android:inputType="numberDecimal"
                     android:hint="短信校验码" />
             </RelativeLayout>
         </LinearLayout>

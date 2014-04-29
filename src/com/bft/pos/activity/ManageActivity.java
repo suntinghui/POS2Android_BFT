@@ -87,7 +87,7 @@ public class ManageActivity extends BaseActivity {
 					startActivity(intent4);
 					break;
 				case 5:
-					// 支付密码设置0
+					// 支付密码设置
 					Intent intent = new Intent(ManageActivity.this,
 							SetPayPwdActivity.class);
 					intent.putExtra("TAG", arg2);

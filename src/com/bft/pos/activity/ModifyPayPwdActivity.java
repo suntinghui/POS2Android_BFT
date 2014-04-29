@@ -78,12 +78,12 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				String oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
-				map.put("oldPass", oldpass);
 				String newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 						(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
 				map.put("newPass", newpass);
+				String oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+				map.put("oldPass", oldpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "2");
 				try {
@@ -143,8 +143,6 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));

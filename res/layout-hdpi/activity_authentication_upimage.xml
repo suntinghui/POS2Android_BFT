@@ -235,8 +235,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
                 android:background="@drawable/input_login"
-                android:hint="商户名"
-                android:inputType="number"
+                android:hint="请输入商户名"
+             
                 android:paddingLeft="8dip" />
 
             <RelativeLayout

@@ -678,6 +678,7 @@ public class TransferLogic {
 	 * 账户交易流水
 	 */
 	private void QBTDone(HashMap<String, String> fieldMap) {
+		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
 		
@@ -685,10 +686,12 @@ public class TransferLogic {
 		if(rtCd.equals("00")){
 			try {
 				String jsonStr = fieldMap.get("pageList");
+				String page_count = fieldMap.get("totalNum");
+				map.put("total", page_count);
 				JSONTokener parse = new JSONTokener(jsonStr);
 				JSONArray jsonArray = (JSONArray) parse.nextValue();
 				if(jsonArray!=null&&jsonArray.length()>0){
-					for(int i = 0;i<jsonArray.length();i++){
+					for(i = 0;i<jsonArray.length();i++){
 						JSONObject picsObj = (JSONObject)jsonArray.opt(i);
 						TransferDetailModel1 model = new TransferDetailModel1();
 						model.setTradeDate(picsObj.optString("tradeDate", ""));
@@ -709,7 +712,7 @@ public class TransferLogic {
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
 			activity.fromLogic(map);
 			
-			} else if ("0".equals(fieldMap.get("respmsg"))) {
+			} else {
 				TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
 			}
 	}

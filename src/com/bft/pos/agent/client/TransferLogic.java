@@ -131,7 +131,7 @@ public class TransferLogic {
 		} else if ("089013".equals(transferCode)) { // 获取商户注册信息
 			this.getMerchantInfoDone(fieldMap);
 
-		} else if ("089017".equals(transferCode)) { // 设置新密码 支付
+		} else if ("089022".equals(transferCode)) { // 设置新密码 支付
 			this.getSetNewPwdDone(fieldMap);
 
 		} else if ("089018".equals(transferCode)) { // 版本号

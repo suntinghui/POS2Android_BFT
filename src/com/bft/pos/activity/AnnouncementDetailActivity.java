@@ -1,8 +1,5 @@
 package com.bft.pos.activity;
 
-
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,11 +15,12 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
 	private Button btn_back = null;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_annountce_detail);
 		super.onCreate(savedInstanceState);
-		
-		this.setContentView(R.layout.activity_annountce_detail);
-		
 		this.findViewById(R.id.topInfoView);
 		//返回按钮
 		btn_back = (Button) this.findViewById(R.id.btn_back);

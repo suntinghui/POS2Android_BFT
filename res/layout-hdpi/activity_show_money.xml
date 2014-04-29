@@ -3,7 +3,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/login_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/layout"
+    >
 
     <RelativeLayout
         android:id="@+id/topbarLayout"

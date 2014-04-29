@@ -31,9 +31,12 @@ public class ResetPayPwdActivity extends BaseActivity implements
 	private Button btn_back, btn_sms, btn_ok;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_reset_pay_pwd);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_reset_pay_pwd);
 		initControl();
 	}
 
@@ -92,6 +95,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		HashMap<String, String> map = new HashMap<String, String>();
 		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
+		Log.i("pwd:", et_new_pwd.getText().toString());
 		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());

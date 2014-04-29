@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
+import com.bft.slidingmenu.MenuBaseActivity;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
@@ -55,9 +57,15 @@ public class LoginActivity extends BaseActivity {
 			.getPreferences();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+	
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");

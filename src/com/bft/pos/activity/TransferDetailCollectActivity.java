@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class TransferDetailCollectActivity extends MenuBaseActivity {
+public class TransferDetailCollectActivity extends BaseActivity {
 
 	private ListView listView;
 	private CollectAdapter adapter = null;

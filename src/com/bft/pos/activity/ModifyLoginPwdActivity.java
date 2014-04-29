@@ -32,8 +32,15 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_modify_login_pwd);
 		super.onCreate(savedInstanceState);
+		initControl();
+		// 身份验证后直接收取到一个短信验证码
+		actionGetSms();
 		this.setContentView(R.layout.activity_modify_login_pwd);
 		initControl();
 	}

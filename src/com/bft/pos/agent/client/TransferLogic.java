@@ -32,6 +32,7 @@ import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
+import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
@@ -581,7 +582,24 @@ public class TransferLogic {
 	 * 实名认证
 	 */
 	private void authenticationDone(HashMap<String, String> fieldMap) {
-
+		String desc = null;
+		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					SetPayPwdActivity.class);
+			BaseActivity.getTopActivity().startActivity(intent);;
+		}else{
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc==null)?"认证失败":desc;
+			//屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		}
+		
 	}
 
 	/**

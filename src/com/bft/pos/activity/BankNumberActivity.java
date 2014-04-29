@@ -83,7 +83,6 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (ViewException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();

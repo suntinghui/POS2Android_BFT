@@ -359,6 +359,8 @@
         </activity>
         <activity android:name=".activity.AnnouncementListActivity" />
         <activity android:name=".activity.AnnouncementDetailActivity" />
+        <activity android:name=".activity.InputMoneyActivity" />
+        <activity android:name="com.bft.pos.activity.ASBalancePwd2Activity" />
         <activity
             android:name=".activity.AuthenticationInfoActivity"
             android:exported="true"

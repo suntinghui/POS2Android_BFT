@@ -1,8 +1,4 @@
 package com.bft.pos.activity;
-/**
- * 我的存款界面
- * 只有一个条目，商户存款查询
- * */
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

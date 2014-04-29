@@ -121,7 +121,10 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 			} else if(Float.valueOf(inputString) > 20000){
 				this.showDialog(BaseActivity.NONMODAL_DIALOG, "最大限额20000");
 			}else {
-				pressSubmitButton();
+				//pressSubmitButton();
+				Intent intent = new Intent(InputMoneyActivity.this,
+						ASBalancePwd2Activity.class);
+				startActivity(intent);
 			}
 			break;
 
@@ -148,11 +151,12 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 		this.refreshDisplayPad(inputString);
 	}
 
-	private void pressSubmitButton() {
+	
+	/*private void pressSubmitButton() {
 		if (Constant.isAISHUA) {
-			Intent intent = new Intent(this,
-			ASBalancePwd2Activity.class);
-			this.startActivityForResult(intent, 0);
+			// Intent intent = new Intent(this,
+			// ASBalancePwd2Activity.class);
+			// this.startActivityForResult(intent, 0);
 
 			try {
 
@@ -196,7 +200,7 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	private void pressClearButton() {
 		inputString = "0.00";

@@ -16,10 +16,12 @@ public class ShowManeyPayActivity extends BaseActivity implements
 	private PasswordWithIconView et_pwd_pay;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.show_manypay);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_manypay);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		et_pwd_pay = (PasswordWithIconView) findViewById(R.id.et_pwd_pay);
 		et_pwd_pay.setHint("请输入交易密码");

@@ -15,15 +15,21 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.slidingmenu.MenuBaseActivity;
 
 public class SplashActivity extends BaseActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		this.mDraggingEnabled = true;
+		this.mSlideTitleBar = true ;
+		super.index = 0;
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
-		setContentView(R.layout.splash_activity);
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.splash_activity);
+		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
 	

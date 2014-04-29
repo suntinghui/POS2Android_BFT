@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class SettlementSuccessActivity extends MenuBaseActivity {
+public class SettlementSuccessActivity extends BaseActivity {
 
 		@Override
 		public void onCreate( Bundle savedInstanceState){

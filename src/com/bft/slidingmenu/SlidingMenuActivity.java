@@ -48,8 +48,8 @@ public class SlidingMenuActivity extends FragmentActivity implements View.OnTouc
     private int mMinMainWidthDps = 50;
     private Interpolator mInterpolator = new DecelerateInterpolator(1.2f);
     private int mType = MENU_TYPE_SLIDING;
-    private boolean mSlideTitleBar = true;
-    private boolean mDraggingEnabled = false;
+    public boolean mSlideTitleBar = true;
+    public boolean mDraggingEnabled = false;
     private int mGrabberSize = 75;
     private int mGrabberTopOffset = 0;
 
@@ -58,8 +58,9 @@ public class SlidingMenuActivity extends FragmentActivity implements View.OnTouc
     private int mOriginX = 0;
     private int mCurrentX = 0;
     private int mLastX = 0;
-	
-    public SlidingMenuActivity() {
+    
+    
+	public SlidingMenuActivity() {
         this(true);
     }
 

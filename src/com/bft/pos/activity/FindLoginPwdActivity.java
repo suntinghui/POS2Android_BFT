@@ -29,9 +29,12 @@ public class FindLoginPwdActivity extends BaseActivity implements
 	private TextWithIconView et_identy_card;// 身份证号
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_find_password);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_find_password);
 		initControl();
 	}
 

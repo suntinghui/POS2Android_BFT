@@ -16,6 +16,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.StringUtil;
 
 /**
  * 修改登录密码
@@ -31,8 +32,15 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_modify_login_pwd);
 		super.onCreate(savedInstanceState);
+		initControl();
+		// 身份验证后直接收取到一个短信验证码
+		actionGetSms();
 		this.setContentView(R.layout.activity_modify_login_pwd);
 		initControl();
 	}
@@ -68,8 +76,14 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("oldPass", et_pwd_old.getEncryptPWD());
-				map.put("newPass", et_pwd_new.getEncryptPWD());
+				map.put("oldPass", StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_old
+						.getText().toString().toUpperCase()
+						+ et_pwd_old.getText())
+						+ "www.payfortune.com"));
+				map.put("newPass", StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_new
+						.getText().toString().toUpperCase()
+						+ et_pwd_new.getText())
+						+ "www.payfortune.com"));
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "1");
 				try {

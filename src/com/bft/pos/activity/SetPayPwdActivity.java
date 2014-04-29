@@ -34,9 +34,12 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	Timer timer = new Timer();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_set_pay_pwd);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_pay_pwd);
 		initControl();
 	}
 

@@ -21,7 +21,7 @@ import com.bft.slidingmenu.MenuBaseActivity;
  * 系統相关
  *
  */
-public class SystemActivity extends MenuBaseActivity {
+public class SystemActivity extends BaseActivity {
 
 	private ListView listView;
 	private ManagerAdapter adapter = null;

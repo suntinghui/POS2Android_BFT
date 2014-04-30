@@ -233,7 +233,6 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 				QBTransferDetail.class);
 		intent.putExtra("model", modelList.get(arg2));
 		startActivity(intent);
-		QBTransferHistory.this.onPause();
 	}
 
 	@Override
@@ -242,7 +241,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		switch (arg0.getId()) {
 		case R.id.btn_back:
 			Intent intent = new Intent(QBTransferHistory.this,
-					CatalogActivity.class);
+					QueryActivity.class);
 			this.startActivity(intent);
 			this.finish();
 			break;

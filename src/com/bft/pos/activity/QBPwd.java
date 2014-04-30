@@ -72,6 +72,7 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
 				intent1.putExtra("pwdcode", pwdcode);
 				startActivity(intent1);
+				this.finish();
 			}
 			break;
 		default:

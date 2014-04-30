@@ -233,7 +233,6 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 				QBTransferDetail.class);
 		intent.putExtra("model", modelList.get(arg2));
 		startActivity(intent);
-		QBTransferHistory.this.onPause();
 	}
 
 	@Override

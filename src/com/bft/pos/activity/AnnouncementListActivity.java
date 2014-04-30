@@ -29,6 +29,9 @@ import com.bft.pos.model.AnnouncementModel;
 import com.bft.pos.util.ActivityUtil;
 import com.bft.pos.util.DateUtil;
 
+/**
+ * 公告列表
+ */
 public class AnnouncementListActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 

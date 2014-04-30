@@ -324,7 +324,7 @@ public class LoginActivity extends BaseActivity {
 
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,
-				FindLoginPwdActivity.class);
+				AuthenticationActivity.class);
 		startActivity(getpwd_intent);
 	}
 

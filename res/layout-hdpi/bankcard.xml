@@ -67,7 +67,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
-                android:numeric="integer"
                 android:paddingTop="8dip" />
 
             <com.bft.pos.activity.view.TextWithIconViewTwo

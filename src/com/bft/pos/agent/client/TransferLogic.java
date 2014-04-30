@@ -44,14 +44,12 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.dynamic.core.ViewPage;
 import com.bft.pos.fsk.FSKOperator;
 import com.bft.pos.model.FieldModel;
-import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.model.TransferSuccessModel;
 import com.bft.pos.util.AssetsUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class TransferLogic {
 	private String verndor = null;

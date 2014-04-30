@@ -25,10 +25,11 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 	private String field4 = null;
 
 	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_aishua_balance_pwd2);
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_aishua_balance_pwd2);
-
 		this.findViewById(R.id.topInfoView);
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);

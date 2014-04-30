@@ -37,7 +37,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		Bundle bundle = intent.getExtras();
 		String money = bundle.getString("et_money");
 		tv_money = (TextView) findViewById(R.id.tv_money);
-		tv_money.setText(money);
+		tv_money.setText("￥" + money);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		et_pwd_pay = (PasswordWithIconView) findViewById(R.id.et_pwd_pay);
@@ -69,7 +69,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 						(et_pwd_pay.getText().toString() + "FF").getBytes(), 1);
 				map.put("payPass", payPass);
 				map.put("money", tv_money.getText().toString());
-				map.put("verifyCode",et_sms.getText().toString());
+				map.put("verifyCode", et_sms.getText().toString());
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (Exception e) {
@@ -107,5 +107,16 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// public void getnum(String testNum,String newNum) {
+	// double testNum = 15.44;
+	// int newNum = (int) (testNum * 100);
+	// System.out.println(new MathTest().lpad(12, newNum));
+
+	private static String lpad(int length, int number) {
+		String f = "%0" + length + "d";
+		return String.format(f, number * 100);
+
 	}
 }

@@ -84,7 +84,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_confirm02"
+                android:id="@+id/btn_autograph"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"

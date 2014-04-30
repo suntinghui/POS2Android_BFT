@@ -37,7 +37,8 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		Bundle bundle = intent.getExtras();
 		String money = bundle.getString("et_money");
 		tv_money = (TextView) findViewById(R.id.tv_money);
-		tv_money.setText(money);
+		tv_money.setText("￥" + money);
+		// ShowManeyPayActivity.lpad(12, money);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		et_pwd_pay = (PasswordWithIconView) findViewById(R.id.et_pwd_pay);
@@ -68,8 +69,9 @@ public class ShowManeyPayActivity extends BaseActivity implements
 				String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 						(et_pwd_pay.getText().toString() + "FF").getBytes(), 1);
 				map.put("payPass", payPass);
-				map.put("money", tv_money.getText().toString());
-				map.put("verifyCode",et_sms.getText().toString());
+				map.put("money", ShowManeyPayActivity.lpad(12, tv_money
+						.getText().toString()));
+				map.put("verifyCode", et_sms.getText().toString());
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (Exception e) {
@@ -98,8 +100,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			HashMap<String, String> map = new HashMap<String, String>();
 			// map.put("mobNo", ApplicationEnvironment.getInstance()
 			// .getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("mobNo", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("mobNo", Constant.MOBILENO);
 			map.put("sendTime", date);
 			map.put("type", "6");
 			event.setStaticActivityDataMap(map);
@@ -107,5 +108,17 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// public void getnum(String testNum,String newNum) {
+	// double testNum = 15.44;
+	// int newNum = (int) (testNum * 100);
+	// System.out.println(new MathTest().lpad(12, newNum));
+
+	private static String lpad(int length, String number) {
+		String f = "%0" + length + "d";
+		int num = Integer.parseInt(number);
+		return String.format(f, num * 100);
+
 	}
 }

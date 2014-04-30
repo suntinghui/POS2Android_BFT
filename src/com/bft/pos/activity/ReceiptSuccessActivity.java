@@ -13,19 +13,23 @@ public class ReceiptSuccessActivity extends BaseActivity implements OnClickListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.receipt2);
+		super.index = 0;
+// 		依旧添加侧滑界面
+			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.receipt2);
+			super.onCreate( savedInstanceState);
+		this.findViewById(R.id.topInfoView);
+	
 	
 		
-		Button btn_back = (Button) this.findViewById(R.id.backButton);
-		btn_back.setOnClickListener(this);
+		Button btn_back2 = (Button) this.findViewById(R.id.btn_back2);
+		btn_back2.setOnClickListener(this);
 		Button btn_autograph = (Button) this.findViewById(R.id.btn_autograph);
 		btn_autograph.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
-		case R.id.backButton:
+		case R.id.btn_back2:
 		
 			this.finish();
 			break;

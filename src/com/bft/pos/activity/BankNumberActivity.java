@@ -22,6 +22,9 @@ import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 
+/**
+ * 修改银行卡
+ */
 public class BankNumberActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, btn_ok;
 	private TextView titleBank;

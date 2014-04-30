@@ -55,7 +55,9 @@ import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
 
-//实名认证 上图图片
+/**
+ * 实名认证 上图图片
+ */
 public class AuthenticationUpImageActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -241,6 +243,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		// 短信验证
 		case R.id.btn_sms:
+			this.showToast("短信已发送，请注意查收！");
 			actionGetSms();
 			break;
 		default:

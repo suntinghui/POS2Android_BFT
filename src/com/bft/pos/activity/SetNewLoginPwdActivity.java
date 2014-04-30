@@ -23,7 +23,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	private PasswordWithIconView et_pwd_confirm;// 确认密码
 	private Button btn_back, btn_confirm;
 	private TextWithIconView et_sms;// 验证码
-	private String smscode;
+	// private String smscode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		et_sms = (TextWithIconView) this.findViewById(R.id.et_sms);// 短信校验码
 		et_sms.setHintString("短信校验码");
 		et_sms.setIcon(R.drawable.icon_mail);
-		Intent intent = this.getIntent();
-		smscode = intent.getStringExtra("smscode");
+		// Intent intent = this.getIntent();
+		// smscode = intent.getStringExtra("smscode");
 	}
 
 	/*
@@ -81,14 +81,15 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "getPassword", null);
 			event.setTransfer("089032");
-			//获取PSAM卡号
+			// 获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("verifyCode", et_sms.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd_confirm
-					.getText().toString().toUpperCase()
-					+ et_pwd_confirm.getText())
+			String pwd = StringUtil.MD5Crypto(StringUtil
+					.MD5Crypto(et_pwd_confirm.getText().toString()
+							.toUpperCase()
+							+ et_pwd_confirm.getText())
 					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			event.setStaticActivityDataMap(map);

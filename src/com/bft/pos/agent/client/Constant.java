@@ -41,6 +41,7 @@ public class Constant {
 
 	
 	// Preference
+	public static String MOBILENO								= "";
 	public static String 	LOGINPWD								= "kLoginPwd";
 	public static final String kISREMEBER 							= "kISREMEBER";
 	public static final String TRACEAUDITNUM 						= "traceAuditNum";

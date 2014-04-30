@@ -136,6 +136,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				fsk = "getKsn|null";
 			}
 			event.setFsk(fsk);
+			Constant.MOBILENO =  et_phone_num.getText().toString();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("sctMobNo", et_phone_num.getText().toString());// 安全手机号
 			map.put("name", et_name.getText().toString());// 姓名

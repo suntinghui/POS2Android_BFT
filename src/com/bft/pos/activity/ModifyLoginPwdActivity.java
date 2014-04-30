@@ -125,8 +125,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("mobNo", Constant.MOBILENO);
 			map.put("sendTime", date);
 			map.put("type", "2");
 			event.setStaticActivityDataMap(map);

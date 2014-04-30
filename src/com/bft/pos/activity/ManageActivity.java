@@ -28,9 +28,9 @@ public class ManageActivity extends BaseActivity {
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_3_n,
 			R.drawable.manager_right_2_n, R.drawable.manager_right_3_n,
-			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n,R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n};
 	// 四个文字内容
-	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡", "支付密码设置",
+	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡",
 			"修改支付密码","重置支付密码" };
 
 	@Override
@@ -87,13 +87,13 @@ public class ManageActivity extends BaseActivity {
 					intent4.putExtra("TAG", arg2);
 					startActivity(intent4);
 					break;
-				case 5:
-					// 支付密码设置
-					Intent intent = new Intent(ManageActivity.this,
-							SetPayPwdActivity.class);
-					intent.putExtra("TAG", arg2);
-					startActivity(intent);
-					break;
+//				case 5:
+//					// 支付密码设置
+//					Intent intent = new Intent(ManageActivity.this,
+//							SetPayPwdActivity.class);
+//					intent.putExtra("TAG", arg2);
+//					startActivity(intent);
+//					break;
 
 				// 提现
 				/*
@@ -102,14 +102,14 @@ public class ManageActivity extends BaseActivity {
 				 * startActivity(intent5); break;
 				 */
 				// 修改支付密码
-				case 6:
+				case 5:
 					Intent intent6 = new Intent(ManageActivity.this,
 							ModifyPayPwdActivity.class);
 					intent6.putExtra("TAG", arg2);
 					startActivity(intent6);
 					break;
 					// 重置支付密码
-				case 7:
+				case 6:
 					Intent intent7 = new Intent(ManageActivity.this,
 							ResetPayPwdActivity.class);
 					intent7.putExtra("TAG", arg2);

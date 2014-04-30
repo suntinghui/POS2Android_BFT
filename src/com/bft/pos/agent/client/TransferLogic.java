@@ -67,7 +67,6 @@ public class TransferLogic {
 		if (null == instance) {
 			instance = new TransferLogic();
 		}
-
 		return instance;
 	}
 
@@ -142,22 +141,22 @@ public class TransferLogic {
 
 		} else if ("089025".equals(transferCode)) { // 提现
 			this.drawCashDone(fieldMap);
-			
+
 		} else if ("089020".equals(transferCode)) { // 实名认证
 			this.authenticationDone(fieldMap);
-			
+
 		} else if ("089021".equals(transferCode)) { // 验证码（生成图片用）
 			this.getVerifyCodesDone(fieldMap);
-			
+
 		} else if ("089027".equals(transferCode)) { // 账户余额查询
 			this.getbalanceDone(fieldMap);
-			
+
 		} else if ("089028".equals(transferCode)) { // 账户交易查询
 			this.QBTDone(fieldMap);
-			
+
 		} else if ("089029".equals(transferCode)) { // 账户交易查询
 			this.modifyBankNoDone(fieldMap);
-			
+
 		} else if ("089024".equals(transferCode)) { // 修改密码
 			this.modifyPwdDone(fieldMap);
 
@@ -188,16 +187,16 @@ public class TransferLogic {
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		} else if("089023".equals(transferCode)){//重置支付密码
+		} else if ("089023".equals(transferCode)) {// 重置支付密码
 			this.resetPayPwdDone(fieldMap);
-			
+
 		} else if ("089031".equals(transferCode)) { // 找回密码 验证用户信息
 			this.findPwdDone(fieldMap);
-			
+
 		} else if ("089032".equals(transferCode)) { // 设置新密码 登录
 			this.getSetNewPwdDone(fieldMap);
-			
-		}else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
+
+		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
 		} else if ("200001111".equals(transferCode)) { // 银行卡付款
@@ -222,23 +221,23 @@ public class TransferLogic {
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 		}
 	}
-	
-	
 
 	/**
 	 * 重置支付密码
 	 */
-	private void resetPayPwdDone(HashMap<String, String> fieldMap){
+	private void resetPayPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"重置支付密码成功":desc;
+			desc = (desc == null) ? "重置支付密码成功" : desc;
 			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"重置支付密码失败":desc;
+			desc = (desc == null) ? "重置支付密码失败" : desc;
 			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
 		}
 	}
@@ -246,20 +245,23 @@ public class TransferLogic {
 	/**
 	 * 修改银行卡号
 	 */
-	private void modifyBankNoDone(HashMap<String, String> fieldMap){
+	private void modifyBankNoDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"修改银行卡号成功":desc;
-			/**需要完善处理 此处暂已支付密码成功页面使用*/
+			desc = (desc == null) ? "修改银行卡号成功" : desc;
+			/** 需要完善处理 此处暂已支付密码成功页面使用 */
 			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"修改银行卡号失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "修改银行卡号失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
@@ -276,48 +278,46 @@ public class TransferLogic {
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 
 			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
-		
-				if(HEADER_MAP != null){
-					Constant.PUBLICKEY = (String) HEADER_MAP.get("pk")!=null?(String) HEADER_MAP.get("pk"):null;
-				}
-			
-			
-/*			String jsonStr = fieldMap.get("apires");
-			HashMap<String, String> receiveFieldMap = new HashMap<String, String>();
-		
-			try {
-				if(jsonStr != null){
-					JSONTokener parse = new JSONTokener(jsonStr);
-					JSONObject content = (JSONObject) parse.nextValue();
-					
-					Iterator<String> keys = content.keys();
-					while (keys.hasNext()) {
-						String key = (String) keys.next();
-						receiveFieldMap.put(key, content.getString(key));
-					}
-					
-					editor.putString(Constant.MD5KEY, receiveFieldMap.get("md5key"));
-					editor.putString(Constant.MERCHERNAME,
-							receiveFieldMap.get("merchant_name"));
-					editor.commit();
-					Constant.status = receiveFieldMap.get("status");
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}*/
+
+			if (HEADER_MAP != null) {
+				Constant.PUBLICKEY = (String) HEADER_MAP.get("pk") != null ? (String) HEADER_MAP
+						.get("pk") : null;
+			}
+
+			/*
+			 * String jsonStr = fieldMap.get("apires"); HashMap<String, String>
+			 * receiveFieldMap = new HashMap<String, String>();
+			 * 
+			 * try { if(jsonStr != null){ JSONTokener parse = new
+			 * JSONTokener(jsonStr); JSONObject content = (JSONObject)
+			 * parse.nextValue();
+			 * 
+			 * Iterator<String> keys = content.keys(); while (keys.hasNext()) {
+			 * String key = (String) keys.next(); receiveFieldMap.put(key,
+			 * content.getString(key)); }
+			 * 
+			 * editor.putString(Constant.MD5KEY, receiveFieldMap.get("md5key"));
+			 * editor.putString(Constant.MERCHERNAME,
+			 * receiveFieldMap.get("merchant_name")); editor.commit();
+			 * Constant.status = receiveFieldMap.get("status"); } } catch
+			 * (JSONException e) { e.printStackTrace(); }
+			 */
 			// 登陆成功，跳转到菜单界面
-			Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					CatalogActivity.class);
 			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
-		} else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"登陆失败":desc;
-			//屏幕下弹窗
-//			Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "登陆失败" : desc;
+			// 屏幕下弹窗
+			// Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
@@ -581,15 +581,17 @@ public class TransferLogic {
 	 */
 	private void registrDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"注册成功":desc;
+			desc = (desc == null) ? "注册成功" : desc;
 			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"注册失败":desc;
+			desc = (desc == null) ? "注册失败" : desc;
 			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
 		}
 	}
@@ -612,23 +614,27 @@ public class TransferLogic {
 	 */
 	private void authenticationDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			
+
 			Intent intent = new Intent(BaseActivity.getTopActivity(),
 					SetPayPwdActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent);;
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+			BaseActivity.getTopActivity().startActivity(intent);
+			;
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"认证失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "认证失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
-		
+
 	}
 
 	/**
@@ -636,19 +642,23 @@ public class TransferLogic {
 	 */
 	private void findPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			
+
 			Intent intent = new Intent(BaseActivity.getTopActivity(),
 					SetNewLoginPwdActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent);;
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+			BaseActivity.getTopActivity().startActivity(intent);
+			;
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"验证失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "验证失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
@@ -659,46 +669,53 @@ public class TransferLogic {
 	 */
 	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置登陆密码成功":desc;
+			desc = (desc == null) ? "设置登陆密码成功" : desc;
 			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置登陆密码失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "设置登陆密码失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
 	}
+
 	/**
 	 * 设置支付密码
 	 */
 	private void SetNewPayPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置支付密码成功":desc;
-//			Intent intent = new Intent(ApplicationEnvironment.getInstance()
-//					.getApplication().getPackageName()
-//					+ ".showBalanceAishua");
-//			intent.putExtra("balance", fieldMap.get("field54"));
-//			intent.putExtra("availableBalance", fieldMap.get("field4"));
-//			intent.putExtra("accountNo", fieldMap.get("field2"));
-//			intent.putExtra("message", fieldMap.get("fieldMessage"));
-//			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
-			
+			desc = (desc == null) ? "设置支付密码成功" : desc;
+			// Intent intent = new Intent(ApplicationEnvironment.getInstance()
+			// .getApplication().getPackageName()
+			// + ".showBalanceAishua");
+			// intent.putExtra("balance", fieldMap.get("field54"));
+			// intent.putExtra("availableBalance", fieldMap.get("field4"));
+			// intent.putExtra("accountNo", fieldMap.get("field2"));
+			// intent.putExtra("message", fieldMap.get("fieldMessage"));
+			// BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+
 			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置支付密码失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "设置支付密码失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
@@ -710,42 +727,50 @@ public class TransferLogic {
 	private void getVersionDone(HashMap<String, String> fieldMap) {
 
 	}
+
 	/**
 	 * 提现
 	 */
 	private void drawCashDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置支付密码成功":desc;
+			desc = (desc == null) ? "设置支付密码成功" : desc;
 			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"设置支付密码失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "设置支付密码失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
 	}
+
 	/**
 	 * 修改密码
 	 */
 	private void modifyPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
-		if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")){
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"修改密码成功":desc;
+			desc = (desc == null) ? "修改密码成功" : desc;
 			TransferLogic.getInstance().gotoCommonPayPwdSuccessActivity(desc);
-		}else{
-			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc==null)?"修改密码失败":desc;
-			//屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(),desc, Toast.LENGTH_LONG);
+			desc = (desc == null) ? "修改密码失败" : desc;
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		}
@@ -776,7 +801,7 @@ public class TransferLogic {
 		intent.putExtra("code", verifycode);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
-	
+
 	/**
 	 * 账户余额查询
 	 */
@@ -787,7 +812,7 @@ public class TransferLogic {
 		intent.putExtra("accBlc", accBlc);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
-	
+
 	/**
 	 * 账户交易流水
 	 */
@@ -795,26 +820,28 @@ public class TransferLogic {
 		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
-		
+
 		String rtCd = fieldMap.get("rtCd");
-		if(rtCd.equals("00")){
+		if (rtCd.equals("00")) {
 			try {
 				String jsonStr = fieldMap.get("pageList");
 				String page_count = fieldMap.get("totalNum");
 				map.put("total", page_count);
 				JSONTokener parse = new JSONTokener(jsonStr);
 				JSONArray jsonArray = (JSONArray) parse.nextValue();
-				if(jsonArray!=null&&jsonArray.length()>0){
-					for(i = 0;i<jsonArray.length();i++){
-						JSONObject picsObj = (JSONObject)jsonArray.opt(i);
+				if (jsonArray != null && jsonArray.length() > 0) {
+					for (i = 0; i < jsonArray.length(); i++) {
+						JSONObject picsObj = (JSONObject) jsonArray.opt(i);
 						TransferDetailModel1 model = new TransferDetailModel1();
 						model.setTradeDate(picsObj.optString("tradeDate", ""));
 						System.out.println(picsObj.optString("tradeDate", ""));
 						model.setPayMoney(picsObj.optString("payMoney", ""));
-						model.setTradeTypeKey(picsObj.optString("tradeTypeKey", ""));
+						model.setTradeTypeKey(picsObj.optString("tradeTypeKey",
+								""));
 						model.setPayDate(picsObj.optString("payDate", ""));
-						model.setOrderStatus(picsObj.optString("orderStatus", ""));
-						
+						model.setOrderStatus(picsObj.optString("orderStatus",
+								""));
+
 						arrayModel.add(model);
 					}
 				}
@@ -822,14 +849,16 @@ public class TransferLogic {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
-			QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
-			activity.fromLogic(map);
-			
-			} else {
-				TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
 			}
+			QBTransferHistory activity = (QBTransferHistory) BaseActivity
+					.getTopActivity();
+			activity.fromLogic(map);
+
+		} else {
+			TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
+		}
 	}
+
 	/**
 	 * 获取提款银行账号
 	 */
@@ -844,25 +873,27 @@ public class TransferLogic {
 		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
-		
+
 		String rtCd = fieldMap.get("rtCd");
-		if(rtCd.equals("00")){
+		if (rtCd.equals("00")) {
 			try {
 				String jsonStr = fieldMap.get("pageList");
 				String page_count = fieldMap.get("totalNum");
 				map.put("total", page_count);
 				JSONTokener parse = new JSONTokener(jsonStr);
 				JSONArray jsonArray = (JSONArray) parse.nextValue();
-				if(jsonArray!=null&&jsonArray.length()>0){
-					for(i = 0;i<jsonArray.length();i++){
-						JSONObject picsObj = (JSONObject)jsonArray.opt(i);
+				if (jsonArray != null && jsonArray.length() > 0) {
+					for (i = 0; i < jsonArray.length(); i++) {
+						JSONObject picsObj = (JSONObject) jsonArray.opt(i);
 						TransferDetailModel1 model = new TransferDetailModel1();
 						model.setTradeDate(picsObj.optString("tradeDate", ""));
 						System.out.println(picsObj.optString("tradeDate", ""));
 						model.setPayMoney(picsObj.optString("payMoney", ""));
-						model.setTradeTypeKey(picsObj.optString("tradeTypeKey", ""));
+						model.setTradeTypeKey(picsObj.optString("tradeTypeKey",
+								""));
 						model.setPayDate(picsObj.optString("payDate", ""));
-						model.setOrderStatus(picsObj.optString("orderStatus", ""));
+						model.setOrderStatus(picsObj.optString("orderStatus",
+								""));
 						arrayModel.add(model);
 					}
 				}
@@ -870,13 +901,14 @@ public class TransferLogic {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
-			QBTransferHistory activity = (QBTransferHistory) BaseActivity.getTopActivity();
-			activity.fromLogic(map);
-			
-			} else {
-				TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
 			}
+			QBTransferHistory activity = (QBTransferHistory) BaseActivity
+					.getTopActivity();
+			activity.fromLogic(map);
+
+		} else {
+			TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
+		}
 	}
 
 	/**
@@ -1451,43 +1483,44 @@ public class TransferLogic {
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonSuccessActivity(String prompt) {
-			Intent intent = new Intent(BaseActivity.getTopActivity(),
-					SuccessActivity.class);
-			intent.putExtra("prompt", prompt);
-			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				SuccessActivity.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
 	}
 
 	/**
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
-	public void gotoCommonSuccessActivity(String prompt,Map<String, Object> fieldMap) {
-			Intent intent = new Intent(BaseActivity.getTopActivity(),
-					SuccessActivity.class);
-			intent.putExtra("prompt", prompt);
-			intent.putExtra("fieldTrancode", (String)fieldMap.get("fieldTrancode"));
-			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+	public void gotoCommonSuccessActivity(String prompt,
+			Map<String, Object> fieldMap) {
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				SuccessActivity.class);
+		intent.putExtra("prompt", prompt);
+		intent.putExtra("fieldTrancode", (String) fieldMap.get("fieldTrancode"));
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 
 	}
-	
+
 	/**
 	 * 支付密码设置成功后跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonPayPwdSuccessActivity(String prompt) {
-			Intent intent = new Intent(BaseActivity.getTopActivity(),
-					PayPwdSuccess.class);
-			intent.putExtra("prompt", prompt);
-			BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				PayPwdSuccess.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**
 	 * 跳转到通用的失败界面，只显示一行错误提示信息。
 	 */
 	public void gotoCommonFaileActivity(String prompt) {
-		 Intent intent = new Intent(BaseActivity.getTopActivity(),
-		 FailActivity.class);
-		 intent.putExtra("prompt", prompt);
-		 BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				FailActivity.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
 	/**

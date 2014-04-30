@@ -51,9 +51,11 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		super.index = 0;
+		// 添加了侧滑内容
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.input_money);
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.setContentView(R.layout.input_money);
 		dateLayout = (LinearLayout) this.findViewById(R.id.dateLayout);
 		displayPadLayout = (LinearLayout) this.findViewById(R.id.displayPadLayout);
 

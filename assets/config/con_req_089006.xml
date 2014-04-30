@@ -10,7 +10,7 @@
 
     <field
         key="mobNo"
-        value="15034078477" />
+        value="__mobNo" />
 
     <field
         key="sendTime"

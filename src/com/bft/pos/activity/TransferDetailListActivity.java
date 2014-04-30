@@ -27,7 +27,7 @@ import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.util.ActivityUtil;
-
+//不走这个activity了
 public class TransferDetailListActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 

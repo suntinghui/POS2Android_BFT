@@ -361,6 +361,8 @@
         <activity android:name=".activity.AnnouncementDetailActivity" />
         <activity android:name=".activity.InputMoneyActivity" />
         <activity android:name="com.bft.pos.activity.ASBalancePwd2Activity" />
+        <activity android:name="com.bft.pos.activity.ReceiptSuccessActivity" />
+        <activity android:name="com.bft.pos.activity.ReceiptActivity" />
         <activity
             android:name=".activity.AuthenticationInfoActivity"
             android:exported="true"

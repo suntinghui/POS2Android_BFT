@@ -46,7 +46,6 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
     //按钮点击事件
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.btn_back:
 			this.finish();

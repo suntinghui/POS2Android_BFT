@@ -109,8 +109,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
+			map.put("mobNo", Constant.PHONENUM);
 			map.put("sendTime", date);
 			map.put("type", "8");
 			event.setStaticActivityDataMap(map);

@@ -21,7 +21,7 @@ import com.bft.pos.util.PatternUtil;
 /**
  * 找回密码 身份验证
  */
-public class FindLoginPwdActivity extends BaseActivity implements
+public class AuthenticationActivity extends BaseActivity implements
 		OnClickListener {
 	private Button btn_back;// 返回
 	private Button btn_confirm;// 身份验证

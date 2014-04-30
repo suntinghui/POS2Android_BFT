@@ -2,7 +2,6 @@ package com.bft.pos.activity;
 
 import java.util.HashMap;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +14,7 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.StringUtil;
 
 /**
- * 找回密码,验证身份后设置新的密码
+ * 找回密码 验证身份后设置新的密码
  */
 public class SetNewLoginPwdActivity extends BaseActivity implements
 		OnClickListener {

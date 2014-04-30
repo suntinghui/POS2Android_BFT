@@ -2,11 +2,15 @@
 <!-- 提现 -->
 <root
     isJson="true"
-    shouldMac="true" >
+    shouldMac="false" >
 
     <field
         key="fieldTrancode"
         value="089025" />
+
+    <field
+        key="psamNo"
+        value="__psamNo" />
 
     <field
         key="money"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 修改密码 -->
-<root shouldMac = "true" isJson = "true">
+<root shouldMac = "false" isJson = "true">
 	<field key="fieldTrancode" value="089024" />
 	
 	<field key="psamNo" value="__psamNo"/>
@@ -8,5 +8,5 @@
 	<field key="oldPass" value="__oldPass" />
 	<field key="newPass" value="__newPass"/>
 	<field key="verifyCode" value="__verifyCode"/>
-	<field key="macstr" value="tel,verifyCode"  />
+	<!-- <field key="macstr" value="tel,verifyCode"  /> -->
 </root>

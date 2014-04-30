@@ -28,14 +28,15 @@ public class ManageActivity extends BaseActivity {
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.manager_right_3_n,
 			R.drawable.manager_right_2_n, R.drawable.manager_right_3_n,
-			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n };
+			R.drawable.manager_right_3_n, R.drawable.manager_right_3_n,R.drawable.manager_right_3_n };
 	// 四个文字内容
 	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡", "支付密码设置",
-			"重置支付密码" };
+			"修改支付密码","重置支付密码" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
+		System.out.println("走了OnCreate方法");
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_manage);
@@ -100,13 +101,20 @@ public class ManageActivity extends BaseActivity {
 				 * ShowMoneyActivity.class); intent5.putExtra("TAG", arg2);
 				 * startActivity(intent5); break;
 				 */
-				// 重置支付密码
+				// 修改支付密码
 				case 6:
 					Intent intent6 = new Intent(ManageActivity.this,
-							ResetPayPwdActivity.class);
+							ModifyPayPwdActivity.class);
 					intent6.putExtra("TAG", arg2);
 					startActivity(intent6);
 					break;
+					// 重置支付密码
+				case 7:
+					Intent intent7 = new Intent(ManageActivity.this,
+							ResetPayPwdActivity.class);
+					intent7.putExtra("TAG", arg2);
+					startActivity(intent7);
+					break;	
 				default:
 					break;
 				}

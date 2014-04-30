@@ -37,7 +37,7 @@ public class TopInfoView extends LinearLayout {
 			phoneNoView = (TextView) this.findViewById(R.id.mobileView);
 			dateView = (TextView) this.findViewById(R.id.dateView);
 
-			phoneNoView.setText("用户名:" + ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, ""));
+			phoneNoView.setText("用户名: " + ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PHONENUM, ""));
 			dateView.setText(AppDataCenter.getValue("__yyyy-MM-dd"));
 		} catch (Exception e) {
 			e.printStackTrace();

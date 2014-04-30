@@ -53,7 +53,7 @@ public class TransferDetailListActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 
-		btn_back = (Button) this.findViewById(R.id.btn_back);
+		btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
 		btn_history = (Button) this.findViewById(R.id.btn_history);
@@ -88,10 +88,8 @@ public class TransferDetailListActivity extends BaseActivity implements
 				intent.putExtra("model", modelList.get(arg2));
 				TransferDetailListActivity.this.startActivity(intent);
 			}
-
 		});
 		refresh();
-
 	}
 
 	public final class ViewHolder {
@@ -129,7 +127,6 @@ public class TransferDetailListActivity extends BaseActivity implements
 		public long getItemId(int arg0) {
 			return arg0;
 		}
-
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (null == convertView) {
@@ -226,7 +223,7 @@ public class TransferDetailListActivity extends BaseActivity implements
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			this.finish();
 			break;
 		case R.id.moreButton:

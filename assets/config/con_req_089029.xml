@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 银行卡修改 -->
-<root isJson="true" >
+<root
+    isJson="true"
+    shouldMac="false" >
 
     <field
-        key="modify-bk"
+        key="fieldTrancode"
         value="089029" />
 
     <field
@@ -16,22 +18,22 @@
 
     <field
         key="pldNo"
-        value="__pIdNo" />
+        value="__pldNo" />
 
     <field
         key="oldBkCardNo"
-        value="001" />
+        value="__oldBkCardNo" />
 
     <field
         key="bankNo"
-        value="003" />
+        value="__bankNo" />
 
     <field
         key="bkCardNo"
-        value="002" />
+        value="__bkCardNo" />
 
     <field
-        key="mobNo"
-        value="__mobNo" />
-    
+        key="verifyCode"
+        value="__verifyCode" />
+
 </root>

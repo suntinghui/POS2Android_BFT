@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class QBTransferTimer extends BaseActivity implements OnClickListener {
 

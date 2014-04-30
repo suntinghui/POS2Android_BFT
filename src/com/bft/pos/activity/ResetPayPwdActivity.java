@@ -95,7 +95,6 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		HashMap<String, String> map = new HashMap<String, String>();
 		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
-		Log.i("pwd:", et_new_pwd.getText().toString());
 		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());
@@ -123,13 +122,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
-			map.put("type", "0");
+			map.put("type", "4");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

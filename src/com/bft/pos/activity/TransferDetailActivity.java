@@ -1,117 +1,119 @@
 package com.bft.pos.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.model.TransferDetailModel;
-import com.bft.pos.util.StringUtil;
+import com.bft.pos.model.TransferDetailModel1;
 
 public class TransferDetailActivity extends BaseActivity implements
 		OnClickListener {
 
-	private TransferDetailModel model = null;
+	private Button backButton = null;
+	private Button okButton = null;
+	private TransferDetailModel1 model = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
-		// 添加了侧滑内容
+		// 依旧添加侧滑界面
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.activity_transfer_detail);
+				R.layout.qbtransferdetail);
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
+		this.initTitlebar("银行卡交易流水明细");
 
-		Button btn_back = (Button) this.findViewById(R.id.btn_back);
-		btn_back.setOnClickListener(this);
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
+		okButton = (Button) this.findViewById(R.id.okButton);
+		okButton.setOnClickListener(this);
+		model = (TransferDetailModel1) getIntent()
+				.getSerializableExtra("model");
 
-		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
-		btn_confirm.setOnClickListener(this);
+		// @SuppressWarnings("unchecked")
+		// HashMap<String, String> map = (HashMap<String, String>)
+		// this.getIntent().getSerializableExtra("map");
+		// if (null == map || map.size() == 0){
+		// TransferLogic.getInstance().gotoCommonFaileActivity("交易明细查询出错，请重试");
+		// return;
+		// }
 
-		model = (TransferDetailModel) getIntent().getSerializableExtra("model");
-
-		TextView tv_merchant_name = (TextView) this
-				.findViewById(R.id.tv_merchant_name);
-		TextView tv_merchant_id = (TextView) this
-				.findViewById(R.id.tv_merchant_id);
-		TextView tv_terminal_id = (TextView) this
-				.findViewById(R.id.tv_terminal_id);
-		TextView tv_account1 = (TextView) this.findViewById(R.id.tv_account1);
-		TextView tv_localdate = (TextView) this.findViewById(R.id.tv_localdate);
-		TextView tv_systransid = (TextView) this
-				.findViewById(R.id.tv_systransid);
-		TextView tv_snd_log = (TextView) this.findViewById(R.id.tv_snd_log);
-		TextView tv_local_log = (TextView) this.findViewById(R.id.tv_local_log);
-		TextView tv_snd_cycle = (TextView) this.findViewById(R.id.tv_snd_cycle);
-		TextView tv_amount = (TextView) this.findViewById(R.id.tv_amount);
-		TextView tv_flag = (TextView) this.findViewById(R.id.tv_flag);
-		ImageView iv_handsign = (ImageView) this.findViewById(R.id.iv_handsign);
-
-		tv_merchant_name.setText(model.getMerchant_name());
-		tv_merchant_id.setText(model.getMerchant_id());
-		tv_terminal_id.setText(model.getTerminal_id());
-		tv_account1.setText(StringUtil.formatAccountNo(model.getAccount1()));
-		tv_localdate.setText(model.getLocaldate() + model.getLocaltime());
-		String typeStr = null;
-		if (model.getSystransid().equals("200000")) {
-			typeStr = "消费撤销";
-		} else if (model.getSystransid().equals("000000")) {
-			typeStr = "消费";
-		}
-		tv_systransid.setText(typeStr);
-		tv_snd_log.setText(model.getSnd_log());
-		tv_local_log.setText(model.getLocal_log());
-		tv_snd_cycle.setText(model.getSnd_cycle());
-		tv_amount.setText("¥ " + model.getAmount());
-		String flagStr = null;
-		if (model.getFlag().equals("0")) {
-			flagStr = "已完成";
-		} else if (model.getFlag().equals("1")) {
-			flagStr = "未完成";
-		} else if (model.getFlag().equals("2")) {
-			flagStr = "已冲正";
-		} else if (model.getFlag().equals("3")) {
-			flagStr = "已撤销";
-		}
-		tv_flag.setText(flagStr);
-		iv_handsign.setImageBitmap(this.stringtoBitmap(model.getImg()));
-
-	}
-
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		switch (arg0.getId()) {
-		case R.id.btn_back:
-			this.finish();
-			break;
-		case R.id.btn_confirm:
-			this.finish();
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	public Bitmap stringtoBitmap(String string) {
-		// 将字符串转换成Bitmap类型
-		Bitmap bitmap = null;
 		try {
-			byte[] bitmapArray;
-			bitmapArray = Base64.decode(string, Base64.DEFAULT);
-			bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,
-					bitmapArray.length);
+			// ((TextView)this.findViewById(R.id.qhTransferSerial)).setText(map.get("tranSerial"));
+			// ((TextView)this.findViewById(R.id.qhAccountNo)).setText(StringUtil.formatAccountNo(map.get("cardNo")));
+			// ((TextView)this.findViewById(R.id.qhBank)).setText(map.get("issueBank"));
+			// ((TextView)this.findViewById(R.id.qhBatchNo)).setText(map.get("batchNo"));
+			// ((TextView)this.findViewById(R.id.qhaimCardNo)).setText(map.get("aimCardNo"));
+			// ((TextView)this.findViewById(R.id.qhReferNo)).setText(map.get("hostSerial"));
+			// ((TextView)this.findViewById(R.id.qhSettleFlag)).setText(map.get("settleFlag").equals("0")
+			// ? "未清算" : "已清算");
+
+			((TextView) this.findViewById(R.id.qhTransType)).setText(model
+					.getTradeTypeKey());
+			((TextView) this.findViewById(R.id.qhTransTime)).setText(model
+					.getTradeDate());
+			((TextView) this.findViewById(R.id.qhAmount)).setText(model
+					.getPayMoney());
+			((TextView) this.findViewById(R.id.qhSettleDate)).setText(model
+					.getPayDate());
+			((TextView) this.findViewById(R.id.qhTranFlag)).setText(model
+					.getOrderStatus());
+
+			// 只有付款交易（以后可能会扩充）才会有转入卡号。
+			// TextView aimCardNoView = (TextView)
+			// this.findViewById(R.id.qhaimCardNo);
+			// if (map.get("tranCode").equals("200001111")){
+			// aimCardNoView.setVisibility(View.VISIBLE);
+			// } else {
+			// aimCardNoView.setVisibility(View.GONE);
+			// }
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return bitmap;
 	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.backButton:
+			TransferDetailActivity.this.finish();
+			break;
+		case R.id.okButton:
+			this.finish();
+			break;
+		}
+	}
+
+	private String getTranFlag(String flag) {
+		String str = "未知";
+		try {
+			int tranFlag = Integer.parseInt(flag);
+			switch (tranFlag) {
+			case 0:
+				str = "正常";
+				break;
+
+			case 1:
+				str = "被撤销";
+				break;
+
+			case 5:
+				str = "失败";
+				break;
+
+			default:
+				str = "未知";
+				break;
+			}
+		} catch (Exception e) {
+		}
+
+		return str;
+	}
+
 }

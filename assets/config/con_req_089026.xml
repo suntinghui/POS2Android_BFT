@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 交易流水 -->
+
 <root
     isJson="true"
-    shouldMac="true" >
+    shouldMac="false" >
 
     <field
         key="fieldTrancode"
@@ -10,7 +10,7 @@
 
     <field
         key="psamNo"
-        value="__PsamNo" />
+        value="__psamNo" />
 
     <field
         key="login"
@@ -19,11 +19,11 @@
     <field
         key="type"
         value="__type" />
-
+    
     <field
         key="startDt"
         value="__startDt" />
-
+    
     <field
         key="endDt"
         value="__endDt" />

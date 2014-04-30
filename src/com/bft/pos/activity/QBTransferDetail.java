@@ -3,9 +3,6 @@ package com.bft.pos.activity;
  * @author Yaozeyu
  * function：账户交易查询明细
  * */
-import java.util.HashMap;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.agent.client.TransferLogic;
-import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.model.TransferDetailModel1;
 
 public class QBTransferDetail extends BaseActivity implements OnClickListener {
@@ -78,7 +73,7 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.finish();
+			QBTransferDetail.this.finish();
 			break;
 		case R.id.okButton:
 			this.finish();

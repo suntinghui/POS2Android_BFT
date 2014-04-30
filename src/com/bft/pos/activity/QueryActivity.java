@@ -31,14 +31,14 @@ public class QueryActivity extends BaseActivity {
 			 R.drawable.query_left_3, R.drawable.query_left_4,
 			 R.drawable.query_left_0 };//新加入的图片
 */
-	private Integer[] imageIds = { R.drawable.query_left_0,R.drawable.query_left_0,
+	private Integer[] imageIds = { R.drawable.query_left_0,R.drawable.query_left_0, R.drawable.query_left_0,
 			 R.drawable.query_left_1, R.drawable.query_left_3
 			  };//新加入的图片
 	//private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询", "流量统计","账户交易查询" };
-	private String[] titles = { "银行卡余额查询","账户交易查询", "银行卡交易查询", "公告查询" };
+	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询", "公告查询" };
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.index = 1;
+		super.index = 0;
 		// 这里添加了两个布局,一个是manage 标题加listView的模板
 		// 一个是侧滑的ws_munday_slidingmenu_test_menu listView
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
@@ -57,28 +57,29 @@ public class QueryActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				switch (arg2) {
-	/*			case 0:
-//					 查询账户余额
-					 Intent intent0 = new Intent(QueryActivity.this,
-							 ASBalancePwdActivity.class);
-					 intent0.putExtra("TAG", arg2);
-					 startActivity(intent0);
-					break;*/
 				case 0:
+//					银行卡余额查询
 					break;
 				case 1:
-					//账户交易查询
-					Intent intent5=new Intent(QueryActivity.this,
-							QBPwd.class);
-					intent5.putExtra("TAG", arg2);
-					startActivity(intent5);						
+					//账户余额查询
+					 Intent intent1 = new Intent(QueryActivity.this,
+							 ASBalancePwdActivity.class);
+					 intent1.putExtra("TAG", arg2);
+					 startActivity(intent1);
 					break;
 				case 2:
+					//账户交易查询
+					Intent intent2=new Intent(QueryActivity.this,
+							QBPwd.class);
+					intent2.putExtra("TAG", arg2);
+					startActivity(intent2);						
+					break;
+				case 3:
 					// 银行卡交易查询
-					Intent intent1 = new Intent(QueryActivity.this,
+					Intent intent3 = new Intent(QueryActivity.this,
 							TransferDetailListHistoryActivity.class);
-					intent1.putExtra("TAG", arg2);
-					startActivity(intent1);
+					intent3.putExtra("TAG", arg2);
+					startActivity(intent3);
 					break;
 				/*case 2:
 					// 签购单查询
@@ -88,12 +89,12 @@ public class QueryActivity extends BaseActivity {
 					startActivity(intent2);
 					break;*/
 				// 还有两个按钮 一个是公告查询，一个是流量统计
-				case 3:
+				case 4:
 					//公告查询
-					Intent intent3=new Intent(QueryActivity.this,
+					Intent intent4=new Intent(QueryActivity.this,
 							AnnouncementListActivity.class);
-					intent3.putExtra("TAG", arg2);
-					startActivity(intent3);						
+					intent4.putExtra("TAG", arg2);
+					startActivity(intent4);						
 					break;
 			
 			

@@ -128,7 +128,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
-			map.put("type", "0");
+			map.put("type", "2");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

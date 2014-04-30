@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dhc="http://schemas.android.com/apk/res/com.ylt.pos"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:orientation="vertical" 
-    android:id="@+id/layout">
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/topbarLayout"
@@ -49,10 +49,12 @@
             android:layout_marginTop="15dip"
             android:orientation="vertical"
             android:paddingBottom="20dip" >
+
             <com.bft.pos.activity.view.InstructionsForUseView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip" />
+
             <Button
                 android:id="@+id/btn_agree"
                 style="@style/black_18"

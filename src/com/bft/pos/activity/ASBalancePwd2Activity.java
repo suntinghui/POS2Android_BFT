@@ -64,7 +64,7 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 			break;
 		case R.id.btn_confirm:
 			if (checkValue()) {
-				Intent intent = new Intent(ASBalancePwd2Activity.this, ASBalanceSuccessActivity.class);
+				Intent intent = new Intent(ASBalancePwd2Activity.this, ReceiptSuccessActivity.class);
 				intent.putExtra("TYPE", 2);
 			ASBalancePwd2Activity.this.startActivityForResult(intent, 0);
 			/*	

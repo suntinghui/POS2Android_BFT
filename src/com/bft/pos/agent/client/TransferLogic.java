@@ -187,7 +187,7 @@ public class TransferLogic {
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
-		} else if ("089023".equals(transferCode)) {// 重置支付密码
+		} else if ("089023".equals(transferCode)) { // 重置支付密码
 			this.resetPayPwdDone(fieldMap);
 
 		} else if ("089031".equals(transferCode)) { // 找回密码 验证用户信息
@@ -1460,13 +1460,10 @@ public class TransferLogic {
 				}
 				eventType = parser.next();// 进入下一个元素并触发相应事件
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
-
 		} finally {
 			try {
 				if (null != stream)
@@ -1475,7 +1472,6 @@ public class TransferLogic {
 				e.printStackTrace();
 			}
 		}
-
 		return transfer;
 	}
 
@@ -1483,34 +1479,38 @@ public class TransferLogic {
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonSuccessActivity(String prompt) {
+
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				SuccessActivity.class);
 		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().finish();
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
-
 	}
 
 	/**
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
+
 	public void gotoCommonSuccessActivity(String prompt,
 			Map<String, Object> fieldMap) {
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				SuccessActivity.class);
 		intent.putExtra("prompt", prompt);
 		intent.putExtra("fieldTrancode", (String) fieldMap.get("fieldTrancode"));
+		BaseActivity.getTopActivity().finish();
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
-
 	}
 
 	/**
 	 * 支付密码设置成功后跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonPayPwdSuccessActivity(String prompt) {
+
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				PayPwdSuccess.class);
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		BaseActivity.getTopActivity().finish();
 	}
 
 	/**
@@ -1558,14 +1558,11 @@ public class TransferLogic {
 									.getAttributeValue(null, "value"));
 						}
 					}
-
 					break;
 				}
 				eventType = parser.next();// 进入下一个元素并触发相应事件
 			}
-
 			return true;
-
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -1574,5 +1571,4 @@ public class TransferLogic {
 			return false;
 		}
 	}
-
 }

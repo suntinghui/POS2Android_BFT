@@ -61,9 +61,11 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		this.setContentView(R.layout.receipt);
+		super.index = 0;
+// 		依旧添加侧滑界面
+			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.receipt);
+			super.onCreate( savedInstanceState);
+		this.findViewById(R.id.topInfoView);
 		
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);

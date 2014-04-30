@@ -31,7 +31,7 @@
             android:text="账户交易流水"
             android:textColor="@color/white"
             android:textSize="18dip" />
-
+        <!--
         <Button
             android:id="@+id/btn_history"
             style="@style/white_15"
@@ -44,6 +44,7 @@
             android:background="@drawable/back_button1"
             android:text="历史" >
         </Button>
+        -->
     </RelativeLayout>
 
     <com.bft.pos.activity.view.TopInfoView

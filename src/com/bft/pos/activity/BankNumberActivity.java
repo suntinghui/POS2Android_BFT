@@ -37,7 +37,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.bankcard);
 		super.onCreate(savedInstanceState);
-		spinner0 = (Spinner) findViewById(R.id.spinner0);
+		// spinner0 = (Spinner) findViewById(R.id.spinner0);
 		btn_back = (Button) this.findViewById(R.id.btn_back);// 返回
 		btn_back.setOnClickListener(this);
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);// 获取短信验证码
@@ -69,28 +69,32 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			this.finish();
 			break;
 		case R.id.btn_ok:
-			try {
-				Event event = new Event(null, "modify-bk", null);
-				event.setTransfer("089029");
-				String fsk = "Get_ExtPsamNo|null";
-				event.setFsk(fsk);
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("name", et_name.getText().toString());// name
-				map.put("pldNo", et_id_card.getText().toString());// 身份证号
-				map.put("oldBkCardNo", old_backcard.getText().toString());// 原银行卡号
-				map.put("bankNo", "111111111111");// 银行卡开户
-				map.put("bkCardNo", et_banknum.getText().toString());// 银行卡号
-				map.put("verifyCode", et_sms.getText().toString());// 验证码
-				event.setStaticActivityDataMap(map);
-				event.trigger();
-			} catch (ViewException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (checkValue()) {
+				try {
+					Event event = new Event(null, "modify-bk", null);
+					event.setTransfer("089029");
+					String fsk = "Get_ExtPsamNo|null";
+					event.setFsk(fsk);
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put("name", et_name.getText().toString());// name
+					map.put("pldNo", et_id_card.getText().toString());// 身份证号
+					map.put("oldBkCardNo", old_backcard.getText().toString());// 原银行卡号
+					map.put("bankNo", "111111111111");// 银行卡开户
+					map.put("bkCardNo", et_banknum.getText().toString());// 银行卡号
+					map.put("verifyCode", et_sms.getText().toString());// 验证码
+					event.setStaticActivityDataMap(map);
+					event.trigger();
+				} catch (ViewException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			break;
 		case R.id.btn_sms:
+			BankNumberActivity.this.showToast("短信已发送，请注意查收!");
 			actionGetSms();
+
 			break;
 		default:
 			break;
@@ -109,9 +113,8 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			// map.put("mobNo", ApplicationEnvironment.getInstance()
-			// .getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("mobNo", Constant.MOBILENO);
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "7");
 			event.setStaticActivityDataMap(map);
@@ -119,5 +122,25 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Boolean checkValue() {
+		if (et_id_card.getText().length() == 0) {
+			this.showToast("身份证号不能为空!");
+			return false;
+		}
+		if (et_name.getText().length() == 0) {
+			this.showToast("姓名不能为空！");
+			return false;
+		}
+		if (et_banknum.getText().length() == 0) {
+			this.showToast("银行卡号不能为空！");
+			return false;
+		}
+		if (old_backcard.getText().length() == 0) {
+			this.showToast("原卡号不能为空！");
+			return false;
+		}
+		return true;
 	}
 }

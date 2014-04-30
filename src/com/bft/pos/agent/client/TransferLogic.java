@@ -109,7 +109,7 @@ public class TransferLogic {
 			this.loginDone(fieldMap);
 
 		} else if ("089000".equals(transferCode)) { // 銀行卡交易查询
-			this.QueryTransListDone(fieldMap);
+			this.Querycardtrade(fieldMap);
 
 		} else if ("089001".equals(transferCode)) { // 注册
 			this.registrDone(fieldMap);
@@ -220,6 +220,14 @@ public class TransferLogic {
 		} else {
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 		}
+	}
+
+	private void Querycardtrade(HashMap<String, String> fieldMap) {
+		String accBlc = fieldMap.get("accBlc");
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				ASBalanceSuccessActivity.class);
+		intent.putExtra("accBlc", accBlc);
+		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
 	/**
@@ -737,13 +745,13 @@ public class TransferLogic {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc == null) ? "设置支付密码成功" : desc;
+			desc = (desc == null) ? "成功" : desc;
 			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc == null) ? "设置支付密码失败" : desc;
+			desc = (desc == null) ? "失败" : desc;
 			// 屏幕中间弹窗
 			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
 					Toast.LENGTH_LONG);

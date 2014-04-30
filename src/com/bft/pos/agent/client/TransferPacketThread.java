@@ -365,6 +365,7 @@ public class TransferPacketThread extends Thread {
 						.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
+					
 					/**
 					 * ================
 					 * 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：

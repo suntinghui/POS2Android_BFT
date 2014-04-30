@@ -164,7 +164,7 @@
                     android:layout_marginRight="10dip"
                     android:src="@drawable/arrow_down" />
             </RelativeLayout>
-
+<!-- 
             <Button
                 android:id="@+id/btn_bank_branch"
                 style="@style/black_16"
@@ -175,7 +175,7 @@
                 android:gravity="left"
                 android:padding="5dip"
                 android:text="选择支行" />
-
+ -->
             <TextView
                 style="@style/black_15"
                 android:layout_width="wrap_content"

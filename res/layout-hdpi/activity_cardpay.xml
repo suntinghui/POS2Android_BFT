@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/topbg"
             android:orientation="horizontal" >
-            <Button
+
+            <Button
                 android:id="@+id/btn_back"
                 style="@style/TextView15_white"
                 android:layout_width="wrap_content"
@@ -54,8 +55,6 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-         
-
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +63,7 @@
                 <Spinner
                     android:id="@+id/spinner0"
                     android:layout_width="fill_parent"
-                    android:layout_height="70dip"
+                    android:layout_height="50dip"
                     android:background="@drawable/btn_gray"
                     android:padding="5dip"
                     android:prompt="@string/planet_prompt" />
@@ -77,22 +76,21 @@
                     android:layout_marginRight="10dip"
                     android:src="@drawable/arrow_down" />
             </RelativeLayout>
- <TextView
-        style="@style/black_17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dip"
-        android:layout_marginTop="25dip"
-        android:gravity="center_horizontal"
-        android:singleLine="true"
-        android:text="请选择查询日期范围" />
 
-    <com.bft.pos.activity.view.PickerDateView
-        android:id="@+id/date_picker"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-        
+            <TextView
+                style="@style/black_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dip"
+                android:layout_marginTop="25dip"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:text="请选择查询日期范围" />
+
+            <com.bft.pos.activity.view.PickerDateView
+                android:id="@+id/date_picker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button

@@ -9,16 +9,20 @@
         value="089000" />
 
     <field
-        key="psamNo"
-        value="__PsamNo" />
-
-    <field
         key="login"
         value="__login" />
 
     <field
         key="type"
         value="__type" />
+
+    <field
+        key="startDt"
+        value="__startDt" />
+
+    <field
+        key="endDt"
+        value="__endDt" />
 
     <field
         key="currPage"

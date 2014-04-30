@@ -58,9 +58,7 @@ public class TransferQueryActivity extends BaseActivity implements
 				intent.putExtra("date_e", date_e);
 				this.startActivity(intent);
 			}
-
 			break;
-
 		default:
 			break;
 		}

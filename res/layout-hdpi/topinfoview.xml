@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:gravity="left"
         android:singleLine="true"
-        android:text="注册号码：未知"
+        android:text="用户名: "
         android:textColor="@color/black"
         android:textSize="14sp" />
 

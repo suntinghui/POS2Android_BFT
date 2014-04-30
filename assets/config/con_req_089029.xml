@@ -5,12 +5,12 @@
     shouldMac="false" >
 
     <field
-        key="modify-bk"
+        key="fieldTrancode"
         value="089029" />
 
     <field
         key="psamNo"
-        value="__PSAMNO" />
+        value="__psamNo" />
 
     <field
         key="name"
@@ -22,15 +22,15 @@
 
     <field
         key="oldBkCardNo"
-        value="123456788012" />
+        value="__oldBkCardNo" />
 
     <field
         key="bankNo"
-        value="1234567" />
+        value="__bankNo" />
 
     <field
         key="bkCardNo"
-        value="123456789012" />
+        value="__bkCardNo" />
 
     <field
         key="verifyCode"

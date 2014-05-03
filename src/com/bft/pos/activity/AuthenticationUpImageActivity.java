@@ -55,7 +55,9 @@ import com.bft.pos.util.JSONUtil;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
 
-//实名认证 上图图片
+/**
+ * 实名认证 上图图片
+ */
 public class AuthenticationUpImageActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -134,8 +136,8 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 		et_sms = (EditText) findViewById(R.id.et_sms);
-		btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
-		btn_bank_branch.setOnClickListener(this);
+//		btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
+//		btn_bank_branch.setOnClickListener(this);
 
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);
 		btn_sms.setOnClickListener(this);
@@ -230,17 +232,18 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			// actionCamera();
 			break;
 		// 银行
-		case R.id.btn_bank_branch:
-			Intent intent = new Intent(AuthenticationUpImageActivity.this,
-					BankSearchActivity.class);
-			intent.putExtra("bankCode", currentBank.getCode());
-			intent.putExtra("provinceCode", currentCity.getProvince_code());
-			intent.putExtra("cityCode", currentCity.getCode());
-			AuthenticationUpImageActivity.this
-					.startActivityForResult(intent, 1);
-			break;
+//		case R.id.btn_bank_branch:
+//			Intent intent = new Intent(AuthenticationUpImageActivity.this,
+//					BankSearchActivity.class);
+//			intent.putExtra("bankCode", currentBank.getCode());
+//			intent.putExtra("provinceCode", currentCity.getProvince_code());
+//			intent.putExtra("cityCode", currentCity.getCode());
+//			AuthenticationUpImageActivity.this
+//					.startActivityForResult(intent, 1);
+//			break;
 		// 短信验证
 		case R.id.btn_sms:
+			this.showToast("短信已发送，请注意查收！");
 			actionGetSms();
 			break;
 		default:
@@ -737,26 +740,26 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
-	public void phoneverifcode() {
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
-		String date = sDateFormat.format(new java.util.Date());
-		try {
-			Event event = new Event(null, "getSms", null);
-			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", ApplicationEnvironment.getInstance()
-					.getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("sendTime", date);
-			map.put("type", "1");
-			event.setStaticActivityDataMap(map);
-			event.trigger();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	// public void phoneverifcode() {
+	// SimpleDateFormat sDateFormat = new SimpleDateFormat(
+	// "yyyy-MM-dd hh:mm:ss");
+	// String date = sDateFormat.format(new java.util.Date());
+	// try {
+	// Event event = new Event(null, "getSms", null);
+	// event.setTransfer("089006");
+	// String fsk = "Get_ExtPsamNo|null";
+	// event.setFsk(fsk);
+	// HashMap<String, String> map = new HashMap<String, String>();
+	// map.put("mobNo", ApplicationEnvironment.getInstance()
+	// .getPreferences().getString(Constant.PHONENUM, ""));
+	// map.put("sendTime", date);
+	// map.put("type", "1");
+	// event.setStaticActivityDataMap(map);
+	// event.trigger();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	public void showDialog() {
 		new AlertDialog.Builder(this)
@@ -868,6 +871,10 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
+	
+	/*
+	 * 获取验证码
+	 */
 	@SuppressLint("SimpleDateFormat")
 	private void actionGetSms() {
 		SimpleDateFormat sDateFormat = new SimpleDateFormat(
@@ -876,18 +883,19 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
+			String fsk = "Get_ExtPsamNo|null";
+			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("type", "1");
 			map.put("sendTime", date);
+			map.put("type", "1");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 	/** 为图片创建不同的名称用于保存，避免覆盖 **/
 
 	public static String createFileName() {

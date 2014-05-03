@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 防止手机休眠 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 手机访问网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -213,6 +213,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
+            android:name=".activity.CardPayQueryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        <activity
             android:name=".activity.ShowManeyPayActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -361,6 +367,8 @@
         <activity android:name=".activity.AnnouncementDetailActivity" />
         <activity android:name=".activity.InputMoneyActivity" />
         <activity android:name="com.bft.pos.activity.ASBalancePwd2Activity" />
+        <activity android:name="com.bft.pos.activity.ReceiptSuccessActivity" />
+        <activity android:name="com.bft.pos.activity.ReceiptActivity" />
         <activity
             android:name=".activity.AuthenticationInfoActivity"
             android:exported="true"
@@ -381,7 +389,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.bft.pos.activity.FindLoginPwdActivity"
+            android:name="com.bft.pos.activity.AuthenticationActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
@@ -444,7 +452,8 @@
             android:name="com.bft.pos.activity.PayPwdSuccess"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" ></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
         <activity
             android:name="com.bft.pos.activity.FailActivity"
             android:exported="true"

@@ -1,4 +1,5 @@
 package com.bft.pos.activity;
+
 /**
  * 主界面
  * 这个界面不需要侧滑
@@ -26,28 +27,30 @@ import com.bft.pos.R;
 
 // 目录
 public class CatalogActivity extends BaseActivity {
-//这里是五个按钮
-	private Integer[] imageIds = { R.drawable.catalog_1_button, R.drawable.catalog_2_button, R.drawable.catalog_3_button, R.drawable.catalog_4_button, R.drawable.catalog_5_button };
-//这里是五个按钮要的内容
+	// 这里是五个按钮
+	private Integer[] imageIds = { R.drawable.catalog_1_button,
+			R.drawable.catalog_2_button, R.drawable.catalog_3_button,
+			R.drawable.catalog_4_button, R.drawable.catalog_5_button };
+	// 这里是五个按钮要的内容
 	private String[] titles = { "我的管理", "我要查询", "我要收款", "我要提款", "系统相关" };
-//	网格布局
+	// 网格布局
 	private GridView gridView = null;
-//	适配器
+	// 适配器
 	private CatalogAdapter adapter = null;
-//    退出时间 长整型
+	// 退出时间 长整型
 	private long exitTimeMillis = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
-		this.mSlideTitleBar = true ;
+		this.mSlideTitleBar = true;
 		super.index = 0;
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.catalog_activity);
 		super.onCreate(savedInstanceState);
-//	三列，好多行的布局
-//	获取组件 添加点击相应 绑定适配器
+		// 三列，好多行的布局
+		// 获取组件 添加点击相应 绑定适配器
 		initTitleBar("主界面", false);
 		gridView = (GridView) findViewById(R.id.gridveiw);
 		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -71,43 +74,48 @@ public class CatalogActivity extends BaseActivity {
 
 	// 点击事件
 	private OnItemClickListener onclickcistener = new OnItemClickListener() {
-//  还是写定了每个点击条目  没一个按钮写定之后，跳转到指定的Activity
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// 还是写定了每个点击条目 没一个按钮写定之后，跳转到指定的Activity
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
 
 			switch (arg2) {
 			case 0:
-//			跳转：我的管理
-				Intent intent0 = new Intent(CatalogActivity.this, ManageActivity.class);
+				// 跳转：我的管理
+				Intent intent0 = new Intent(CatalogActivity.this,
+						ManageActivity.class);
 				intent0.putExtra("TAG", arg2);
 				startActivity(intent0);
 				break;
 			case 1:
-//				跳转：我要查询
-				Intent intent1 = new Intent(CatalogActivity.this, QueryActivity.class);
+				// 跳转：我要查询
+				Intent intent1 = new Intent(CatalogActivity.this,
+						QueryActivity.class);
 				intent1.putExtra("TAG", arg2);
 				startActivity(intent1);
 				break;
 			case 2:
-//				跳转：我要收款
-				Intent intent2 = new Intent(CatalogActivity.this, GatherActivity.class);
+				// 跳转：我要收款
+				Intent intent2 = new Intent(CatalogActivity.this,
+						GatherActivity.class);
 				intent2.putExtra("TAG", arg2);
 				startActivity(intent2);
 				break;
 			case 3:
-//              跳转：我要提款
-				Intent intent3 = new Intent(CatalogActivity.this, DrawingsActivity.class);
+				// 跳转：我要提款
+				Intent intent3 = new Intent(CatalogActivity.this,
+						DrawingsActivity.class);
 				intent3.putExtra("TAG", arg2);
 				startActivity(intent3);
 				break;
-/*			case 3:
-//				跳转：我的存款
-				Intent intent3 = new Intent(CatalogActivity.this, QueryBusinessDepositActivity.class);
-				intent3.putExtra("TAG", arg2);
-				startActivity(intent3);
-				break;*/
+			/*
+			 * case 3: // 跳转：我的存款 Intent intent3 = new
+			 * Intent(CatalogActivity.this, QueryBusinessDepositActivity.class);
+			 * intent3.putExtra("TAG", arg2); startActivity(intent3); break;
+			 */
 			case 4:
-//				跳转：系统相关
-				Intent intent4 = new Intent(CatalogActivity.this, SystemActivity.class);
+				// 跳转：系统相关
+				Intent intent4 = new Intent(CatalogActivity.this,
+						SystemActivity.class);
 				intent4.putExtra("TAG", arg2);
 				startActivity(intent4);
 				break;
@@ -122,12 +130,14 @@ public class CatalogActivity extends BaseActivity {
 	// 程序退出 点击两次后退键
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTimeMillis) > 2000) {
 				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
 				exitTimeMillis = System.currentTimeMillis();
 			} else {
-				ArrayList<BaseActivity> list = BaseActivity.getAllActiveActivity();
+				ArrayList<BaseActivity> list = BaseActivity
+						.getAllActiveActivity();
 				for (BaseActivity activity : list) {
 					activity.finish();
 				}
@@ -140,13 +150,13 @@ public class CatalogActivity extends BaseActivity {
 	}
 
 	public final class CatalogHolder {
-//		这里是标题和标题内容
+		// 这里是标题和标题内容
 		public ImageView CatalogCellImage;
 		public TextView catalogTitleText;
 	}
 
 	public class CatalogAdapter extends BaseAdapter {
-//   适配器，把按钮和
+		// 适配器，把按钮和
 		private LayoutInflater mInflater;
 
 		public CatalogAdapter(Context context) {
@@ -169,11 +179,14 @@ public class CatalogActivity extends BaseActivity {
 			CatalogHolder holder = null;
 
 			if (null == convertView) {
-				convertView = this.mInflater.inflate(R.layout.catalog_item, null);
+				convertView = this.mInflater.inflate(R.layout.catalog_item,
+						null);
 				holder = new CatalogHolder();
 
-				holder.CatalogCellImage = (ImageView) convertView.findViewById(R.id.catalogCellImage);
-				holder.catalogTitleText = (TextView) convertView.findViewById(R.id.catalogTitleText);
+				holder.CatalogCellImage = (ImageView) convertView
+						.findViewById(R.id.catalogCellImage);
+				holder.catalogTitleText = (TextView) convertView
+						.findViewById(R.id.catalogTitleText);
 
 				convertView.setTag(holder);
 			} else {

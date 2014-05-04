@@ -59,7 +59,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
-		btn_history = (Button) this.findViewById(R.id.btn_history);
+		btn_history = (Button) this.findViewById(R.id.btn_back);
 		btn_history.setOnClickListener(this);
 
 		listView = (ListView) this.findViewById(R.id.listview);

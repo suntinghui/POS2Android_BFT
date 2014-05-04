@@ -1,7 +1,5 @@
 package com.bft.pos.activity;
 
-import com.bft.pos.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +7,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * 成功
- */
-public class SuccessActivity extends BaseActivity implements OnClickListener {
+import com.bft.pos.R;
+
+public class RegisterSuccessActivity extends BaseActivity implements
+		OnClickListener {
 	private Button btn_confirm;
 
 	@Override
@@ -41,8 +39,8 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
-			Intent intent = new Intent(SuccessActivity.this,
-					CatalogActivity.class);
+			Intent intent = new Intent(RegisterSuccessActivity.this,
+					LoginActivity.class);
 			startActivity(intent);
 			finish();
 			break;
@@ -50,4 +48,5 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
+
 }

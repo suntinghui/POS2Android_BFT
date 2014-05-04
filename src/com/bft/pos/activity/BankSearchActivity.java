@@ -182,7 +182,9 @@ public class BankSearchActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.backButton:
-				finish();
+				Intent intent = new Intent(BankSearchActivity.this,
+						BankNumberActivity.class);
+				startActivity(intent);
 				break;
 			case R.id.ll_search:
 				if (et_search.getText() != null) {

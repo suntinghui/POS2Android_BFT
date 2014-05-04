@@ -6,10 +6,10 @@
     android:fillViewport="true" >
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" 
-        android:id="@+id/layout">
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/topbarLayout"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="修改银行卡"
+                android:text="卡交易查询"
                 android:textColor="@color/white"
                 android:textSize="18dip" />
         </RelativeLayout>
@@ -55,64 +55,35 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <com.bft.pos.activity.view.TextWithIconView
-                android:id="@+id/et_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dip"
-                android:paddingTop="8dip" />
-
-            <com.bft.pos.activity.view.TextWithIconViewTwo
-                android:id="@+id/et_id_card"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dip"
-                android:paddingTop="8dip" />
-
-            <com.bft.pos.activity.view.TextWithIconViewTwo
-                android:id="@+id/old_backcard"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dip"
-                android:numeric="integer"
-                android:paddingTop="8dip" />
-
-         
-
-            <com.bft.pos.activity.view.TextWithIconViewTwo
-                android:id="@+id/et_banknum"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dip"
-                android:numeric="integer"
-                android:paddingTop="8dip" />
-
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dip" >
+                android:layout_marginTop="15dip" >
 
-                <Button
-                    android:id="@+id/btn_sms"
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/img_btn"
-                    android:text="获取短信校验码" />
-
-                <EditText
-                    android:id="@+id/et_sms"
-                    style="@style/black_15"
+                <Spinner
+                    android:id="@+id/spinner0"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dip"
-                    android:layout_toLeftOf="@id/btn_sms"
-                    android:background="@drawable/input_login"
-                    android:hint="短信校验码"
-                    android:paddingLeft="5dip" />
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_gray"
+                    android:padding="5dip"
+                    android:prompt="@string/planet_prompt" />
+
             </RelativeLayout>
+
+            <TextView
+                style="@style/black_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dip"
+                android:layout_marginTop="25dip"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:text="请选择查询日期范围" />
+
+            <com.bft.pos.activity.view.PickerDateView
+                android:id="@+id/date_picker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
@@ -124,7 +95,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:background="@drawable/button_bg"
-            android:text="确认修改"
+            android:text="确认查询"
             android:textColor="@color/black"
             android:textSize="18dip" />
     </LinearLayout>

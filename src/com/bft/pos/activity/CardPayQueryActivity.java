@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -20,9 +19,6 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
-import com.bft.pos.dynamic.core.Event;
 
 //卡交易查询
 public class CardPayQueryActivity extends BaseActivity implements

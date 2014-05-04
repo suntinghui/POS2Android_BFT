@@ -172,7 +172,9 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 			TimeoutService.LastSystemTimeMillis = System.currentTimeMillis();
 			stack.push(this);
 	}
-	
+	/**初始化控件
+	 * 
+	 * */
 	public void initControl(){
 		}
 	

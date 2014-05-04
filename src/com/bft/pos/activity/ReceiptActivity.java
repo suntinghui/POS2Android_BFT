@@ -157,7 +157,10 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 			break;
 		
 		case R.id.signButton: // 去签名
-			this.gotoHandSignActivity();
+			//this.gotoHandSignActivity();
+			Intent intent1 = new Intent(ReceiptActivity.this,HandSignActivity.class);
+			startActivity(intent1);
+			this.finish();
 			break;
 			
 		case R.id.okButton: // 完成签名开始交易
@@ -177,7 +180,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 		
 	}
 	
-	private void gotoHandSignActivity(){
+	/*private void gotoHandSignActivity(){
 		Intent intent = new Intent(this, HandSignActivity.class);
 		intent.putExtra("amount", StringUtil.String2SymbolAmount(fieldsMap.get("field4")));
 		intent.putExtra("tracenum", fieldsMap.get("field11"));
@@ -186,7 +189,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 		intent.putExtra("signImageName", signImageName);
 		intent.putExtra("MD5", getMD5Value());
 		this.startActivityForResult(intent, 1);
-	}
+	}*/
 	
 	private String getMD5Value(){
     	String indexNo = fieldsMap.get("field37");// 银联返回的检索参考号（12位）

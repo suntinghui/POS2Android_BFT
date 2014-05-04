@@ -719,7 +719,6 @@ public class TransferPacketThread extends Thread {
 						TransferLogic.getInstance().gotoCommonFaileActivity(
 								field39);
 					}
-
 					switch (error) {
 					case 03:
 						str_error = "商户未登记";

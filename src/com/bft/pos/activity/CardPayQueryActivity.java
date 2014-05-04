@@ -49,7 +49,7 @@ public class CardPayQueryActivity extends BaseActivity implements
 		String[] mItems = getResources().getStringArray(R.array.type);
 		// 建立Adapter并且绑定数据源
 		ArrayAdapter<String> _Adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, mItems);
+				android.R.layout.simple_spinner_dropdown_item, mItems);
 		// 绑定 Adapter到控件
 		spinner0.setAdapter(_Adapter);
 		Button btn_ok = (Button) this.findViewById(R.id.btn_ok);
@@ -59,7 +59,6 @@ public class CardPayQueryActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.btn_back:
 			this.finish();
@@ -76,7 +75,7 @@ public class CardPayQueryActivity extends BaseActivity implements
 			// intent.putExtra("date_e", date_e);
 			// this.startActivity(intent);
 			Intent intent = new Intent(CardPayQueryActivity.this,
-					ASBalanceSuccessActivity.class);
+					SuccessActivity.class);
 			startActivity(intent);
 			// try {
 			// Event event = new Event(null, "querycardtrade", null);

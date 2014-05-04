@@ -68,13 +68,6 @@
                     android:padding="5dip"
                     android:prompt="@string/planet_prompt" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dip"
-                    android:src="@drawable/arrow_down" />
             </RelativeLayout>
 
             <TextView

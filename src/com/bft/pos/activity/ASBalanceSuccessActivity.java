@@ -28,9 +28,9 @@ public class ASBalanceSuccessActivity extends BaseActivity implements
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("余额查询");
 
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		accBlc = bundle.getString("accBlc");
+		 Intent intent = getIntent();
+		 Bundle bundle = intent.getExtras();
+		 accBlc = bundle.getString("accBlc");
 
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);

@@ -32,6 +32,7 @@ import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.PayPwdSuccess;
 import com.bft.pos.activity.QBTransferHistory;
+import com.bft.pos.activity.RegisterSuccessActivity;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
@@ -592,7 +593,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "注册成功" : desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -680,7 +682,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "设置登陆密码成功" : desc;
-			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -1488,6 +1491,18 @@ public class TransferLogic {
 
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				SuccessActivity.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().finish();
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+	}
+
+	/**
+	 * 注册后跳转到的成功界面，只显示一行提示信息
+	 */
+	public void gotoCommonLoginSuccessActivity(String prompt) {
+
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				RegisterSuccessActivity.class);
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().finish();
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);

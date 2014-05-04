@@ -474,6 +474,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.QBPwd" >
         </activity>
+        <activity android:name="com.bft.pos.activity.RegisterSuccessActivity" >
+        </activity>
     </application>
 
 </manifest>

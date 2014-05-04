@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
+import com.bft.pos.dynamic.core.Event;
 
 //卡交易查询
 public class CardPayQueryActivity extends BaseActivity implements
@@ -60,37 +62,37 @@ public class CardPayQueryActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_ok:
-			// System.out.println(CardPayQueryActivity.dateFormate(date_picker
-			// .getStartDate()) + "~~~~~~~~~~~~~~~~~~");
-			// if (validator()) {
-			// String date_s = date_picker.getStartDate();
-			// String date_e = date_picker.getEndDate();
-			// Intent intent = new Intent(this,
-			// ASBalanceSuccessActivity.class);
-			// intent.putExtra("date_s", date_s);
-			// intent.putExtra("date_e", date_e);
-			// this.startActivity(intent);
-			Intent intent = new Intent(CardPayQueryActivity.this,
-					SuccessActivity.class);
-			startActivity(intent);
-			// try {
-			// Event event = new Event(null, "querycardtrade", null);
-			// event.setTransfer("089000");
-			// String fsk = "Get_ExtPsamNo|null";
-			// event.setFsk(fsk);
-			// HashMap<String, String> map = new HashMap<String, String>();
-			// map.put("login", "15034078477");
-			// map.put("type", "1");
-			// map.put("startDt", CardPayQueryActivity.dateFormate(date_s));
-			// map.put("endDt", CardPayQueryActivity.dateFormate(date_e));
-			// map.put("currPage", "1");
-			// map.put("pageNum", "5");
-			// event.setStaticActivityDataMap(map);
-			// event.trigger();
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
-			// }
+			System.out.println(CardPayQueryActivity.dateFormate(date_picker
+					.getStartDate()) + "~~~~~~~~~~~~~~~~~~");
+			if (validator()) {
+				String date_s = date_picker.getStartDate();
+				String date_e = date_picker.getEndDate();
+				// Intent intent = new Intent(this,
+				// ASBalanceSuccessActivity.class);
+				// intent.putExtra("date_s", date_s);
+				// intent.putExtra("date_e", date_e);
+				// this.startActivity(intent);
+				Intent intent = new Intent(CardPayQueryActivity.this,
+						RegisterSuccessActivity.class);
+				startActivity(intent);
+				try {
+					Event event = new Event(null, "querycardtrade", null);
+					event.setTransfer("089000");
+					String fsk = "Get_ExtPsamNo|null";
+					event.setFsk(fsk);
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put("login", "15034078477");
+					map.put("type", "1");
+					map.put("startDt", CardPayQueryActivity.dateFormate(date_s));
+					map.put("endDt", CardPayQueryActivity.dateFormate(date_e));
+					map.put("currPage", "1");
+					map.put("pageNum", "5");
+					event.setStaticActivityDataMap(map);
+					event.trigger();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			break;
 
 		default:

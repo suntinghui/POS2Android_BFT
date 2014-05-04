@@ -79,6 +79,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_sms:
+			ShowManeyPayActivity.this.showToast("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		default:
@@ -98,9 +99,9 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			// map.put("mobNo", ApplicationEnvironment.getInstance()
-			// .getPreferences().getString(Constant.PHONENUM, ""));
-			map.put("mobNo", Constant.MOBILENO);
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
+			// map.put("mobNo", Constant.MOBILENO);
 			map.put("sendTime", date);
 			map.put("type", "6");
 			event.setStaticActivityDataMap(map);

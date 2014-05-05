@@ -45,10 +45,10 @@ public class CardPayQueryActivity extends BaseActivity implements
 		spinner0 = (Spinner) findViewById(R.id.spinner0);
 		// 建立数据源
 		String[] mItems = getResources().getStringArray(R.array.type);
-		// 建立Adapter并且绑定数据源
+//		// 建立Adapter并且绑定数据源
 		ArrayAdapter<String> _Adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item, mItems);
-		// 绑定 Adapter到控件
+//		// 绑定 Adapter到控件
 		spinner0.setAdapter(_Adapter);
 		Button btn_ok = (Button) this.findViewById(R.id.btn_ok);
 		btn_ok.setOnClickListener(this);

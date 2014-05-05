@@ -31,7 +31,7 @@ public class CardPayQueryActivity extends BaseActivity implements
 	private PickerDateView date_picker = null;
 	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为7天。
 	private ArrayAdapter<String> adapter;
-	private int sp1Value = 0;
+	private int selitem = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,12 +53,11 @@ public class CardPayQueryActivity extends BaseActivity implements
 		// 绑定 Adapter到控件
 		spinner0.setAdapter(_Adapter);
 		spinner0.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int selitem = arg0.getSelectedItemPosition() + 1;
-				System.out.println(selitem);
+				selitem = arg0.getSelectedItemPosition() + 1;
+				System.out.println(selitem + "~~~~~~~~!!1111");
 			}
 
 			@Override
@@ -68,8 +67,6 @@ public class CardPayQueryActivity extends BaseActivity implements
 			}
 		});
 
-		System.out.println(spinner0.getSelectedItemPosition()
-				+ "~~~~~~~~~~~~~~~");
 		Button btn_ok = (Button) this.findViewById(R.id.btn_ok);
 		btn_ok.setOnClickListener(this);
 		date_picker = (PickerDateView) this.findViewById(R.id.date_picker);
@@ -82,19 +79,19 @@ public class CardPayQueryActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_ok:
+
 			if (validator()) {
-				// String date_s = date_picker.getStartDate();
-				// String date_e = date_picker.getEndDate();
-				// System.out.println(date_e
-				// + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				// Intent intent = new Intent(this,
-				// CardPayListActivity.class);
-				// intent.putExtra("date_s", date_s);
-				// intent.putExtra("date_e", date_e);
-				// this.startActivity(intent);
-				Intent intent = new Intent(CardPayQueryActivity.this,
-						SuccessActivity.class);
-				startActivity(intent);
+				String date_s = date_picker.getStartDate();
+				String date_e = date_picker.getEndDate();
+				Intent intent = new Intent(this, CardPayListActivity.class);
+				intent.putExtra("date_e", date_e);
+				intent.putExtra("date_s", date_s);
+				intent.putExtra("spinner", selitem);
+				System.out.println(selitem + "~~~~~~~2~~~~~~~");
+				this.startActivity(intent);
+				// Intent intent = new Intent(CardPayQueryActivity.this,
+				// SuccessActivity.class);
+				// startActivity(intent);
 				// try {
 				// Event event = new Event(null, "querycardtrade", null);
 				// event.setTransfer("089000");

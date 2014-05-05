@@ -32,14 +32,12 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
-
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override
 		protected Object doInBackground(Object... arg0) {
 			try {
-
-				// 利用闪屏界面初始化系统
+				// 利用闪屏界面初始化系统.
 				long startTime = System.currentTimeMillis();
 				ApplicationEnvironment.getInstance().initialize(
 						SplashActivity.this.getApplication());

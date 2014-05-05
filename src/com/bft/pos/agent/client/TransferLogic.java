@@ -32,6 +32,7 @@ import com.bft.pos.activity.CardPayQueryActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.LoginFailActivity;
 import com.bft.pos.activity.PayPwdSuccess;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.RegisterSuccessActivity;
@@ -101,7 +102,6 @@ public class TransferLogic {
 		} else {
 			transferMap.put(TransferLogic.GENERALTRANSFER, thread);
 		}
-
 		thread.start();
 	}
 
@@ -227,11 +227,6 @@ public class TransferLogic {
 
 	// 卡交易
 	private void Querycardtrade(HashMap<String, String> fieldMap) {
-		// String accBlc = fieldMap.get("accBlc");
-		// Intent intent = new Intent(BaseActivity.getTopActivity(),
-		// ASBalanceSuccessActivity.class);
-		// intent.putExtra("accBlc", accBlc);
-		// BaseActivity.getTopActivity().startActivity(intent);
 		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<CardPayModel> cpm = new ArrayList<CardPayModel>();
@@ -248,21 +243,25 @@ public class TransferLogic {
 					for (i = 0; i < jsonArray.length(); i++) {
 						JSONObject picsObj = (JSONObject) jsonArray.opt(i);
 						CardPayModel model = new CardPayModel();
-						model.setTradeDate(picsObj.optString("tradeDate", ""));
-						System.out.println(picsObj.optString("tradeDate", ""));
-						model.setPayMoney(picsObj.optString("payMoney", ""));
+						model.setTradedata(picsObj.optString("Tradedata", ""));
+						// System.out.println(picsObj.optString("tradeDate",
+						// ""));
+						model.setTradetotal(picsObj.optString("Tradetotal", ""));
 						// model.set
-						model.setTypeKey(picsObj.optString("tradeTypeKey", ""));
-						model.setPayDate(picsObj.optString("payDate", ""));
-						model.setOrderStatus(picsObj.optString("orderStatus",
+						model.setCardtype(picsObj.optString("Cardtype", ""));
+						model.setTradetime(picsObj.optString("Tradetime", ""));
+						model.setTradestatus(picsObj.optString("Tradestatus",
 								""));
-
+						model.setCardnum(picsObj.optString("Cardnum", ""));
+						model.setCardinstitution(picsObj.optString(
+								"Cardinstitution", ""));
+						model.setTradestatus(picsObj.optString("Tradestatus",
+								""));
 						cpm.add(model);
 					}
 				}
 				map.put("list", cpm);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			CardPayListActivity activity = (CardPayListActivity) BaseActivity
@@ -270,7 +269,7 @@ public class TransferLogic {
 			activity.fromLogic(map);
 
 		} else {
-			TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
+			TransferLogic.getInstance().gotoCommonFaileActivity("获取卡交易流水失败");
 		}
 	}
 
@@ -465,10 +464,10 @@ public class TransferLogic {
 						.append(stackKey);
 				FSKOperator.execute(sb.toString(), handler);
 			} else {
-				this.gotoCommonFaileActivity("服务器返回异常");
+				this.gotoLoginFaileActivity("服务器返回异常");
 			}
 		} catch (Exception e) {
-			this.gotoCommonFaileActivity("服务器返回异常");
+			this.gotoLoginFaileActivity("服务器返回异常");
 			e.printStackTrace();
 		} finally {
 			editor.commit();
@@ -645,7 +644,7 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "注册失败" : desc;
-			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
+			TransferLogic.getInstance().gotoLoginFaileActivity(desc);
 		}
 	}
 
@@ -657,7 +656,7 @@ public class TransferLogic {
 			if ("1".equals(fieldMap.get("respmsg"))) {
 				gotoCommonSuccessActivity("注册信息已完善");
 			} else if ("0".equals(fieldMap.get("respmsg"))) {
-				TransferLogic.getInstance().gotoCommonFaileActivity("操作失败");
+				TransferLogic.getInstance().gotoLoginFaileActivity("操作失败");
 			}
 		}
 	}
@@ -874,7 +873,6 @@ public class TransferLogic {
 		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<TransferDetailModel1> arrayModel = new ArrayList<TransferDetailModel1>();
-
 		String rtCd = fieldMap.get("rtCd");
 		if (rtCd.equals("00")) {
 			try {
@@ -895,7 +893,6 @@ public class TransferLogic {
 						model.setPayDate(picsObj.optString("payDate", ""));
 						model.setOrderStatus(picsObj.optString("orderStatus",
 								""));
-
 						arrayModel.add(model);
 					}
 				}
@@ -1585,6 +1582,16 @@ public class TransferLogic {
 	public void gotoCommonFaileActivity(String prompt) {
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				FailActivity.class);
+		intent.putExtra("prompt", prompt);
+		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+	}
+
+	/**
+	 * 注册失败界面，只显示一行错误提示信息。
+	 */
+	public void gotoLoginFaileActivity(String prompt) {
+		Intent intent = new Intent(BaseActivity.getTopActivity(),
+				LoginFailActivity.class);
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}

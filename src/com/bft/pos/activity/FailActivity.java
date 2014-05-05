@@ -40,7 +40,7 @@ public class FailActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
-			Intent intent = new Intent(FailActivity.this, LoginActivity.class);
+			Intent intent = new Intent(FailActivity.this, CatalogActivity.class);
 			startActivity(intent);
 			finish();
 			break;

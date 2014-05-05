@@ -478,6 +478,10 @@
         </activity>
         <activity android:name="com.bft.pos.activity.CardPayListActivity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.LoginFailActivity" >
+        </activity>
+        <activity android:name="com.bft.pos.activity.CardPayDetailActivity" >
+        </activity>
     </application>
 
 </manifest>

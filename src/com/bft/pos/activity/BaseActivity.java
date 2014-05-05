@@ -1,4 +1,5 @@
 package com.bft.pos.activity;
+
 /**
  * 这里主要是写定侧滑出来的界面的内容
  * */
@@ -19,8 +20,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,33 +31,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bft.pos.R;
-import com.bft.pos.activity.CatalogActivity;
-import com.bft.pos.activity.GatherActivity;
-import com.bft.pos.activity.ManageActivity;
-import com.bft.pos.activity.QueryActivity;
-import com.bft.pos.activity.QueryBusinessDepositActivity;
-import com.bft.pos.activity.SystemActivity;
-import com.bft.pos.activity.TimeoutService;
 import com.bft.pos.agent.client.AppDataCenter;
+import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.HttpManager;
 import com.bft.pos.agent.client.SystemConfig;
 import com.bft.pos.agent.client.TransferLogic;
+import com.bft.pos.model.TransferDetailModel;
+import com.bft.pos.util.ActivityUtil;
 import com.bft.slidingmenu.SlidingMenuActivity;
 
-public class BaseActivity extends SlidingMenuActivity implements OnClickListener {
+public class BaseActivity extends SlidingMenuActivity implements
+		OnClickListener {
 	protected Button backButton = null;
 	protected TextView titleView = null;
-	
+
 	private ListView listView;
-	private Integer[] imageIds= {R.drawable.left_icon_1_n, R.drawable.left_icon_2_n, R.drawable.left_icon_3_n,
-    		R.drawable.left_icon_4_n, R.drawable.left_icon_5_n};
-    private LinearLayout layout;
-    private String[] title = {"我的管理", "我要查询", "我要收款", "我的存款", "系统相关"};
-    private SimpleAdapter itemsAdapter;
-    public  int contentLayout;
-    public	int menuLayout;
-    public  int index = 0;
-    
+	private Integer[] imageIds = { R.drawable.left_icon_1_n,
+			R.drawable.left_icon_2_n, R.drawable.left_icon_3_n,
+			R.drawable.left_icon_4_n, R.drawable.left_icon_5_n };
+	private LinearLayout layout;
+	private String[] title = { "我的管理", "我要查询", "我要收款", "我的存款", "系统相关" };
+	private SimpleAdapter itemsAdapter;
+	public int contentLayout;
+	public int menuLayout;
+	public int index = 0;
+
 	private static Stack<BaseActivity> stack = new Stack<BaseActivity>();
 
 	public static final int PROGRESS_DIALOG = 0; // 带滚动条的提示框
@@ -81,7 +80,6 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 	private String transferCode = null;
 	private CountUpTask countUpTask = null;
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setLayoutIds(menuLayout, contentLayout);
@@ -89,79 +87,81 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 		setAnimationType(MENU_TYPE_SLIDEOVER);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		
+
 		layout = (LinearLayout) findViewById(R.id.layout);
-		if(this.mDraggingEnabled==false){
+		if (this.mDraggingEnabled == false) {
 			layout.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					toggleMenu();
 				}
 			});
-		}else{
-			
+		} else {
+
 		}
-		
-		
-		listView = (ListView)this.findViewById(R.id.listView);
-		
+
+		listView = (ListView) this.findViewById(R.id.listView);
+
 		ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
-		for(int i = 0; i<title.length; i++){
-			HashMap<String, Object>map = new HashMap<String, Object>();
+		for (int i = 0; i < title.length; i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ItemImage", imageIds[i]);
 			map.put("ItemTitle", title[i]);
 			listItem.add(map);
-		
+
 		}
-		
-		itemsAdapter = new SimpleAdapter(this, listItem, R.layout.left_listitem, 
-				new String[]{"ItemTitle","ItemImage"}, new int[]{R.id.ItemTitle, R.id.ItemImage});
+
+		itemsAdapter = new SimpleAdapter(this, listItem,
+				R.layout.left_listitem,
+				new String[] { "ItemTitle", "ItemImage" }, new int[] {
+						R.id.ItemTitle, R.id.ItemImage });
 		listView.setAdapter(itemsAdapter);
 		listView.setSelection(index);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
 				switch (arg2) {
 				case 0:
-//				点击跳转:我的管理
+					// 点击跳转:我的管理
 					Intent intent0 = new Intent(BaseActivity.this,
 							ManageActivity.class);
-							 intent0.putExtra("TAG", arg2);
-							 startActivity(intent0);
-							 finish();
+					intent0.putExtra("TAG", arg2);
+					startActivity(intent0);
+					finish();
 					break;
 				case 1:
-//					点击跳转:我的查询
+					// 点击跳转:我的查询
 					Intent intent1 = new Intent(BaseActivity.this,
 							QueryActivity.class);
-							 intent1.putExtra("TAG", arg2);
-							 startActivity(intent1);
-							 finish();
+					intent1.putExtra("TAG", arg2);
+					startActivity(intent1);
+					finish();
 					break;
-//还有两个按钮,签退和修改用户密码,暂时没有添加
+				// 还有两个按钮,签退和修改用户密码,暂时没有添加
 				case 2:
-//					点击跳转:我要收款
+					// 点击跳转:我要收款
 					Intent intent2 = new Intent(BaseActivity.this,
 							GatherActivity.class);
-							 intent2.putExtra("TAG", arg2);
-							 startActivity(intent2);
-							 finish();
+					intent2.putExtra("TAG", arg2);
+					startActivity(intent2);
+					finish();
 					break;
 				case 3:
-//					点击跳转:我的存款
+					// 点击跳转:我的存款
 					Intent intent3 = new Intent(BaseActivity.this,
 							QueryBusinessDepositActivity.class);
-							 intent3.putExtra("TAG", arg2);
-							 startActivity(intent3);
-							 finish();
+					intent3.putExtra("TAG", arg2);
+					startActivity(intent3);
+					finish();
 					break;
 				case 4:
-//					点击跳转:系统相关
+					// 点击跳转:系统相关
 					Intent intent4 = new Intent(BaseActivity.this,
 							SystemActivity.class);
-							 intent4.putExtra("TAG", arg2);
-							 startActivity(intent4);
-							 finish();
+					intent4.putExtra("TAG", arg2);
+					startActivity(intent4);
+					finish();
 					break;
 				default:
 					break;
@@ -169,13 +169,13 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 			}
 		});
 		// 更新超时时间
-			TimeoutService.LastSystemTimeMillis = System.currentTimeMillis();
-			stack.push(this);
+		TimeoutService.LastSystemTimeMillis = System.currentTimeMillis();
+		stack.push(this);
 	}
-	
-	public void initControl(){
-		}
-	
+
+	public void initControl() {
+	}
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -188,6 +188,7 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 			this.finish();
 		}
 	}
+
 	public void initTitleBar(String title, Boolean hasBack) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
@@ -199,36 +200,37 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 		titleView.setTextColor(getResources().getColor(R.color.white));
 		titleView.setTextSize(20);
 	}
+
 	protected void initTitlebar(String title) {
-		
+
 		backButton = (Button) this.findViewById(R.id.backButton);
 		titleView = (TextView) this.findViewById(R.id.title);
-		
+
 		titleView.setText(title);
-		
+
 		backButton.setOnClickListener(this);
 	}
 
 	public void setLayoutIdsTest(int menuLayoutId, int contentLayoutId) {
 		menuLayout = menuLayoutId;
-        contentLayout = contentLayoutId;
-    }
+		contentLayout = contentLayoutId;
+	}
 
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.backButton:
-//			this.finish();
+			// this.finish();
 			Intent intent4 = new Intent(BaseActivity.this,
 					CatalogActivity.class);
-					 startActivity(intent4);
+			startActivity(intent4);
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+
 	@Override
 	public void startActivity(Intent intent) {
 		super.startActivity(intent);
@@ -573,14 +575,14 @@ public class BaseActivity extends SlidingMenuActivity implements OnClickListener
 
 		}
 	};
-	
+
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		 
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                 && event.getRepeatCount() == 0) {
-        	finish();
-             return true;
-         }
-         return super.onKeyDown(keyCode, event);
-     }
+
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

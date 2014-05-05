@@ -22,7 +22,7 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
-		this.mSlideTitleBar = true ;
+		this.mSlideTitleBar = true;
 		super.index = 0;
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
@@ -32,7 +32,6 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
-	
 
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
@@ -66,7 +65,7 @@ public class SplashActivity extends BaseActivity {
 		@Override
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
-				
+
 				Intent intent = new Intent(SplashActivity.this,
 						LoginActivity.class);
 				SplashActivity.this.startActivity(intent);
@@ -89,7 +88,7 @@ public class SplashActivity extends BaseActivity {
 								Intent intent = new Intent(
 										Settings.ACTION_WIRELESS_SETTINGS);
 								startActivity(intent);
-				
+
 								finish();
 							}
 						});

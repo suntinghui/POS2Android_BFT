@@ -248,10 +248,10 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		case R.id.moreButton:
 			loadMoreData();
 			break;
-		case R.id.btn_history:
-			// Intent intent1 = new Intent(this, QBTransferTimer.class);
-			// this.startActivity(intent1);
-			break;
+		// case R.id.btn_history:
+		// Intent intent1 = new Intent(this, QBTransferTimer.class);
+		// this.startActivity(intent1);
+		// break;
 		default:
 			break;
 		}
@@ -282,10 +282,8 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 				.get("list");
 		modelList.addAll(list);
 		int count = Integer.parseInt((String) map.get("total"));
-
 		totalPage = (count + Integer.parseInt(Constant.PAGESIZE) - 1)
 				/ Integer.parseInt(Constant.PAGESIZE);
-
 		if (modelList != null) {
 			adapter.notifyDataSetChanged();
 		} else {

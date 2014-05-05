@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -13,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PickerDateView;
-import com.bft.pos.dynamic.core.Event;
 
 //卡交易查询
 public class CardPayQueryActivity extends BaseActivity implements
@@ -31,6 +31,7 @@ public class CardPayQueryActivity extends BaseActivity implements
 	private PickerDateView date_picker = null;
 	private String interval = "7"; // 设置开始日期和结束日期之间相差的天数。默认为7天。
 	private ArrayAdapter<String> adapter;
+	private int sp1Value = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class CardPayQueryActivity extends BaseActivity implements
 		Button btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		spinner0 = (Spinner) findViewById(R.id.spinner0);
+
 		// 建立数据源
 		String[] mItems = getResources().getStringArray(R.array.type);
 		// 建立Adapter并且绑定数据源
@@ -50,6 +52,24 @@ public class CardPayQueryActivity extends BaseActivity implements
 				android.R.layout.simple_spinner_dropdown_item, mItems);
 		// 绑定 Adapter到控件
 		spinner0.setAdapter(_Adapter);
+		spinner0.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int selitem = arg0.getSelectedItemPosition() + 1;
+				System.out.println(selitem);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		System.out.println(spinner0.getSelectedItemPosition()
+				+ "~~~~~~~~~~~~~~~");
 		Button btn_ok = (Button) this.findViewById(R.id.btn_ok);
 		btn_ok.setOnClickListener(this);
 		date_picker = (PickerDateView) this.findViewById(R.id.date_picker);
@@ -62,36 +82,38 @@ public class CardPayQueryActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_ok:
-			System.out.println(CardPayQueryActivity.dateFormate(date_picker
-					.getStartDate()) + "~~~~~~~~~~~~~~~~~~");
 			if (validator()) {
-				String date_s = date_picker.getStartDate();
-				String date_e = date_picker.getEndDate();
+				// String date_s = date_picker.getStartDate();
+				// String date_e = date_picker.getEndDate();
+				// System.out.println(date_e
+				// + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				// Intent intent = new Intent(this,
-				// ASBalanceSuccessActivity.class);
+				// CardPayListActivity.class);
 				// intent.putExtra("date_s", date_s);
 				// intent.putExtra("date_e", date_e);
 				// this.startActivity(intent);
 				Intent intent = new Intent(CardPayQueryActivity.this,
-						RegisterSuccessActivity.class);
+						SuccessActivity.class);
 				startActivity(intent);
-				try {
-					Event event = new Event(null, "querycardtrade", null);
-					event.setTransfer("089000");
-					String fsk = "Get_ExtPsamNo|null";
-					event.setFsk(fsk);
-					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("login", "15034078477");
-					map.put("type", "1");
-					map.put("startDt", CardPayQueryActivity.dateFormate(date_s));
-					map.put("endDt", CardPayQueryActivity.dateFormate(date_e));
-					map.put("currPage", "1");
-					map.put("pageNum", "5");
-					event.setStaticActivityDataMap(map);
-					event.trigger();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				// try {
+				// Event event = new Event(null, "querycardtrade", null);
+				// event.setTransfer("089000");
+				// String fsk = "Get_ExtPsamNo|null";
+				// event.setFsk(fsk);
+				// HashMap<String, String> map = new HashMap<String, String>();
+				// map.put("login", ApplicationEnvironment.getInstance()
+				// .getPreferences().getString(Constant.PHONENUM, ""));
+				// map.put("type", "1");
+				// map.put("startDt",
+				// CardPayQueryActivity.dateFormates(date_s));
+				// map.put("endDt", CardPayQueryActivity.dateFormates(date_e));
+				// map.put("currPage", "1");
+				// map.put("pageNum", "5");
+				// event.setStaticActivityDataMap(map);
+				// event.trigger();
+				// } catch (Exception e) {
+				// e.printStackTrace();
+				// }
 			}
 			break;
 
@@ -183,7 +205,11 @@ public class CardPayQueryActivity extends BaseActivity implements
 		return Integer.parseInt(String.valueOf(between_days));
 	}
 
-	private static String dateFormate(String date) {
+	public static String dateFormates(String date) {
 		return date.replaceAll("-", "");
+	}
+
+	private String StringSubstring(String temp) {
+		return temp.substring(0, 1);
 	}
 }

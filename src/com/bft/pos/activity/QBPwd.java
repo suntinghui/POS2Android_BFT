@@ -1,4 +1,5 @@
 package com.bft.pos.activity;
+
 /**
  * 同样是输入密码
  * */
@@ -24,22 +25,23 @@ import com.bft.slidingmenu.MenuBaseActivity;
 
 public class QBPwd extends BaseActivity implements OnClickListener {
 	private PasswordWithLabelView et_pwd = null;
-	private LinearLayout rootLayout		= null;
-	private TextView textView			= null;
-	private EditText editText			= null;
+	private LinearLayout rootLayout = null;
+	private TextView textView = null;
+	private EditText editText = null;
 	private String pwdcode = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
-// 		依旧添加侧滑界面
-		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_aishua_balance_pwd);
-		super.onCreate( savedInstanceState);
+		// 依旧添加侧滑界面
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_aishua_balance_pwd);
+		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("账户交易查询");
 
 		editText = (EditText) this.findViewById(R.id.text);
-		
+
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm01);
@@ -52,7 +54,9 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 
 	private boolean checkValue() {
 		if (et_pwd.getText().length() != 6) {
-			Toast.makeText(this, this.getResources().getString(R.string.pInputNewPwd), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this,
+					this.getResources().getString(R.string.pInputNewPwd),
+					Toast.LENGTH_SHORT).show();
 			return false;
 		}
 
@@ -63,13 +67,13 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backButton:
-			Intent intent0 = new Intent(QBPwd.this,CatalogActivity.class);
+			Intent intent0 = new Intent(QBPwd.this, CatalogActivity.class);
 			startActivity(intent0);
 			break;
 		case R.id.btn_confirm01:
 			if (checkValue()) {
 				pwdcode = et_pwd.getEncryptPWD();
-				Intent intent1 = new Intent(QBPwd.this,QBTransferHistory.class);
+				Intent intent1 = new Intent(QBPwd.this, QBTransferHistory.class);
 				intent1.putExtra("pwdcode", pwdcode);
 				startActivity(intent1);
 				this.finish();

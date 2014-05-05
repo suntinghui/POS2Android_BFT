@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
+import com.bft.pos.activity.CardPayListActivity;
+import com.bft.pos.activity.CardPayQueryActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
@@ -38,12 +40,14 @@ import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
+import com.bft.pos.activity.TransferDetailListHistoryActivity;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.dynamic.core.ViewPage;
 import com.bft.pos.fsk.FSKOperator;
+import com.bft.pos.model.CardPayModel;
 import com.bft.pos.model.FieldModel;
 import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.model.TransferModel;
@@ -153,7 +157,7 @@ public class TransferLogic {
 		} else if ("089028".equals(transferCode)) { // 账户交易查询
 			this.QBTDone(fieldMap);
 
-		} else if ("089029".equals(transferCode)) { // 账户交易查询
+		} else if ("089029".equals(transferCode)) { // 修改银行卡号
 			this.modifyBankNoDone(fieldMap);
 
 		} else if ("089024".equals(transferCode)) { // 修改密码
@@ -221,12 +225,53 @@ public class TransferLogic {
 		}
 	}
 
+	// 卡交易
 	private void Querycardtrade(HashMap<String, String> fieldMap) {
-		String accBlc = fieldMap.get("accBlc");
-		Intent intent = new Intent(BaseActivity.getTopActivity(),
-				ASBalanceSuccessActivity.class);
-		intent.putExtra("accBlc", accBlc);
-		BaseActivity.getTopActivity().startActivity(intent);
+		// String accBlc = fieldMap.get("accBlc");
+		// Intent intent = new Intent(BaseActivity.getTopActivity(),
+		// ASBalanceSuccessActivity.class);
+		// intent.putExtra("accBlc", accBlc);
+		// BaseActivity.getTopActivity().startActivity(intent);
+		int i = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<CardPayModel> cpm = new ArrayList<CardPayModel>();
+
+		String rtCd = fieldMap.get("rtCd");
+		if (rtCd.equals("00")) {
+			try {
+				String jsonStr = fieldMap.get("pageList");
+				String page_count = fieldMap.get("totalNum");
+				map.put("total", page_count);
+				JSONTokener parse = new JSONTokener(jsonStr);
+				JSONArray jsonArray = (JSONArray) parse.nextValue();
+				if (jsonArray != null && jsonArray.length() > 0) {
+					for (i = 0; i < jsonArray.length(); i++) {
+						JSONObject picsObj = (JSONObject) jsonArray.opt(i);
+						CardPayModel model = new CardPayModel();
+						model.setTradeDate(picsObj.optString("tradeDate", ""));
+						System.out.println(picsObj.optString("tradeDate", ""));
+						model.setPayMoney(picsObj.optString("payMoney", ""));
+						// model.set
+						model.setTypeKey(picsObj.optString("tradeTypeKey", ""));
+						model.setPayDate(picsObj.optString("payDate", ""));
+						model.setOrderStatus(picsObj.optString("orderStatus",
+								""));
+
+						cpm.add(model);
+					}
+				}
+				map.put("list", cpm);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			CardPayListActivity activity = (CardPayListActivity) BaseActivity
+					.getTopActivity();
+			activity.fromLogic(map);
+
+		} else {
+			TransferLogic.getInstance().gotoCommonFaileActivity("获取交易流水失败");
+		}
 	}
 
 	/**

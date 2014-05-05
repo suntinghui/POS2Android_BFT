@@ -22,12 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bft.pos.R;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.TransferDetailModel;
 import com.bft.pos.util.ActivityUtil;
-//不走这个activity了
+
 public class TransferDetailListActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 
@@ -41,41 +42,49 @@ public class TransferDetailListActivity extends BaseActivity implements
 
 	private String date_s = null;
 	private String date_e = null;
-
+	String t_date_s = null;
+	String t_date_e = null;
 	private ArrayList<TransferDetailModel> modelList = new ArrayList<TransferDetailModel>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
-		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_transfer_detail_list);
+// this.setContentView(R.layout.activity_transfer_detail_list);
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
+		Intent intent = this.getIntent();
+		t_date_s = intent.getStringExtra("date_s");
+		t_date_e = intent.getStringExtra("date_e");
+
+		System.out.println(t_date_e + "!~~~~~~~~~~~~~~~~~~");
 
 		btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
-		btn_history = (Button) this.findViewById(R.id.btn_history);
-		btn_history.setOnClickListener(this);
+		// btn_history = (Button) this.findViewById(R.id.btn_history);
+		// btn_history.setOnClickListener(this);
 
 		listView = (ListView) this.findViewById(R.id.listview);
 		// ActivityUtil.setEmptyView(listView);
 
-		Intent intent = this.getIntent();
-		String t_date_s = intent.getStringExtra("date_s");
-		String t_date_e = intent.getStringExtra("date_e");
-		if (t_date_s == null || t_date_s.length() == 0) {
-			Calendar c = Calendar.getInstance();
-			String year = c.get(Calendar.YEAR) + "";
-			String month = String.format("%02d", (c.get(Calendar.MONTH) + 1));
-			String day = String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-			date_s = date_e = year + month + day;
-		} else {
-			btn_history.setVisibility(View.GONE);
-			date_s = t_date_s.replace("-", "");
-			date_e = t_date_e.replace("-", "");
-		}
+		// Intent intent = this.getIntent();
+		// String t_date_s = intent.getStringExtra("date_s");
+		// String t_date_e = intent.getStringExtra("date_e");
+		// System.out.println(t_date_s+"!!!!!!!!~~~~~~~~~");
+		// if (t_date_s == null || t_date_s.length() == 0) {
+		// Calendar c = Calendar.getInstance();
+		// String year = c.get(Calendar.YEAR) + "";
+		// String month = String.format("%02d", (c.get(Calendar.MONTH) + 1));
+		// String day = String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
+		// date_s = date_e = year + month + day;
+		// } else {
+		// // btn_history.setVisibility(View.GONE);
+		// date_s = t_date_s.replace("-", "");
+		// date_e = t_date_e.replace("-", "");
+		// }
+
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -88,8 +97,10 @@ public class TransferDetailListActivity extends BaseActivity implements
 				intent.putExtra("model", modelList.get(arg2));
 				TransferDetailListActivity.this.startActivity(intent);
 			}
+
 		});
 		refresh();
+
 	}
 
 	public final class ViewHolder {
@@ -127,6 +138,7 @@ public class TransferDetailListActivity extends BaseActivity implements
 		public long getItemId(int arg0) {
 			return arg0;
 		}
+
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (null == convertView) {
@@ -229,23 +241,30 @@ public class TransferDetailListActivity extends BaseActivity implements
 		case R.id.moreButton:
 			loadMoreData();
 			break;
-		case R.id.btn_history:
-			Intent intent = new Intent(this, TransferQueryActivity.class);
-			this.startActivity(intent);
-			break;
+		// case R.id.btn_history:
+		// Intent intent = new Intent(this, TransferQueryActivity.class);
+		// this.startActivity(intent);
+		// break;
 		default:
 			break;
 		}
 	}
 
 	public void refresh() {
+
+		// System.out.println(CardPayQueryActivity.dateFormates(t_date_e)
+		// + "!!!!!!!!~~~~~~~~~");
 		Event event = new Event(null, "queryTransList", null);
 		event.setTransfer("089000");
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("page_current", ++currentPage + "");
-		map.put("page_size", Constant.PAGESIZE);
-		map.put("begin_date", date_s);
-		map.put("end_date", date_e);
+		map.put("login", ApplicationEnvironment.getInstance().getPreferences()
+				.getString(Constant.PHONENUM, ""));
+		// map.put("login","流川枫");
+		map.put("currPage", ++currentPage + "");
+		map.put("pageNum", Constant.PAGESIZE);
+		map.put("startDt", CardPayQueryActivity.dateFormates(t_date_s));
+		map.put("endDt", CardPayQueryActivity.dateFormates(t_date_e));
+		map.put("type", "1");
 		event.setStaticActivityDataMap(map);
 		try {
 			event.trigger();

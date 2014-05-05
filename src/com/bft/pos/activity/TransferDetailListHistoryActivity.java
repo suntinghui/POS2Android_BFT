@@ -58,8 +58,8 @@ public class TransferDetailListHistoryActivity extends BaseActivity implements
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
-		btn_history = (Button) this.findViewById(R.id.btn_history);
-		btn_history.setOnClickListener(this);
+		// btn_history = (Button) this.findViewById(R.id.btn_history);
+		// btn_history.setOnClickListener(this);
 
 		listView = (ListView) this.findViewById(R.id.listview);
 		// ActivityUtil.setEmptyView(listView);
@@ -249,10 +249,10 @@ public class TransferDetailListHistoryActivity extends BaseActivity implements
 		case R.id.moreButton:
 			loadMoreData();
 			break;
-		case R.id.btn_history:
-			Intent intent1 = new Intent(this, TransferQueryActivity.class);
-			this.startActivity(intent1);
-			break;
+		// case R.id.btn_history:
+		// Intent intent1 = new Intent(this, TransferQueryActivity.class);
+		// this.startActivity(intent1);
+		// break;
 		default:
 			break;
 		}

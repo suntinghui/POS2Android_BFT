@@ -36,7 +36,6 @@ public class NetClient {
 		initialized = false;
 		// ApplicationEnvironment.sessionId = null;
 		// NOTE: re-handshake again. is that right?
-
 	}
 
 	public byte[] transferMsg(HashMap<String, String> map) throws IOException {
@@ -108,9 +107,7 @@ public class NetClient {
             		sb.append(line);  
             	}
              }
-			
             is = new ByteArrayInputStream(sb.toString().getBytes());
-            
 			parser.setInput(is, "UTF-8");
 			Document doc = new Document();
 			doc.parse(parser);

@@ -26,5 +26,9 @@
     <string name="planet_prompt">请选择</string>
     <string name="pInputNewPwd">请输入6位商户密码</string>
     <string name="InputVerifyCode">请输入验证码</string>
+    <string name="phoneNo2">手机号</string>
+    <string name="pInputAccountInName">请输入收款人姓名</string>
+    <string name="pInputPhoneNoOut">请输入付款人手机号</string>
+    <string name="phoneNoIllegal">手机号码格式不正确</string>
 
 </resources>

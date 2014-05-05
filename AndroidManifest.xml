@@ -369,6 +369,7 @@
         <activity android:name="com.bft.pos.activity.ASBalancePwd2Activity" />
         <activity android:name="com.bft.pos.activity.ReceiptSuccessActivity" />
         <activity android:name="com.bft.pos.activity.ReceiptActivity" />
+        <activity android:name="com.bft.pos.activity.HandSignActivity" />
         <activity
             android:name=".activity.AuthenticationInfoActivity"
             android:exported="true"

@@ -859,11 +859,16 @@ public class TransferLogic {
 	 * 账户余额查询
 	 */
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
+		String rtCd = fieldMap.get("rtCd");
+		if (rtCd.equals("00")) {
 		String accBlc = fieldMap.get("accBlc");
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				ASBalanceSuccessActivity.class);
 		intent.putExtra("accBlc", accBlc);
 		BaseActivity.getTopActivity().startActivity(intent);
+		} else {
+			TransferLogic.getInstance().gotoCommonFaileActivity("获取账户余额失败");
+		}
 	}
 
 	/**

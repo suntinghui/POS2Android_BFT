@@ -215,6 +215,7 @@ public class DownloadFileRequest {
 			}
 		}
 		
+		
 		private float format(int l){
 			return Float.valueOf(new DecimalFormat("#.00").format(l*1.0f/MB));
 		}

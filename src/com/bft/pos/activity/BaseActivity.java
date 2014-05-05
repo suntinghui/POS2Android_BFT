@@ -20,8 +20,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,13 +31,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bft.pos.R;
+import com.bft.pos.activity.CatalogActivity;
+import com.bft.pos.activity.GatherActivity;
+import com.bft.pos.activity.ManageActivity;
+import com.bft.pos.activity.QueryActivity;
+import com.bft.pos.activity.QueryBusinessDepositActivity;
+import com.bft.pos.activity.SystemActivity;
+import com.bft.pos.activity.TimeoutService;
 import com.bft.pos.agent.client.AppDataCenter;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.HttpManager;
 import com.bft.pos.agent.client.SystemConfig;
 import com.bft.pos.agent.client.TransferLogic;
-import com.bft.pos.model.TransferDetailModel;
-import com.bft.pos.util.ActivityUtil;
 import com.bft.slidingmenu.SlidingMenuActivity;
 
 public class BaseActivity extends SlidingMenuActivity implements
@@ -173,6 +177,10 @@ public class BaseActivity extends SlidingMenuActivity implements
 		stack.push(this);
 	}
 
+	/**
+	 * 初始化控件
+	 * 
+	 * */
 	public void initControl() {
 	}
 
@@ -584,5 +592,4 @@ public class BaseActivity extends SlidingMenuActivity implements
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
 }

@@ -10,7 +10,9 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
+import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.StringUtil;
 
 /**
@@ -85,11 +87,13 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("verifyCode", et_sms.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil
-					.MD5Crypto(et_pwd_confirm.getText().toString()
-							.toUpperCase()
-							+ et_pwd_confirm.getText())
-					+ "www.payfortune.com");
+//			String pwd = StringUtil.MD5Crypto(StringUtil
+//					.MD5Crypto(et_pwd_confirm.getText().toString()
+//							.toUpperCase()
+//							+ et_pwd_confirm.getText())
+//					+ "www.payfortune.com");
+			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+					(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
 			map.put("lgnPass", pwd);
 			event.setStaticActivityDataMap(map);
 			event.trigger();

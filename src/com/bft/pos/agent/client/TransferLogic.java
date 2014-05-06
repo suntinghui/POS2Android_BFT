@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CardPayListActivity;
-import com.bft.pos.activity.CardPayQueryActivity;
 import com.bft.pos.activity.CatalogActivity;
 import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
@@ -41,7 +40,6 @@ import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
-import com.bft.pos.activity.TransferDetailListHistoryActivity;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
 import com.bft.pos.dynamic.component.ViewException;
@@ -197,8 +195,11 @@ public class TransferLogic {
 			this.findPwdDone(fieldMap);
 
 		} else if ("089032".equals(transferCode)) { // 设置新密码 登录
-			this.getSetNewPwdDone(fieldMap);
-
+			this.setNewPwdDone(fieldMap);
+		
+		} else if ("089034".equals(transferCode)) { // 下载RSA公钥
+			this.getPublicKeyDone(fieldMap);
+			
 		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
@@ -225,6 +226,32 @@ public class TransferLogic {
 		}
 	}
 
+	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+		String desc = null;
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc == null) ? "获取密钥成功" : desc;
+			// 屏幕中间弹窗
+						Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+								Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.CENTER, 0, 0);
+						toast.show();
+		Constant.PUBLICKEY = (String) Constant.HEADER_MAP.get("pubKey");
+		System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc == null) ? "获取密钥失败" : desc;
+			// 屏幕中间弹窗
+						Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+								Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.CENTER, 0, 0);
+						toast.show();
+		}
+	}
 	// 卡交易
 	private void Querycardtrade(HashMap<String, String> fieldMap) {
 		int i = 0;
@@ -359,6 +386,31 @@ public class TransferLogic {
 			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
+		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+			desc = "密钥过期，请更新最新密钥；";
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			
+			try {
+				Event event = new Event(null, "getPublicKey", null);
+				event.setTransfer("089034");
+				// 获取PSAM卡号
+				String fsk = "Get_PsamNo|null";
+				if (Constant.isAISHUA) {
+					fsk = "getKsn|null";
+				}
+//				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+				
+				map.put("version", "1");// 软件版本号
+				event.setStaticActivityDataMap(map);
+				event.trigger();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -639,6 +691,31 @@ public class TransferLogic {
 			desc = (desc == null) ? "注册成功" : desc;
 			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
+		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+			desc = "密钥过期，请更新最新密钥；";
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			
+			try {
+				Event event = new Event(null, "getPublicKey", null);
+				event.setTransfer("089034");
+				// 获取PSAM卡号
+				String fsk = "Get_PsamNo|null";
+				if (Constant.isAISHUA) {
+					fsk = "getKsn|null";
+				}
+//				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+				
+				map.put("version", "1");// 软件版本号
+				event.setStaticActivityDataMap(map);
+				event.trigger();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -718,7 +795,7 @@ public class TransferLogic {
 	/**
 	 * 找回密码 设置新登陆密码
 	 */
-	private void getSetNewPwdDone(HashMap<String, String> fieldMap) {
+	private void setNewPwdDone(HashMap<String, String> fieldMap) {
 		String desc = null;
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 			if (fieldMap.containsKey("rtCmnt")
@@ -727,6 +804,31 @@ public class TransferLogic {
 			desc = (desc == null) ? "设置登陆密码成功" : desc;
 			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
+		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+			desc = "密钥过期，请更新最新密钥；";
+			// 屏幕中间弹窗
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			
+			try {
+				Event event = new Event(null, "getPublicKey", null);
+				event.setTransfer("089034");
+				// 获取PSAM卡号
+				String fsk = "Get_PsamNo|null";
+				if (Constant.isAISHUA) {
+					fsk = "getKsn|null";
+				}
+//				event.setFsk(fsk);
+				HashMap<String, String> map = new HashMap<String, String>();
+				
+				map.put("version", "1");// 软件版本号
+				event.setStaticActivityDataMap(map);
+				event.trigger();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))

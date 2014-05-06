@@ -282,6 +282,7 @@ public class HttpManager {
 			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
 			if (status == HttpStatus.SC_OK) {
 				bArray = postMethod.getResponseBody();
+				//所有头信息存入静态常量中
 				if (postMethod.getRequestHeaders() != null) {
 					Constant.HEADER_MAP = new HashMap<String, Object>();
 					for (Header head : postMethod.getResponseHeaders()) {

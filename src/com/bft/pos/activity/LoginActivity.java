@@ -60,12 +60,12 @@ public class LoginActivity extends BaseActivity {
 	/**
 	 * 下载公钥
 	 */
-	private void getPublicKey(){
+	private void getPublicKey() {
 		try {
 			Event event = new Event(null, "getPublicKey", null);
 			event.setTransfer("089034");
 			HashMap<String, String> map = new HashMap<String, String>();
-			
+
 			map.put("version", "1");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
@@ -73,6 +73,7 @@ public class LoginActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
@@ -83,10 +84,14 @@ public class LoginActivity extends BaseActivity {
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
 
-		/**==下载公钥==*/
+		/** ==下载公钥== */
 		getPublicKey();
-		/**====*/
-		getverifycode();
+		/** ==== */
+		if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
+			getverifycode();
+		} else {
+			LoginActivity.this.showToast("网路或者服务器异常，请重试");
+		}
 		// 设置标题
 		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");

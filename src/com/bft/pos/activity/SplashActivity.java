@@ -24,11 +24,11 @@ public class SplashActivity extends BaseActivity {
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.splash_activity);
-		
-		
+
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
+
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override
@@ -68,7 +68,7 @@ public class SplashActivity extends BaseActivity {
 			} else {// 检查网络
 				// TODO
 				LKAlertDialog dialog = new LKAlertDialog(SplashActivity.this);
-				dialog.setTitle("提示");
+//				dialog.setTitle("提示");
 				dialog.setCancelable(false);
 				dialog.setMessage(SplashActivity.this.getResources().getString(
 						R.string.noNetTips));

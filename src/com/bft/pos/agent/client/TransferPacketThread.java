@@ -365,10 +365,9 @@ public class TransferPacketThread extends Thread {
 						.getMessageByTransCode(this.transferCode);
 			} else {
 				if (transferModel.isJson()) {
-					
+
 					/**
-					 * ================
-					 * 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
+					 * ================ 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
 					 * 2、处理带附件交易
 					 * 
 					 * ================
@@ -503,7 +502,7 @@ public class TransferPacketThread extends Thread {
 					|| this.transferCode.equals("089006")) {
 
 			} else {
-				TransferLogic.getInstance().gotoCommonFaileActivity(
+				TransferLogic.getInstance().gotoLoginFaileActivity(
 						"服务器响应异常，请重试");
 
 			}
@@ -607,7 +606,6 @@ public class TransferPacketThread extends Thread {
 				String arg_str = receiveFieldMap.get("apires") != null ? receiveFieldMap
 						.get("apires").replace(",", "") : null;
 			}
-			// 如果是上传签购单交易 500000001
 			if (this.transferCode.equals("089014")) {
 				if (receiveFieldMap.containsKey("field39")
 						&& receiveFieldMap.get("field39").equals("00")) {
@@ -623,12 +621,10 @@ public class TransferPacketThread extends Thread {
 					if (receiveFieldMap.get("macstr").length() == 0) {
 						if (this.transferCode.equals("089018")
 								|| this.transferCode.equals("089006")) {
-
 						} else {
 							TransferLogic.getInstance()
 									.gotoCommonFaileActivity("操作失败");
 						}
-
 					} else {
 						if (receiveFieldMap.get("mac") != null) {
 							String md5key = ApplicationEnvironment
@@ -645,7 +641,6 @@ public class TransferPacketThread extends Thread {
 							} else {
 								TransferLogic.getInstance()
 										.gotoCommonFaileActivity("操作失败");
-
 							}
 						}
 					}

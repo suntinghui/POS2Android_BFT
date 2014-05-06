@@ -234,22 +234,27 @@ public class TransferLogic {
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "获取密钥成功" : desc;
 			// 屏幕中间弹窗
-						Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-								Toast.LENGTH_LONG);
-						toast.setGravity(Gravity.CENTER, 0, 0);
-						toast.show();
-		Constant.PUBLICKEY = (String) Constant.HEADER_MAP.get("pubKey");
-		System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			
+			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
+			if (HEADER_MAP != null) {
+				Constant.PUBLICKEY = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
+						.get("pubKey") : null;
+			}
+			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "获取密钥失败" : desc;
 			// 屏幕中间弹窗
-						Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-								Toast.LENGTH_LONG);
-						toast.setGravity(Gravity.CENTER, 0, 0);
-						toast.show();
+			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+					Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
 		}
 	}
 	// 卡交易
@@ -354,13 +359,6 @@ public class TransferLogic {
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
-
-			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
-
-			if (HEADER_MAP != null) {
-				Constant.PUBLICKEY = (String) HEADER_MAP.get("pk") != null ? (String) HEADER_MAP
-						.get("pk") : null;
-			}
 
 			/*
 			 * String jsonStr = fieldMap.get("apires"); HashMap<String, String>

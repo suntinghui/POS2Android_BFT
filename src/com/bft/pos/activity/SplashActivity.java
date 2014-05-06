@@ -1,8 +1,5 @@
 package com.bft.pos.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,8 +11,6 @@ import android.view.WindowManager;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.dynamic.core.Event;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class SplashActivity extends BaseActivity {
 
@@ -29,10 +24,11 @@ public class SplashActivity extends BaseActivity {
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.splash_activity);
+		
+		
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
-
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override

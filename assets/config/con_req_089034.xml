@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 下载公钥 -->
+<root isJson="true" >
+
+    <field
+        key="fieldTrancode"
+        value="089034" />
+
+    <field
+        key="version"
+        value="1" />
+
+</root>

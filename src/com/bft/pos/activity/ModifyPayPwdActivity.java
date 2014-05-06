@@ -78,11 +78,17 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				String newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+				String newpass = null;
+				if(Constant.PUBLICKEY!=null){
+					newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 						(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+				}
 				map.put("newPass", newpass);
-				String oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+				String oldpass = null;
+				if(Constant.PUBLICKEY!=null){
+					oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+				}
 				map.put("oldPass", oldpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "2");

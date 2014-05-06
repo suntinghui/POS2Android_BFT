@@ -12,6 +12,8 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.FileUtils;
 import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.StringUtil;
 
@@ -93,11 +95,12 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 //							+ et_pwd_confirm.getText())
 //					+ "www.payfortune.com");
 			String pwd = null;
-			if(Constant.PUBLICKEY!=null){
-			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-					(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+			if(pk!=null){
+				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);
+			map.put("version", "1.0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

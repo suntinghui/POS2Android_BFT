@@ -32,6 +32,8 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.FileUtils;
 import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
@@ -84,7 +86,7 @@ public class LoginActivity extends BaseActivity {
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
 		/**==下载公钥==*/
-		getPublicKey();
+//		getPublicKey();
 		/**====*/
 		getverifycode();
 		// 设置标题
@@ -322,12 +324,14 @@ public class LoginActivity extends BaseActivity {
 //					+ et_pwd.getText())
 //					+ "www.payfortune.com");
 			String pwd = null;
-			if(Constant.PUBLICKEY!=null){
-			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+			if(pk!=null){
+				pwd = RSAUtil.encryptToHexStr(pk,
 					(et_pwd.getText().toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", inputverifyCode.getText().toString());
+			map.put("version", "1.0");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

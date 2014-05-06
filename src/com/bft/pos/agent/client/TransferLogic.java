@@ -52,6 +52,7 @@ import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.model.TransferSuccessModel;
 import com.bft.pos.util.AssetsUtil;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
 
@@ -227,6 +228,8 @@ public class TransferLogic {
 	}
 
 	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+		System.out.println("###############下载公钥处理###############");
+		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 			if (fieldMap.containsKey("rtCmnt")
@@ -240,12 +243,13 @@ public class TransferLogic {
 			toast.show();
 			
 			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
+			String pubKey = "";
 			if (HEADER_MAP != null) {
-				Constant.PUBLICKEY = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
+				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
+//				存储公钥
+				FileUtil.writeFile("publicKey", pubKey, false);
 			}
-//			System.out.println("header:\t" + HEADER_MAP.toString());
-			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))

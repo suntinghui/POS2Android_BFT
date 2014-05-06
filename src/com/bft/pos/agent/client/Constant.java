@@ -1,5 +1,6 @@
 package com.bft.pos.agent.client;
 
+import java.io.File;
 import java.util.Map;
 
 public class Constant {
@@ -17,6 +18,7 @@ public class Constant {
 	public static boolean isDEBUG							= true;
 	
 	public static final String APPFILEPATH 				    = "/data/data/" + ApplicationEnvironment.getInstance().getApplication().getPackageName();
+	
 	
 	// assets下的文件保存路径
 	public static final String ASSETSPATH 					= APPFILEPATH + "/assets/";

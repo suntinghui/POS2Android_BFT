@@ -57,6 +57,22 @@ public class LoginActivity extends BaseActivity {
 	private SharedPreferences sp = ApplicationEnvironment.getInstance()
 			.getPreferences();
 
+	/**
+	 * 下载公钥
+	 */
+	private void getPublicKey(){
+		try {
+			Event event = new Event(null, "getPublicKey", null);
+			event.setTransfer("089034");
+			HashMap<String, String> map = new HashMap<String, String>();
+			
+			map.put("version", "1");// 软件版本号
+			event.setStaticActivityDataMap(map);
+			event.trigger();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
@@ -66,6 +82,9 @@ public class LoginActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
+		/**==下载公钥==*/
+		getPublicKey();
+		/**====*/
 		getverifycode();
 		// 设置标题
 		initTitleBar("登 录", false);

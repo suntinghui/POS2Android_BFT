@@ -701,7 +701,7 @@ public class TransferLogic {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
 				// 获取PSAM卡号
-				String fsk = "Get_PsamNo|null";
+				String fsk = "Get_PsamNo|null"; 
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}
@@ -719,6 +719,7 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "注册失败" : desc;
+			BaseActivity.getTopActivity().finish();
 			TransferLogic.getInstance().gotoLoginFaileActivity(desc);
 		}
 	}
@@ -1002,7 +1003,6 @@ public class TransferLogic {
 				}
 				map.put("list", arrayModel);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity
@@ -1054,7 +1054,6 @@ public class TransferLogic {
 				}
 				map.put("list", arrayModel);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity
@@ -1646,7 +1645,6 @@ public class TransferLogic {
 	 * 注册后跳转到的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonLoginSuccessActivity(String prompt) {
-
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				RegisterSuccessActivity.class);
 		intent.putExtra("prompt", prompt);
@@ -1657,7 +1655,6 @@ public class TransferLogic {
 	/**
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
-
 	public void gotoCommonSuccessActivity(String prompt,
 			Map<String, Object> fieldMap) {
 		Intent intent = new Intent(BaseActivity.getTopActivity(),

@@ -32,7 +32,6 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
-import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
@@ -67,9 +66,11 @@ public class LoginActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-			getverifycode();
-			// 设置标题
-			initTitleBar("登 录", false);
+
+		getverifycode();
+
+		// 设置标题
+		initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");
 		// 获取有关验证码的组件
 		inputverifyCode = (EditText) findViewById(R.id.verifycode01);
@@ -223,8 +224,14 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.verifycode02: {// 获取图片验证码
+
 				inputverifyCode.setText("");
-				getverifycode();
+				if (ApplicationEnvironment.getInstance()
+						.checkNetworkAvailable()) {
+					getverifycode();
+				} else {
+					LoginActivity.this.showToast("请检查您的网络");
+				}
 				break;
 			}
 			case R.id.registerButton: {// 注册
@@ -298,12 +305,10 @@ public class LoginActivity extends BaseActivity {
 			event.setTransfer("089016");
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
-//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
-//					.getText().toString().toUpperCase()
-//					+ et_pwd.getText())
-//					+ "www.payfortune.com");
-			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-					(et_pwd.getText().toString() + "FF").getBytes(), 1);
+			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
+					.getText().toString().toUpperCase()
+					+ et_pwd.getText())
+					+ "www.payfortune.com");
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", inputverifyCode.getText().toString());
 			event.setStaticActivityDataMap(map);

@@ -42,7 +42,7 @@ public class BankSearchActivity extends BaseActivity {
 	private int totalPage;
 	private int currentPage = 0;
 	private int firstSearch = 0;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;

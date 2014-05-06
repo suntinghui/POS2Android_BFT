@@ -947,18 +947,20 @@ public class TransferLogic {
 		// Intent(BaseActivity.getTopActivity().getIntent().getAction());
 		// intent.putExtra("code", verifycode);
 		// BaseActivity.getTopActivity().startActivity(intent);
-
+		
 		String verifycode = fieldMap.get("verifyCode");
 		System.out.println("获得的验证码是：" + verifycode);
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				LoginActivity.class);
 		intent.putExtra("code", verifycode);
 		BaseActivity.getTopActivity().startActivity(intent);
+		
 	}
 
 	/**
 	 * 账户余额查询
 	 */
+	
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
 		String rtCd = fieldMap.get("rtCd");
 		if (rtCd.equals("00")) {

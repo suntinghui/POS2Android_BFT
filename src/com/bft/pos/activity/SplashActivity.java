@@ -32,6 +32,7 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
+
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override
@@ -69,10 +70,6 @@ public class SplashActivity extends BaseActivity {
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 			} else {// 检查网络
-				Intent intent = new Intent(SplashActivity.this,
-						LoginActivity.class);
-				SplashActivity.this.startActivity(intent);
-				SplashActivity.this.finish();
 				// TODO
 				LKAlertDialog dialog = new LKAlertDialog(SplashActivity.this);
 				dialog.setTitle("提示");

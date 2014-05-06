@@ -17,6 +17,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,9 +66,9 @@ public class LoginActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-		getverifycode();
-		// 设置标题
-		initTitleBar("登 录", false);
+			getverifycode();
+			// 设置标题
+			initTitleBar("登 录", false);
 		this.getIntent().setAction("com.bft.login");
 		// 获取有关验证码的组件
 		inputverifyCode = (EditText) findViewById(R.id.verifycode01);

@@ -31,6 +31,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.SecurityCodeUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
@@ -296,10 +297,12 @@ public class LoginActivity extends BaseActivity {
 			event.setTransfer("089016");
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
-			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
-					.getText().toString().toUpperCase()
-					+ et_pwd.getText())
-					+ "www.payfortune.com");
+//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
+//					.getText().toString().toUpperCase()
+//					+ et_pwd.getText())
+//					+ "www.payfortune.com");
+			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+					(et_pwd.getText().toString() + "FF").getBytes(), 1);
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", inputverifyCode.getText().toString());
 			event.setStaticActivityDataMap(map);

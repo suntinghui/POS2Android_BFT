@@ -89,8 +89,11 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 //							.toUpperCase()
 //							+ et_pwd_confirm.getText())
 //					+ "www.payfortune.com");
-			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+			String pwd = null;
+			if(Constant.PUBLICKEY!=null){
+			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 					(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+			}
 			map.put("lgnPass", pwd);
 			event.setStaticActivityDataMap(map);
 			event.trigger();

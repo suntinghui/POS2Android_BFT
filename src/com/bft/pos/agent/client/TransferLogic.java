@@ -244,6 +244,7 @@ public class TransferLogic {
 				Constant.PUBLICKEY = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
 			}
+//			System.out.println("header:\t" + HEADER_MAP.toString());
 			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")

@@ -508,6 +508,7 @@ public class AppDataCenter {
 		map.put("089030", "logout");
 		map.put("089031", "checkInfo");// 身份验证
 		map.put("089032", "set-login-pwd");// 设置登录密码
+		map.put("089034", "query-pk");// 设置登录密码
 
 		return map.get(transferCode);
 

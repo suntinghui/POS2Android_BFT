@@ -287,7 +287,7 @@ public class CardPayListActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-
+			
 	@SuppressWarnings("unchecked")
 	public void fromLogic(HashMap<String, Object> map) {
 		ArrayList<CardPayModel> list = (ArrayList<CardPayModel>) map
@@ -304,9 +304,7 @@ public class CardPayListActivity extends BaseActivity implements
 			ActivityUtil.setEmptyView(listView);
 		}
 	}
-
 	private void loadMoreData() {
 		refresh();
 	}
-
 }

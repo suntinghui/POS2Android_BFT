@@ -13,12 +13,14 @@
 
         <Button
             android:id="@+id/btn_back"
+            style="@style/TextView15_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="10dip"
-            android:background="@drawable/back_button" >
+            android:background="@drawable/back_button"
+            android:text="返回" >
         </Button>
 
         <TextView
@@ -32,6 +34,11 @@
             android:text="交易详情"
             android:textSize="18sp" />
     </RelativeLayout>
+
+    <com.bft.pos.activity.view.TopInfoView
+        android:id="@+id/topInfoView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -223,6 +230,19 @@
                         android:text="" />
                 </TableRow>
             </TableLayout>
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:layout_marginTop="50dip"
+                android:background="@drawable/button_bg"
+                android:text="确   认"
+                android:textColor="@color/black"
+                android:textSize="18dip" />
         </LinearLayout>
     </ScrollView>
 

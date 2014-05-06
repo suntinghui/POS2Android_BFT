@@ -28,7 +28,6 @@ import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.BankModel;
 import com.bft.pos.util.ActivityUtil;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class BankSearchActivity extends BaseActivity {
 	private Button btn_back;
@@ -182,9 +181,7 @@ public class BankSearchActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.backButton:
-				Intent intent = new Intent(BankSearchActivity.this,
-						BankNumberActivity.class);
-				startActivity(intent);
+				finish();
 				break;
 			case R.id.ll_search:
 				if (et_search.getText() != null) {

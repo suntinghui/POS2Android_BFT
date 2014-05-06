@@ -53,16 +53,16 @@ public class CardPayListActivity extends BaseActivity implements
 		super.index = 0;
 		// 依旧添加侧滑界面
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.activity_transfer_detail_list1);
+				R.layout.activity_transfer_detail_list);
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 		System.out.println("走了oncreate方法");
 
-		btn_back = (Button) this.findViewById(R.id.btn_back);
+		btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 
-		btn_history = (Button) this.findViewById(R.id.btn_back);
-		btn_history.setOnClickListener(this);
+		// btn_history = (Button) this.findViewById(R.id.btn_back);
+		// btn_history.setOnClickListener(this);
 
 		listView = (ListView) this.findViewById(R.id.listview);
 		// ActivityUtil.setEmptyView(listView);
@@ -74,7 +74,7 @@ public class CardPayListActivity extends BaseActivity implements
 		// 获取传入的密码字段
 		// pwdcode = intent.getStringExtra("pwdcode");
 		// System.out.println(pwdcode);
-		gettranferdetail();
+		// gettranferdetail();
 
 		if (t_date_s == null || t_date_s.length() == 0) {
 			Calendar c = Calendar.getInstance();
@@ -89,7 +89,19 @@ public class CardPayListActivity extends BaseActivity implements
 		}
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(this);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = new Intent(CardPayListActivity.this,
+						TransferDetailActivity.class);
+				intent.putExtra("model", modelList.get(arg2));
+				CardPayListActivity.this.startActivity(intent);
+			}
+
+		});
+		refresh();
 	}
 
 	public void gettranferdetail() {
@@ -246,7 +258,7 @@ public class CardPayListActivity extends BaseActivity implements
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			Intent intent = new Intent(CardPayListActivity.this,
 					CardPayQueryActivity.class);
 			this.startActivity(intent);
@@ -275,7 +287,7 @@ public class CardPayListActivity extends BaseActivity implements
 		map.put("pageNum", Constant.PAGESIZE);
 		map.put("startDt", CardPayQueryActivity.dateFormates(t_date_s));
 		map.put("endDt", CardPayQueryActivity.dateFormates(t_date_e));
-		map.put("type", "1");
+		map.put("type", spinnerid + "");
 		event.setStaticActivityDataMap(map);
 		try {
 			event.trigger();
@@ -308,5 +320,4 @@ public class CardPayListActivity extends BaseActivity implements
 	private void loadMoreData() {
 		refresh();
 	}
-
 }

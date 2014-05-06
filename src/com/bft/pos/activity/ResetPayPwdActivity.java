@@ -92,8 +92,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 
 	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+		String payPass = null;
+		if(Constant.PUBLICKEY!=null){
+		payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
+		}
 		map.put("payPass", payPass);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());

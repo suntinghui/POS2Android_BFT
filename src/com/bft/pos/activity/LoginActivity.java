@@ -321,8 +321,11 @@ public class LoginActivity extends BaseActivity {
 //					.getText().toString().toUpperCase()
 //					+ et_pwd.getText())
 //					+ "www.payfortune.com");
-			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+			String pwd = null;
+			if(Constant.PUBLICKEY!=null){
+			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 					(et_pwd.getText().toString() + "FF").getBytes(), 1);
+			}
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", inputverifyCode.getText().toString());
 			event.setStaticActivityDataMap(map);

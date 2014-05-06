@@ -76,8 +76,11 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
-				String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+				String payPass = null;
+				if(Constant.PUBLICKEY!=null){
+				payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
 						(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
+				}
 				map.put("payPass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());
 				try {

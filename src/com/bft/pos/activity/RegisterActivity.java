@@ -23,8 +23,9 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.FileUtils;
 import com.bft.pos.util.RSAUtil;
-import com.bft.pos.util.StringUtil;
 
 /**
  * 注册
@@ -97,6 +98,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_sms:
+			et_sms.setText("");
 			if (et_phone_num.getText().length() == 0) {
 				RegisterActivity.this.showToast("手机号不能为空!");
 			} else {
@@ -149,14 +151,14 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 //							+ et_login_pwd_again.getText())
 //					+ "www.payfortune.com");
 			String pwd = null;
-			if(Constant.PUBLICKEY!=null){
-			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-					(et_login_pwd_again.getText().toString() + "FF").getBytes(), 1);
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+			if(pk!=null){
+				pwd = RSAUtil.encryptToHexStr(pk, (et_login_pwd_again.getText().toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);// 登陆密码
 			map.put("verifyCode", et_sms.getText().toString());// 验证码
 			
-			map.put("version", "1");// 软件版本号
+			map.put("version", "1.0");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

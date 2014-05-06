@@ -674,7 +674,6 @@ public class TransferLogic {
 			Intent intent = new Intent(BaseActivity.getTopActivity(),
 					SetPayPwdActivity.class);
 			BaseActivity.getTopActivity().startActivity(intent);
-			;
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))

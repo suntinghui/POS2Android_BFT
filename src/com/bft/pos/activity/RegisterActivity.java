@@ -98,6 +98,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_sms:
+			et_sms.setText("");
 			if (et_phone_num.getText().length() == 0) {
 				RegisterActivity.this.showToast("手机号不能为空!");
 			} else {

@@ -15,7 +15,6 @@ import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.FileUtils;
 import com.bft.pos.util.RSAUtil;
-import com.bft.pos.util.StringUtil;
 
 /**
  * 找回密码 验证身份后设置新的密码
@@ -54,8 +53,6 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		et_sms = (TextWithIconView) this.findViewById(R.id.et_sms);// 短信校验码
 		et_sms.setHintString("短信校验码");
 		et_sms.setIcon(R.drawable.icon_mail);
-		// Intent intent = this.getIntent();
-		// smscode = intent.getStringExtra("smscode");
 	}
 
 	/*

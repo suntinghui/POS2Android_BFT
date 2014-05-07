@@ -31,7 +31,8 @@ import com.bft.pos.R.layout;
  * A FragmentActivity subclass that adds a sliding menu.
  */
 
-public class SlidingMenuActivity extends FragmentActivity implements View.OnTouchListener{
+public class SlidingMenuActivity extends FragmentActivity implements
+View.OnTouchListener{
     public static final int MENU_TYPE_SLIDING = 1;
     public static final int MENU_TYPE_SLIDEOVER = 2;
     public static final int MENU_TYPE_PARALLAX = 3;

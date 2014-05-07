@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.bft.pos.R;
@@ -28,7 +29,17 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
-
+//要泽宇：处理点击菜单键出现侧滑菜单的问题
+	  @Override
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        //Toggle the menu on menu key press.
+	        switch (keyCode) {
+	            case KeyEvent.KEYCODE_MENU:
+	                return true;
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
+	
 	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override
@@ -56,7 +67,7 @@ public class SplashActivity extends BaseActivity {
 			}
 
 		}
-
+		
 		@Override
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {

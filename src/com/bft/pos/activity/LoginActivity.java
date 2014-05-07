@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
-import android.app.Instrumentation.ActivityResult;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +16,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,10 +29,9 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.SecurityCodeUtil;
-import com.bft.pos.util.StringUtil;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class LoginActivity extends BaseActivity {
 	// 获取组件
@@ -61,12 +57,12 @@ public class LoginActivity extends BaseActivity {
 	/**
 	 * 下载公钥
 	 */
-	private void getPublicKey(){
+	private void getPublicKey() {
 		try {
 			Event event = new Event(null, "getPublicKey", null);
 			event.setTransfer("089034");
 			HashMap<String, String> map = new HashMap<String, String>();
-			
+
 			map.put("version", "1");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
@@ -74,6 +70,7 @@ public class LoginActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.mDraggingEnabled = true;
@@ -83,9 +80,10 @@ public class LoginActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_login);
 		super.onCreate(savedInstanceState);
-		/**==下载公钥==*/
-		getPublicKey();
-		/**====*/
+
+		/** ==下载公钥== */
+		// getPublicKey();
+		/** ==== */
 		getverifycode();
 		// 设置标题
 		initTitleBar("登 录", false);
@@ -242,8 +240,14 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.verifycode02: {// 获取图片验证码
+
 				inputverifyCode.setText("");
-				getverifycode();
+				if (ApplicationEnvironment.getInstance()
+						.checkNetworkAvailable()) {
+					getverifycode();
+				} else {
+					LoginActivity.this.showToast("请检查您的网络");
+				}
 				break;
 			}
 			case R.id.registerButton: {// 注册
@@ -317,17 +321,21 @@ public class LoginActivity extends BaseActivity {
 			event.setTransfer("089016");
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login", userNameET.getText().toString());
-//			String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
-//					.getText().toString().toUpperCase()
-//					+ et_pwd.getText())
-//					+ "www.payfortune.com");
+
+			// String pwd = StringUtil.MD5Crypto(StringUtil.MD5Crypto(et_pwd
+			// .getText().toString().toUpperCase()
+			// + et_pwd.getText())
+			// + "www.payfortune.com");
 			String pwd = null;
-			if(Constant.PUBLICKEY!=null){
-			pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-					(et_pwd.getText().toString() + "FF").getBytes(), 1);
+			String pk = FileUtil.convertStreamToString(FileUtil
+					.readerFile("publicKey.xml"));
+			if (pk != null) {
+				pwd = RSAUtil.encryptToHexStr(pk,
+						(et_pwd.getText().toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);
 			map.put("verifyCode", inputverifyCode.getText().toString());
+			map.put("version", "1.0");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

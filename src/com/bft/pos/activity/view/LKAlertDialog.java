@@ -1,6 +1,5 @@
 package com.bft.pos.activity.view;
 
-
 import com.bft.pos.R;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class LKAlertDialog extends Dialog {
-	
+
 	private Context context;
 	private String title;
 	private String message;
@@ -28,7 +27,7 @@ public class LKAlertDialog extends Dialog {
 	public LKAlertDialog(Context context) {
 		super(context, R.style.Dialog);
 		this.context = context;
-		
+
 	}
 
 	public LKAlertDialog(Context context, int theme) {
@@ -84,13 +83,16 @@ public class LKAlertDialog extends Dialog {
 		return this;
 	}
 
-	@SuppressLint("WrongViewCast") public LKAlertDialog create() {
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	@SuppressLint("WrongViewCast")
+	public LKAlertDialog create() {
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// instantiate the dialog with the custom Theme
 		View layout = inflater.inflate(R.layout.alert_dialog_layout, null);
-		this.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+		this.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.WRAP_CONTENT));
 		// set the dialog title
-		((TextView) layout.findViewById(R.id.title)).setText(title);
+//		((TextView) layout.findViewById(R.id.title)).setText(title);
 		// set the confirm button
 		if (positiveButtonText != null) {
 			((Button) layout.findViewById(R.id.positiveButton))
@@ -99,7 +101,9 @@ public class LKAlertDialog extends Dialog {
 				((Button) layout.findViewById(R.id.positiveButton))
 						.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View v) {
-								positiveButtonClickListener.onClick(LKAlertDialog.this,DialogInterface.BUTTON_POSITIVE);
+								positiveButtonClickListener.onClick(
+										LKAlertDialog.this,
+										DialogInterface.BUTTON_POSITIVE);
 							}
 						});
 			}
@@ -115,14 +119,15 @@ public class LKAlertDialog extends Dialog {
 				((Button) layout.findViewById(R.id.negativeButton))
 						.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View v) {
-								negativeButtonClickListener.onClick(LKAlertDialog.this,DialogInterface.BUTTON_NEGATIVE);
+								negativeButtonClickListener.onClick(
+										LKAlertDialog.this,
+										DialogInterface.BUTTON_NEGATIVE);
 							}
 						});
 			}
 		} else {
 			// if no confirm button just set the visibility to GONE
-			layout.findViewById(R.id.negativeButton).setVisibility(
-					View.GONE);
+			layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
 		}
 		// set the content message
 		if (message != null) {
@@ -130,18 +135,16 @@ public class LKAlertDialog extends Dialog {
 		} else if (contentView != null) {
 			// if no message set
 			// add the contentView to the dialog body
-			((LinearLayout) layout.findViewById(R.id.message))
-					.removeAllViews();
+			((LinearLayout) layout.findViewById(R.id.message)).removeAllViews();
 			((LinearLayout) layout.findViewById(R.id.message)).addView(
-					contentView, new LayoutParams(
-							LayoutParams.WRAP_CONTENT,
+					contentView, new LayoutParams(LayoutParams.WRAP_CONTENT,
 							LayoutParams.WRAP_CONTENT));
 		}
-		
+
 		this.setContentView(layout);
-		
+
 		this.setCancelable(cancelable);
-		
+
 		return this;
 	}
 }

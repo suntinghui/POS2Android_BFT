@@ -1,5 +1,6 @@
 package com.bft.pos.activity;
 
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Timer;
@@ -20,6 +21,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -77,9 +79,16 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
 				String payPass = null;
-				if(Constant.PUBLICKEY!=null){
-				payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-						(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
+				String pk;
+				try {
+					pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+					if(pk!=null){
+						payPass = RSAUtil.encryptToHexStr(pk,
+								(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
+					}
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				map.put("payPass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());

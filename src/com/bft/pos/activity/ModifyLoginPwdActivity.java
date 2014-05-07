@@ -16,6 +16,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.StringUtil;
 
 /**
@@ -76,17 +77,27 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				String oldpass = StringUtil.MD5Crypto(StringUtil
-						.MD5Crypto(et_pwd_old.getText().toString()
-								.toUpperCase()
-								+ et_pwd_old.getText())
-						+ "www.payfortune.com");
+				String oldpass = null;
+//				oldpass = StringUtil.MD5Crypto(StringUtil
+//						.MD5Crypto(et_pwd_old.getText().toString()
+//								.toUpperCase()
+//								+ et_pwd_old.getText())
+//						+ "www.payfortune.com");
+				if(Constant.PUBLICKEY!=null){
+					oldpass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+							(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+					}
 				map.put("oldPass", oldpass);
-				String newpass = StringUtil.MD5Crypto(StringUtil
-						.MD5Crypto(et_pwd_new.getText().toString()
-								.toUpperCase()
-								+ et_pwd_new.getText())
-						+ "www.payfortune.com");
+				String newpass = null;
+//				newpass = StringUtil.MD5Crypto(StringUtil
+//						.MD5Crypto(et_pwd_new.getText().toString()
+//								.toUpperCase()
+//								+ et_pwd_new.getText())
+//						+ "www.payfortune.com");
+				if(Constant.PUBLICKEY!=null){
+					newpass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
+							(et_pwd_new.getText().toString() + "FF").getBytes(), 1);
+					}
 				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "1");

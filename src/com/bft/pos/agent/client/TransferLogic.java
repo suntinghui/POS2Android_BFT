@@ -17,14 +17,20 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bft.pos.R;
 import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CardPayListActivity;
@@ -52,6 +58,7 @@ import com.bft.pos.model.TransferDetailModel1;
 import com.bft.pos.model.TransferModel;
 import com.bft.pos.model.TransferSuccessModel;
 import com.bft.pos.util.AssetsUtil;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
 
@@ -196,10 +203,10 @@ public class TransferLogic {
 
 		} else if ("089032".equals(transferCode)) { // 设置新密码 登录
 			this.setNewPwdDone(fieldMap);
-		
+
 		} else if ("089034".equals(transferCode)) { // 下载RSA公钥
 			this.getPublicKeyDone(fieldMap);
-			
+
 		} else if (AppDataCenter.getReversalMap().containsValue(transferCode)) { // 冲正
 			gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 
@@ -227,6 +234,8 @@ public class TransferLogic {
 	}
 
 	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+		System.out.println("###############下载公钥处理###############");
+		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 			if (fieldMap.containsKey("rtCmnt")
@@ -238,11 +247,14 @@ public class TransferLogic {
 					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
-			
+
 			Map<String, Object> HEADER_MAP = (HashMap<String, Object>) Constant.HEADER_MAP;
+			String pubKey = "";
 			if (HEADER_MAP != null) {
-				Constant.PUBLICKEY = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
+				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
+//				存储公钥
+				FileUtil.writeFile("publicKey", pubKey, false);
 			}
 			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
@@ -257,6 +269,7 @@ public class TransferLogic {
 			toast.show();
 		}
 	}
+
 	// 卡交易
 	private void Querycardtrade(HashMap<String, String> fieldMap) {
 		int i = 0;
@@ -384,14 +397,15 @@ public class TransferLogic {
 			BaseActivity.getTopActivity().startActivity(intent);
 			BaseActivity.getTopActivity().finish();
 
-		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+		} else if (fieldMap.get("rtCd") != null
+				&& fieldMap.get("rtCd").equals("05")) {
 			desc = "密钥过期，请更新最新密钥；";
 			// 屏幕中间弹窗
 			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
 					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
-			
+
 			try {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
@@ -400,9 +414,9 @@ public class TransferLogic {
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}
-//				event.setFsk(fsk);
+				// event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-				
+
 				map.put("version", "1");// 软件版本号
 				event.setStaticActivityDataMap(map);
 				event.trigger();
@@ -689,25 +703,26 @@ public class TransferLogic {
 			desc = (desc == null) ? "注册成功" : desc;
 			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
-		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+		} else if (fieldMap.get("rtCd") != null
+				&& fieldMap.get("rtCd").equals("05")) {
 			desc = "密钥过期，请更新最新密钥；";
 			// 屏幕中间弹窗
 			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
 					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
-			
+
 			try {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
 				// 获取PSAM卡号
-				String fsk = "Get_PsamNo|null";
+				String fsk = "Get_PsamNo|null"; 
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}
-//				event.setFsk(fsk);
+				// event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-				
+
 				map.put("version", "1");// 软件版本号
 				event.setStaticActivityDataMap(map);
 				event.trigger();
@@ -719,6 +734,7 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "注册失败" : desc;
+			BaseActivity.getTopActivity().finish();
 			TransferLogic.getInstance().gotoLoginFaileActivity(desc);
 		}
 	}
@@ -802,14 +818,15 @@ public class TransferLogic {
 			desc = (desc == null) ? "设置登陆密码成功" : desc;
 			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
-		} else if(fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("05")){
+		} else if (fieldMap.get("rtCd") != null
+				&& fieldMap.get("rtCd").equals("05")) {
 			desc = "密钥过期，请更新最新密钥；";
 			// 屏幕中间弹窗
 			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
 					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
-			
+
 			try {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
@@ -818,9 +835,9 @@ public class TransferLogic {
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}
-//				event.setFsk(fsk);
+				// event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-				
+
 				map.put("version", "1");// 软件版本号
 				event.setStaticActivityDataMap(map);
 				event.trigger();
@@ -952,19 +969,21 @@ public class TransferLogic {
 				LoginActivity.class);
 		intent.putExtra("code", verifycode);
 		BaseActivity.getTopActivity().startActivity(intent);
+
 	}
 
 	/**
 	 * 账户余额查询
 	 */
+
 	private void getbalanceDone(HashMap<String, String> fieldMap) {
 		String rtCd = fieldMap.get("rtCd");
 		if (rtCd.equals("00")) {
-		String accBlc = fieldMap.get("accBlc");
-		Intent intent = new Intent(BaseActivity.getTopActivity(),
-				ASBalanceSuccessActivity.class);
-		intent.putExtra("accBlc", accBlc);
-		BaseActivity.getTopActivity().startActivity(intent);
+			String accBlc = fieldMap.get("accBlc");
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					ASBalanceSuccessActivity.class);
+			intent.putExtra("accBlc", accBlc);
+			BaseActivity.getTopActivity().startActivity(intent);
 		} else {
 			TransferLogic.getInstance().gotoCommonFaileActivity("获取账户余额失败");
 		}
@@ -1002,7 +1021,6 @@ public class TransferLogic {
 				}
 				map.put("list", arrayModel);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity
@@ -1054,7 +1072,6 @@ public class TransferLogic {
 				}
 				map.put("list", arrayModel);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			QBTransferHistory activity = (QBTransferHistory) BaseActivity
@@ -1646,7 +1663,6 @@ public class TransferLogic {
 	 * 注册后跳转到的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonLoginSuccessActivity(String prompt) {
-
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				RegisterSuccessActivity.class);
 		intent.putExtra("prompt", prompt);
@@ -1657,7 +1673,6 @@ public class TransferLogic {
 	/**
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
-
 	public void gotoCommonSuccessActivity(String prompt,
 			Map<String, Object> fieldMap) {
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
@@ -1688,6 +1703,28 @@ public class TransferLogic {
 				FailActivity.class);
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+	}
+
+	/**
+	 * 跳转到通用的失败界面，只显示一行错误提示信息。
+	 */
+	public void gotoCommonDialogActivity(String prompt) {
+		View view = LayoutInflater.from(BaseActivity.getTopActivity()).inflate(
+				R.layout.shap, null);
+		TextView tv_text = (TextView) view
+				.findViewById(R.id.dialog_textview_text);
+		tv_text.setText(prompt);
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				BaseActivity.getTopActivity());
+		final AlertDialog dialog = builder.setView(view).create();
+		dialog.show();
+		view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						dialog.dismiss();
+					}
+				});
 	}
 
 	/**

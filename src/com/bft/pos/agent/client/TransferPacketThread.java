@@ -19,6 +19,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.agent.client.db.ReversalDBHelper;
@@ -502,8 +504,13 @@ public class TransferPacketThread extends Thread {
 					|| this.transferCode.equals("089006")) {
 
 			} else {
-				TransferLogic.getInstance().gotoLoginFaileActivity(
-						"服务器响应异常，请重试");
+				String desc = "服务器响应异常，请重试";
+				// 屏幕中间弹窗
+				Toast toast = Toast.makeText(BaseActivity.getTopActivity(),
+						desc, Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+				// TransferLogic.getInstance().gotoCommonFaileActivity("服务器响应异常，请重试");
 
 			}
 

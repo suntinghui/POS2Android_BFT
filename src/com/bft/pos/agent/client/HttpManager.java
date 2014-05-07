@@ -284,10 +284,12 @@ public class HttpManager {
 				bArray = postMethod.getResponseBody();
 				//所有头信息存入静态常量中
 				if (postMethod.getRequestHeaders() != null) {
+					
 					Constant.HEADER_MAP = new HashMap<String, Object>();
 					for (Header head : postMethod.getResponseHeaders()) {
 						if (!head.getName().equals("Content-Type")
 								&& !head.getName().equals("Set-Cookie"))
+							System.out.println("Headers:\t" + head.getName() + "=" + head.getValue());
 							Constant.HEADER_MAP.put(head.getName(),
 									head.getValue());
 					}

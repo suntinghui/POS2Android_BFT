@@ -17,11 +17,13 @@ public class AssetsUtil {
 	public static final String Folder_Config 	= "config";
 	public static final String Folder_Template 	= "template";
 	public static final String Folder_Data		= "data";
+	public static final String Folder_Key		= "key";
 	
 	public static final int Type_View 			= 1;
 	public static final int Type_Config 		= 2;
 	public static final int Type_Template 		= 3;
 	public static final int Type_Data 			= 4;
+	public static final int Type_Key 			= 5;
 	
 	// 从Assets下读取文件
 	public static InputStream getInputStreamFromAssets(String fileName, int type){
@@ -44,6 +46,10 @@ public class AssetsUtil {
 				
 			case Type_Data:
 				sb.append(Folder_Data).append("/").append(fileName);
+				break;
+				
+			case Type_Key:
+				sb.append(Folder_Key).append("/").append(fileName);
 				break;
 			}
 			

@@ -12,8 +12,9 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.FileUtils;
 import com.bft.pos.util.RSAUtil;
-import com.bft.pos.util.StringUtil;
 
 /**
  * 找回密码 验证身份后设置新的密码
@@ -52,8 +53,6 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		et_sms = (TextWithIconView) this.findViewById(R.id.et_sms);// 短信校验码
 		et_sms.setHintString("短信校验码");
 		et_sms.setIcon(R.drawable.icon_mail);
-		// Intent intent = this.getIntent();
-		// smscode = intent.getStringExtra("smscode");
 	}
 
 	/*
@@ -92,9 +91,13 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 //							.toUpperCase()
 //							+ et_pwd_confirm.getText())
 //					+ "www.payfortune.com");
-			String pwd = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-					(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+			String pwd = null;
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+			if(pk!=null){
+				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+			}
 			map.put("lgnPass", pwd);
+			map.put("version", "1.0");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

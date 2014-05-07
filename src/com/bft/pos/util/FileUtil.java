@@ -1,10 +1,18 @@
 package com.bft.pos.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.view.ShowProgressHudTask;
+import com.bft.pos.agent.client.Constant;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -14,6 +22,96 @@ import android.os.Environment;
 import android.util.Log;
 
 public class FileUtil {
+
+	/**
+	 * 不可追加内容（每执行一次就会替换一次文件内容）
+	 * 
+	 * @param fileName	(自动填充文件夹路径)
+	 *            文件名
+	 * @param content
+	 *            内容（写入内容）
+	 * @param append
+	 * 			  追加（
+	 * 					true：	在该文件中追加内容，不会替换;
+	 * 					false：	不追加内容，每执行一次该文件都会替换一次全新内容;
+	 * 					）        
+	 * @return
+	 */
+	public static boolean writeFile(String fileName, String content, boolean append) {
+		System.out.println("\t############写文件#############");
+		boolean flag = false;
+		StringBuffer buf = new StringBuffer();
+		buf.append(content.trim());
+
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(new File(Constant.ASSETSPATH+fileName), append);
+			fw.write(buf.toString());
+			flag = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			flag = false;
+		} finally {
+			try {
+				fw.flush();
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	/**inputstream转换字符串
+	 * @param is
+	 * @return 字符串
+	 */
+	public static String convertStreamToString(InputStream is) {   
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));   
+		StringBuilder sb = new StringBuilder();   
+		String line = null;   
+		try {   
+			while ((line = reader.readLine()) != null) {   
+				sb.append(line + "/n");   
+			}   
+		} catch (IOException e) {   
+			e.printStackTrace();   
+		} finally {   
+			try {   
+				is.close();   
+			} catch (IOException e) {   
+				e.printStackTrace();   
+			}   
+		}   
+		return sb.toString();   
+	}   
+	// 从手机中读取文件
+	public static InputStream readerFile(String fileName) throws FileNotFoundException {
+		InputStream stream = null;
+		String path = Constant.ASSETSPATH + fileName;
+		if (!fileName.endsWith(".xml"))
+			path += ".xml";
+		File file = new File(path);
+		FileInputStream fileIS;
+		try {
+			fileIS = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException("文件未找到！");
+		}
+		StringBuffer sb=new StringBuffer();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(fileIS));
+		String readString = new String();
+
+		try{
+			while((readString = buf.readLine())!= null){
+				sb.append(readString);
+			}
+			stream = StringUtil.getInputStream(sb.toString());
+			return stream;
+		} catch(IOException e){
+			return null;
+		}
+	}
 	
 	// 附件及所有文件都存放在本目录下
 	public static String getDownloadPath(){

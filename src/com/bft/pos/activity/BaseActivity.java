@@ -54,7 +54,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 			R.drawable.left_icon_2_n, R.drawable.left_icon_3_n,
 			R.drawable.left_icon_4_n, R.drawable.left_icon_5_n };
 	private LinearLayout layout;
-	private String[] title = { "我的管理", "我要查询", "我要收款", "我的存款", "系统相关" };
+	private String[] title = { "我的管理", "我要查询", "我要收款", "我要提款", "系统相关" };
 	private SimpleAdapter itemsAdapter;
 	public int contentLayout;
 	public int menuLayout;
@@ -154,7 +154,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 				case 3:
 					// 点击跳转:我的存款
 					Intent intent3 = new Intent(BaseActivity.this,
-							QueryBusinessDepositActivity.class);
+							DrawingsActivity.class);
 					intent3.putExtra("TAG", arg2);
 					startActivity(intent3);
 					finish();

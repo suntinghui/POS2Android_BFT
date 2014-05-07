@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -265,7 +266,16 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	public void refreshSMSBtn() {
 		timer.schedule(task, 1000, 1000); // timeTask
 	};
-
+	//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	  @Override
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        //Toggle the menu on menu key press.
+	        switch (keyCode) {
+	            case KeyEvent.KEYCODE_MENU:
+	                return true;
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 	/*
 	 * 显示服务协议
 	 */

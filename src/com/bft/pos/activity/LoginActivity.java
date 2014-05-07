@@ -16,6 +16,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -362,5 +363,14 @@ public class LoginActivity extends BaseActivity {
 				AuthenticationActivity.class);
 		startActivity(getpwd_intent);
 	}
-
+//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	  @Override
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        //Toggle the menu on menu key press.
+	        switch (keyCode) {
+	            case KeyEvent.KEYCODE_MENU:
+	                return true;
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 }

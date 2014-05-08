@@ -233,7 +233,7 @@ public class TransferLogic {
 		}
 	}
 
-	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+	private void getPublicKeyDone(HashMap<String, String> fieldMap) {
 		System.out.println("###############下载公钥处理###############");
 		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
@@ -253,7 +253,7 @@ public class TransferLogic {
 			if (HEADER_MAP != null) {
 				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
-//				存储公钥
+				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
 			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
@@ -719,7 +719,7 @@ public class TransferLogic {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
 				// 获取PSAM卡号
-				String fsk = "Get_PsamNo|null"; 
+				String fsk = "Get_PsamNo|null";
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}

@@ -243,22 +243,38 @@ public class LoginActivity extends BaseActivity {
 			case R.id.verifycode02: {// 获取图片验证码
 
 				inputverifyCode.setText("");
-				if (ApplicationEnvironment.getInstance()
-						.checkNetworkAvailable()) {
-					getverifycode();
-				} else {
-					LoginActivity.this.showToast("请检查您的网络");
-				}
+				getverifycode();
 				break;
 			}
 			case R.id.registerButton: {// 注册
 				registerAction();
+				// View view =
+				// LayoutInflater.from(BaseActivity.getTopActivity())
+				// .inflate(R.layout.dialog, null);
+				// TextView tv_text = (TextView) view
+				// .findViewById(R.id.dialog_textview_text);
+				// tv_text.setText("服务器响应异常，请重试");
+				// AlertDialog.Builder builder = new AlertDialog.Builder(
+				// BaseActivity.getTopActivity());
+				// final AlertDialog dialog = builder.create();
+				// dialog.show();
+				// // dialog.setCancelable(true);
+				// Window window = dialog.getWindow();
+				// window.setContentView(view);
+				// view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
+				// new OnClickListener() {
+				// @Override
+				// public void onClick(View arg0) {
+				// dialog.dismiss();
+				// }
+				// });
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-
+			// Intent intent=new
+			// Intent(LoginActivity.this,CatalogActivity.class);
+			// startActivity(intent);
 				if (checkValue()) {
-
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
 					if (isRemember) {
@@ -363,14 +379,15 @@ public class LoginActivity extends BaseActivity {
 				AuthenticationActivity.class);
 		startActivity(getpwd_intent);
 	}
-//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
-	  @Override
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	        //Toggle the menu on menu key press.
-	        switch (keyCode) {
-	            case KeyEvent.KEYCODE_MENU:
-	                return true;
-	        }
-	        return super.onKeyDown(keyCode, event);
-	    }
+
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

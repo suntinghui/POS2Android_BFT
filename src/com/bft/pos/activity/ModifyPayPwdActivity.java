@@ -18,6 +18,7 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -77,18 +78,22 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			if (checkValue()) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				String newpass = null;
-				if(Constant.PUBLICKEY!=null){
-					newpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-						(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
-				}
-				map.put("newPass", newpass);
 				String oldpass = null;
-				if(Constant.PUBLICKEY!=null){
-					oldpass=RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-						(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+				String pk = FileUtil.convertStreamToString(FileUtil
+						.readerFile("publicKey.xml"));
+				if (pk != null) {
+					oldpass = RSAUtil.encryptToHexStr(pk,
+							(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
 				}
+				
+				String newpass = null;
+				if (pk != null) {
+					newpass = RSAUtil.encryptToHexStr(pk,
+							(et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+				}
+				
 				map.put("oldPass", oldpass);
+				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
 				map.put("type", "2");
 				try {

@@ -117,7 +117,7 @@ public class TransferPacketThread extends Thread {
 						|| this.transferCode.equals("080002")) {
 					configXml = "con_req_" + this.transferCode + "_aishua"
 							+ ".xml";
-
+         
 				}
 			}
 			transferModel = TransferLogic.getInstance().parseConfigXML(
@@ -472,7 +472,8 @@ public class TransferPacketThread extends Thread {
 										null);
 					}
 					/** ================ */
-					parseJson(new String(respByte, Constant.ENCODING_JSON));
+					if(respByte!=null)
+						parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);
 					HashMap<String, Object> respMap = action

@@ -14,7 +14,7 @@ import android.util.Log;
  * 
  * description: 动态验证码生成<br/>
  * 
- * author: maple <br/>
+ * author: Maple Leaves <br/>
  * 
  * date:20140418 <br/>
  * 
@@ -30,7 +30,7 @@ public class SecurityCodeUtil {
 	private static final int RANGE_PADDING_TOP = 10;
 	private static final int DEFAULT_WIDTH = 100;
 	private static final int DEFAULT_HEIGHT = 39;
-	private static final int PADDING_LEFT = 7;
+	private static final int PADDING_LEFT = 15;
 	private static final int PADDING_TOP = 20;
 	
 
@@ -106,7 +106,6 @@ public class SecurityCodeUtil {
 		paint.setColor(Color.BLUE);
 		if(captcha != null)
 			type = 2;
-		
 		switch (type) {
 		case 1:
 			for (int i = 0; i < code.length(); i++) {
@@ -118,12 +117,15 @@ public class SecurityCodeUtil {
 			break;
 		case 2:
 				randomTextStyle(paint);
-				/**字体在整个图片中的位置坐标
-				 * 参数
-				 * 1：字符验证码
-				 * 2：x坐标左右填充
-				 * 3：y坐标上下填充
-				 * 4：字体的一个样式 style
+				/**
+				 * 字体在整个图片中的位置坐标
+				 * <blockquote>	
+				 * 参数</br>
+				 * 1：字符验证码</br>
+				 * 2：x坐标左右填充</br>
+				 * 3：y坐标上下填充</br>
+				 * 4：字体的一个样式 style</br>
+				 * </blockquote>
 				 * */
 				canvas.drawText(captcha, padding_left,
 						base_padding_top + range_padding_top, paint);

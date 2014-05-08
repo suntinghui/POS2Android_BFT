@@ -9,17 +9,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.bft.pos.R;
-import com.bft.pos.activity.BaseActivity;
-import com.bft.pos.activity.view.ShowProgressHudTask;
-import com.bft.pos.agent.client.Constant;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+
+import com.bft.pos.R;
+import com.bft.pos.activity.BaseActivity;
+import com.bft.pos.activity.view.ShowProgressHudTask;
+import com.bft.pos.agent.client.Constant;
 
 public class FileUtil {
 
@@ -86,17 +86,18 @@ public class FileUtil {
 		return sb.toString();   
 	}   
 	// 从手机中读取文件
-	public static InputStream readerFile(String fileName) throws FileNotFoundException {
+	public static InputStream readerFile(String fileName){
 		InputStream stream = null;
 		String path = Constant.ASSETSPATH + fileName;
 		if (!fileName.endsWith(".xml"))
 			path += ".xml";
 		File file = new File(path);
-		FileInputStream fileIS;
+		FileInputStream fileIS = null;
 		try {
 			fileIS = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("文件未找到！");
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+//			throw new FileNotFoundException("文件未找到！");
 		}
 		StringBuffer sb=new StringBuffer();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(fileIS));

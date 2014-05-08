@@ -66,23 +66,23 @@ public class RSAUtil {
 		String mod, exp = null;
 		mod = pubModExp[0];
 		exp = pubModExp[1];
-		System.out.println("mod:" + mod + "   length：" + mod.length());
-		System.out.println("exp:" + exp + "   length:" + exp.length());
+//		System.out.println("mod:" + mod + "  \t length：" + mod.length());
+//		System.out.println("exp:" + exp + "   length:" + exp.length());
 
 		/**根据给定的16进制系数和专用指数字符串构造一个RSA专用的公钥对象*/
 		publicKeySpec = RSA.getRSAPublidKey(mod, exp);
 
-		System.out.println("##########公钥##########");
-		System.out.println("公钥exp 十进制:" + publicKeySpec.getPublicExponent());
-		System.out.println("公钥exp HEX:" + ConvertUtil.bytesToHexString(publicKeySpec.getPublicExponent().toByteArray()));
-		System.out.println("公钥mod 十进制:" + publicKeySpec.getModulus());
-		System.out.println("公钥mod HEX:" + ConvertUtil.bytesToHexString(publicKeySpec.getModulus().toByteArray()));
+//		System.out.println("##########公钥##########");
+//		System.out.println("公钥exp 十进制:" + publicKeySpec.getPublicExponent());
+//		System.out.println("公钥exp HEX:" + ConvertUtil.bytesToHexString(publicKeySpec.getPublicExponent().toByteArray()));
+//		System.out.println("公钥mod 十进制:" + publicKeySpec.getModulus());
+//		System.out.println("公钥mod HEX:" + ConvertUtil.bytesToHexString(publicKeySpec.getModulus().toByteArray()));
 
 		/**根据公钥对象拿到公钥*/
 		publicKey = RSA.getPublidKey(publicKeySpec);
-		System.out.println("Algorithm:" + publicKey.getAlgorithm());
-		System.out.println("公钥:" +  publicKey.toString());
-		System.out.println("serialVersionUID:" + publicKey.serialVersionUID);
+//		System.out.println("Algorithm:" + publicKey.getAlgorithm());
+//		System.out.println("公钥:" +  publicKey.toString());
+//		System.out.println("serialVersionUID:" + publicKey.serialVersionUID);
 
 		/**======加密======*/
 		Cipher cipher = null;
@@ -145,7 +145,7 @@ public class RSAUtil {
 		String mod, exp = null;
 		mod = pubModExp[0];
 		exp = pubModExp[1];
-		System.out.println("mod:" + mod + "   length：" + mod.length());
+		System.out.println("mod:" + mod + "  \t length：" + mod.length());
 		System.out.println("exp:" + exp + "   length:" + exp.length());
 
 		/**根据给定的16进制系数和专用指数字符串构造一个RSA专用的公钥对象*/

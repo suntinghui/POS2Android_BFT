@@ -26,7 +26,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		OnClickListener {
 	private PasswordWithIconView et_new_pwd;// 重置的支付密码
 	private TextWithIconView et_id_card;// 身份证号
-	// private TextWithIconView et_bank_card;// 银行卡号
+	private TextWithIconView et_bank_card;// 银行卡号
 	private EditText et_sms;// 短信验证码
 	private Button btn_back, btn_sms, btn_ok;
 
@@ -61,10 +61,9 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证号");
 		// 银行卡号
-		// et_bank_card = (TextWithIconView)
-		// this.findViewById(R.id.et_bank_card);
-		// et_bank_card.setIcon(R.drawable.icon_login_1);
-		// et_bank_card.setHintString("银行卡号");
+		et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
+		et_bank_card.setIcon(R.drawable.icon_login_1);
+		et_bank_card.setHintString("银行卡号");
 	}
 
 	@Override
@@ -103,7 +102,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		}
 		map.put("payPass", pwd);
 		map.put("pIdNo", et_id_card.getText().toString());
-		// map.put("bkCardNo", et_bank_card.getText().toString());
+		map.put("bkCardNo", et_bank_card.getText().toString());
 		map.put("verifyCode", et_sms.getText().toString());
 		try {
 			Event event = new Event(null, "resertPayPwd", null);

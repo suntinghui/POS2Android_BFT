@@ -6,6 +6,6 @@
 	<field key="psamNo" value="__psamNo" />
 	<field key="payPass" value="__payPass"  />
 	<field key="pIdNo" value="__pIdNo"/>
-	<field key="bkCardNo" value="__bkCardNo" />
+	<!-- <field key="bkCardNo" value="__bkCardNo" /> -->
 	<field key="verifyCode" value="__verifyCode"/>
 </root>

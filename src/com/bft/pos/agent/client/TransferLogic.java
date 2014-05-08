@@ -432,32 +432,30 @@ public class TransferLogic {
 			// 屏幕下弹窗
 			// Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
 			// 屏幕中间弹窗
-//			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-//					Toast.LENGTH_LONG);
-//			toast.setGravity(Gravity.CENTER, 0, 0);
-//			toast.show();
-			 View view =
-			 LayoutInflater.from(BaseActivity.getTopActivity())
-			 .inflate(R.layout.dialog, null);
-			 TextView tv_text = (TextView) view
-			 .findViewById(R.id.dialog_textview_text);
-			 tv_text.setText(desc);
-			 AlertDialog.Builder builder = new AlertDialog.Builder(
-			 BaseActivity.getTopActivity());
-			 final AlertDialog dialog = builder.create();
-			 dialog.show();
-			 // dialog.setCancelable(true);
-			 Window window = dialog.getWindow();
-			 window.setContentView(view);
-			 view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-			 new OnClickListener() {
-			 @Override
-			 public void onClick(View arg0) {
-			 dialog.dismiss();
-			 }
-			 });
-			
-			
+			//			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+			//					Toast.LENGTH_LONG);
+			//			toast.setGravity(Gravity.CENTER, 0, 0);
+			//			toast.show();
+			View view =
+					LayoutInflater.from(BaseActivity.getTopActivity())
+					.inflate(R.layout.dialog, null);
+			TextView tv_text = (TextView) view
+					.findViewById(R.id.dialog_textview_text);
+			tv_text.setText(desc);
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					BaseActivity.getTopActivity());
+			final AlertDialog dialog = builder.create();
+			dialog.show();
+			// dialog.setCancelable(true);
+			Window window = dialog.getWindow();
+			window.setContentView(view);
+			view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							dialog.dismiss();
+						}
+					});
 		}
 	}
 

@@ -472,7 +472,8 @@ public class TransferPacketThread extends Thread {
 										null);
 					}
 					/** ================ */
-					parseJson(new String(respByte, Constant.ENCODING_JSON));
+					if(respByte!=null)
+						parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
 					respByte = new SocketTransport().sendData(sendByte);
 					HashMap<String, Object> respMap = action

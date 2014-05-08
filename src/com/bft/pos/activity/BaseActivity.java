@@ -92,17 +92,6 @@ public class BaseActivity extends SlidingMenuActivity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 
-		layout = (LinearLayout) findViewById(R.id.layout);
-		if (this.mDraggingEnabled == false) {
-			layout.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					toggleMenu();
-				}
-			});
-		} else {
-
-		}
-
 		listView = (ListView) this.findViewById(R.id.listView);
 
 		ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();

@@ -79,7 +79,7 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 		try {
 			Event event = new Event(null, "querybal", null);
 			event.setTransfer("089027");
-		
+			
 			String pwd = null;
 			String pk = FileUtil.convertStreamToString(FileUtil
 					.readerFile("publicKey.xml"));
@@ -88,8 +88,7 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 						(et_pwd.getText().toString() + "FF").getBytes(), 1);
 			}
 
-			
-			//String pwd01 = et_pwd.getEncryptPWD();
+//			String pwd01 = et_pwd.getEncryptPWD();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
 					.getString(Constant.PHONENUM, ""));

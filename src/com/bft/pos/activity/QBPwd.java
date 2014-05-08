@@ -3,6 +3,7 @@ package com.bft.pos.activity;
 /**
  * 同样是输入密码
  * */
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import android.content.Intent;
@@ -20,6 +21,8 @@ import com.bft.pos.activity.view.PasswordWithLabelView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
@@ -72,11 +75,24 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.btn_confirm01:
 			if (checkValue()) {
-				pwdcode = et_pwd.getEncryptPWD();
-				Intent intent1 = new Intent(QBPwd.this, QBTransferHistory.class);
-				intent1.putExtra("pwdcode", pwdcode);
-				startActivity(intent1);
-				this.finish();
+				
+				String pwd = null;
+				String pk;
+				pk = FileUtil.convertStreamToString(FileUtil
+						.readerFile("publicKey.xml"));
+				if (pk != null) {
+					pwd = RSAUtil.encryptToHexStr(pk,
+							(et_pwd.getText().toString() + "FF").getBytes(), 1);
+					
+//						pwdcode = et_pwd.getEncryptPWD();
+					Intent intent1 = new Intent(QBPwd.this, QBTransferHistory.class);
+					intent1.putExtra("pwdcode", pwd);
+					startActivity(intent1);
+					this.finish();
+				}
+			
+				
+
 			}
 			break;
 		default:

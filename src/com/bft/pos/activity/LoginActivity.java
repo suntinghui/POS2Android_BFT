@@ -26,6 +26,7 @@ import android.widget.ImageView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
+import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
@@ -248,32 +249,13 @@ public class LoginActivity extends BaseActivity {
 			}
 			case R.id.registerButton: {// 注册
 				registerAction();
-				// View view =
-				// LayoutInflater.from(BaseActivity.getTopActivity())
-				// .inflate(R.layout.dialog, null);
-				// TextView tv_text = (TextView) view
-				// .findViewById(R.id.dialog_textview_text);
-				// tv_text.setText("服务器响应异常，请重试");
-				// AlertDialog.Builder builder = new AlertDialog.Builder(
-				// BaseActivity.getTopActivity());
-				// final AlertDialog dialog = builder.create();
-				// dialog.show();
-				// // dialog.setCancelable(true);
-				// Window window = dialog.getWindow();
-				// window.setContentView(view);
-				// view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-				// new OnClickListener() {
-				// @Override
-				// public void onClick(View arg0) {
-				// dialog.dismiss();
-				// }
-				// });
+
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-			// Intent intent=new
-			// Intent(LoginActivity.this,CatalogActivity.class);
-			// startActivity(intent);
+				// Intent intent=new
+				// Intent(LoginActivity.this,CatalogActivity.class);
+				// startActivity(intent);
 				if (checkValue()) {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
@@ -373,7 +355,6 @@ public class LoginActivity extends BaseActivity {
 	/*
 	 * 找回密码
 	 */
-
 	private void getPwdAction() {
 		Intent getpwd_intent = new Intent(LoginActivity.this,
 				AuthenticationActivity.class);
@@ -383,7 +364,6 @@ public class LoginActivity extends BaseActivity {
 	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Toggle the menu on menu key press.
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_MENU:
 			return true;

@@ -262,6 +262,9 @@ public class BaseActivity extends SlidingMenuActivity implements
 		try {
 			return stack.peek();
 		} catch (EmptyStackException e) {
+			if (stack.isEmpty()) {
+				e.printStackTrace();
+			}
 			return stack.peek();
 		}
 	}

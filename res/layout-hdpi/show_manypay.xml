@@ -39,134 +39,127 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="15dip"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="15dip"
-            android:orientation="vertical" >
+            android:background="@drawable/prompt_cnt"
+            android:orientation="vertical"
+            android:padding="8dip" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/prompt_cnt"
-                android:orientation="vertical"
-                android:padding="8dip" >
+                android:layout_height="wrap_content" >
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="交易名称" />
-
-                    <TextView
-                        android:id="@+id/tv_trade_name"
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="手机号提款" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
+                <TextView
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dip" >
+                    android:text="交易名称" />
 
-                    <TextView
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="帐号" />
-
-                    <TextView
-                        android:id="@+id/tv_account"
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="无" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginTop="8dip" >
-
-                    <TextView
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="交易金额" />
-
-                    <TextView
-                        android:id="@+id/tv_money"
-                        style="@style/black_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="¥ 0.00" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <com.bft.pos.activity.view.PasswordWithIconView
-                android:id="@+id/et_pwd_pay"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dip"
-                android:paddingTop="8dip" />
+                <TextView
+                    android:id="@+id/tv_trade_name"
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="手机号提款" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dip" >
+                android:layout_marginTop="8dip" >
 
-                <Button
-                    android:id="@+id/btn_sms"
+                <TextView
                     style="@style/black_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/img_btn"
-                    android:text="获取短信校验码" />
-
-                <EditText
-                    android:id="@+id/et_sms"
-                    style="@style/black_15"
-                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dip"
-                    android:layout_toLeftOf="@id/btn_sms"
-                    android:background="@drawable/input_login"
-                    android:hint="短信校验码"
-                    android:paddingLeft="5dip" />
+                    android:text="帐号" />
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="无" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="8dip" >
+
+                <TextView
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="交易金额" />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="¥ 0.00" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <com.bft.pos.activity.view.PasswordWithIconView
+            android:id="@+id/et_pwd_pay"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dip"
+            android:paddingTop="8dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dip" >
+
             <Button
-                android:id="@+id/btn_confirm01"
+                android:id="@+id/btn_sms"
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/img_btn"
+                android:text="获取短信校验码" />
+
+            <EditText
+                android:id="@+id/et_sms"
+                style="@style/black_15"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dip"
-                android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:layout_marginTop="15dip"
-                android:background="@drawable/button_bg"
-                android:text="确   定"
-                android:textColor="@color/black"
-                android:textSize="18dip" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_toLeftOf="@id/btn_sms"
+                android:background="@drawable/input_login"
+                android:hint="短信校验码"
+                android:paddingLeft="5dip" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_confirm01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="40dip"
+            android:background="@drawable/button_bg"
+            android:text="确   定"
+            android:textColor="@color/black"
+            android:textSize="18dip" />
+    </LinearLayout>
 
 </LinearLayout>

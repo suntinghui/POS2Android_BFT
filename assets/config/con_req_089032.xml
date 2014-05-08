@@ -20,5 +20,9 @@
     <field
         key="lgnPass"
         value="__lgnPass" />
+    
+    <field
+        key="version"
+        value="__version" />
 
 </root>

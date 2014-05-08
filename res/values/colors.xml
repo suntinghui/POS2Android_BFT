@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="red">#FF1014</color>
-	<color name="white">#FFFFFF</color>
-	<color name="gray">#808080</color>
-	<color name="lightGray">#ffcccccc</color>
-	<color name="black">#000000</color>
-	<color name="blue">#2e89e0</color>
+    <color name="red">#FF1014</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#808080</color>
+    <color name="lightGray">#ffcccccc</color>
+    <color name="black">#000000</color>
+    <color name="blue">#2e89e0</color>
     <color name="orange">#FF6600</color>
     <color name="clear">#00000000</color>
     <color name="green">#33FF99</color>
     <color name="lightblack">#ff202020</color>
     <color name="instructions">#828282</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

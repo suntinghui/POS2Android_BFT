@@ -27,6 +27,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -233,7 +234,7 @@ public class TransferLogic {
 		}
 	}
 
-	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+	private void getPublicKeyDone(HashMap<String, String> fieldMap) {
 		System.out.println("###############下载公钥处理###############");
 		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
@@ -253,7 +254,7 @@ public class TransferLogic {
 			if (HEADER_MAP != null) {
 				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
-//				存储公钥
+				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
 			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
@@ -431,11 +432,30 @@ public class TransferLogic {
 			// 屏幕下弹窗
 			// Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
 			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
-			
+//			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+//					Toast.LENGTH_LONG);
+//			toast.setGravity(Gravity.CENTER, 0, 0);
+//			toast.show();
+			 View view =
+			 LayoutInflater.from(BaseActivity.getTopActivity())
+			 .inflate(R.layout.dialog, null);
+			 TextView tv_text = (TextView) view
+			 .findViewById(R.id.dialog_textview_text);
+			 tv_text.setText(desc);
+			 AlertDialog.Builder builder = new AlertDialog.Builder(
+			 BaseActivity.getTopActivity());
+			 final AlertDialog dialog = builder.create();
+			 dialog.show();
+			 // dialog.setCancelable(true);
+			 Window window = dialog.getWindow();
+			 window.setContentView(view);
+			 view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
+			 new OnClickListener() {
+			 @Override
+			 public void onClick(View arg0) {
+			 dialog.dismiss();
+			 }
+			 });
 			
 			
 		}
@@ -719,7 +739,7 @@ public class TransferLogic {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
 				// 获取PSAM卡号
-				String fsk = "Get_PsamNo|null"; 
+				String fsk = "Get_PsamNo|null";
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}

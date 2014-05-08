@@ -4,6 +4,28 @@ package com.bft.pos.activity;
  * 登陆界面
  * 这个界面也是不需要侧滑的
  * */
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
@@ -223,38 +245,53 @@ public class LoginActivity extends BaseActivity {
 			case R.id.verifycode02: {// 获取图片验证码
 
 				inputverifyCode.setText("");
-				if (ApplicationEnvironment.getInstance()
-						.checkNetworkAvailable()) {
-					getverifycode();
-				} else {
-					LoginActivity.this.showToast("请检查您的网络");
-				}
+				getverifycode();
 				break;
 			}
 			case R.id.registerButton: {// 注册
 				registerAction();
+				// View view =
+				// LayoutInflater.from(BaseActivity.getTopActivity())
+				// .inflate(R.layout.dialog, null);
+				// TextView tv_text = (TextView) view
+				// .findViewById(R.id.dialog_textview_text);
+				// tv_text.setText("服务器响应异常，请重试");
+				// AlertDialog.Builder builder = new AlertDialog.Builder(
+				// BaseActivity.getTopActivity());
+				// final AlertDialog dialog = builder.create();
+				// dialog.show();
+				// // dialog.setCancelable(true);
+				// Window window = dialog.getWindow();
+				// window.setContentView(view);
+				// view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
+				// new OnClickListener() {
+				// @Override
+				// public void onClick(View arg0) {
+				// dialog.dismiss();
+				// }
+				// });
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-
-				if (checkValue()) {
-
-					SharedPreferences.Editor ed = sp.edit();
-					ed.putBoolean(Constant.kISREMEBER, isRemember);
-					if (isRemember) {
-						ed.putString(Constant.LOGINPWD, et_pwd.getText()
-								.toString());
-					} else {
-						ed.putString(Constant.LOGINPWD, "");
-					}
-					Boolean firstLogin = sp.getBoolean("firstLogin", true);
-					if (firstLogin) {
-						ed.putBoolean("firstLogin", false);
-					} else {
-						loginAction();
-					}
-					ed.commit();
-				}
+				Intent intent=new Intent(LoginActivity.this,CatalogActivity.class);
+				startActivity(intent);
+//				if (checkValue()) {
+//					SharedPreferences.Editor ed = sp.edit();
+//					ed.putBoolean(Constant.kISREMEBER, isRemember);
+//					if (isRemember) {
+//						ed.putString(Constant.LOGINPWD, et_pwd.getText()
+//								.toString());
+//					} else {
+//						ed.putString(Constant.LOGINPWD, "");
+//					}
+//					Boolean firstLogin = sp.getBoolean("firstLogin", true);
+//					if (firstLogin) {
+//						ed.putBoolean("firstLogin", false);
+//					} else {
+//						loginAction();
+//					}
+//					ed.commit();
+//				}
 				break;
 			}
 			}

@@ -92,14 +92,14 @@ public class LKAlertDialog extends Dialog {
 		this.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		// set the dialog title
-//		((TextView) layout.findViewById(R.id.title)).setText(title);
+		// ((TextView) layout.findViewById(R.id.title)).setText(title);
 		// set the confirm button
 		if (positiveButtonText != null) {
 			((Button) layout.findViewById(R.id.positiveButton))
 					.setText(positiveButtonText);
 			if (positiveButtonClickListener != null) {
-				((Button) layout.findViewById(R.id.positiveButton))
-						.setOnClickListener(new View.OnClickListener() {
+				((Button) layout.findViewById(R.id.positiveButton)).setOnClickListener(new View.OnClickListener() {
+
 							public void onClick(View v) {
 								positiveButtonClickListener.onClick(
 										LKAlertDialog.this,

@@ -233,7 +233,7 @@ public class TransferLogic {
 		}
 	}
 
-	private void getPublicKeyDone(HashMap<String, String> fieldMap){
+	private void getPublicKeyDone(HashMap<String, String> fieldMap) {
 		System.out.println("###############下载公钥处理###############");
 		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
@@ -253,7 +253,7 @@ public class TransferLogic {
 			if (HEADER_MAP != null) {
 				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
 						.get("pubKey") : null;
-//				存储公钥
+				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
 		} else {
@@ -715,7 +715,7 @@ public class TransferLogic {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
 				// 获取PSAM卡号
-				String fsk = "Get_PsamNo|null"; 
+				String fsk = "Get_PsamNo|null";
 				if (Constant.isAISHUA) {
 					fsk = "getKsn|null";
 				}
@@ -1704,27 +1704,7 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
-	/**
-	 * 跳转到通用的失败界面，只显示一行错误提示信息。
-	 */
-	public void gotoCommonDialogActivity(String prompt) {
-		View view = LayoutInflater.from(BaseActivity.getTopActivity()).inflate(
-				R.layout.shap, null);
-		TextView tv_text = (TextView) view
-				.findViewById(R.id.dialog_textview_text);
-		tv_text.setText(prompt);
-		AlertDialog.Builder builder = new AlertDialog.Builder(
-				BaseActivity.getTopActivity());
-		final AlertDialog dialog = builder.setView(view).create();
-		dialog.show();
-		view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						dialog.dismiss();
-					}
-				});
-	}
+
 
 	/**
 	 * 注册失败界面，只显示一行错误提示信息。

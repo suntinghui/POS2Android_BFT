@@ -216,6 +216,8 @@ public class HttpManager_ {
 
 		// ////////////////
 
+		
+		
 		if (type == HttpManager_.URL_JSON_TYPE) {
 			httpPost = new HttpPost(Constant.JSONURL
 					+ AppDataCenter.getMethod_Json(transferCode));

@@ -17,21 +17,14 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bft.pos.R;
 import com.bft.pos.activity.ASBalanceSuccessActivity;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.CardPayListActivity;
@@ -47,6 +40,7 @@ import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
+import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
 import com.bft.pos.dynamic.component.ViewException;
@@ -117,9 +111,10 @@ public class TransferLogic {
 		if ("089016".equals(transferCode)) { // 登录
 			this.loginDone(fieldMap);
 
-		} else if ("089000".equals(transferCode)) { // 銀行卡交易查询
-			this.Querycardtrade(fieldMap);
-
+		} else if ("089000".equals(transferCode)) { // 卡交易详单查询
+			this.querytranslist(fieldMap);
+		} else if ("089026".equals(transferCode)) { // 卡交易详单查询
+			this.querycardtrade(fieldMap);
 		} else if ("089001".equals(transferCode)) { // 注册
 			this.registrDone(fieldMap);
 
@@ -216,7 +211,6 @@ public class TransferLogic {
 
 		} else if ("089014".equals(transferCode)) { // 签购单上传 500000001
 			this.uploadReceiptDone(fieldMap);
-
 		} else if ("600000001".equals(transferCode)) {
 			this.queryHistoryGroupDone(fieldMap);
 
@@ -271,8 +265,13 @@ public class TransferLogic {
 		}
 	}
 
+	// 详单
+	private void querytranslist(HashMap<String, String> fieldMap) {
+
+	}
+
 	// 卡交易
-	private void Querycardtrade(HashMap<String, String> fieldMap) {
+	private void querycardtrade(HashMap<String, String> fieldMap) {
 		int i = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<CardPayModel> cpm = new ArrayList<CardPayModel>();
@@ -432,30 +431,11 @@ public class TransferLogic {
 			// 屏幕下弹窗
 			// Toast.makeText(BaseActivity.getTopActivity(), desc,2).show();
 			// 屏幕中间弹窗
-			//			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-			//					Toast.LENGTH_LONG);
-			//			toast.setGravity(Gravity.CENTER, 0, 0);
-			//			toast.show();
-			View view =
-					LayoutInflater.from(BaseActivity.getTopActivity())
-					.inflate(R.layout.dialog, null);
-			TextView tv_text = (TextView) view
-					.findViewById(R.id.dialog_textview_text);
-			tv_text.setText(desc);
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					BaseActivity.getTopActivity());
-			final AlertDialog dialog = builder.create();
-			dialog.show();
-			// dialog.setCancelable(true);
-			Window window = dialog.getWindow();
-			window.setContentView(view);
-			view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-					new OnClickListener() {
-						@Override
-						public void onClick(View arg0) {
-							dialog.dismiss();
-						}
-					});
+			// Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+			// Toast.LENGTH_LONG);
+			// toast.setGravity(Gravity.CENTER, 0, 0);
+			// toast.show();
+			ShowDialog.setAlertDialog(desc);
 		}
 	}
 
@@ -1725,7 +1705,6 @@ public class TransferLogic {
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
-
 
 	/**
 	 * 注册失败界面，只显示一行错误提示信息。

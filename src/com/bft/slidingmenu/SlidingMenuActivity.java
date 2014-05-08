@@ -53,8 +53,11 @@ View.OnTouchListener{
     public boolean mDraggingEnabled = false;
     private int mGrabberSize = 75;
     private int mGrabberTopOffset = 0;
-
-    private ViewGroup mRootLayout;
+//  要泽宇：添加两个用来判断移动与否的数字
+	private int xDown;
+	private int xMove;
+    
+	private ViewGroup mRootLayout;
     private boolean mMoving = false;
     private int mOriginX = 0;
     private int mCurrentX = 0;
@@ -238,7 +241,7 @@ View.OnTouchListener{
         int width = wm.getDefaultDisplay().getWidth();//屏幕宽度
         mMaxMenuWidthDps = (int) (width*0.45);
 //        这里也标注一个叹号
-        if (!mSlideTitleBar) {
+        if (mSlideTitleBar) {
 
             //Do not move the title bar with the content.
             //Just set our root as the content view.
@@ -362,6 +365,7 @@ View.OnTouchListener{
                 mOriginX = Math.min(x, mMenuWidth);
                 mCurrentX = mOriginX;
 
+                xDown = x; 
                 if (mIsMenuOpen && x >= mMenuWidth - mGrabberSize && x <= mMenuWidth + mGrabberSize) {
                     // if the user begins the drag on the right edge of the open menu, assume that
                     // they are grabbing to close.
@@ -379,6 +383,11 @@ View.OnTouchListener{
 
             case MotionEvent.ACTION_MOVE:
             	Log.i("sliding menu", "ACTION_MOVE");
+            	xMove =(int) motionEvent.getX();
+            	int h = (int) motionEvent.getY();
+            	if((xMove-xDown>20||xDown-xMove>20)&&h>156){
+            		mMoving = true;
+            	}
                 if (mMoving) {
                     // keep track of the current and last positions
                     setMenuRightPosition(mCurrentX);

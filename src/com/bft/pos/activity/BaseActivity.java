@@ -92,17 +92,6 @@ public class BaseActivity extends SlidingMenuActivity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 
-		layout = (LinearLayout) findViewById(R.id.layout);
-		if (this.mDraggingEnabled == false) {
-			layout.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					toggleMenu();
-				}
-			});
-		} else {
-
-		}
-
 		listView = (ListView) this.findViewById(R.id.listView);
 
 		ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
@@ -152,7 +141,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 					finish();
 					break;
 				case 3:
-					// 点击跳转:我的存款
+					// 点击跳转:我要提款
 					Intent intent3 = new Intent(BaseActivity.this,
 							DrawingsActivity.class);
 					intent3.putExtra("TAG", arg2);
@@ -273,6 +262,9 @@ public class BaseActivity extends SlidingMenuActivity implements
 		try {
 			return stack.peek();
 		} catch (EmptyStackException e) {
+			if (stack.isEmpty()) {
+				e.printStackTrace();
+			}
 			return stack.peek();
 		}
 	}

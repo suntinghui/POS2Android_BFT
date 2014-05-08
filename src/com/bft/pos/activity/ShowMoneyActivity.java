@@ -1,24 +1,21 @@
 package com.bft.pos.activity;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
-import com.bft.pos.agent.client.Constant;
-import com.bft.pos.dynamic.component.ViewException;
-import com.bft.pos.dynamic.core.Event;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.bft.pos.R;
+import com.bft.pos.activity.view.TextWithIconViewTwo;
+import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.agent.client.Constant;
+import com.bft.pos.dynamic.core.Event;
 
 public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, bt_next;
@@ -34,6 +31,10 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		et_account = (EditText) findViewById(R.id.et_account);
 		et_money = (EditText) findViewById(R.id.et_money);
+		// et_money = (TextWithIconViewTwo) this.findViewById(R.id.et_money);//
+		// 原支付密码
+		// et_money.setHintString("请输入金额");
+
 		// et_money.addTextChangedListener(new TextWatcher() {
 		// private boolean isChanged = false;
 		//
@@ -102,17 +103,26 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+
 		switch (v.getId()) {
 		case R.id.btn_back:
+			Intent intent = new Intent();
+			intent = new Intent(ShowMoneyActivity.this, CatalogActivity.class);
+			startActivity(intent);
 			this.finish();
 			break;
 		case R.id.bt_next:
-			Intent intent = new Intent();
-
-			intent.setClass(ShowMoneyActivity.this, ShowManeyPayActivity.class);
-			intent.putExtra("et_money", et_money.getText().toString());
-			startActivity(intent);
+			if (et_money.length() == 0) {
+				ShowMoneyActivity.this.showToast("请输入提现金额");
+			} else {
+				Intent intent2 = new Intent();
+				intent2.setClass(ShowMoneyActivity.this,
+						ShowManeyPayActivity.class);
+				intent2.putExtra("et_money", et_money.getText().toString());
+				startActivity(intent2);
+			}
 			break;
+
 		// try {
 		// Event event = new Event(null, "modify-bk", null);
 		// event.setTransfer("089025");

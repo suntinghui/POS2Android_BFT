@@ -278,7 +278,7 @@ public class CardPayListActivity extends BaseActivity implements
 
 	public void refresh() {
 		Event event = new Event(null, "queryTransList", null);
-		event.setTransfer("089000");
+		event.setTransfer("089026");
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("login", ApplicationEnvironment.getInstance().getPreferences()
 				.getString(Constant.PHONENUM, ""));

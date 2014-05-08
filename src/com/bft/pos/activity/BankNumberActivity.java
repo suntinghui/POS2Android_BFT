@@ -30,8 +30,8 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 	private TextView titleBank;
 	private EditText et_idcard, et_sms;
 	private Spinner spinner0;
-	private TextWithIconViewTwo et_id_card, old_backcard, et_banknum;
-	private TextWithIconView et_name;
+	private TextWithIconViewTwo old_backcard, et_banknum;
+	private TextWithIconView et_name, et_id_card;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		btn_ok.setOnClickListener(this);
 		et_name = (TextWithIconView) this.findViewById(R.id.et_name);// 真实姓名
 		et_name.setHintString("真实姓名");
-		et_id_card = (TextWithIconViewTwo) this.findViewById(R.id.et_id_card);// 身份证号
+		et_id_card = (TextWithIconView) this.findViewById(R.id.et_id_card);// 身份证号
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证");
 		et_id_card.getEditText().setFilters(

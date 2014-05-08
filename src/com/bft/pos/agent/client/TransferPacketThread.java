@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.bft.pos.R;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.LoginActivity;
+import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.db.ReversalDBHelper;
 import com.bft.pos.client.exception.HttpException;
 import com.bft.pos.fsk.FSKOperator;
@@ -117,7 +118,7 @@ public class TransferPacketThread extends Thread {
 						|| this.transferCode.equals("080002")) {
 					configXml = "con_req_" + this.transferCode + "_aishua"
 							+ ".xml";
-
+         
 				}
 			}
 			transferModel = TransferLogic.getInstance().parseConfigXML(
@@ -502,25 +503,8 @@ public class TransferPacketThread extends Thread {
 			} else {
 				// TransferLogic.getInstance().gotoCommonFaileActivity(
 				// e.getMessage());
-				View view = LayoutInflater.from(BaseActivity.getTopActivity())
-						.inflate(R.layout.dialog, null);
-				TextView tv_text = (TextView) view
-						.findViewById(R.id.dialog_textview_text);
-				tv_text.setText(e.getMessage());
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						BaseActivity.getTopActivity());
-				final AlertDialog dialog = builder.create();
-				dialog.show();
-				// dialog.setCancelable(true);
-				Window window = dialog.getWindow();
-				window.setContentView(view);
-				view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-						new OnClickListener() {
-							@Override
-							public void onClick(View arg0) {
-								dialog.dismiss();
-							}
-						});
+			
+				ShowDialog.setAlertDialog(e.getMessage());
 			}
 
 		} catch (UnsupportedEncodingException e) {
@@ -538,27 +522,8 @@ public class TransferPacketThread extends Thread {
 				// desc, Toast.LENGTH_LONG);
 				// toast.setGravity(Gravity.CENTER, 0, 0);
 				// toast.show();
-				// TransferLogic.getInstance().gotoCommonFaileActivity(
-				// "服务器响应异常，请重试");
-				View view = LayoutInflater.from(BaseActivity.getTopActivity())
-						.inflate(R.layout.dialog, null);
-				TextView tv_text = (TextView) view
-						.findViewById(R.id.dialog_textview_text);
-				tv_text.setText("服务器响应异常，请重试");
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						BaseActivity.getTopActivity());
-				final AlertDialog dialog = builder.create();
-				dialog.show();
-				// dialog.setCancelable(true);
-				Window window = dialog.getWindow();
-				window.setContentView(view);
-				view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-						new OnClickListener() {
-							@Override
-							public void onClick(View arg0) {
-								dialog.dismiss();
-							}
-						});
+			
+				ShowDialog.setAlertDialog("服务器响应异常，请重试");
 			}
 
 		}

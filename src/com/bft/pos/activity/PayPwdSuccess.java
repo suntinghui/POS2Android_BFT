@@ -42,6 +42,7 @@ public class PayPwdSuccess extends BaseActivity implements OnClickListener {
 			Intent intent = new Intent(PayPwdSuccess.this,
 					ManageActivity.class);
 			startActivity(intent);
+			finish();
 			break;
 		default:
 			break;

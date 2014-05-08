@@ -90,9 +90,6 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 					startActivity(intent1);
 					this.finish();
 				}
-			
-				
-
 			}
 			break;
 		default:

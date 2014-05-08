@@ -21,6 +21,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="13dip"
+                 android:text="返回"
+            android:textColor="@color/white"
             android:background="@drawable/back_button" >
         </Button>
 

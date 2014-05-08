@@ -2,6 +2,7 @@ package com.bft.pos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,6 +37,15 @@ public class FailActivity extends BaseActivity implements OnClickListener {
 		tv_prompt.setText(intent.getStringExtra("prompt"));
 	}
 
+	  @Override
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        //Toggle the menu on menu key press.
+	        switch (keyCode) {
+	            case KeyEvent.KEYCODE_MENU:
+	                return true;
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

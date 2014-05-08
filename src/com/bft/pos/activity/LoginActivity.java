@@ -16,15 +16,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
@@ -273,25 +271,26 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				Intent intent=new Intent(LoginActivity.this,CatalogActivity.class);
-				startActivity(intent);
-//				if (checkValue()) {
-//					SharedPreferences.Editor ed = sp.edit();
-//					ed.putBoolean(Constant.kISREMEBER, isRemember);
-//					if (isRemember) {
-//						ed.putString(Constant.LOGINPWD, et_pwd.getText()
-//								.toString());
-//					} else {
-//						ed.putString(Constant.LOGINPWD, "");
-//					}
-//					Boolean firstLogin = sp.getBoolean("firstLogin", true);
-//					if (firstLogin) {
-//						ed.putBoolean("firstLogin", false);
-//					} else {
-//						loginAction();
-//					}
-//					ed.commit();
-//				}
+			// Intent intent=new
+			// Intent(LoginActivity.this,CatalogActivity.class);
+			// startActivity(intent);
+				if (checkValue()) {
+					SharedPreferences.Editor ed = sp.edit();
+					ed.putBoolean(Constant.kISREMEBER, isRemember);
+					if (isRemember) {
+						ed.putString(Constant.LOGINPWD, et_pwd.getText()
+								.toString());
+					} else {
+						ed.putString(Constant.LOGINPWD, "");
+					}
+					Boolean firstLogin = sp.getBoolean("firstLogin", true);
+					if (firstLogin) {
+						ed.putBoolean("firstLogin", false);
+					} else {
+						loginAction();
+					}
+					ed.commit();
+				}
 				break;
 			}
 			}
@@ -381,4 +380,14 @@ public class LoginActivity extends BaseActivity {
 		startActivity(getpwd_intent);
 	}
 
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

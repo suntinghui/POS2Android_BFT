@@ -124,9 +124,8 @@ public class CatalogActivity extends BaseActivity {
 				break;
 			}
 		}
-
 	};
-
+	
 	// 程序退出 点击两次后退键
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -146,6 +145,10 @@ public class CatalogActivity extends BaseActivity {
 			}
 			return true;
 		}
+		 switch (keyCode) {
+         case KeyEvent.KEYCODE_MENU:
+             return true;
+     }
 		return super.onKeyDown(keyCode, event);
 	}
 

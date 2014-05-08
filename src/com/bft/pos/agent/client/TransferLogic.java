@@ -256,6 +256,7 @@ public class TransferLogic {
 				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
+			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -434,6 +435,9 @@ public class TransferLogic {
 					Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
+			
+			
+			
 		}
 	}
 

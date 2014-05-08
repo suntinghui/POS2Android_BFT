@@ -41,5 +41,8 @@
     <field
         key="verifyCode"
         value="__verifyCode" />
+    <field
+        key="version"
+        value="__version" />
 
 </root>

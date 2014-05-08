@@ -78,22 +78,17 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 				
 				String pwd = null;
 				String pk;
-				try {
-					pk = FileUtil.convertStreamToString(FileUtil
-							.readerFile("publicKey.xml"));
-					if (pk != null) {
-						pwd = RSAUtil.encryptToHexStr(pk,
-								(et_pwd.getText().toString() + "FF").getBytes(), 1);
-						
+				pk = FileUtil.convertStreamToString(FileUtil
+						.readerFile("publicKey.xml"));
+				if (pk != null) {
+					pwd = RSAUtil.encryptToHexStr(pk,
+							(et_pwd.getText().toString() + "FF").getBytes(), 1);
+					
 //						pwdcode = et_pwd.getEncryptPWD();
-						Intent intent1 = new Intent(QBPwd.this, QBTransferHistory.class);
-						intent1.putExtra("pwdcode", pwd);
-						startActivity(intent1);
-						this.finish();
-					}
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Intent intent1 = new Intent(QBPwd.this, QBTransferHistory.class);
+					intent1.putExtra("pwdcode", pwd);
+					startActivity(intent1);
+					this.finish();
 				}
 			
 				

@@ -17,6 +17,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.RSAUtil;
 
 public class ShowManeyPayActivity extends BaseActivity implements
@@ -25,6 +26,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 	private Button btn_back, btn_confirm, btn_sms;
 	private PasswordWithIconView et_pwd_pay;
 	private TextView tv_money;
+	private String money = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		String money = bundle.getString("et_money");
+		money = bundle.getString("et_money");
 		tv_money = (TextView) findViewById(R.id.tv_money);
 		tv_money.setText("￥" + money);
 		// ShowManeyPayActivity.lpad(12, money);
@@ -59,6 +61,8 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			startActivity(intent);
 			break;
 		case R.id.btn_confirm01:
+			System.out.println(ShowManeyPayActivity.lpad(12, money)
+					+ "!!!!!~~~~~~~~~~~~~~~~~~~");
 			try {
 				Event event = new Event(null, "draw-cash", null);
 				event.setTransfer("089025");
@@ -66,11 +70,15 @@ public class ShowManeyPayActivity extends BaseActivity implements
 				String fsk = "Get_ExtPsamNo|null";
 				event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
-				String payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-						(et_pwd_pay.getText().toString() + "FF").getBytes(), 1);
-				map.put("payPass", payPass);
-				map.put("money", ShowManeyPayActivity.lpad(12, tv_money
-						.getText().toString()));
+				String pwd = null;
+				String pk = FileUtil.convertStreamToString(FileUtil
+						.readerFile("publicKey.xml"));
+				if (pk != null) {
+					pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_pay.getText()
+							.toString() + "FF").getBytes(), 1);
+				}
+				map.put("payPass", pwd);
+				map.put("money", ShowManeyPayActivity.lpad(12, money));
 				map.put("verifyCode", et_sms.getText().toString());
 				event.setStaticActivityDataMap(map);
 				event.trigger();
@@ -120,6 +128,5 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		String f = "%0" + length + "d";
 		int num = Integer.parseInt(number);
 		return String.format(f, num * 100);
-
 	}
 }

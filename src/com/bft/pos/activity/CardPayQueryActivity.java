@@ -76,6 +76,8 @@ public class CardPayQueryActivity extends BaseActivity implements
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.btn_back:
+			Intent intent2 = new Intent(this, CatalogActivity.class);
+			startActivity(intent2);
 			this.finish();
 			break;
 		case R.id.btn_ok:
@@ -179,7 +181,6 @@ public class CardPayQueryActivity extends BaseActivity implements
 			Toast.makeText(this, "开始日期不能大于结束日期", Toast.LENGTH_SHORT).show();
 			return false;
 		}
-
 		// 检查结束日期与开始日期之间的差距不能大于设置的时间间隔
 		if (daysBetween(startDate, endDate) > this.getInterval()) {
 			Toast.makeText(this, "开始日期和结束日期相差不能超过" + this.interval + "天",

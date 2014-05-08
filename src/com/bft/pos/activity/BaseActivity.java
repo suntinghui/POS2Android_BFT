@@ -152,7 +152,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 					finish();
 					break;
 				case 3:
-					// 点击跳转:我的存款
+					// 点击跳转:我要提款
 					Intent intent3 = new Intent(BaseActivity.this,
 							DrawingsActivity.class);
 					intent3.putExtra("TAG", arg2);

@@ -125,7 +125,7 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 			}else {
 				//pressSubmitButton();
 				Intent intent = new Intent(InputMoneyActivity.this,
-						ASBalancePwd2Activity.class);
+						ReceiptSuccessActivity.class);
 				startActivity(intent);
 			}
 			break;

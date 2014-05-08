@@ -385,7 +385,7 @@ View.OnTouchListener{
             	Log.i("sliding menu", "ACTION_MOVE");
             	xMove =(int) motionEvent.getX();
             	int h = (int) motionEvent.getY();
-            	if((xMove-xDown>20||xDown-xMove>20)&&h>156){
+            	if((xMove-xDown>250||xDown-xMove>250)&&h>156){
             		mMoving = true;
             	}
                 if (mMoving) {

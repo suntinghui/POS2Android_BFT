@@ -1709,7 +1709,6 @@ public class TransferLogic {
 	}
 
 
-
 	/**
 	 * 注册失败界面，只显示一行错误提示信息。
 	 */

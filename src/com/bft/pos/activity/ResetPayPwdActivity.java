@@ -16,6 +16,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -92,12 +93,12 @@ public class ResetPayPwdActivity extends BaseActivity implements
 
 	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String payPass = null;
-		if(Constant.PUBLICKEY!=null){
-		payPass = RSAUtil.encryptToHexStr(Constant.PUBLICKEY,
-				(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
+		String pwd = null;
+		String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+		if(pk!=null){
+			pwd = RSAUtil.encryptToHexStr(pk, (et_new_pwd.getText().toString() + "FF").getBytes(), 1);
 		}
-		map.put("payPass", payPass);
+		map.put("payPass", pwd);
 		map.put("pIdNo", et_id_card.getText().toString());
 		map.put("bkCardNo", et_bank_card.getText().toString());
 		map.put("verifyCode", et_sms.getText().toString());

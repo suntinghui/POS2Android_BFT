@@ -79,17 +79,11 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
 				String payPass = null;
-				String pk;
-				try {
-					pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
+				String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
 					if(pk!=null){
 						payPass = RSAUtil.encryptToHexStr(pk,
 								(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
 					}
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				map.put("payPass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());
 				try {

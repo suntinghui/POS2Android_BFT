@@ -117,7 +117,7 @@ public class TransferPacketThread extends Thread {
 						|| this.transferCode.equals("080002")) {
 					configXml = "con_req_" + this.transferCode + "_aishua"
 							+ ".xml";
-
+         
 				}
 			}
 			transferModel = TransferLogic.getInstance().parseConfigXML(

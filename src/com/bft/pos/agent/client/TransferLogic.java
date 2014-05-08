@@ -1708,27 +1708,6 @@ public class TransferLogic {
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
 	}
 
-	/**
-	 * 跳转到通用的失败界面，只显示一行错误提示信息。
-	 */
-	public void gotoCommonDialogActivity(String prompt) {
-		View view = LayoutInflater.from(BaseActivity.getTopActivity()).inflate(
-				R.layout.shap, null);
-		TextView tv_text = (TextView) view
-				.findViewById(R.id.dialog_textview_text);
-		tv_text.setText(prompt);
-		AlertDialog.Builder builder = new AlertDialog.Builder(
-				BaseActivity.getTopActivity());
-		final AlertDialog dialog = builder.setView(view).create();
-		dialog.show();
-		view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						dialog.dismiss();
-					}
-				});
-	}
 
 	/**
 	 * 注册失败界面，只显示一行错误提示信息。

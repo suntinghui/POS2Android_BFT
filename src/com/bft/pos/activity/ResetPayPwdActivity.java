@@ -26,7 +26,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		OnClickListener {
 	private PasswordWithIconView et_new_pwd;// 重置的支付密码
 	private TextWithIconView et_id_card;// 身份证号
-//	private TextWithIconView et_bank_card;// 银行卡号
+	// private TextWithIconView et_bank_card;// 银行卡号
 	private EditText et_sms;// 短信验证码
 	private Button btn_back, btn_sms, btn_ok;
 
@@ -61,9 +61,10 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证号");
 		// 银行卡号
-//		et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
-//		et_bank_card.setIcon(R.drawable.icon_login_1);
-//		et_bank_card.setHintString("银行卡号");
+		// et_bank_card = (TextWithIconView)
+		// this.findViewById(R.id.et_bank_card);
+		// et_bank_card.setIcon(R.drawable.icon_login_1);
+		// et_bank_card.setHintString("银行卡号");
 	}
 
 	@Override
@@ -94,13 +95,15 @@ public class ResetPayPwdActivity extends BaseActivity implements
 	private void actionResertPwd() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String pwd = null;
-		String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
-		if(pk!=null){
-			pwd = RSAUtil.encryptToHexStr(pk, (et_new_pwd.getText().toString() + "FF").getBytes(), 1);
+		String pk = FileUtil.convertStreamToString(FileUtil
+				.readerFile("publicKey.xml"));
+		if (pk != null) {
+			pwd = RSAUtil.encryptToHexStr(pk,
+					(et_new_pwd.getText().toString() + "FF").getBytes(), 1);
 		}
 		map.put("payPass", pwd);
 		map.put("pIdNo", et_id_card.getText().toString());
-//		map.put("bkCardNo", et_bank_card.getText().toString());
+		// map.put("bkCardNo", et_bank_card.getText().toString());
 		map.put("verifyCode", et_sms.getText().toString());
 		try {
 			Event event = new Event(null, "resertPayPwd", null);
@@ -126,7 +129,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo",Constant.MOBILENO);
+			map.put("mobNo", Constant.MOBILENO);
 			map.put("sendTime", date);
 			map.put("type", "4");
 			event.setStaticActivityDataMap(map);
@@ -148,10 +151,10 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			this.showToast("密码不能为空！");
 			return false;
 		}
-//		if (et_bank_card.getText().length() == 0) {
-//			this.showToast("银行卡不能为空！");
-//			return false;
-//		}
+		// if (et_bank_card.getText().length() == 0) {
+		// this.showToast("银行卡不能为空！");
+		// return false;
+		// }
 		return true;
 	}
 }

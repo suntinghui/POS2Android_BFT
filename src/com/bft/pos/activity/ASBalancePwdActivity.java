@@ -19,6 +19,8 @@ import com.bft.pos.activity.view.PasswordWithLabelView;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.RSAUtil;
 
 public class ASBalancePwdActivity extends BaseActivity implements OnClickListener {
 	private PasswordWithLabelView et_pwd = null;
@@ -78,11 +80,20 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 			Event event = new Event(null, "querybal", null);
 			event.setTransfer("089027");
 		
-			String pwd01 = et_pwd.getEncryptPWD();
+			String pwd = null;
+			String pk = FileUtil.convertStreamToString(FileUtil
+					.readerFile("publicKey.xml"));
+			if (pk != null) {
+				pwd = RSAUtil.encryptToHexStr(pk,
+						(et_pwd.getText().toString() + "FF").getBytes(), 1);
+			}
+
+			
+			//String pwd01 = et_pwd.getEncryptPWD();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("login",ApplicationEnvironment.getInstance().getPreferences()
 					.getString(Constant.PHONENUM, ""));
-			map.put("payPass", pwd01);
+			map.put("payPass", pwd);
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

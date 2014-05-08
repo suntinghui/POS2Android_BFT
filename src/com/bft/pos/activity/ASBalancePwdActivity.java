@@ -62,8 +62,10 @@ public class ASBalancePwdActivity extends BaseActivity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backButton:
+			System.out.println("返回按钮");
 			Intent intent0 = new Intent(ASBalancePwdActivity.this,QueryActivity.class);
 			startActivity(intent0);
+			
 			break;
 		case R.id.btn_confirm01:
 			if (checkValue()) {

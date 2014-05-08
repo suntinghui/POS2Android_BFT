@@ -241,7 +241,7 @@ View.OnTouchListener{
         int width = wm.getDefaultDisplay().getWidth();//屏幕宽度
         mMaxMenuWidthDps = (int) (width*0.45);
 //        这里也标注一个叹号
-        if (!mSlideTitleBar) {
+        if (mSlideTitleBar) {
 
             //Do not move the title bar with the content.
             //Just set our root as the content view.
@@ -384,7 +384,8 @@ View.OnTouchListener{
             case MotionEvent.ACTION_MOVE:
             	Log.i("sliding menu", "ACTION_MOVE");
             	xMove =(int) motionEvent.getX();
-            	if(xMove-xDown>20||xDown-xMove>20){
+            	int h = (int) motionEvent.getY();
+            	if((xMove-xDown>20||xDown-xMove>20)&&h>156){
             		mMoving = true;
             	}
                 if (mMoving) {

@@ -13,7 +13,7 @@ import com.bft.pos.R;
 import com.bft.pos.model.TransferDetailModel1;
 
 public class QBTransferDetail extends BaseActivity implements OnClickListener {
-	
+//	定义要使用的组件和数据
 	private Button backButton = null;
 	private Button okButton = null;
 	private TransferDetailModel1 model = null;
@@ -26,11 +26,12 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 		super.onCreate( savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("账户交易流水明细");
-		
+//		为按钮添加
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
 		okButton = (Button) this.findViewById(R.id.okButton);
 		okButton.setOnClickListener(this);
+//		获取实体类的数据
 		model = (TransferDetailModel1) getIntent().getSerializableExtra("model");
 		
 //		@SuppressWarnings("unchecked")
@@ -49,6 +50,7 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 //			((TextView)this.findViewById(R.id.qhReferNo)).setText(map.get("hostSerial"));
 //			((TextView)this.findViewById(R.id.qhSettleFlag)).setText(map.get("settleFlag").equals("0") ? "未清算" : "已清算");
 			
+//			这是将实体类里存入的数据显示在界面上
 			((TextView)this.findViewById(R.id.qhTransType)).setText(model.getTradeTypeKey());
 			((TextView)this.findViewById(R.id.qhTransTime)).setText(model.getTradeDate());
 			((TextView)this.findViewById(R.id.qhAmount)).setText(model.getPayMoney());
@@ -68,10 +70,11 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 		}
 		
 	}
-
+//为按钮添加点击响应
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()){
+//		返回按钮，结束当前页面
 		case R.id.backButton:
 			QBTransferDetail.this.finish();
 			break;
@@ -80,7 +83,7 @@ public class QBTransferDetail extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-	
+//	这个是要显示的状态，这里之前是按照传回的数据进行选择从而决定显示什么
 	private String getTranFlag(String flag) {
 		String str = "未知";
 		try {

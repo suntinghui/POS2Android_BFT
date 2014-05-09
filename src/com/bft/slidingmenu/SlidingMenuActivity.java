@@ -29,6 +29,10 @@ import com.bft.pos.R.layout;
 
 /**
  * A FragmentActivity subclass that adds a sliding menu.
+ * @修改 要泽宇
+ * 这里是基本的类，侧滑的基本功能在这里实现
+ * 
+ * 
  */
 
 public class SlidingMenuActivity extends FragmentActivity implements
@@ -347,7 +351,9 @@ View.OnTouchListener{
     }
 /** 
  * 貌似终于找到重要的地方了
- * 
+ * @修改 要泽宇
+ * 这里是侧滑功能的重点
+ * 要在什么情况下才能将页面定义为移动，什么情况下跟随手势
  **/
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -355,16 +361,18 @@ View.OnTouchListener{
         if(mDraggingEnabled) return false;
 
         switch (motionEvent.getAction()) {
+//        	当手指按下的时候
             case MotionEvent.ACTION_DOWN:
             	Log.i("sliding menu", "ACTION_DOWN");
                 // the start point will either be the x coordinate or the menu width
+//            	获取坐标
                 final int x = (int) motionEvent.getX();
                 final int y = (int) motionEvent.getY();
                 if(y < mGrabberTopOffset) return false;
 
                 mOriginX = Math.min(x, mMenuWidth);
                 mCurrentX = mOriginX;
-
+//	这里是自己添加的一个数字，用来和后期移动点的坐标比较
                 xDown = x; 
                 if (mIsMenuOpen && x >= mMenuWidth - mGrabberSize && x <= mMenuWidth + mGrabberSize) {
                     // if the user begins the drag on the right edge of the open menu, assume that
@@ -383,8 +391,11 @@ View.OnTouchListener{
 
             case MotionEvent.ACTION_MOVE:
             	Log.i("sliding menu", "ACTION_MOVE");
+//            	获取移动时的横向坐标
             	xMove =(int) motionEvent.getX();
+//            	获取移动时的纵向坐标
             	int h = (int) motionEvent.getY();
+//            	横向滑动距离必须要大于250个像素，然后高度在156也就是标题之下
             	if((xMove-xDown>250||xDown-xMove>250)&&h>156){
             		mMoving = true;
             	}
@@ -401,12 +412,8 @@ View.OnTouchListener{
 
             case MotionEvent.ACTION_UP:
             	Log.i("sliding menu", "ACTION_UP");
-
-
                 if (mMoving) {
-
                     mCurrentX = Math.min((int) motionEvent.getX(), mMenuWidth);
-
                     if (mCurrentX < mLastX) {
                         // animate from the release point to closed
                         AnimateMenuPosition(mCurrentX, 0);
@@ -418,19 +425,13 @@ View.OnTouchListener{
                         // if the move has passed 50% of the menu width, open it. Otherwise, close it.
                         AnimateMenuPosition(mCurrentX, (mCurrentX > mMenuWidth / 4 ? mMenuWidth : 0));
                     }
-
                     mMoving = false;
                     mOriginX = mCurrentX = 0;
-
                     return true;
                 }
-
                 mOriginX = mCurrentX = 0;
-
         }
-//  true  false
         return false;
-
     }
 
     /**

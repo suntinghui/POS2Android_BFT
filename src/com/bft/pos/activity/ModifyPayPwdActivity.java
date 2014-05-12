@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
@@ -154,7 +155,9 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", Constant.MOBILENO);
+//			map.put("mobNo", Constant.MOBILENO);
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "3");
 			event.setStaticActivityDataMap(map);

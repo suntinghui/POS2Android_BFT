@@ -80,16 +80,16 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 				String pk = FileUtil.convertStreamToString(FileUtil
 						.readerFile("publicKey.xml"));
 				if (pk != null) {
-					oldpass = RSAUtil.encryptToHexStr(pk,
-							(et_pwd_old.getText().toString() + "FF").getBytes(), 1);
+					oldpass = RSAUtil.encryptToHexStr(pk, (et_pwd_old.getText()
+							.toString() + "FF").getBytes(), 1);
 				}
-				
+
 				String newpass = null;
 				if (pk != null) {
-					newpass = RSAUtil.encryptToHexStr(pk,
-							(et_pwd_new.getText().toString() + "FF").getBytes(), 1);
+					newpass = RSAUtil.encryptToHexStr(pk, (et_pwd_new.getText()
+							.toString() + "FF").getBytes(), 1);
 				}
-				
+
 				map.put("oldPass", oldpass);
 				map.put("newPass", newpass);
 				map.put("verifyCode", et_sms.getText().toString());
@@ -129,7 +129,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("mobNo", Constant.MOBILENO);
+			// map.put("mobNo", Constant.MOBILENO);
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);

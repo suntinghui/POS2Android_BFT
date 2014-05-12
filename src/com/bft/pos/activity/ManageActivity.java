@@ -4,9 +4,12 @@ package com.bft.pos.activity;
  *这里是我的管理界面 
  *每一个界面用到的都基本上是一个模板
  * */
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bft.pos.R;
 
@@ -167,5 +171,17 @@ public class ManageActivity extends BaseActivity {
 			holder.mRightTV.setText(titles[position]);
 			return convertView;
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		 switch (keyCode) {
+         case KeyEvent.KEYCODE_BACK:
+        	 Intent intent = new Intent(ManageActivity.this,CatalogActivity.class);
+        	 startActivity(intent);
+        	 this.finish();
+             return true;
+     }
+		return super.onKeyDown(keyCode, event);
 	}
 }

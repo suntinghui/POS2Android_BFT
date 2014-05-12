@@ -62,7 +62,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		et_id_card.setHintString("身份证号");
 		// 银行卡号
 		et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
-		et_bank_card.setIcon(R.drawable.icon_login_1);
+		et_bank_card.setIcon(R.drawable.icon_bankcard);
 		et_bank_card.setHintString("银行卡号");
 	}
 

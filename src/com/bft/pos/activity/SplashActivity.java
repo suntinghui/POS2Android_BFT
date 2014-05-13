@@ -1,18 +1,13 @@
 package com.bft.pos.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-
 import android.view.KeyEvent;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
@@ -30,7 +25,6 @@ public class SplashActivity extends BaseActivity {
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.splash_activity);
-
 		super.onCreate(savedInstanceState);
 		new SplashTask().execute();
 	}
@@ -38,11 +32,11 @@ public class SplashActivity extends BaseActivity {
 	// 要泽宇：处理点击菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Toggle the menu on menu key press.
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_MENU:
 			return true;
 		}
+
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -64,14 +58,11 @@ public class SplashActivity extends BaseActivity {
 				if (cashTime < 1500) {
 					Thread.sleep(1500 - cashTime);
 				}
-
 				return null;
-
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-
 		}
 
 		@Override
@@ -83,22 +74,7 @@ public class SplashActivity extends BaseActivity {
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 			} else {// 检查网络
-				// View view = LayoutInflater.from(SplashActivity.this).inflate(
-				// R.layout.dialog, null);
-				// TextView tv_text = (TextView) view
-				// .findViewById(R.id.dialog_textview_text);
-				// tv_text.setText("已经是最后一题了");
-				// AlertDialog.Builder builder = new AlertDialog.Builder(
-				// SplashActivity.this, R.style.Dialog);
-				// final AlertDialog dialog = builder.setView(view).create();
-				// dialog.show();
-				// view.findViewById(R.id.dialog_textview_ok).setOnClickListener(
-				// new OnClickListener() {
-				// @Override
-				// public void onClick(View arg0) {
-				// dialog.dismiss();
-				// }
-				// });
+
 				LKAlertDialog dialog = new LKAlertDialog(SplashActivity.this);
 				// dialog.setTitle("提示");
 				dialog.setCancelable(false);
@@ -112,7 +88,6 @@ public class SplashActivity extends BaseActivity {
 								Intent intent = new Intent(
 										Settings.ACTION_WIRELESS_SETTINGS);
 								startActivity(intent);
-
 								finish();
 							}
 						});
@@ -124,10 +99,8 @@ public class SplashActivity extends BaseActivity {
 								finish();
 							}
 						});
-
 				dialog.create().show();
 			}
 		}
 	}
-
 }

@@ -246,12 +246,12 @@ public class HttpManager {
 			// req_json = JSONUtil.MAP2JSONStr(req_map);
 			/* ============================== */
 
- 			if (parts != null) {
+			if (parts != null) {
 				/** =====带附件======== */
 				//
 				Part[] part = new Part[parts.length + 1];
 
-				for(int i=0; i<=parts.length-1; i++){
+				for (int i = 0; i <= parts.length - 1; i++) {
 					part[i] = parts[i];
 				}
 				part[parts.length] = new StringPart("common", req_json,
@@ -282,16 +282,17 @@ public class HttpManager {
 			// 7判断请求是否成功 200/HttpStatus.SC_OK ：成功
 			if (status == HttpStatus.SC_OK) {
 				bArray = postMethod.getResponseBody();
-				//所有头信息存入静态常量中
+				// 所有头信息存入静态常量中
 				if (postMethod.getRequestHeaders() != null) {
-					
+
 					Constant.HEADER_MAP = new HashMap<String, Object>();
 					for (Header head : postMethod.getResponseHeaders()) {
 						if (!head.getName().equals("Content-Type")
 								&& !head.getName().equals("Set-Cookie"))
-							System.out.println("Headers:\t" + head.getName() + "=" + head.getValue());
-							Constant.HEADER_MAP.put(head.getName(),
-									head.getValue());
+							System.out.println("Headers:\t" + head.getName()
+									+ "=" + head.getValue());
+						Constant.HEADER_MAP
+								.put(head.getName(), head.getValue());
 					}
 				}
 				// 记录下行流量
@@ -329,11 +330,8 @@ public class HttpManager {
 			if (null != postMethod)
 				postMethod.releaseConnection();
 		}
-
 		return bArray;
-
 	}
-
 	/**
 	 * 重载PostMethod的getRequestCharSet()方法, 返回我们需要的编码(字符集)名称, 就可以解决 UTF-8
 	 * 或者其它非默认编码提交 POST 请求时的乱码问题了
@@ -342,12 +340,10 @@ public class HttpManager {
 		public ENCODEPostMethod(String url) {
 			super(url);
 		}
-
 		@Override
 		public String getRequestCharSet() {
 			// return super.getRequestCharSet();
 			return Constant.ENCODING_JSON;
 		}
 	}
-
 }

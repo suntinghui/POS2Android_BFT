@@ -1651,7 +1651,6 @@ public class TransferLogic {
 	 * 跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonSuccessActivity(String prompt) {
-
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				SuccessActivity.class);
 		intent.putExtra("prompt", prompt);
@@ -1687,7 +1686,6 @@ public class TransferLogic {
 	 * 支付密码设置成功后跳转到通用的成功界面，只显示一行提示信息
 	 */
 	public void gotoCommonPayPwdSuccessActivity(String prompt) {
-
 		Intent intent = new Intent(BaseActivity.getTopActivity(),
 				PayPwdSuccess.class);
 		intent.putExtra("prompt", prompt);
@@ -1713,6 +1711,7 @@ public class TransferLogic {
 				LoginFailActivity.class);
 		intent.putExtra("prompt", prompt);
 		BaseActivity.getTopActivity().startActivityForResult(intent, 1);
+		BaseActivity.getTopActivity().finish();
 	}
 
 	/**

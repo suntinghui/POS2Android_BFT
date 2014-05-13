@@ -27,6 +27,7 @@ import com.bft.pos.util.StringUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
 public class QBPwd extends BaseActivity implements OnClickListener {
+//	获取组件，定义所需的控件和字符串
 	private PasswordWithLabelView et_pwd = null;
 	private LinearLayout rootLayout = null;
 	private TextView textView = null;
@@ -42,19 +43,19 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 		this.initTitlebar("账户交易查询");
-
+//获取组件
 		editText = (EditText) this.findViewById(R.id.text);
-
+//为按钮添加点击监听
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 		Button btn_confirm = (Button) this.findViewById(R.id.btn_confirm01);
 		btn_confirm.setOnClickListener(this);
-
+//设置密码输入框显示内容
 		et_pwd = (PasswordWithLabelView) this.findViewById(R.id.et_pwd);
 		et_pwd.setHintWithLabel("密码", "请输入支付密码");
 
 	}
-
+//	检测输入的内容是否是6位数字
 	private boolean checkValue() {
 		if (et_pwd.getText().length() != 6) {
 			Toast.makeText(this,
@@ -65,14 +66,16 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 
 		return true;
 	}
-
+//点击响应
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+//		返回按钮点击返回主界面
 		case R.id.backButton:
 			Intent intent0 = new Intent(QBPwd.this, CatalogActivity.class);
 			startActivity(intent0);
 			break;
+//			确认按钮，将加密之后的密码发送给历史界面
 		case R.id.btn_confirm01:
 			if (checkValue()) {
 				

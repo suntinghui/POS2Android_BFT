@@ -1,5 +1,8 @@
 package com.bft.pos.activity;
-
+/**
+ * @author 要泽宇
+ * 这里是账户交易查询的流水界面
+ * */
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -29,15 +32,15 @@ import com.bft.pos.util.ActivityUtil;
 
 public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
-
+//定义要使用的组件和字符串 列表
 	private Button btn_back = null;
 	private Button btn_history = null;
 	private ListView listView = null;
 	private Adapter adapter = null;
-
+//总页数和当前页数，要用作后期判断使用
 	private int totalPage;
 	private int currentPage = 0;
-
+//这里是返回时间的四个字段，用来后期选择一段时间内的交易流水
 	private String date_s = null;
 	private String date_e = null;
 	private String t_date_s = null;
@@ -54,14 +57,13 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 				R.layout.activity_transfer_detail_list1);
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
-		System.out.println("走了oncreate方法");
-
+//为按钮添加了点击响应
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
-
+//		历史按钮暂时先去掉
 		btn_history = (Button) this.findViewById(R.id.btn_back);
 		btn_history.setOnClickListener(this);
-
+//列表
 		listView = (ListView) this.findViewById(R.id.listview);
 		// ActivityUtil.setEmptyView(listView);
 		// 还没有想到什么好办法，暂时用这样来处理，虽然觉得似乎有点不靠谱
@@ -70,9 +72,9 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		t_date_e = intent.getStringExtra("date_e");
 		// 获取传入的密码字段
 		pwdcode = intent.getStringExtra("pwdcode");
-		System.out.println(pwdcode);
+//用获取到的密码传入请求报文，并进行处理
 		gettranferdetail();
-
+//这里是通过返回的时间来划定显示的流水，不过目前本功能暂时搁置
 		if (t_date_s == null || t_date_s.length() == 0) {
 			Calendar c = Calendar.getInstance();
 			String year = c.get(Calendar.YEAR) + "";
@@ -84,12 +86,12 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 			date_s = t_date_s.replace("-", "");
 			date_e = t_date_e.replace("-", "");
 		}
-
+//这是为列表适配，添加点击相应
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
 	}
-
+//发送请求交易流水数据的报文的方法
 	public void gettranferdetail() {
 		try {
 			Event event = new Event(null, "querybal", null);
@@ -108,7 +110,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 			e.printStackTrace();
 		}
 	}
-
+//这里是描述的listview里面每个部分的内容
 	public final class ViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
@@ -120,14 +122,14 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 
 		public Button moreButton;
 	}
-
+//适配器，把可视控件和数组内容结合起来
 	public class Adapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 
 		public Adapter(Context context) {
 			this.mInflater = LayoutInflater.from(context);
 		}
-
+//获取了长度
 		public int getCount() {
 
 			if (currentPage + 1 < totalPage) {
@@ -144,7 +146,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		public long getItemId(int arg0) {
 			return arg0;
 		}
-
+//获取了每个控件，并且和传入数据精心对应显示
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (null == convertView) {
@@ -225,7 +227,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 			return convertView;
 		}
 	}
-
+//这里是列表每个条目的点击响应，将所需数据传递给明细界面，然后会在明细界面上显示
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
@@ -234,17 +236,19 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 		intent.putExtra("model", modelList.get(arg2));
 		startActivity(intent);
 	}
-
+//依旧是按钮的点击响应
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
+//		返回按钮点击返回我要查询界面
 		case R.id.btn_back:
 			Intent intent = new Intent(QBTransferHistory.this,
 					QueryActivity.class);
 			this.startActivity(intent);
 			this.finish();
 			break;
+//			如果返回的内容多于每页限制数量，会出现更多按钮。点击显示更多数据
 		case R.id.moreButton:
 			loadMoreData();
 			break;
@@ -256,7 +260,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 			break;
 		}
 	}
-
+//刷新页面
 	public void refresh() {
 		try {
 			Event event = new Event(null, "querybal", null);
@@ -275,7 +279,7 @@ public class QBTransferHistory extends BaseActivity implements OnClickListener,
 			e.printStackTrace();
 		}
 	}
-
+//这是获取的解析json之后的数据，是用的回调方法（吧）
 	@SuppressWarnings("unchecked")
 	public void fromLogic(HashMap<String, Object> map) {
 		ArrayList<TransferDetailModel1> list = (ArrayList<TransferDetailModel1>) map

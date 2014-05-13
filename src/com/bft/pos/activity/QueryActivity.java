@@ -7,6 +7,7 @@ package com.bft.pos.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,5 +155,16 @@ public class QueryActivity extends BaseActivity {
 			holder.mRightTV.setText(titles[position]);
 			return convertView;
 		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		 switch (keyCode) {
+         case KeyEvent.KEYCODE_BACK:
+        	 Intent intent = new Intent(QueryActivity.this,CatalogActivity.class);
+        	 startActivity(intent);
+        	 this.finish();
+             return true;
+     }
+		return super.onKeyDown(keyCode, event);
 	}
 }

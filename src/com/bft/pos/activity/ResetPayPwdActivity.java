@@ -63,7 +63,7 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		et_id_card.setHintString("身份证号");
 		// 银行卡号
 		et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
-		et_bank_card.setIcon(R.drawable.icon_login_1);
+		et_bank_card.setIcon(R.drawable.icon_bankcard);
 		et_bank_card.setHintString("银行卡号");
 	}
 
@@ -129,7 +129,9 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", Constant.MOBILENO);
+			// map.put("mobNo", Constant.MOBILENO);
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "4");
 			event.setStaticActivityDataMap(map);

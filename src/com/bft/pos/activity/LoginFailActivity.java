@@ -36,17 +36,17 @@ public class LoginFailActivity extends BaseActivity implements OnClickListener {
 		TextView tv_prompt = (TextView) findViewById(R.id.tv_prompt);
 		tv_prompt.setText(intent.getStringExtra("prompt"));
 	}
-	
-	//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
-	  @Override
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	        //Toggle the menu on menu key press.
-	        switch (keyCode) {
-	            case KeyEvent.KEYCODE_MENU:
-	                return true;
-	        }
-	        return super.onKeyDown(keyCode, event);
-	    }
+
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 	@Override
 	public void onClick(View v) {

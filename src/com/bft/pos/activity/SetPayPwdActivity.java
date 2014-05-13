@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract.Contacts;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
@@ -78,11 +80,12 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("pIdNo", et_id_card.getText().toString());
 				String payPass = null;
-				String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
-					if(pk!=null){
-						payPass = RSAUtil.encryptToHexStr(pk,
-								(et_pay_pwd_again.getText().toString() + "FF").getBytes(), 1);
-					}
+				String pk = FileUtil.convertStreamToString(FileUtil
+						.readerFile("publicKey.xml"));
+				if (pk != null) {
+					payPass = RSAUtil.encryptToHexStr(pk, (et_pay_pwd_again
+							.getText().toString() + "FF").getBytes(), 1);
+				}
 				map.put("payPass", payPass);
 				map.put("verifyCode", et_sms.getText().toString());
 				try {
@@ -101,7 +104,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-	
+
 	/*
 	 * 获取验证码
 	 */
@@ -114,7 +117,9 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mobNo", Constant.PHONENUM);
+			// map.put("mobNo", Constant.MOBILENO);
+			map.put("mobNo", ApplicationEnvironment.getInstance()
+					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);
 			map.put("type", "8");
 			event.setStaticActivityDataMap(map);
@@ -123,7 +128,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * 判断输入框的输入内容
 	 */
@@ -148,7 +153,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 		}
 		return true;
 	}
-	
+
 	@SuppressLint("HandlerLeak")
 	final Handler handler = new Handler() {
 		@Override

@@ -16,6 +16,7 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -69,7 +70,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_sms:
-			this.showToast("短信已发送，请注意查收!");
+			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		case R.id.btn_confirm:
@@ -140,19 +141,19 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 
 	private Boolean checkValue() {
 		if (et_pwd_old.getText().length() == 0) {
-			this.showToast("原密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("原密码不能为空！");
 			return false;
 		}
 		if (et_pwd_new.getText().length() == 0) {
-			this.showToast("新密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("新密码不能为空！");
 			return false;
 		}
 		if (et_pwd_confirm.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
 			return false;
 		}
 		if (!et_pwd_new.getMd5PWD().equals(et_pwd_confirm.getMd5PWD())) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pwd_new.setText("");
 			et_pwd_confirm.setText("");
 			return false;

@@ -18,10 +18,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.activity.view.LKScheduleDialog;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 
 public class DownloadFileRequest {
 	
@@ -48,7 +48,7 @@ public class DownloadFileRequest {
 		
 		FileUtil.deleteFile(fileName);
 		if (!ApplicationEnvironment.getInstance().checkNetworkAvailable()){
-			BaseActivity.getTopActivity().showToast("网络连接不可用，请稍候重试");
+			PopupMessageUtil.showMSG_middle2("网络连接不可用，请稍候重试");
 		} else {
 			new DownloadFileTask().execute();
 		}

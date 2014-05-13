@@ -18,6 +18,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 public class ShowManeyPayActivity extends BaseActivity implements
@@ -87,7 +88,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_sms:
-			ShowManeyPayActivity.this.showToast("短信已发送，请注意查收!");
+			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		default:

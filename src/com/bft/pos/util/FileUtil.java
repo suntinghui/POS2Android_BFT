@@ -155,7 +155,7 @@ public class FileUtil {
 	
 	 public static void openHTML(String url){
 		 if (null==url || url.trim().length()==0){
-			 BaseActivity.getTopActivity().showToast("无效的地址");
+			 PopupMessageUtil.showMSG_middle2("无效的地址");
 			 return;
 		 }
 		 

@@ -1,6 +1,5 @@
 package com.bft.pos.activity;
 
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Timer;
@@ -18,10 +17,10 @@ import android.widget.EditText;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
-import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -71,7 +70,7 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.btn_sms:
-			this.showToast("短信已发送，请注意查收!");
+			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		case R.id.btn_confirm:
@@ -130,19 +129,19 @@ public class SetPayPwdActivity extends BaseActivity implements OnClickListener {
 	 */
 	private Boolean checkValue() {
 		if (et_id_card.getText().length() == 0) {
-			this.showToast("身份证不能为空！");
+			PopupMessageUtil.showMSG_middle2("身份证不能为空！");
 			return false;
 		}
 		if (et_pay_pwd.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		if (et_pay_pwd_again.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
 			return false;
 		}
 		if (!et_pay_pwd.getText().equals(et_pay_pwd_again.getText())) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pay_pwd.setText("");
 			et_pay_pwd_again.setText("");
 			return false;

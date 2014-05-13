@@ -18,6 +18,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
+import com.bft.pos.util.PopupMessageUtil;
 
 /**
  * 找回密码 身份验证
@@ -116,15 +117,15 @@ public class AuthenticationActivity extends BaseActivity implements
 	 */
 	private Boolean checkValue() {
 		if (et_phone_num.getText().length() == 0) {
-			this.showToast("真实姓名不能为空！");
+			PopupMessageUtil.showMSG_middle2("真实姓名不能为空！");
 			return false;
 		}
 		if (et_identy_card.getText().length() == 0) {
-			this.showToast("身份证号不能为空！");
+			PopupMessageUtil.showMSG_middle2("身份证号不能为空！");
 			return false;
 		}
 		if (!PatternUtil.isValidIDNum(et_identy_card.getText())) {
-			this.showToast("身份证号码不合法!");
+			PopupMessageUtil.showMSG_middle2("身份证号码不合法!");
 			return false;
 		}
 		return true;

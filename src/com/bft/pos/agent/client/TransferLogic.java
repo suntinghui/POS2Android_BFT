@@ -230,7 +230,6 @@ public class TransferLogic {
 
 	private void getPublicKeyDone(HashMap<String, String> fieldMap) {
 		System.out.println("###############下载公钥处理###############");
-		System.out.println("fieldMap:\t" + fieldMap);
 		String desc = null;
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
 			if (fieldMap.containsKey("rtCmnt")
@@ -247,11 +246,11 @@ public class TransferLogic {
 			String pubKey = "";
 			if (HEADER_MAP != null) {
 				pubKey = (String) HEADER_MAP.get("pubKey") != null ? (String) HEADER_MAP
-						.get("pubKey") : null;
+						.get("pubKey") : "";
 				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
-			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
+//			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -839,7 +838,7 @@ public class TransferLogic {
 				// event.setFsk(fsk);
 				HashMap<String, String> map = new HashMap<String, String>();
 
-				map.put("version", "1");// 软件版本号
+				map.put("version", "1.0");// 软件版本号
 				event.setStaticActivityDataMap(map);
 				event.trigger();
 			} catch (Exception e) {

@@ -17,6 +17,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -75,9 +76,9 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		case R.id.btn_sms:
 			if (ApplicationEnvironment.getInstance().getPreferences()
 					.getString(Constant.PHONENUM, "").length() == 0) {
-				ResetPayPwdActivity.this.showToast("手机号不能为空!");
+				PopupMessageUtil.showMSG_middle2("手机号不能为空!");
 			} else {
-				ResetPayPwdActivity.this.showToast("短信已发送，请注意查收!");
+				PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 				actionGetSms();
 			}
 			break;
@@ -143,11 +144,11 @@ public class ResetPayPwdActivity extends BaseActivity implements
 	 */
 	private Boolean checkValue() {
 		if (et_id_card.getText().length() == 0) {
-			this.showToast("身份证号不能为空!");
+			PopupMessageUtil.showMSG_middle2("身份证号不能为空!");
 			return false;
 		}
 		if (et_new_pwd.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		// if (et_bank_card.getText().length() == 0) {

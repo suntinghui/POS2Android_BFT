@@ -52,6 +52,7 @@ import com.bft.pos.model.CityModel;
 import com.bft.pos.util.Bank;
 import com.bft.pos.util.BankParse;
 import com.bft.pos.util.JSONUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.Province;
 import com.bft.pos.util.ProvinceParse;
 
@@ -243,7 +244,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 //			break;
 		// 短信验证
 		case R.id.btn_sms:
-			this.showToast("短信已发送，请注意查收！");
+			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收！");
 			actionGetSms();
 			break;
 		default:

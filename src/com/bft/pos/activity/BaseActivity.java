@@ -551,12 +551,12 @@ public class BaseActivity extends SlidingMenuActivity implements
 
 	}
 
-	public void showToast(String message) {
-		Toast toast = Toast.makeText(getApplicationContext(), message,
-				Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.show();
-	}
+//	public void showMSG_middle2(String message) {
+//		Toast toast = Toast.makeText(getApplicationContext(), message,
+//				Toast.LENGTH_SHORT);
+//		toast.setGravity(Gravity.CENTER, 0, 0);
+//		toast.show();
+//	}
 
 	// 更新短信计时器
 	public void refreshSMSBtn() {

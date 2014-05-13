@@ -25,7 +25,7 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
-import com.bft.pos.util.FileUtils;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -101,9 +101,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn_sms:
 			et_sms.setText("");
 			if (et_phone_num.getText().length() == 0) {
-				RegisterActivity.this.showToast("手机号不能为空!");
+				PopupMessageUtil.showMSG_middle2("手机号不能为空!");
 			} else {
-				RegisterActivity.this.showToast("短信已发送，请注意查收!");
+				PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 				actionGetSms();
 			}
 			break;
@@ -172,37 +172,37 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	 */
 	private Boolean checkValue() {
 		if (et_id_card.getText().length() == 0) {
-			this.showToast("身份证号不能为空!");
+			PopupMessageUtil.showMSG_middle2("身份证号不能为空!");
 			return false;
 		}
 		if (et_name.getText().length() == 0) {
-			this.showToast("姓名不能为空！");
+			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
 		if (et_phone_num.getText().length() == 0) {
-			this.showToast("手机号不能为空！");
+			PopupMessageUtil.showMSG_middle2("手机号不能为空！");
 			return false;
 		}
 		if (et_login_name.getText().length() == 0) {
-			this.showToast("姓名不能为空！");
+			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
 		if (et_login_pwd.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		if (et_login_pwd_again.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		if (!(et_login_pwd.getMd5PWD().equals(et_login_pwd_again.getMd5PWD()))) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_login_pwd.setText("");
 			et_login_pwd_again.setText("");
 			return false;
 		}
 		if (!isAgree) {
-			this.showToast("请先阅读并同意服务协议！");
+			PopupMessageUtil.showMSG_middle2("请先阅读并同意服务协议！");
 			return false;
 		}
 		return true;

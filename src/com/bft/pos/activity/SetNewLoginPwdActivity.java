@@ -11,10 +11,9 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
-import com.bft.pos.util.FileUtils;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -111,15 +110,15 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 */
 	private Boolean checkValue() {
 		if (et_pwd_new.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		if (et_pwd_confirm.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
 			return false;
 		}
 		if (!et_pwd_new.getText().equals(et_pwd_confirm.getText())) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pwd_new.setText("");
 			et_pwd_confirm.setText("");
 			return false;

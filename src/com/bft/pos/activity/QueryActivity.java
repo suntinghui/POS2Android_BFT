@@ -102,14 +102,11 @@ public class QueryActivity extends BaseActivity {
 					intent4.putExtra("TAG", arg2);
 					startActivity(intent4);
 					break;
-
 				default:
 					break;
 				}
 			}
-
 		});
-
 	}
 
 	// 适配器，适配器

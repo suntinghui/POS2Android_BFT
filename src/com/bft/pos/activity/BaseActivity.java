@@ -2,7 +2,7 @@ package com.bft.pos.activity;
 
 /**
  * 这里主要是写定侧滑出来的界面的内容
- * */
+ */
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -17,7 +17,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.agent.client.AppDataCenter;

@@ -35,7 +35,7 @@ public class ShowProtocolActivity extends BaseActivity implements OnClickListene
 			this.finish();
 			break;
 		case R.id.btn_back:
-			this.finish();
+			ShowProtocolActivity.this.finish();
 			break;
 		default:
 			break;

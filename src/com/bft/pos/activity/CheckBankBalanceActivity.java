@@ -17,11 +17,10 @@ public class CheckBankBalanceActivity extends BaseActivity implements
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-//		super.index = 0;
+		super.index = 0;
 		// 添加了侧滑内容
-//		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-//				R.layout.activity_check_bank_balance);
-		setContentView(R.layout.activity_check_bank_balance);
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+				R.layout.activity_check_bank_balance);
 		super.onCreate(savedInstanceState);
 		init();
 	}
@@ -48,6 +47,6 @@ public class CheckBankBalanceActivity extends BaseActivity implements
 	}
 
 	public void swipAction() {
-		
+
 	}
 }

@@ -253,9 +253,6 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				// Intent intent=new
-				// Intent(LoginActivity.this,CatalogActivity.class);
-				// startActivity(intent);
 				if (checkValue()) {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
@@ -315,8 +312,8 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		Intent itent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class); 
-		startActivity(itent);
+//		Intent itent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class); 
+//		startActivity(itent);
 		
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();

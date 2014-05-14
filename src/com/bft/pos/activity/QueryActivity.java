@@ -64,6 +64,10 @@ public class QueryActivity extends BaseActivity {
 				switch (arg2) {
 				case 0:
 					// 银行卡余额查询
+					Intent intent0 = new Intent(QueryActivity.this,
+							CheckBankBalanceActivity.class);
+					intent0.putExtra("TAG", arg2);
+					startActivity(intent0);
 					break;
 				case 1:
 					// 账户余额查询
@@ -156,15 +160,17 @@ public class QueryActivity extends BaseActivity {
 			return convertView;
 		}
 	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		 switch (keyCode) {
-         case KeyEvent.KEYCODE_BACK:
-        	 Intent intent = new Intent(QueryActivity.this,CatalogActivity.class);
-        	 startActivity(intent);
-        	 this.finish();
-             return true;
-     }
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			Intent intent = new Intent(QueryActivity.this,
+					CatalogActivity.class);
+			startActivity(intent);
+			this.finish();
+			return true;
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 }

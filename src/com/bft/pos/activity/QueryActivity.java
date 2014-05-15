@@ -108,9 +108,7 @@ public class QueryActivity extends BaseActivity {
 					break;
 				}
 			}
-
 		});
-
 	}
 
 	// 适配器，适配器

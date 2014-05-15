@@ -65,6 +65,10 @@ public class QueryActivity extends BaseActivity {
 				switch (arg2) {
 				case 0:
 					// 银行卡余额查询
+					Intent intent0 = new Intent(QueryActivity.this,
+							CheckBankBalanceActivity.class);
+					intent0.putExtra("TAG", arg2);
+					startActivity(intent0);
 					break;
 				case 1:
 					// 账户余额查询

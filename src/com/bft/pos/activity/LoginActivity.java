@@ -309,9 +309,6 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		// Intent itent = new Intent(BaseActivity.getTopActivity(),
-		// CatalogActivity.class);
-		// startActivity(itent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();

@@ -140,25 +140,27 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				fsk = "getKsn|null";
 			}
 			event.setFsk(fsk);
-			Constant.MOBILENO =  et_phone_num.getText().toString();
+			Constant.MOBILENO = et_phone_num.getText().toString();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("sctMobNo", et_phone_num.getText().toString());// 安全手机号
 			map.put("name", et_name.getText().toString());// 姓名
 			map.put("pIdNo", et_id_card.getText().toString());// 身份证
 			map.put("login", et_login_name.getText().toString());// 登录名
-//			String pwd = StringUtil.MD5Crypto(StringUtil
-//					.MD5Crypto(et_login_pwd_again.getText().toString()
-//							.toUpperCase()
-//							+ et_login_pwd_again.getText())
-//					+ "www.payfortune.com");
+			// String pwd = StringUtil.MD5Crypto(StringUtil
+			// .MD5Crypto(et_login_pwd_again.getText().toString()
+			// .toUpperCase()
+			// + et_login_pwd_again.getText())
+			// + "www.payfortune.com");
 			String pwd = null;
-			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
-			if(pk!=null){
-				pwd = RSAUtil.encryptToHexStr(pk, (et_login_pwd_again.getText().toString() + "FF").getBytes(), 1);
+			String pk = FileUtil.convertStreamToString(FileUtil
+					.readerFile("publicKey.xml"));
+			if (pk != null) {
+				pwd = RSAUtil.encryptToHexStr(pk, (et_login_pwd_again.getText()
+						.toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);// 登陆密码
 			map.put("verifyCode", et_sms.getText().toString());// 验证码
-			
+
 			map.put("version", "1.0");// 软件版本号
 			event.setStaticActivityDataMap(map);
 			event.trigger();
@@ -266,16 +268,18 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	public void refreshSMSBtn() {
 		timer.schedule(task, 1000, 1000); // timeTask
 	};
-	//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
-	  @Override
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	        //Toggle the menu on menu key press.
-	        switch (keyCode) {
-	            case KeyEvent.KEYCODE_MENU:
-	                return true;
-	        }
-	        return super.onKeyDown(keyCode, event);
-	    }
+
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	/*
 	 * 显示服务协议
 	 */

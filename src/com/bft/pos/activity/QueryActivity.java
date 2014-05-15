@@ -40,7 +40,7 @@ public class QueryActivity extends BaseActivity {
 	// private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询",
 	// "流量统计","账户交易查询" };
 	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询",
-			"公告查询", "手机充值" };
+			"公告查询" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,20 +103,12 @@ public class QueryActivity extends BaseActivity {
 					intent4.putExtra("TAG", arg2);
 					startActivity(intent4);
 					break;
-				case 5:
-					// 公告查询
-					Intent intent5 = new Intent(QueryActivity.this,
-							PhonePayActivity.class);
-					intent5.putExtra("TAG", arg2);
-					startActivity(intent5);
-					break;
+
 				default:
 					break;
 				}
 			}
-
 		});
-
 	}
 
 	// 适配器，适配器

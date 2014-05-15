@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginTop="13dip"
             android:background="@drawable/back_button"
-            android:text="返回"
+            android:text="  返回"
             android:textSize="15sp"
             android:textColor="@color/white" >
         </Button>

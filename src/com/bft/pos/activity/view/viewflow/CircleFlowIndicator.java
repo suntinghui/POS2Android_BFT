@@ -1,6 +1,5 @@
 package com.bft.pos.activity.view.viewflow;
 
-
 import com.bft.pos.R;
 import com.bft.pos.activity.view.viewflow.ViewFlow;
 
@@ -17,23 +16,27 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 
 /**
- * A FlowIndicator which draws circles (one for each view). 
- * <br/>
+ * A FlowIndicator which draws circles (one for each view). <br/>
  * Availables attributes are:<br/>
  * <ul>
- * activeColor: Define the color used to draw the active circle (default to white)
+ * activeColor: Define the color used to draw the active circle (default to
+ * white)
  * </ul>
  * <ul>
- * inactiveColor: Define the color used to draw the inactive circles (default to 0x44FFFFFF)
+ * inactiveColor: Define the color used to draw the inactive circles (default to
+ * 0x44FFFFFF)
  * </ul>
  * <ul>
- * inactiveType: Define how to draw the inactive circles, either stroke or fill (default to stroke)
+ * inactiveType: Define how to draw the inactive circles, either stroke or fill
+ * (default to stroke)
  * </ul>
  * <ul>
- * activeType: Define how to draw the active circle, either stroke or fill (default to fill)
+ * activeType: Define how to draw the active circle, either stroke or fill
+ * (default to fill)
  * </ul>
  * <ul>
- * fadeOut: Define the time (in ms) until the indicator will fade out (default to 0 = never fade out)
+ * fadeOut: Define the time (in ms) until the indicator will fade out (default
+ * to 0 = never fade out)
  * </ul>
  * <ul>
  * radius: Define the circle radius (default to 4.0)
@@ -81,9 +84,9 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 		// Gets the inactive circle type, defaulting to "fill"
 		int activeType = a.getInt(R.styleable.CircleFlowIndicator_activeType,
 				STYLE_FILL);
-		
+
 		int activeDefaultColor = 0xFFFFFFFF;
-		
+
 		// Get a custom inactive color if there is one
 		int activeColor = a
 				.getColor(R.styleable.CircleFlowIndicator_activeColor,
@@ -101,12 +104,13 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 
 		// Retrieve the radius
 		radius = a.getDimension(R.styleable.CircleFlowIndicator_radius, 4.0f);
-		
+
 		// Retrieve the fade out time
 		fadeOutTime = a.getInt(R.styleable.CircleFlowIndicator_fadeOut, 0);
-		
-		mCentered = a.getBoolean(R.styleable.CircleFlowIndicator_centered, false);
-		
+
+		mCentered = a.getBoolean(R.styleable.CircleFlowIndicator_centered,
+				false);
+
 		initColors(activeColor, inactiveColor, activeType, inactiveType);
 	}
 
@@ -145,18 +149,19 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 		if (viewFlow != null) {
 			count = viewFlow.getViewsCount();
 		}
-		
-		float circleSeparation = 2*radius+radius;
-		//this is the amount the first circle should be offset to make the entire thing centered
+
+		float circleSeparation = 2 * radius + radius;
+		// this is the amount the first circle should be offset to make the
+		// entire thing centered
 		float centeringOffset = 0;
-		
+
 		int leftPadding = getPaddingLeft();
-		
+
 		// Draw stroked circles
 		for (int iLoop = 0; iLoop < count; iLoop++) {
-			canvas.drawCircle(leftPadding + radius
-					+ (iLoop * circleSeparation) + centeringOffset,
-					getPaddingTop() + radius, radius, mPaintInactive);
+			canvas.drawCircle(leftPadding + radius + (iLoop * circleSeparation)
+					+ centeringOffset, getPaddingTop() + radius, radius,
+					mPaintInactive);
 		}
 		float cx = 0;
 		if (flowWidth != 0) {
@@ -164,8 +169,8 @@ public class CircleFlowIndicator extends View implements FlowIndicator,
 			cx = (currentScroll * (2 * radius + radius)) / flowWidth;
 		}
 		// The flow width has been upadated yet. Draw the default position
-		canvas.drawCircle(leftPadding + radius + cx+centeringOffset, getPaddingTop()
-				+ radius, radius, mPaintActive);
+		canvas.drawCircle(leftPadding + radius + cx + centeringOffset,
+				getPaddingTop() + radius, radius, mPaintActive);
 	}
 
 	/*

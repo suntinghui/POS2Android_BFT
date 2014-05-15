@@ -35,11 +35,12 @@ public class QueryActivity extends BaseActivity {
 	 */
 	private Integer[] imageIds = { R.drawable.query_left_0,
 			R.drawable.query_left_0, R.drawable.query_left_0,
-			R.drawable.query_left_1, R.drawable.query_left_3 };// 新加入的图片
+			R.drawable.query_left_1, R.drawable.query_left_3,
+			R.drawable.query_left_0 };// 新加入的图片
 	// private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询",
 	// "流量统计","账户交易查询" };
 	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询",
-			"公告查询" };
+			"公告查询", "手机充值" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,10 @@ public class QueryActivity extends BaseActivity {
 				switch (arg2) {
 				case 0:
 					// 银行卡余额查询
+					Intent intent0 = new Intent(QueryActivity.this,
+							CheckBankBalanceActivity.class);
+					intent0.putExtra("TAG", arg2);
+					startActivity(intent0);
 					break;
 				case 1:
 					// 账户余额查询
@@ -98,7 +103,13 @@ public class QueryActivity extends BaseActivity {
 					intent4.putExtra("TAG", arg2);
 					startActivity(intent4);
 					break;
-
+				case 5:
+					// 公告查询
+					Intent intent5 = new Intent(QueryActivity.this,
+							PhonePayActivity.class);
+					intent5.putExtra("TAG", arg2);
+					startActivity(intent5);
+					break;
 				default:
 					break;
 				}
@@ -156,15 +167,17 @@ public class QueryActivity extends BaseActivity {
 			return convertView;
 		}
 	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		 switch (keyCode) {
-         case KeyEvent.KEYCODE_BACK:
-        	 Intent intent = new Intent(QueryActivity.this,CatalogActivity.class);
-        	 startActivity(intent);
-        	 this.finish();
-             return true;
-     }
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			Intent intent = new Intent(QueryActivity.this,
+					CatalogActivity.class);
+			startActivity(intent);
+			this.finish();
+			return true;
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 }

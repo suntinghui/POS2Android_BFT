@@ -201,18 +201,15 @@ public class LoginActivity extends BaseActivity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
-
 						}
 					});
 
 			dialog.create().show();
 		} else {
 		}
-
 	}
 
 	private void Update(String url) {
-
 		DownloadFileRequest.sharedInstance().downloadAndOpen(this, url,
 				"bft.apk");
 	}
@@ -253,9 +250,6 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				// Intent intent=new
-				// Intent(LoginActivity.this,CatalogActivity.class);
-				// startActivity(intent);
 				if (checkValue()) {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
@@ -315,9 +309,7 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-		Intent itent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class); 
-		startActivity(itent);
-		
+
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
 		editor.putBoolean(Constant.kISREMEBER, isRemember);
@@ -348,7 +340,6 @@ public class LoginActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/*

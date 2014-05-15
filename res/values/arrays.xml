@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="type">
         <item>1.银行卡</item>
         <item>2.预付卡</item>
     </string-array>
+    <string-array name="phonepay">
+        <item>20元</item>
+        <item>30元</item>
+        <item>50元</item>
+        <item>100元</item>
+    </string-array>
+
 </resources>

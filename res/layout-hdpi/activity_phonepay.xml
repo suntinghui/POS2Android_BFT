@@ -70,12 +70,12 @@
                     android:id="@+id/iv_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dip"
                     android:layout_marginLeft="5dip"
+                    android:layout_marginTop="20dip"
                     android:background="@drawable/manager_right_2_n" />
             </LinearLayout>
 
-            <com.bft.pos.activity.view.TextWithIconView
+            <com.bft.pos.activity.view.TextWithIconViewThree
                 android:id="@+id/et_phone2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             android:layout_marginBottom="10dip"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            dhc:instructionId="sign_tips" />
+            dhc:instructionId="phonepay" />
     </LinearLayout>
 
 </ScrollView>

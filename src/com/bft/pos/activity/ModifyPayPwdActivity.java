@@ -20,6 +20,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -63,7 +64,7 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 短信校验码
 	}
 
-	/*
+	/**
 	 * 按钮监听事件
 	 */
 	@Override
@@ -73,7 +74,7 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.btn_sms:
-			ModifyPayPwdActivity.this.showToast("短信已发送，请注意查收!");
+			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
 			break;
 		case R.id.btn_confirm:
@@ -123,19 +124,19 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 	 */
 	private Boolean checkValue() {
 		if (et_pwd_old.getText().length() == 0) {
-			this.showToast("原密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("原密码不能为空！");
 			return false;
 		}
 		if (et_pwd_new.getText().length() == 0) {
-			this.showToast("新密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("新密码不能为空！");
 			return false;
 		}
 		if (et_pwd_confirm.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
 			return false;
 		}
 		if (!et_pwd_new.getText().equals(et_pwd_confirm.getText())) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pwd_new.setText("");
 			et_pwd_confirm.setText("");
 			return false;
@@ -155,6 +156,7 @@ public class ModifyPayPwdActivity extends BaseActivity implements
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
 			HashMap<String, String> map = new HashMap<String, String>();
+			// map.put("mobNo", Constant.MOBILENO);
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			map.put("sendTime", date);

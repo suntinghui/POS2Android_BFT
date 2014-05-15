@@ -11,10 +11,9 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
-import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
-import com.bft.pos.util.FileUtils;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
@@ -26,6 +25,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	private PasswordWithIconView et_pwd_confirm;// 确认密码
 	private Button btn_back, btn_confirm;
 	private TextWithIconView et_sms;// 验证码
+
 	// private String smscode;
 
 	@Override
@@ -87,15 +87,17 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("verifyCode", et_sms.getText().toString());
-//			String pwd = StringUtil.MD5Crypto(StringUtil
-//					.MD5Crypto(et_pwd_confirm.getText().toString()
-//							.toUpperCase()
-//							+ et_pwd_confirm.getText())
-//					+ "www.payfortune.com");
+			// String pwd = StringUtil.MD5Crypto(StringUtil
+			// .MD5Crypto(et_pwd_confirm.getText().toString()
+			// .toUpperCase()
+			// + et_pwd_confirm.getText())
+			// + "www.payfortune.com");
 			String pwd = null;
-			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
-			if(pk!=null){
-				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
+			String pk = FileUtil.convertStreamToString(FileUtil
+					.readerFile("publicKey.xml"));
+			if (pk != null) {
+				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText()
+						.toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);
 			map.put("version", "1.0");
@@ -111,30 +113,30 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 */
 	private Boolean checkValue() {
 		if (et_pwd_new.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
 		if (et_pwd_confirm.getText().length() == 0) {
-			this.showToast("确认密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
 			return false;
 		}
 		if (!et_pwd_new.getText().equals(et_pwd_confirm.getText())) {
-			this.showToast("密码输入不一致，请重新输入！");
+			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pwd_new.setText("");
 			et_pwd_confirm.setText("");
 			return false;
 		}
 		return true;
 	}
-	
-	//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
-	  @Override
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	        //Toggle the menu on menu key press.
-	        switch (keyCode) {
-	            case KeyEvent.KEYCODE_MENU:
-	                return true;
-	        }
-	        return super.onKeyDown(keyCode, event);
-	    }
+
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

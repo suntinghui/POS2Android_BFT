@@ -18,6 +18,7 @@ import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.PatternUtil;
+import com.bft.pos.util.PopupMessageUtil;
 
 /**
  * 找回密码 身份验证
@@ -87,7 +88,7 @@ public class AuthenticationActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "checkInfo", null);
 			event.setTransfer("089031");
-			//获取PSAM卡号
+			// 获取PSAM卡号
 			String fsk = "Get_ExtPsamNo|null";
 			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
@@ -101,30 +102,32 @@ public class AuthenticationActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	//要泽宇：处理点击手机菜单键出现侧滑菜单的问题
-	  @Override
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	        //Toggle the menu on menu key press.
-	        switch (keyCode) {
-	            case KeyEvent.KEYCODE_MENU:
-	                return true;
-	        }
-	        return super.onKeyDown(keyCode, event);
-	    }
+
+	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Toggle the menu on menu key press.
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	/*
 	 * 判断输入框的输入内容
 	 */
 	private Boolean checkValue() {
 		if (et_phone_num.getText().length() == 0) {
-			this.showToast("真实姓名不能为空！");
+			PopupMessageUtil.showMSG_middle2("真实姓名不能为空！");
 			return false;
 		}
 		if (et_identy_card.getText().length() == 0) {
-			this.showToast("身份证号不能为空！");
+			PopupMessageUtil.showMSG_middle2("身份证号不能为空！");
 			return false;
 		}
 		if (!PatternUtil.isValidIDNum(et_identy_card.getText())) {
-			this.showToast("身份证号码不合法!");
+			PopupMessageUtil.showMSG_middle2("身份证号码不合法!");
 			return false;
 		}
 		return true;

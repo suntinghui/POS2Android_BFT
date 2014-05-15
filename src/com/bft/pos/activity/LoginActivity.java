@@ -26,12 +26,12 @@ import android.widget.ImageView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.PasswordWithIconView;
-import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.agent.client.DownloadFileRequest;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 import com.bft.pos.util.SecurityCodeUtil;
 
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity {
 
 		/** ==下载公钥== */
 		// getPublicKey();
-		/** ==== */
+		/** ==获取图片验证码== */
 		getverifycode();
 		// 设置标题
 		initTitleBar("登 录", false);
@@ -201,18 +201,15 @@ public class LoginActivity extends BaseActivity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
-
 						}
 					});
 
 			dialog.create().show();
 		} else {
 		}
-
 	}
 
 	private void Update(String url) {
-
 		DownloadFileRequest.sharedInstance().downloadAndOpen(this, url,
 				"bft.apk");
 	}
@@ -253,9 +250,6 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 			case R.id.loginButton: {// 登陆
-				// Intent intent=new
-				// Intent(LoginActivity.this,CatalogActivity.class);
-				// startActivity(intent);
 				if (checkValue()) {
 					SharedPreferences.Editor ed = sp.edit();
 					ed.putBoolean(Constant.kISREMEBER, isRemember);
@@ -292,13 +286,19 @@ public class LoginActivity extends BaseActivity {
 
 		if (userNameET.length() == 0) {
 
-			this.showToast("用户名不能为空！");
+			PopupMessageUtil.showMSG_middle2("用户名不能为空！");
 			return false;
 		} else if (et_pwd.getText().length() == 0) {
-			this.showToast("密码不能为空！");
+			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		} else if (inputverifyCode.getText().length() == 0) {
-			this.showToast("验证码不能为空！");
+			PopupMessageUtil.showMSG_middle2("验证码不能为空！");
+			return false;
+		} else if (inputverifyCode.getText().length() < 4) {
+			PopupMessageUtil.showMSG_middle2("验证码小于4位！");
+			return false;
+		} else if (inputverifyCode.getText().length() > 4) {
+			PopupMessageUtil.showMSG_middle2("验证码不可大于4位！");
 			return false;
 		}
 		return true;
@@ -309,6 +309,9 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
+		// Intent itent = new Intent(BaseActivity.getTopActivity(),
+		// CatalogActivity.class);
+		// startActivity(itent);
 
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
@@ -340,7 +343,6 @@ public class LoginActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/*

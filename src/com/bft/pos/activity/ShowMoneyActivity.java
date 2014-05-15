@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.bft.pos.R;
-import com.bft.pos.activity.view.TextWithIconViewTwo;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.PopupMessageUtil;
 
 public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 	private Button btn_back, btn_sms, bt_next;
@@ -113,7 +113,7 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.bt_next:
 			if (et_money.length() == 0) {
-				ShowMoneyActivity.this.showToast("请输入提现金额");
+				PopupMessageUtil.showMSG_middle2("请输入提现金额");
 			} else {
 				Intent intent2 = new Intent();
 				intent2.setClass(ShowMoneyActivity.this,

@@ -28,6 +28,7 @@ import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.model.BankModel;
 import com.bft.pos.util.ActivityUtil;
+import com.bft.pos.util.PopupMessageUtil;
 
 public class BankSearchActivity extends BaseActivity {
 	private Button btn_back;
@@ -192,7 +193,7 @@ public class BankSearchActivity extends BaseActivity {
 					firstSearch = 1;
 					actionSearch();
 				} else {
-					showToast("关键字不能为空！");
+					PopupMessageUtil.showMSG_middle2("关键字不能为空！");
 				}
 
 				break;

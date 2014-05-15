@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bft.pos.R;
-
+//只能输入
 public class TextWithIconViewTwo extends LinearLayout {
 
 	private LinearLayout rootLayout;

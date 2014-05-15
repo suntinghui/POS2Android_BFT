@@ -20,8 +20,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,13 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bft.pos.R;
-import com.bft.pos.activity.CatalogActivity;
-import com.bft.pos.activity.GatherActivity;
-import com.bft.pos.activity.ManageActivity;
-import com.bft.pos.activity.QueryActivity;
-import com.bft.pos.activity.QueryBusinessDepositActivity;
-import com.bft.pos.activity.SystemActivity;
-import com.bft.pos.activity.TimeoutService;
 import com.bft.pos.agent.client.AppDataCenter;
 import com.bft.pos.agent.client.HttpManager;
 import com.bft.pos.agent.client.SystemConfig;
@@ -549,12 +542,12 @@ public class BaseActivity extends SlidingMenuActivity implements
 
 	}
 
-	public void showToast(String message) {
-		Toast toast = Toast.makeText(getApplicationContext(), message,
-				Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.show();
-	}
+//	public void showMSG_middle2(String message) {
+//		Toast toast = Toast.makeText(getApplicationContext(), message,
+//				Toast.LENGTH_SHORT);
+//		toast.setGravity(Gravity.CENTER, 0, 0);
+//		toast.show();
+//	}
 
 	// 更新短信计时器
 	public void refreshSMSBtn() {

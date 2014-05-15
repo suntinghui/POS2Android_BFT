@@ -474,6 +474,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.CardPayDetailActivity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.PhonePayActivity" >
+        </activity>
     </application>
 
 </manifest>

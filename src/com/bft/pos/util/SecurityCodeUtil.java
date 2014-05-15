@@ -134,7 +134,6 @@ public class SecurityCodeUtil {
 			break;
 		}
 		
-	
 		for (int i = 0; i < lineNumber; i++) {
 			drawLine(canvas, paint);
 		}

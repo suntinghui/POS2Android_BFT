@@ -78,6 +78,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setLayoutIds(menuLayout, contentLayout);
+		
 		setAnimationDuration(300);
 		setAnimationType(MENU_TYPE_SLIDEOVER);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -249,13 +250,10 @@ public class BaseActivity extends SlidingMenuActivity implements
 	}
 
 	public static BaseActivity getTopActivity() {
-		// TODO 应该怎么处理？
 		try {
 			return stack.peek();
 		} catch (EmptyStackException e) {
-			if (stack.isEmpty()) {
-				e.printStackTrace();
-			}
+			// e.printStackTrace();
 			return stack.peek();
 		}
 	}

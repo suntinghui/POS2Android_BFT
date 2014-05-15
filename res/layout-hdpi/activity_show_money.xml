@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:dhc="http://schemas.android.com/apk/res/com.ylt.pos"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/login_bg"
     android:fillViewport="true" >
 
@@ -48,10 +49,14 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginBottom="20dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:layout_weight="1"
             android:orientation="vertical" >
+
+            <!-- end -->
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -223,8 +228,19 @@
                 </RelativeLayout>
             </LinearLayout>
 
-           <EditText android:id="@+id/et_money" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20dip" android:background="@drawable/input_login" android:gravity="center_vertical|right" android:hint="提现金额" android:inputType="numberDecimal" android:numeric="integer" android:paddingLeft="5dip" /> 
-
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="50dip"
+                android:background="@drawable/input_login"
+                android:gravity="center_vertical|right"
+                android:hint="提现金额"
+                android:inputType="numberDecimal"
+                android:numeric="integer"
+                android:paddingLeft="5dip" />
         </LinearLayout>
 
         <Button
@@ -234,7 +250,6 @@
             android:layout_marginBottom="20dip"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:layout_marginTop="50dip"
             android:background="@drawable/button_bg"
             android:text="下一步"
             android:textColor="@color/black"

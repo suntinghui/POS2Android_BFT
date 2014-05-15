@@ -395,6 +395,7 @@ View.OnTouchListener{
             	xMove =(int) motionEvent.getX();
 //            	获取移动时的纵向坐标
             	int h = (int) motionEvent.getY();
+
 //            	横向滑动距离必须要大于250个像素，然后高度在156也就是标题之下
             	if((xMove-xDown>250||xDown-xMove>250)&&h>156){
             		mMoving = true;

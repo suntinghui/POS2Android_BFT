@@ -137,8 +137,8 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
 		et_sms = (EditText) findViewById(R.id.et_sms);
-//		btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
-//		btn_bank_branch.setOnClickListener(this);
+		// btn_bank_branch = (Button) this.findViewById(R.id.btn_bank_branch);
+		// btn_bank_branch.setOnClickListener(this);
 
 		btn_sms = (Button) this.findViewById(R.id.btn_sms);
 		btn_sms.setOnClickListener(this);
@@ -233,15 +233,15 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			// actionCamera();
 			break;
 		// 银行
-//		case R.id.btn_bank_branch:
-//			Intent intent = new Intent(AuthenticationUpImageActivity.this,
-//					BankSearchActivity.class);
-//			intent.putExtra("bankCode", currentBank.getCode());
-//			intent.putExtra("provinceCode", currentCity.getProvince_code());
-//			intent.putExtra("cityCode", currentCity.getCode());
-//			AuthenticationUpImageActivity.this
-//					.startActivityForResult(intent, 1);
-//			break;
+		// case R.id.btn_bank_branch:
+		// Intent intent = new Intent(AuthenticationUpImageActivity.this,
+		// BankSearchActivity.class);
+		// intent.putExtra("bankCode", currentBank.getCode());
+		// intent.putExtra("provinceCode", currentCity.getProvince_code());
+		// intent.putExtra("cityCode", currentCity.getCode());
+		// AuthenticationUpImageActivity.this
+		// .startActivityForResult(intent, 1);
+		// break;
 		// 短信验证
 		case R.id.btn_sms:
 			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收！");
@@ -872,7 +872,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		}
 	}
 
-	
 	/*
 	 * 获取验证码
 	 */
@@ -897,6 +896,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
+
 	/** 为图片创建不同的名称用于保存，避免覆盖 **/
 
 	public static String createFileName() {

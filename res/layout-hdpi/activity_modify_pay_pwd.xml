@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dhc="http://schemas.android.com/apk/res/com.ylt.pos"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/login_bg"
     android:fillViewport="true" >
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" 
-        android:id="@+id/layout">
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/topbarLayout"
@@ -21,14 +20,14 @@
 
             <Button
                 android:id="@+id/btn_back"
+                style="@style/TextView15_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="7dip"
                 android:layout_marginTop="10dip"
-                android:text="  返回"
-                style="@style/TextView15_white"
-                android:background="@drawable/back_button" >
+                android:background="@drawable/back_button"
+                android:text="  返回" >
             </Button>
 
             <TextView

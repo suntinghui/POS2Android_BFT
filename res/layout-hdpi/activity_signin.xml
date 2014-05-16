@@ -12,22 +12,11 @@
 	    android:background="@drawable/sawtooth_bg"
 	    android:orientation="horizontal">
 	    
-	    <TextView android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="注册号码：15011302090"
-	        android:layout_marginLeft="10dip"
-	        android:layout_centerVertical="true"
-	        style="@style/TextView14sp_black"
-	        android:id="@+id/phoneTV"/>
-	    <TextView android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="2013-10-08"
-	        android:layout_marginLeft="10dip"
-	        android:layout_centerVertical="true"
-	        style="@style/TextView14sp_black"
-	        android:id="@+id/timeTV"
-	        android:layout_alignParentRight="true"
-	        android:layout_marginRight="10dip"/>
+	    <com.bft.pos.activity.view.TopInfoView
+        android:id="@+id/topInfoView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_below="@id/topbarLayout"/>
 	    
 	</RelativeLayout>
 	

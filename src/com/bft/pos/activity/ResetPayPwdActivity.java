@@ -153,10 +153,10 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
-		// if (et_bank_card.getText().length() == 0) {
-		// this.showToast("银行卡不能为空！");
-		// return false;
-		// }
+		if (et_bank_card.getText().length() == 0) {
+			PopupMessageUtil.showMSG_middle2("银行卡不能为空！");
+			return false;
+		}
 		return true;
 	}
 }

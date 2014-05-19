@@ -19,6 +19,7 @@ import com.bft.pos.dynamic.core.Event;
 
 public class SignInActivity extends BaseActivity implements OnClickListener {
 	private Button btn_sign;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 
 		this.initTitlebar("签	到");
 
+		
 		btn_sign = (Button) this.findViewById(R.id.btn_confirm);
 		btn_sign.setOnClickListener(this);
 	}

@@ -11,9 +11,9 @@ import android.widget.Button;
 import com.bft.pos.R;
 import com.bft.slidingmenu.MenuBaseActivity;
 
-public class SignInFailActivity extends BaseActivity {
+public class SignInFailActivity extends BaseActivity implements OnClickListener{
 
-	private Button btn_confirm;
+	private Button btn_confirm,btn_back;
 	
 		@Override
 		public void onCreate( Bundle savedInstanceState){
@@ -23,17 +23,26 @@ public class SignInFailActivity extends BaseActivity {
 			
 			this.initTitlebar("签到");
 			
+			btn_back=(Button) this.findViewById(R.id.backButton);
+			btn_back.setOnClickListener(this);
 			btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
-			btn_confirm.setOnClickListener(listener);
+			btn_confirm.setOnClickListener(this);
 			
 		}
-		private OnClickListener listener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			switch (arg0.getId()) {
+			case R.id.backButton:
+				this.finish();
+				break;
+			case R.id.btn_confirm:
+				this.finish();
+				break;
 
-			@Override
-			public void onClick(View arg0) {
-				finish();
-
+			default:
+				break;
 			}
-		};
+		}
 
 	}

@@ -17,26 +17,22 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.pos.util.AssetsUtil;
 
-
 public class InstructionsForUseView extends LinearLayout {
 
 	private TextView instructionsText = null;
 
 	public InstructionsForUseView(Context context) {
 		super(context);
-
 		init(context, null);
 	}
 
 	public InstructionsForUseView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
 		TypedArray ta = context.obtainStyledAttributes(attrs,
 				R.styleable.instruction);
 		String instructionId = ta
 				.getString(R.styleable.instruction_instructionId);
 		ta.recycle();
-
 		init(context, instructionId);
 	}
 
@@ -50,9 +46,9 @@ public class InstructionsForUseView extends LinearLayout {
 	}
 
 	public String getInstructionContent(String instructionId) {
-		if (null == instructionId)
+		if (null == instructionId) {
 			return "";
-
+		}
 		try {
 //			InputStream stream = AssetsUtil.getInputStreamFromPhone("instructions.xml");
 			InputStream stream = AssetsUtil.getInputStreamFromAssets("instructions.xml",4);
@@ -66,23 +62,19 @@ public class InstructionsForUseView extends LinearLayout {
 						return parser.getAttributeValue(null, "value").replace(
 								"/n", "\n");
 					}
-
 					break;
 				}
 				eventType = parser.next();// 进入下一个元素并触发相应事件
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 		}
-
 		return "";
 	}
 
 	public TextView getInstructionsText() {
 		return instructionsText;
 	}
-
 }

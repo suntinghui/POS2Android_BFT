@@ -10,6 +10,7 @@ import com.bft.slidingmenu.MenuBaseActivity;
 
 public class SettlementActivity extends BaseActivity {
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;

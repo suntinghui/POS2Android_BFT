@@ -399,8 +399,7 @@ public class AppDataCenter {
 			}
 		} else {
 			try {
-				InputStream stream = AssetsUtil
-						.getInputStreamFromPhone("transfername.xml");
+				InputStream stream = AssetsUtil.getInputStreamFromAssets("transfername.xml",4);
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(stream, "utf-8");
 				int eventType = parser.getEventType();
@@ -442,8 +441,8 @@ public class AppDataCenter {
 
 		} else {
 			try {
-				InputStream stream = AssetsUtil
-						.getInputStreamFromPhone("reversalmap.xml");
+//				InputStream stream = AssetsUtil.getInputStreamFromPhone("reversalmap.xml");
+				InputStream stream = AssetsUtil.getInputStreamFromAssets("reversalmap.xml",4);
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(stream, "utf-8");
 				int eventType = parser.getEventType();

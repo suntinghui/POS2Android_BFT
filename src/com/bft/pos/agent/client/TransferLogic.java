@@ -179,7 +179,7 @@ public class TransferLogic {
 		} else if ("020001".equals(transferCode)) { // 银行卡余额查询
 			this.queryBalanceDone(fieldMap);
 
-		} else if ("086000".equals(transferCode)) { // 签到
+		} else if ("080000".equals(transferCode)) { // 签到
 			this.signDone(fieldMap);
 
 		} else if ("020022".equals(transferCode)) { // 收款
@@ -1597,8 +1597,9 @@ public class TransferLogic {
 
 		FieldModel field = null;
 		try {
-			stream = AssetsUtil.getInputStreamFromPhone(confName);
-		} catch (FileNotFoundException e) {
+//			stream = AssetsUtil.getInputStreamFromPhone(confName);
+			stream = AssetsUtil.getInputStreamFromAssets(confName,2);
+		} catch (IOException e) {
 			throw new FileNotFoundException("加载系统文件异常(" + confName + ")");
 		}
 
@@ -1720,7 +1721,7 @@ public class TransferLogic {
 	private boolean loadSystemConfig() {
 		try {
 			InputStream stream = AssetsUtil
-					.getInputStreamFromPhone("systemconfig.xml");
+					.getInputStreamFromAssets("systemconfig.xml",4);
 			KXmlParser parser = new KXmlParser();
 			parser.setInput(stream, "utf-8");
 			int eventType = parser.getEventType();

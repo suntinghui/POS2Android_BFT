@@ -1,5 +1,7 @@
 package com.bft.pos.activity;
 
+import java.io.IOException;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +14,8 @@ import android.view.WindowManager;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
+import com.bft.pos.dynamic.component.ViewException;
+import com.bft.pos.dynamic.core.Event;
 
 public class SplashActivity extends BaseActivity {
 
@@ -26,7 +30,17 @@ public class SplashActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.splash_activity);
 		super.onCreate(savedInstanceState);
-		new SplashTask().execute();
+		
+		//设置商户号，终端号
+		setVendorTerId("108360759990977", "18000211");
+		
+		/**
+		 * 直接跳转到主菜单
+		 **/
+		Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+		startActivity(intent);
+		
+//		new SplashTask().execute();
 	}
 
 	// 要泽宇：处理点击菜单键出现侧滑菜单的问题
@@ -101,6 +115,20 @@ public class SplashActivity extends BaseActivity {
 						});
 				dialog.create().show();
 			}
+		}
+	}
+	public void setVendorTerId(String vendor, String terid) {
+		Event event = new Event(null, null, null);
+		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s",
+				vendor, terid);
+		event.setFsk(fsk);
+		try {
+			event.trigger();
+		} catch (ViewException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

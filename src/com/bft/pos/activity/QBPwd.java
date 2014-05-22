@@ -64,8 +64,9 @@ public class QBPwd extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 //		返回按钮点击返回主界面
 		case R.id.backButton:
-			Intent intent0 = new Intent(QBPwd.this, CatalogActivity.class);
-			startActivity(intent0);
+			/*Intent intent0 = new Intent(QBPwd.this, CatalogActivity.class);
+			startActivity(intent0);*/
+			this.finish();
 			break;
 //			确认按钮，将加密之后的密码发送给历史界面
 		case R.id.btn_confirm01:

@@ -76,8 +76,8 @@ public class CardPayQueryActivity extends BaseActivity implements
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.btn_back:
-			Intent intent2 = new Intent(this, CatalogActivity.class);
-			startActivity(intent2);
+			/*Intent intent2 = new Intent(this, CatalogActivity.class);
+			startActivity(intent2);*/
 			this.finish();
 			break;
 		case R.id.btn_ok:

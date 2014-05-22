@@ -53,16 +53,14 @@ public class ASBalanceSuccessActivity extends BaseActivity implements
 		switch (arg0.getId()) {
 //		返回按钮回到我的查询页面
 		case R.id.backButton:
-			Intent intent = new Intent(ASBalanceSuccessActivity.this,
-					QueryActivity.class);
-			startActivity(intent);
+			
 			this.finish();
 			break;
 //			确认按钮回到查询页面
 		case R.id.btn_confirm02:
 			this.setResult(RESULT_OK);
 			Intent intent1 = new Intent(ASBalanceSuccessActivity.this,
-					QueryActivity.class);
+					CatalogActivity.class);
 			startActivity(intent1);
 			this.finish();
 			break;

@@ -420,7 +420,7 @@ public final class ParseView {
 	public static void parseTemplateXML(ViewPage viewPage, String xml){
 		InputStream inputStream = null;
     	try{
-    		 inputStream = AssetsUtil.getInputStreamFromPhone("template.xml");
+    		 inputStream = AssetsUtil.getInputStreamFromAssets("template.xml",3);
     		
 			KXmlParser parser = new KXmlParser();  
 			parser.setInput(inputStream,"utf-8");

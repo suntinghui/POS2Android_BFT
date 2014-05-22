@@ -26,9 +26,9 @@ public class AssetsUtil {
 	public static final int Type_Key 			= 5;
 	
 	// 从Assets下读取文件
-	public static InputStream getInputStreamFromAssets(String fileName, int type){
+	public static InputStream getInputStreamFromAssets(String fileName, int type) throws IOException{
 		InputStream inputStream = null;
-		try{
+		
 			StringBuilder sb = new StringBuilder();
 			
 			switch(type){
@@ -56,14 +56,12 @@ public class AssetsUtil {
 			if (!fileName.endsWith(".xml")){
 				sb.append(".xml");
 			}
-			
-			inputStream = ApplicationEnvironment.getInstance().getApplication().getAssets().open(sb.toString());
-			return inputStream;
-			
-		}catch(IOException e){
-			e.printStackTrace();
-		} 
-		
+			try{
+				inputStream = ApplicationEnvironment.getInstance().getApplication().getAssets().open(sb.toString());
+
+			}catch(IOException e){
+				throw new IOException("加载系统文件出错，请重新登录！",e);
+			} 
 		return inputStream;
 	}
 	

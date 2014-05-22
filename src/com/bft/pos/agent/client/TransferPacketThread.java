@@ -46,7 +46,10 @@ import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
 import com.dhcc.pos.core.SocketTransport;
 import com.dhcc.pos.core.TxActionImp;
+import com.dhcc.pos.packets.CnMessage;
+import com.dhcc.pos.packets.CnMessageFactory;
 import com.dhcc.pos.packets.util.ConvertUtil;
+import com.dhcc.pos.parse.Parse;
 import com.itron.android.ftf.Util;
 import com.itron.protol.android.CommandReturn;
 
@@ -352,7 +355,7 @@ public class TransferPacketThread extends Thread {
 			BaseActivity.getTopActivity().showDialog("正在进行冲正，请稍候 ",
 					transferCode);
 
-		} else if (this.transferCode.equals("086000")) {
+		} else if (this.transferCode.equals("080000")) {
 			BaseActivity.getTopActivity().showDialog("正在签到，请稍候 ", transferCode);
 
 		} else if (this.transferCode.equals("089014")) { // 上传签购单，静默
@@ -476,18 +479,29 @@ public class TransferPacketThread extends Thread {
 					if(respByte!=null)
 						parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
-					respByte = new SocketTransport().sendData(sendByte);
-					HashMap<String, Object> respMap = action
-							.afterProcess(respByte);
+					SocketTransport socketTransport = SocketTransport.getInstance();
+					respByte = socketTransport.sendData(sendByte);
+					Parse parse = Parse.getInstance();
+					CnMessageFactory mfact = CnMessageFactory.getInstance();
+					CnMessage m = null;
+					if(respByte.length != 0){
+						m = parse.parse(mfact, respByte, 10, 12);
+						//					
+						mfact.setCnMessage(m);
+						//					
+						Map<String, Object> respMap = socketTransport.afterProcess(mfact);
 
-					receiveFieldMap = new HashMap<String, String>();
-					for (String key : respMap.keySet()) {
-						this.receiveFieldMap
-								.put(key, (String) respMap.get(key));
+						//					HashMap<String, Object> respMap = action
+						//							.afterProcess(respByte);
+
+						receiveFieldMap = new HashMap<String, String>();
+						for (String key : respMap.keySet()) {
+							this.receiveFieldMap
+							.put(key, (String) respMap.get(key));
+						}
+						parse();
 					}
-					parse();
 				}
-
 			}
 			Log.i("hidecount ", "hidecount base before");
 			BaseActivity.getTopActivity().hideDialog(

@@ -44,10 +44,10 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_confirm:
-			// refresh();
-			Intent intent0 = new Intent(SignInActivity.this,
-					SignInFailActivity.class);
-			startActivity(intent0);
+			 refresh();
+			
+//			Intent intent0 = new Intent(SignInActivity.this,SignInFailActivity.class);
+//			startActivity(intent0);
 			break;
 
 		default:
@@ -60,7 +60,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 		try {
 
 			Event event = new Event(null, "sign", null);
-			event.setTransfer("086000");
+			event.setTransfer("080000");
 			String fsk = "Get_PsamNo|null";
 			if (Constant.isAISHUA) {
 				fsk = "getKsn|null";

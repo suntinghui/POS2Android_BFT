@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 签到 -->
+<root shouldMac = "false" isJson = "false">
+	<field key="fieldTrancode" value="080000" />
+	
+	<field key="fieldTransType" value="0800"  />
+	<field key="field11" value="__TRACEAUDITNUM" />
+<!-- 	<field key="field41" value="__TERID"  /> -->
+	<field key="field41" value="18000211"  />
+	<!-- <field key="field42" value="__VENDOR"  /> -->
+	<field key="field42" value="108360759990977"  />
+	<field key="field49" value="156" />
+	<field key="field60" value="00#__BATCHNUM#003"/>
+	<field key="field62" value="00191120130320000489" />
+	<field key="field63" value="001" />
+</root>

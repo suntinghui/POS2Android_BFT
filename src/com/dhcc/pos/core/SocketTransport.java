@@ -68,22 +68,24 @@ public class SocketTransport {
 	}
 	public SocketTransport() {
 		this.host = "114.80.227.152";
+//		this.host = "www.payfortune.com";
 		this.port = 2003; 
 //		this.host = "61.132.75.110";//优乐通
 //		this.port = 9999; 
 		
-		this.timeout = 60000;
+		this.timeout = 45000;
 		this.headlength = 12;
 		
 		this.TPDUlength = 10;
 		
 	}
 
-	public SocketTransport(String host, int port, int timeout, int headlength) {
+	public SocketTransport(String host, int port, int timeout, int headlength,int TPDUlength) {
 		this.host = host;
 		this.port = port;
 		this.timeout = timeout;
 		this.headlength = headlength;
+		this.TPDUlength = TPDUlength;
 	}
 
 	public static byte[] getBytes(InputStream is) throws IOException {
@@ -176,6 +178,7 @@ public class SocketTransport {
 	}
 	
 	
+	
 	public byte[] sendData(byte reqMsg[]){
 		System.out.println("####################【sendData】####################" + "\r");
 
@@ -203,23 +206,45 @@ public class SocketTransport {
 		try {
 			// 获取一个连接到socket服务的套接字
 			socket = new Socket(host, port);
+			
 			/* 设置超时时间 */
 			socket.setSoTimeout(timeout);
 			is = socket.getInputStream();
+			
+			try {
+//				int count = respHeaderLenght.length;
+//				int readCount = 0; // 已经成功读取的字节的个数
+//				while (readCount < count) {
+//					readCount += is.read(respHeaderLenght, readCount, count - readCount);
+//				}
+//				inputStream2Bytes(is);
+				  is.read(respHeaderLenght);
+
+				  System.out.print("respHeaderLenght:" + ConvertUtil.trace(respHeaderLenght));
+			} catch (IOException e) {
+				Log.e("读取流异常",e.toString());
+				throw new IOException("读取响应报文异常",e);
+			}
+		if(is==null){
+			System.out.print("is null");
+		}
 			out = socket.getOutputStream();
 			out.write(reqMsg);
+			//清除out数据
 			out.flush();
 
 			respMsg = revData(respHeaderLenght, is);
 //			Log.i("接收到的交易平台报文时间:\t【"+ DateUtil.formatYearDateTime(new Date()) + "】");
 			System.out.println("接收到的交易平台报文16进制:\r" + ConvertUtil.trace(respMsg));
 		} catch (ConnectException e) {
-//			log.error("无法连接到地址",e);
-//			throw new CommunicationException("网络问题请重试");
+			System.out.print("无法连接到地址:"+e);
+//			throw new ConnectException("网络问题请重试");
 		} catch (SocketException e) {
+			System.out.print("socket协议有误:"+e);
 //			log.error("socket协议有误",e);
 //			throw new CommunicationException("网络问题请重试");
 		} catch (IOException e) {
+			System.out.print("发生IO异常:"+e);
 //			log.error("发生IO异常",e);
 //			throw new CommunicationException("网络问题请重试");
 		} finally {
@@ -241,7 +266,9 @@ public class SocketTransport {
 			}
 			if (socket != null) {
 				try {
-					socket.close();
+					socket.shutdownInput();
+					socket.shutdownOutput();
+//					socket.close();
 				} catch (IOException e) {
 					Log.e("关闭流发生IO异常",e.getMessage());
 //					throw new CommunicationException("网络问题请重试");
@@ -250,26 +277,70 @@ public class SocketTransport {
 		}
 		return respMsg;
 	}
+	public byte[] inputStream2Bytes(InputStream is) throws IOException{
+		byte[] b = null;
+		try {
+			int count = 0;
+			while (count == 0) {
+				count = is.available();
+			}
+			b = new byte[count];
+			
+			is.read(b);
+			
+			
+			System.out.println(ConvertUtil.trace(b));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IOException("读取流异常", e);
+		}
 
+
+
+		//或
+		//			int readCount = 0; // 已经成功读取的字节的个数
+		//			while (readCount < count) {
+		//				readCount += is.read(respHeaderLenght, readCount, count - readCount);
+		//				
+		//			}
+
+
+		return b;
+
+	}
+	
+	
+	
 	/**
 	 * @param respHeaderLenght
 	 * @param is
 	 * @return
+	 * @throws IOException 
 	 */
-	public byte[] revData(byte[] respHeaderLenght, InputStream is) {
+	public byte[] revData(byte[] respHeaderLenght, InputStream is) throws IOException {
+	
 		try {
-			is.read(respHeaderLenght);
-//			resp_byte = getBytes(is);
+//			int count = respHeaderLenght.length;
+//			int readCount = 0; // 已经成功读取的字节的个数
+//			while (readCount < count) {
+//				readCount += is.read(respHeaderLenght, readCount, count - readCount);
+//			}
+//			inputStream2Bytes(is);
+			  is.read(respHeaderLenght);
+			  //====
+
+			  //			resp_byte = getBytes(is);
 //			System.arraycopy(resp_byte, 0, respHeaderLenght, 0, 2);
 		} catch (IOException e) {
 			Log.e("读取流异常",e.toString());
-//			throw new CommunicationException("网络问题请重试");
+			throw new IOException("读取响应报文异常",e);
 		}
 		int size = ((respHeaderLenght[0] & 0xff) << 8)
 				| (respHeaderLenght[1] & 0xff);
+		
 
 		respMsg = new byte[size];
-		
 		
 		long k = 0;
 		char c;

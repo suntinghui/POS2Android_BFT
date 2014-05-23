@@ -81,7 +81,7 @@ public class TransferDetailActivity extends BaseActivity implements
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.backButton:
-			TransferDetailActivity.this.finish();
+			this.finish();
 			break;
 		case R.id.okButton:
 			this.finish();

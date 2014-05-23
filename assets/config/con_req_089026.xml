@@ -8,9 +8,6 @@
         key="fieldTrancode"
         value="089026" />
 
-    <field
-        key="psamNo"
-        value="__psamNo" />
 
     <field
         key="login"

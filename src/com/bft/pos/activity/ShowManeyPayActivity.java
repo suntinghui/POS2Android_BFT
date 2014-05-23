@@ -28,6 +28,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 	private PasswordWithIconView et_pwd_pay;
 	private TextView tv_money;
 	private String money = null;
+	String num = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 		money = bundle.getString("et_money");
 		tv_money = (TextView) findViewById(R.id.tv_money);
 		tv_money.setText("￥" + money);
-		// ShowManeyPayActivity.lpad(12, money);
+		num = ShowManeyPayActivity.lpad(12, money);
 		btn_back = (Button) findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		et_pwd_pay = (PasswordWithIconView) findViewById(R.id.et_pwd_pay);
@@ -62,8 +63,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			startActivity(intent);
 			break;
 		case R.id.btn_confirm01:
-			System.out.println(ShowManeyPayActivity.lpad(12, money)
-					+ "!!!!!~~~~~~~~~~~~~~~~~~~");
+			System.out.println(num + "!!!!!~~~~~~~~~~~~~~~~~~~");
 			try {
 				Event event = new Event(null, "draw-cash", null);
 				event.setTransfer("089025");
@@ -88,8 +88,27 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_sms:
+			System.out.println(num + "!!!!!~~~~~~~~~~~~~~~~~~~");
 			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
+			// SimpleDateFormat sDateFormat = new SimpleDateFormat(
+			// "yyyy-MM-dd hh:mm:ss");
+			// String date = sDateFormat.format(new java.util.Date());
+			// try {
+			// Event event = new Event(null, "getSms", null);
+			// event.setTransfer("089006");
+			// HashMap<String, String> map = new HashMap<String, String>();
+			// map.put("mobNo", ApplicationEnvironment.getInstance()
+			// .getPreferences().getString(Constant.PHONENUM, ""));
+			// // map.put("mobNo", Constant.MOBILENO);
+			// map.put("sendTime", date);
+			// map.put("money", num);
+			// map.put("type", "6");
+			// event.setStaticActivityDataMap(map);
+			// event.trigger();
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// }
 			break;
 		default:
 			break;
@@ -112,6 +131,7 @@ public class ShowManeyPayActivity extends BaseActivity implements
 					.getPreferences().getString(Constant.PHONENUM, ""));
 			// map.put("mobNo", Constant.MOBILENO);
 			map.put("sendTime", date);
+			map.put("money", num);
 			map.put("type", "6");
 			event.setStaticActivityDataMap(map);
 			event.trigger();

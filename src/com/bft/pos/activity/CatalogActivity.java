@@ -55,10 +55,8 @@ public class CatalogActivity extends BaseActivity {
 		gridView = (GridView) findViewById(R.id.gridveiw);
 		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		gridView.setOnItemClickListener(onclickcistener);
-
 		adapter = new CatalogAdapter(this);
 		gridView.setAdapter(adapter);
-
 	}
 
 	@Override
@@ -69,7 +67,6 @@ public class CatalogActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
 	}
 
 	// 点击事件
@@ -125,7 +122,7 @@ public class CatalogActivity extends BaseActivity {
 			}
 		}
 	};
-	
+
 	// 程序退出 点击两次后退键
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -140,15 +137,14 @@ public class CatalogActivity extends BaseActivity {
 				for (BaseActivity activity : list) {
 					activity.finish();
 				}
-
 				System.exit(0);
 			}
 			return true;
 		}
-		 switch (keyCode) {
-         case KeyEvent.KEYCODE_MENU:
-             return true;
-     }
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MENU:
+			return true;
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -180,7 +176,6 @@ public class CatalogActivity extends BaseActivity {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			CatalogHolder holder = null;
-
 			if (null == convertView) {
 				convertView = this.mInflater.inflate(R.layout.catalog_item,
 						null);
@@ -190,15 +185,12 @@ public class CatalogActivity extends BaseActivity {
 						.findViewById(R.id.catalogCellImage);
 				holder.catalogTitleText = (TextView) convertView
 						.findViewById(R.id.catalogTitleText);
-
 				convertView.setTag(holder);
 			} else {
 				holder = (CatalogHolder) convertView.getTag();
 			}
-
 			holder.CatalogCellImage.setImageResource(imageIds[position]);
 			holder.catalogTitleText.setText(titles[position]);
-
 			return convertView;
 		}
 	}

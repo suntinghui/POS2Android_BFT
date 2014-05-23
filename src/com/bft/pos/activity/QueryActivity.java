@@ -35,8 +35,7 @@ public class QueryActivity extends BaseActivity {
 	 */
 	private Integer[] imageIds = { R.drawable.query_left_0,
 			R.drawable.query_left_0, R.drawable.query_left_0,
-			R.drawable.query_left_1, R.drawable.query_left_3,
-			R.drawable.query_left_0 };// 新加入的图片
+			R.drawable.query_left_1, R.drawable.query_left_3 };// 新加入的图片
 	// private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询",
 	// "流量统计","账户交易查询" };
 	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询",
@@ -58,7 +57,6 @@ public class QueryActivity extends BaseActivity {
 		adapter = new ManagerAdapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {

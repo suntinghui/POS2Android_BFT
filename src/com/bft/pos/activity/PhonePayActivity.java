@@ -36,10 +36,8 @@ public class PhonePayActivity extends Activity {
 		// R.layout.activity_phonepay);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_phonepay);
-		// getWindow().setSoftInputMode(
-		// WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		// getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		// tv = (TextView) findViewById(R.id.tv1);
-		//
 		spinner = (Spinner) findViewById(R.id.spinner0);
 		String[] items = getResources().getStringArray(R.array.phonepay);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

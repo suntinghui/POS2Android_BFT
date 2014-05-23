@@ -24,8 +24,8 @@ import com.bft.pos.agent.client.TransferLogic;
 import com.bft.pos.util.DateUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
-import com.dhcc.pos.packets.cnType;
-import com.dhcc.pos.packets.cnValue;
+import com.dhcc.pos.packets.CnType;
+import com.dhcc.pos.packets.CnValue;
 
 
 public class ReceiptActivity extends BaseActivity implements OnClickListener {

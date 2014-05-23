@@ -1,6 +1,5 @@
 package com.bft.pos.agent.client;
 
-import java.io.File;
 import java.util.Map;
 
 public class Constant {

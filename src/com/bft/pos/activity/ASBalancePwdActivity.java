@@ -69,10 +69,11 @@ public class ASBalancePwdActivity extends BaseActivity implements
 		switch (v.getId()) {
 		// 返回按钮要返回我要查询界面
 		case R.id.backButton:
-			System.out.println("返回按钮");
+			/*System.out.println("返回按钮");
 			Intent intent0 = new Intent(ASBalancePwdActivity.this,
 					QueryActivity.class);
-			startActivity(intent0);
+			startActivity(intent0);*/
+			this.finish();
 			break;
 		// 确认按钮向客户端发送获余额请求
 		case R.id.btn_confirm01:

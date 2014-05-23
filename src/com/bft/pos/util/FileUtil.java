@@ -93,12 +93,13 @@ public class FileUtil {
 			path += ".xml";
 		File file = new File(path);
 		FileInputStream fileIS = null;
-		try {
-			fileIS = new FileInputStream(file);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-//			throw new FileNotFoundException("文件未找到！");
-		}
+			try {
+				fileIS = new FileInputStream(file);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+//				throw new FileNotFoundException("文件未找到！",e1);
+			}
 		StringBuffer sb=new StringBuffer();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(fileIS));
 		String readString = new String();

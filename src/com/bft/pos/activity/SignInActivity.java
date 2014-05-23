@@ -18,7 +18,8 @@ import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 
 public class SignInActivity extends BaseActivity implements OnClickListener {
-	private Button btn_sign;
+	private Button btn_sign,btn_back;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 
 		this.initTitlebar("签	到");
 
+		btn_back=(Button) this.findViewById(R.id.backButton);
+		btn_back.setOnClickListener(this);
+		
 		btn_sign = (Button) this.findViewById(R.id.btn_confirm);
 		btn_sign.setOnClickListener(this);
 	}
@@ -36,14 +40,14 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
-		case R.id.btn_back:
-			this.finish();
+		case R.id.backButton:
+			finish();
 			break;
 		case R.id.btn_confirm:
-			// refresh();
-			Intent intent0 = new Intent(SignInActivity.this,
-					SignInFailActivity.class);
-			startActivity(intent0);
+			 refresh();
+			
+//			Intent intent0 = new Intent(SignInActivity.this,SignInFailActivity.class);
+//			startActivity(intent0);
 			break;
 
 		default:
@@ -51,20 +55,12 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	/*
-	 * private OnClickListener listener = new OnClickListener() {
-	 * 
-	 * @Override public void onClick(View arg0) { Intent intent0 = new
-	 * Intent(SignInActivity.this, SignInFailActivity.class);
-	 * startActivity(intent0);
-	 * 
-	 * } };
-	 */
+
 	private void refresh() {
 		try {
 
 			Event event = new Event(null, "sign", null);
-			event.setTransfer("086000");
+			event.setTransfer("080000");
 			String fsk = "Get_PsamNo|null";
 			if (Constant.isAISHUA) {
 				fsk = "getKsn|null";

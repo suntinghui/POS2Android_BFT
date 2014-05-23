@@ -50,8 +50,8 @@ public class InstructionsForUseView extends LinearLayout {
 			return "";
 		}
 		try {
-			InputStream stream = AssetsUtil
-					.getInputStreamFromPhone("instructions.xml");
+//			InputStream stream = AssetsUtil.getInputStreamFromPhone("instructions.xml");
+			InputStream stream = AssetsUtil.getInputStreamFromAssets("instructions.xml",4);
 			KXmlParser parser = new KXmlParser();
 			parser.setInput(stream, "utf-8");
 			int eventType = parser.getEventType();

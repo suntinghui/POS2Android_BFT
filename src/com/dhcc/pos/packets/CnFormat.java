@@ -1,65 +1,65 @@
 package com.dhcc.pos.packets;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  * 字段存储类型
- * 
- * @author maple
- * 
+ * @author Maple Leaves
+ *
  */
-public enum cnType {
-	// 数字长度不足左补0 BCD码压缩
-	NUMERIC(true, 0),
-	// 字符或数字长度不足右补空格
-	ALPHA(true, 0),
-	// 字符或数字长度不足左补0
-	_ALPHA(true, 0),
-	// 字符或数字长度不足右补0
-	ALPHA_(true, 0),
+public enum CnFormat
+{
+	//数字 BCD码压缩
+	NUMERIC(true, 0), 
+	//字符或数字长度不足右补空格
+	ALPHA(true, 0), 
+	//任意字符和符号 LL 最大99个长度值 可变长域的长度值(二位数)
+	LLVAR(true, 0), 
+	//任意字符和符号 LLL 最大999个长度值 可变长域的长度值(三位数)
+	LLLVAR(true, 0), 
 
-	// LL 可变长域的长度值(二位数)
-	LLVAR(false, 0),
-	// 可变长域的长度值(三位数)
-	LLLVAR(false, 0),
-	// LL 可变长域的内容值(二位数) 当为此值时值为BCD码压缩
-	LLNVAR(false, 0),
-	// 可变长域的内容值(三位数) 当为此值时值为BCD码压缩
-	LLLNVAR(false, 0),
-
-	// MMddHHmmss
-	DATE10(false, 10),
-	// MMdd
-	DATE4(false, 4),
-	// yyMM
-	DATE_EXP(false, 4),
-	// HHmmss
-	TIME(false, 6),
-	// 金额
+	//MMddHHmmss
+	DATE10(false, 10), 
+	//MMdd
+	DATE4(false, 4), 
+	//yyMM
+	DATE_EXP(false, 4), 
+	//HHmmss
+	TIME(false, 6), 
+	//金额
 	AMOUNT(false, 12);
-	// 长度是否必须
+
+	//长度是否必须
 	private boolean needsLen;
-	// 长度
+	//长度
 	private int length;
 
-	private cnType(boolean flag, int len) {
+
+	/**
+	 * @param needsLen  是否必输长度 ；
+	 * 					是：true
+	 * 					不是：false
+	 * @param length	该字段长度
+	 */
+	private CnFormat(boolean flag, int len) {
 		this.needsLen = flag;
 		this.length = len;
 	}
 
-	public boolean needsLength() {
+	public boolean needsLength()
+	{
 		return this.needsLen;
 	}
 
-	public int getLength() {
+	public int getLength()
+	{
 		return this.length;
 	}
 
-	// 日期格式化
-	public String format(Date value) {
+	//日期格式化
+	public String formatDate(Date value)
+	{
 		if (this == DATE10)
 			return new SimpleDateFormat("MMddHHmmss").format(value);
 		if (this == DATE4)
@@ -71,12 +71,14 @@ public enum cnType {
 		}
 		throw new IllegalArgumentException("Cannot format date as " + this);
 	}
+	/////////////////////////////////////////
 
-	/**
-	 * Formats the string to the given length (length is only useful if type is
-	 * ALPHA).
-	 */
-	// 格式化数值
+	public byte[] format(byte[] value,int length){
+		return value;
+	}
+
+	/** Formats the string to the given length (length is only useful if type is ALPHA). */
+	//格式化数值
 	public String format(String value, int length) {
 		if (this == ALPHA) {
 			if (value == null) {
@@ -85,7 +87,7 @@ public enum cnType {
 			if (value.length() > length) {
 				return value.substring(0, length);
 			}
-			// 长度不足右补空格
+			//长度不足右补空格
 			char[] c = new char[length];
 			System.arraycopy(value.toCharArray(), 0, c, 0, value.length());
 			for (int i = value.length(); i < c.length; i++) {
@@ -101,13 +103,12 @@ public enum cnType {
 			if (x.length > length) {
 				throw new IllegalArgumentException("Numeric value is larger than intended length: " + value + " LEN " + length);
 			}
-			// 数字长度不足左补0
+			//数字长度不足左补0
 			int lim = c.length - x.length;
 			for (int i = 0; i < lim; i++) {
 				c[i] = '0';
 			}
-			// arraycopy(Object src, int srcPos,Object dest, int destPos,int
-			// length)
+			// arraycopy(Object src, int srcPos,Object dest, int destPos,int length)
 			System.arraycopy(x, 0, c, lim, x.length);
 			return new String(c);
 		}
@@ -122,7 +123,7 @@ public enum cnType {
 			if (x.length > length) {
 				throw new IllegalArgumentException("Numeric value is larger than intended length: " + value + " LEN " + length);
 			}
-			// 数字长度不足左补0
+			//数字长度不足左补0
 			int lim = c.length - x.length;
 			for (int i = 0; i < lim; i++) {
 				c[i] = '0';
@@ -134,11 +135,11 @@ public enum cnType {
 		} else if (this == AMOUNT) {
 			String v = Long.toString(value);
 			char[] digits = new char[12];
-			// 金额长度不足左补0
+			//金额长度不足左补0
 			for (int i = 0; i < 12; i++) {
 				digits[i] = '0';
 			}
-			// No hay decimales asi que dejamos los dos ultimos digitos como 0
+			//No hay decimales asi que dejamos los dos ultimos digitos como 0
 			System.arraycopy(v.toCharArray(), 0, digits, 10 - v.length(), v.length());
 			return new String(digits);
 		}
@@ -146,10 +147,9 @@ public enum cnType {
 	}
 
 	/** Formats the BigDecimal as an AMOUNT, NUMERIC, or a String. */
-	// public String format(BigDecimal value, int length) {
-	public String format(BigDecimal value, int length) {
+	public  String format(BigDecimal value, int length) {
 		if (this == AMOUNT) {
-			// 金额格式化
+			//金额格式化
 			String v = new DecimalFormat("0000000000.00").format(value);
 			return v.substring(0, 10) + v.substring(11);
 		} else if (this == NUMERIC) {
@@ -160,4 +160,9 @@ public enum cnType {
 		throw new IllegalArgumentException("Cannot format BigDecimal as " + this);
 	}
 
+	public static void main(String[] args) {
+		double i = 22222222222.1;
+		String v = new DecimalFormat("0000000000.00").format(i);
+		System.out.println( v.substring(0, 10) + v.substring(11) );
+	}
 }

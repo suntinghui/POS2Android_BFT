@@ -16,6 +16,8 @@ import com.dhcc.pos.packets.util.ConvertUtil;
  * iso 8583 消息信息 报文总长度（2-4字节）+报头信息+报文类型+位图（8（64位图）或16（128位图））+各字段域+结束符
  */
 public class CnMessage {
+	private static CnMessage instance = null;
+	
 	public String bitMap = null;
 
 	/** 消息类型 */
@@ -25,7 +27,7 @@ public class CnMessage {
 	private boolean isbinary;
 
 	/** bit map 位图 */
-	private Map<Integer, cnValue<?>> fields = new ConcurrentHashMap<Integer, cnValue<?>>();
+	public Map<Integer, CnValue<?>> fields = new ConcurrentHashMap<Integer, CnValue<?>>();
 
 	/**
 	 * 报头信息
@@ -40,33 +42,39 @@ public class CnMessage {
 	public CnMessage() {
 
 	}
+	public static synchronized CnMessage getInstance(){
+		if(instance == null){
+			instance = new CnMessage();
+		}
+		return instance;
+	}
 
 	/**
 	 * 创建 一个指定类型的8583消息
 	 * 
 	 * @param msgtypeid
 	 *            消息类型
-	 * @param msgTPDUlength
-	 *            ,msgHeaderlength
+	 * @param msgTPDUlength ,msgHeaderlength
 	 */
-	public CnMessage(String msgtypeid, int msgTPDUlength, int msgHeaderlength) {
+	public CnMessage(String msgtypeid,int msgTPDUlength, int msgHeaderlength) {
 		this.msgtypeid = msgtypeid;
-
-		/* 赋给msgHeader的容量 */
+		
+		/*赋给msgHeader的容量*/
 		msgHeader = new byte[msgHeaderlength];
-
-		/* 赋给msgTPDU的容量 */
+		
+		/*赋给msgTPDU的容量*/
 		msgTPDU = new byte[msgTPDUlength];
 	}
 
-	/** 获取报头信息 */
-	public byte[] getmsgHeader() {
-		return msgHeader;
+	
+	/** 设置消息类型. 应该为4字节字符串 */
+	public void setMsgTypeID(String msgtypeid) {
+		this.msgtypeid = msgtypeid;
 	}
 
-	/** 获取TPDU信息 */
-	public byte[] getmsgTPDU() {
-		return msgTPDU;
+	/**  获取消息类型. */
+	public String getMsgTypeID() {
+		return msgtypeid;
 	}
 
 	/**
@@ -97,62 +105,88 @@ public class CnMessage {
 		}
 		return true;
 	}
-
-	/** 设置消息类型. 应该为4字节字符串 */
-	public void setMsgTypeID(String msgtypeid) {
-		this.msgtypeid = msgtypeid;
+	
+	/** 获取报头信息 */
+	public byte[] getmsgHeader() {
+		return msgHeader;
 	}
 
-	/** 获取消息类型. */
-	public String getMsgTypeID() {
-		return msgtypeid;
+	/** 获取TPDU信息 */
+	public byte[] getmsgTPDU() {
+		return msgTPDU;
+	}
+	
+	/**
+	 * 从报文头中取得数据
+	 * 
+	 * @param startindex
+	 *            起始字节位置（0为第一个位置，应小于报文头的总长度）
+	 * @param count
+	 *            需要取得的字节数（正整数） 如遇到报文尾，则取得实际能取道的最大字节数
+	 * @return 取得的数据（如未取得则返回null）
+	 */
+	public byte[] getMessageHeaderData(int startindex, int count) {
+		if (startindex >= msgHeader.length) {
+			return null;
+		}
+		byte[] b = null;
+		if (msgHeader.length - startindex < count)
+			b = new byte[msgHeader.length - startindex];
+		else
+			b = new byte[count];
+		for (int i = 0; i < b.length; i++) {
+			b[i] = msgHeader[startindex + i];
+		}
+		return b;
 	}
 
 	/**
-	 * 设置各报文域是否按照料二进制组成报文, 默认false 如果设置为true,
-	 * 报文中的各报文域按照二进制组成报文。(报文头、报文类型标示和位图不受影响)
+	 * 设置各报文域是否按照料二进制组成报文,  默认false
+	 * 如果设置为true, 报文中的各报文域按照二进制组成报文。(报文头、报文类型标示和位图不受影响)
 	 */
 	public void setBinary(boolean flag) {
 		isbinary = flag;
 	}
 
 	/**
-	 * 返回字段域数值（ 应该在2-128范围，1字段域用来存放位图）
 	 * 
-	 * @param fieldid
-	 *            字段域id
-	 * @return
+	 * 报文中的各报文域按照二进制组成报文。(报文头、报文类型标示和位图不受影响)
 	 */
-	public Object getObjectValue(int fieldid) {
-		cnValue<?> v = fields.get(fieldid);
-		if (v == null) {
-			return null;
-		}
-		return v.getValue();
+	public boolean isBinary() {
+		return isbinary;
 	}
 
 	/**
 	 * 返回字段域数值（ 应该在2-128范围，1字段域用来存放位图）
-	 * 
-	 * @param fieldid
-	 *            字段域id
+	 * @param fieldid 字段域id 
 	 * @return
 	 */
-	public cnValue<?> getField(int fieldid) {
+	public Object getObjectValue(int fieldid) {
+		CnValue<?> cnValue = fields.get(fieldid);
+		if (cnValue == null) {
+			return null;
+		}
+		return cnValue.getValue();
+	}
+
+	/**
+	 * 返回字段域数值（ 应该在2-128范围，1字段域用来存放位图）
+	 * @param fieldid 字段域id 
+	 * @return
+	 */
+	public CnValue<?> getField(int fieldid) {
 		return fields.get(fieldid);
 	}
 
 	/**
 	 * 设置字段域，由于字段域1被 用来存放位图，设置字段域应从2开始
-	 * 
-	 * @param fieldid
-	 *            字段域id
-	 * @param field
-	 *            字段数值
+	 * @param fieldid 字段域id 
+	 * @param field 字段数值
 	 */
-	public void setField(int fieldid, cnValue<?> field) {
+	public void setField(int fieldid, CnValue<?> field) {
 		if (fieldid < 2 || fieldid > 128) {
-			throw new IndexOutOfBoundsException("Field index must be between 2 and 128");
+			throw new IndexOutOfBoundsException(
+					"Field index must be between 2 and 128");
 		}
 		if (field == null) {
 			fields.remove(fieldid);
@@ -163,36 +197,33 @@ public class CnMessage {
 
 	/**
 	 * 设置字段域，由于字段域1被 用来存放位图，设置字段域应从2开始
-	 * 
-	 * @param fieldid
-	 *            字段域id
-	 * @param value
-	 *            数值
-	 * @param t
-	 *            类型
-	 * @param length
-	 *            长度
+	 * 以fieldid做key ；cnValue（cnFormat, type,value、length）做value存入位图map（Map<Integer, cnValue<?>> fields）中
+	 * @param fieldid 字段域id 
+	 * @param value  数值
+	 * @param t  类型
+	 * @param length 长度
 	 */
-	public void setValue(int fieldid, Object value, cnType type, int length) {
+	public void setValue(int fieldid, CnFormat cnFormat, CnType cnType, Object value, int length, boolean must, boolean addLen, String align) {
+		CnValue<?> cnValue = null;
+		
 		if (fieldid < 2 || fieldid > 128) {
-			throw new IndexOutOfBoundsException("Field index must be between 2 and 128");
+			throw new IndexOutOfBoundsException(
+					"Field index must be between 2 and 128");
 		}
 		if (value == null) {
 			fields.remove(fieldid);
 		} else {
-			cnValue<?> v = null;
-			if (type.needsLength() | type == cnType.LLNVAR | type == cnType.LLLNVAR) {
-				v = new cnValue<Object>(type, value, length);
-			} else {
-				v = new cnValue<Object>(type, value);
-			}
-			fields.put(fieldid, v);
+//			if (cnFormat.needsLength()) {
+				cnValue = new CnValue<Object>(cnFormat,cnType, value, length, must, addLen, align);
+//			} else {
+//				cnValue = new cnValue<Object>(cnFormat, cnType, value);
+//			}
+			fields.put(fieldid, cnValue);
 		}
 	}
 
 	/**
 	 * 是否存在该字段
-	 * 
 	 * @param fieldid
 	 * @return
 	 */
@@ -201,93 +232,40 @@ public class CnMessage {
 	}
 
 	/**
+	 * 根据当前的报文内容，估计最终报文的的长度（单位为字节）
 	 * 
-	 * 返回报文内容 ,不包含前报文总长度及结束符
-	 * 
-	 * @return位图[8字节]+ 11域【3字节BCD码】+其余所有域值（个别域值前加上BCD码压缩的2个字节的长度值_左补0）
+	 * @return 估算出来的报文字节个数（含报文头、报文类型标示、位图和各个有效的报文域）
 	 */
-	public byte[] writeInternal() {
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+	public int estimatetotalmsglength() {
+		int totalmsglen = 0;
+		// 报文头长度
+		if (msgHeader != null) 
+			totalmsglen += msgHeader.length;
+		
+		//报文类型标示长度
+		if (msgtypeid != null) // 报文类型标示
+			totalmsglen += msgtypeid.length();
 
-		// Bitmap
+		// 位图
 		ArrayList<Integer> keys = new ArrayList<Integer>();
 		keys.addAll(fields.keySet());
 		Collections.sort(keys);
-		BitSet bs = new BitSet(64);
+		if (keys.get(keys.size() - 1) <= 64) // 如果最大的一个域ID小于等于64
+			totalmsglen += 8;
+		else
+			totalmsglen += 16;
 
-		for (Integer i : keys) { // BitSet可以自动扩展大小
-			bs.set(i - 1, true);
-		}
-		// Extend to 128 if needed
-		if (bs.length() > 64) {
-			BitSet b2 = new BitSet(128);
-			b2.or(bs); // 得到位图(根据域的个数，可能自动扩展)
-			bs = b2;
-			/* 当bs长度大于64时 设定第一位为true */
-			bs.set(0, true);
-		}
-		// Write bitmap into stream
-		int pos = 128; // 用来做位运算： -- 1000 0000（初值最高位为1，然后右移一位，等等）
-		int b = 0; // 用来做位运算：初值二进制位全0
-		for (int i = 0; i < bs.size(); i++) {
-			if (bs.get(i)) {
-				b |= pos;
-			}
-			pos >>= 1;
-
-			if (pos == 0) { // 到一个字节时（8位），就写入
-				bout.write(b);
-				pos = 128;
-				b = 0;
-			}
-
-		}
-		System.out.println("位图长度:\t" + bout.toByteArray().length + "\r十六进制位图：\r" + ConvertUtil.trace(bout.toByteArray()));
-
-		bitMap = ConvertUtil.bytesToHexString(bout.toByteArray());
-
-		System.out.println("bitMap[" + bitMap + "]");
-
-		/**
-		 * Fields 紧跟着位图后面 位图所有域的值
-		 * */
+		// 报文域
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		for (Integer i : keys) {
-			cnValue v = fields.get(i);
-			/** 当i不等于该域时 证明该域不需要加长度值 */
-			if (i != 52) {
-				if (v.getType() == cnType.LLVAR | v.getType() == cnType.LLNVAR) {
-					int length = v.getValue().toString().length();
-
-					byte[] byteFieldLLVAR = ConvertUtil.str2Bcd_(String.format("%02d", length));
-
-					try {
-						bout.write(byteFieldLLVAR);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				} else if (v.getType() == cnType.LLLVAR | v.getType() == cnType.LLLNVAR) {
-					int length = v.getValue().toString().length();
-
-					byte[] byteFieldLLLVAR = ConvertUtil.str2Bcd_(String.format("%04d", length));
-
-					try {
-						bout.write(byteFieldLLLVAR);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
+			CnValue<?> cnValue = fields.get(i);
 			try {
-				v.write(bout, isbinary, i);
+				cnValue.write(bout,i);
 			} catch (IOException ex) {
 				// should never happen, writing to a ByteArrayOutputStream
 			}
 		}
-		return bout.toByteArray();
+		totalmsglen += bout.toByteArray().length;
+		return totalmsglen;
 	}
-
 }

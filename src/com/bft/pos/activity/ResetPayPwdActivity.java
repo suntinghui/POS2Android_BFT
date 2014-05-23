@@ -62,8 +62,8 @@ public class ResetPayPwdActivity extends BaseActivity implements
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证号");
 		// 银行卡号
-		//et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
-		//et_bank_card.setIcon(R.drawable.icon_bankcard);
+		et_bank_card = (TextWithIconView) this.findViewById(R.id.et_bank_card);
+		et_bank_card.setIcon(R.drawable.icon_bankcard);
 		et_bank_card.setHintString("银行卡号");
 	}
 
@@ -153,10 +153,10 @@ public class ResetPayPwdActivity extends BaseActivity implements
 			PopupMessageUtil.showMSG_middle2("密码不能为空！");
 			return false;
 		}
-		// if (et_bank_card.getText().length() == 0) {
-		// this.showToast("银行卡不能为空！");
-		// return false;
-		// }
+		if (et_bank_card.getText().length() == 0) {
+			PopupMessageUtil.showMSG_middle2("银行卡不能为空！");
+			return false;
+		}
 		return true;
 	}
 }

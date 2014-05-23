@@ -309,7 +309,9 @@ public class LoginActivity extends BaseActivity {
 		/**
 		 * 直接跳转到主菜单
 		 **/
-
+//		Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
+//		startActivity(intent);
+		
 		Editor editor = ApplicationEnvironment.getInstance().getPreferences()
 				.edit();
 		editor.putBoolean(Constant.kISREMEBER, isRemember);

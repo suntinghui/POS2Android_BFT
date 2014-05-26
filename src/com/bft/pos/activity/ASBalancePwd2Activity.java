@@ -42,7 +42,7 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 		
 		Intent intent = this.getIntent();
 		HashMap<String, String> map = (HashMap<String, String>) intent.getSerializableExtra("map");
-		//field4 = map.get("amount");
+		field4 = map.get("amount");
 
 	}
 
@@ -64,10 +64,10 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 			break;
 		case R.id.btn_confirm:
 			if (checkValue()) {
-				Intent intent = new Intent(ASBalancePwd2Activity.this, ReceiptSuccessActivity.class);
+				/*Intent intent = new Intent(ASBalancePwd2Activity.this, ReceiptSuccessActivity.class);
 				intent.putExtra("TYPE", 2);
-			ASBalancePwd2Activity.this.startActivityForResult(intent, 0);
-			/*	
+			ASBalancePwd2Activity.this.startActivityForResult(intent, 0);*/
+				
 				try {
 
 					Event event = new Event(null, "xiaofei", null);
@@ -103,7 +103,7 @@ public class ASBalancePwd2Activity extends BaseActivity implements OnClickListen
 
 				} catch (Exception e) {
 					e.printStackTrace();
-				}*/
+				}
 			}
 
 			break;

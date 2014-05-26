@@ -123,7 +123,7 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 			} else if(Float.valueOf(inputString) > 20000){
 				this.showDialog(BaseActivity.NONMODAL_DIALOG, "最大限额20000");
 			}else {
-				//pressSubmitButton();
+//				pressSubmitButton();
 				Intent intent = new Intent(InputMoneyActivity.this,
 						ReceiptSuccessActivity.class);
 				startActivity(intent);

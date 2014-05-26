@@ -595,7 +595,25 @@ public class TransferLogic {
 		String macKey = null;
 		String stackKey = null;
 
-		try {
+		//由于前一个字节（两个长度）是秘钥索引
+		newKey = newKey.substring(2);
+		try{
+			if (null != newKey && !"".equals(newKey)){
+				
+				// 标准
+				pinKey = newKey.substring(0, 40);
+				macKey = newKey.substring(40, 80);
+				stackKey = newKey.substring(80, 120);
+				
+			} else { 
+				return;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		/*
+		 try {
 			if (null != newKey && !"".equals(newKey)) {
 
 				// 标准
@@ -608,7 +626,7 @@ public class TransferLogic {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		// 保存工作密钥
 		Handler handler = new Handler() {

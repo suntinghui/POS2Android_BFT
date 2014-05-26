@@ -34,13 +34,7 @@ public class SplashActivity extends BaseActivity {
 		//设置商户号，终端号
 		setVendorTerId("108360759990977", "18000211");
 		
-		/**
-		 * 直接跳转到主菜单
-		 **/
-		Intent intent = new Intent(BaseActivity.getTopActivity(), CatalogActivity.class);
-		startActivity(intent);
-		
-//		new SplashTask().execute();
+		new SplashTask().execute();
 	}
 
 	// 要泽宇：处理点击菜单键出现侧滑菜单的问题

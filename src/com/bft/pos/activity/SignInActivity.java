@@ -5,12 +5,10 @@ package com.bft.pos.activity;
  */
 import java.util.HashMap;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.agent.client.ApplicationEnvironment;
@@ -54,7 +52,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
 
 	private void refresh() {
 		try {

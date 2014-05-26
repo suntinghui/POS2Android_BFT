@@ -148,11 +148,21 @@ public class Packet {
 							m.setValue(fieldId, cnFormat, cnType, value, value.toString().length(), must, addLen, align);
 						} else if (xFieldParseInfo.getLength() != 0 && xFieldParseInfo.isMust() == false) {
 							if (value != null) {
-								if (value.toString().length() != xFieldParseInfo.getLength()) {
-									if (value.toString().length() < xFieldParseInfo.getLength()) {
-										throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Short! ");
-									} else {
-										throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Long!");
+								if(!(cnType == CnType.BINARY)){
+									if (value.toString().length() != xFieldParseInfo.getLength()) {
+										if (value.toString().length() < xFieldParseInfo.getLength()) {
+											throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Short! ");
+										} else {
+											throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Long!");
+										}
+									}
+								}else{
+									if (value.toString().length()/2 != xFieldParseInfo.getLength()) {
+										if (value.toString().length() < xFieldParseInfo.getLength()) {
+											throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Short! ");
+										} else {
+											throw new IllegalArgumentException(String.valueOf(fieldId) + " 域值 Too Long!");
+										}
 									}
 								}
 							}

@@ -1,4 +1,5 @@
 package com.bft.pos.activity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -124,6 +125,10 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 			} else if(Float.valueOf(inputString) > 20000){
 				this.showDialog(BaseActivity.NONMODAL_DIALOG, "最大限额20000");
 			}else {
+//				Intent intent = new Intent(InputMoneyActivity.this,
+//						ReceiptSuccessActivity.class);
+//				startActivity(intent);
+				
 				pressSubmitButton();
 			}
 			break;

@@ -53,7 +53,7 @@ public class Event {
 		this.viewPage = viewPage;
 		params = new HashMap<String, Param>();
 		map = new HashMap<String, String>();
-		for (String paramID : paramIDs) {
+		for (String paramID : paramIDs){
 			this.addAParam(paramID);
 		}
 	}
@@ -206,7 +206,6 @@ public class Event {
 				for (int i = 0; i < -this.getGoHistory(); i++) {
 					nextPage = viewPage.getPrePage();
 					ViewContext.getInstance().removeViewPage(viewPage);
-
 					viewPage = nextPage;
 				}
 
@@ -482,15 +481,12 @@ public class Event {
 						|| "boolean".equalsIgnoreCase(temp[0])) {
 					argsObject[i++] = Boolean.valueOf((String) this.viewPage
 							.getComponent(temp[1]).getValue()); // must be
-																// "true" is
-																// true
 				}
 			}
 			return argsObject;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 

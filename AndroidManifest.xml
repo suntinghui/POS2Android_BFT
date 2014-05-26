@@ -481,6 +481,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.PhonePayActivity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.CardPayListsActivity" >
+        </activity>
     </application>
 
 </manifest>

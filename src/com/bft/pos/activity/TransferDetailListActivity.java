@@ -146,24 +146,24 @@ public class TransferDetailListActivity extends BaseActivity implements
 
 				convertView = mInflater.inflate(R.layout.list_item_transfer,
 						null);
-
-				holder.contentLayout = (RelativeLayout) convertView
-						.findViewById(R.id.contentLayout);
-				holder.moreLayout = (RelativeLayout) convertView
-						.findViewById(R.id.moreLayout);
-
-				holder.tv_account1 = (TextView) convertView
-						.findViewById(R.id.tv_account1);
-				holder.tv_amount = (TextView) convertView
-						.findViewById(R.id.tv_amount);
-				holder.tv_local_log = (TextView) convertView
-						.findViewById(R.id.tv_local_log);
-				holder.moreButton = (Button) convertView
-						.findViewById(R.id.moreButton);
-				holder.moreButton
-						.setOnClickListener(TransferDetailListActivity.this);
-				holder.iv_revoke = (ImageView) convertView
-						.findViewById(R.id.iv_revoke);
+				//
+				// holder.contentLayout = (RelativeLayout) convertView
+				// .findViewById(R.id.contentLayout);
+				// holder.moreLayout = (RelativeLayout) convertView
+				// .findViewById(R.id.moreLayout);
+				//
+				// holder.tv_account1 = (TextView) convertView
+				// .findViewById(R.id.tv_account1);
+				// holder.tv_amount = (TextView) convertView
+				// .findViewById(R.id.tv_amount);
+				// holder.tv_local_log = (TextView) convertView
+				// .findViewById(R.id.tv_local_log);
+				// holder.moreButton = (Button) convertView
+				// .findViewById(R.id.moreButton);
+				// holder.moreButton
+				// .setOnClickListener(TransferDetailListActivity.this);
+				// holder.iv_revoke = (ImageView) convertView
+				// .findViewById(R.id.iv_revoke);
 
 				convertView.setTag(holder);
 			} else {

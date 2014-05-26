@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,19 +32,21 @@ import com.bft.pos.util.ActivityUtil;
 
 public class CardPayListActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
+
 	private Button btn_back = null;
 	private Button btn_history = null;
 	private ListView listView = null;
 	private Adapter adapter = null;
 
 	private int totalPage;
-	private int currentPage = 0;
+	private int currentPage = 1;
 
 	private String date_s = null;
 	private String date_e = null;
 	private String t_date_s = null;
 	private String t_date_e = null;
 	private int spinnerid = 0;
+
 	// 传入的密码段
 	// private String pwdcode = null;
 	private ArrayList<CardPayModel> modelList = new ArrayList<CardPayModel>();
@@ -89,18 +92,21 @@ public class CardPayListActivity extends BaseActivity implements
 		}
 		adapter = new Adapter(this);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = new Intent(CardPayListActivity.this,
-						TransferDetailActivity.class);
-				intent.putExtra("model", modelList.get(arg2));
-				CardPayListActivity.this.startActivity(intent);
-			}
+		// listView.setOnItemClickListener(new OnItemClickListener() {
+		//
+		// @Override
 
-		});
+		// public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		// long arg3) {
+
+		// Intent intent = new Intent(CardPayListActivity.this,
+		// TransferDetailActivity.class);
+
+		// intent.putExtra("model", modelList.get(arg2));
+		// CardPayListActivity.this.startActivity(intent);
+		// }
+		// });
 		refresh();
 	}
 
@@ -131,12 +137,12 @@ public class CardPayListActivity extends BaseActivity implements
 	public final class ViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
-
-		public TextView tradedate;
-		public TextView tradetotal;
-		public TextView tradestatus;
+		// "tradetype", "type", "pan",
+		// "instflag", "amttrans", "data", "state
+		public TextView transType, instflag, amttrans, date, state;
+		public TextView type;
+		public TextView pan;
 		public ImageView iv_revoke;
-
 		public Button moreButton;
 	}
 
@@ -177,12 +183,16 @@ public class CardPayListActivity extends BaseActivity implements
 				holder.moreLayout = (RelativeLayout) convertView
 						.findViewById(R.id.moreLayout);
 
-				holder.tradedate = (TextView) convertView
-						.findViewById(R.id.tv_account1);
-				holder.tradetotal = (TextView) convertView
-						.findViewById(R.id.tradetotal);
-				holder.tradestatus = (TextView) convertView
-						.findViewById(R.id.tradestatus);
+				holder.transType = (TextView) convertView
+						.findViewById(R.id.tradetype);
+				holder.type = (TextView) convertView.findViewById(R.id.type);
+				holder.pan = (TextView) convertView.findViewById(R.id.pan);
+				holder.instflag = (TextView) convertView
+						.findViewById(R.id.instflag);
+				holder.amttrans = (TextView) convertView
+						.findViewById(R.id.amttrans);
+				holder.date = (TextView) convertView.findViewById(R.id.data);
+				holder.state = (TextView) convertView.findViewById(R.id.state);
 				holder.moreButton = (Button) convertView
 						.findViewById(R.id.moreButton);
 				holder.moreButton.setOnClickListener(CardPayListActivity.this);
@@ -202,52 +212,62 @@ public class CardPayListActivity extends BaseActivity implements
 					holder.contentLayout.setVisibility(View.VISIBLE);
 					holder.moreLayout.setVisibility(View.GONE);
 
-					CardPayModel model = modelList.get(position);
-					if (model.getTradestatus().equals("3")) {
-						holder.iv_revoke.setVisibility(View.VISIBLE);
-					} else {
-						holder.iv_revoke.setVisibility(View.GONE);
-					}
+					CardPayModel model = new CardPayModel();
 
-					holder.tradedate.setText(modelList.get(position)
-							.getTradedata() == null ? "" : modelList.get(
-							position).getTradedata());
-					holder.tradetotal.setText(modelList.get(position)
-							.getTradetotal() == null ? "" : ("¥ " + modelList
-							.get(position).getTradetotal()));
-					holder.tradestatus.setText(modelList.get(position)
-							.getTradestatus() == null ? "" : modelList.get(
-							position).getTradestatus());
+					// if (model.getType().equals("1")) {
+					// holder.iv_revoke.setVisibility(View.VISIBLE);
+					// } else {
+					// holder.iv_revoke.setVisibility(View.GONE);
+					// }
+
+					holder.transType.setText(modelList.get(position)
+							.getTranstype() == null ? "" : modelList.get(
+							position).getTranstype());
+					holder.type
+							.setText(modelList.get(position).getType() == null ? ""
+									: modelList.get(position).getType());
+					holder.pan
+							.setText(modelList.get(position).getPan() == null ? ""
+									: modelList.get(position).getPan());
+					holder.instflag.setText(modelList.get(position)
+							.getInstflag() == null ? "" : modelList.get(
+							position).getInstflag());
+					holder.amttrans.setText(modelList.get(position)
+							.getAmttrans() == null ? "" : ("¥ " + modelList
+							.get(position).getAmttrans()));
+					holder.date
+							.setText(modelList.get(position).getDate() == null ? ""
+									: modelList.get(position).getDate());
+					holder.state
+							.setText(modelList.get(position).getState() == null ? ""
+									: modelList.get(position).getState());
 				}
-			} else {
-				holder.contentLayout.setVisibility(View.VISIBLE);
-				holder.moreLayout.setVisibility(View.GONE);
-
-				CardPayModel model = modelList.get(position);
-				if (model.getTradetype().equals("3")) {
-					holder.iv_revoke.setVisibility(View.VISIBLE);
-				} else {
-					holder.iv_revoke.setVisibility(View.GONE);
-				}
-
-				holder.tradedate
-						.setText(modelList.get(position).getTradedata() == null ? ""
-								: modelList.get(position).getTradedata());
-				holder.tradetotal.setText(modelList.get(position)
-						.getTradetotal() == null ? "" : ("¥ " + modelList.get(
-						position).getTradetotal()));
-				holder.tradestatus.setText(modelList.get(position)
-						.getTradestatus() == null ? "" : modelList
-						.get(position).getTradestatus());
 			}
-
+			// else {
+			// holder.contentLayout.setVisibility(View.VISIBLE);
+			// holder.moreLayout.setVisibility(View.GONE);
+			// CardPayModel model = modelList.get(position);
+			// if (model.getTranstype().equals("3")) {
+			// holder.iv_revoke.setVisibility(View.VISIBLE);
+			// } else {
+			// holder.iv_revoke.setVisibility(View.GONE);
+			// }
+			// holder.tradedate
+			// .setText(modelList.get(position).getData() == null ? ""
+			// : modelList.get(position).getData());
+			// holder.tradetotal.setText(modelList.get(position)
+			// .getTradetotal() == null ? "" : ("¥ " + modelList.get(
+			// position).getTradetotal()));
+			// holder.tradestatus.setText(modelList.get(position)
+			// .getTradestatus() == null ? "" : modelList
+			// .get(position).getTradestatus());
+			// }
 			return convertView;
 		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
 		Intent intent = new Intent(CardPayListActivity.this,
 				CardPayDetailActivity.class);
 		intent.putExtra("model", modelList.get(arg2));
@@ -256,7 +276,6 @@ public class CardPayListActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.backButton:
 			Intent intent = new Intent(CardPayListActivity.this,
@@ -306,10 +325,8 @@ public class CardPayListActivity extends BaseActivity implements
 				.get("list");
 		modelList.addAll(list);
 		int count = Integer.parseInt((String) map.get("total"));
-
 		totalPage = (count + Integer.parseInt(Constant.PAGESIZE) - 1)
 				/ Integer.parseInt(Constant.PAGESIZE);
-
 		if (modelList != null) {
 			adapter.notifyDataSetChanged();
 		} else {
@@ -320,4 +337,5 @@ public class CardPayListActivity extends BaseActivity implements
 	private void loadMoreData() {
 		refresh();
 	}
+
 }

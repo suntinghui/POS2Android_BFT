@@ -3,78 +3,70 @@ package com.bft.pos.model;
 import java.io.Serializable;
 
 public class CardPayModel implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String transtype;// 交易类型
+	private String type;// 卡类型
+	private String pan;// 卡号
+	private String instflag;// 发卡机构
+	private String amttrans;// 交易金额
+	private String date;// 交易日期
+	private String state;// 交易状态
 
-	private String tradetype;// 交易类型
-	private String cardtype;// 卡类型
-	private String cardnum;// 卡号
-	private String cardinstitution;// 发卡机构
-	private String tradetotal;// 交易金额
-	private String tradedata;// 交易日期
-	private String tradetime;// 交易时间
-	private String tradestatus;// 交易状态
-
-	public String getTradetype() {
-		return tradetype;
+	public String getTranstype() {
+		return transtype;
 	}
 
-	public void setTradetype(String tradetype) {
-		this.tradetype = tradetype;
+	public void setTranstype(String transtype) {
+		this.transtype = transtype;
 	}
 
-	public String getCardtype() {
-		return cardtype;
+	public String getType() {
+		return type;
 	}
 
-	public void setCardtype(String cardtype) {
-		this.cardtype = cardtype;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getCardnum() {
-		return cardnum;
+	public String getPan() {
+		return pan;
 	}
 
-	public void setCardnum(String cardnum) {
-		this.cardnum = cardnum;
+	public void setPan(String pan) {
+		this.pan = pan;
 	}
 
-	public String getCardinstitution() {
-		return cardinstitution;
+	public String getInstflag() {
+		return instflag;
 	}
 
-	public void setCardinstitution(String cardinstitution) {
-		this.cardinstitution = cardinstitution;
+	public void setInstflag(String instflag) {
+		this.instflag = instflag;
 	}
 
-	public String getTradetotal() {
-		return tradetotal;
+	public String getAmttrans() {
+		return amttrans;
 	}
 
-	public void setTradetotal(String tradetotal) {
-		this.tradetotal = tradetotal;
+	public void setAmttrans(String amttrans) {
+		this.amttrans = amttrans;
 	}
 
-	public String getTradedata() {
-		return tradedata;
+
+	public String getDate() {
+		return date;
 	}
 
-	public void setTradedata(String tradedata) {
-		this.tradedata = tradedata;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getTradetime() {
-		return tradetime;
+	public String getState() {
+		return state;
 	}
 
-	public void setTradetime(String tradetime) {
-		this.tradetime = tradetime;
-	}
-
-	public String getTradestatus() {
-		return tradestatus;
-	}
-
-	public void setTradestatus(String tradestatus) {
-		this.tradestatus = tradestatus;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }

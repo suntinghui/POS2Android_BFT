@@ -16,6 +16,7 @@ import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -250,7 +251,7 @@ public class TransferLogic {
 				// 存储公钥
 				FileUtil.writeFile("publicKey", pubKey, false);
 			}
-//			System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
+			// System.out.println("PUBLICKEY:\t" + Constant.PUBLICKEY);
 		} else {
 			if (fieldMap.containsKey("rtCmnt")
 					&& !fieldMap.get("rtCmnt").equals(""))
@@ -287,20 +288,15 @@ public class TransferLogic {
 					for (i = 0; i < jsonArray.length(); i++) {
 						JSONObject picsObj = (JSONObject) jsonArray.opt(i);
 						CardPayModel model = new CardPayModel();
-						model.setTradedata(picsObj.optString("Tradedata", ""));
-						// System.out.println(picsObj.optString("tradeDate",
-						// ""));
-						model.setTradetotal(picsObj.optString("Tradetotal", ""));
-						// model.set
-						model.setCardtype(picsObj.optString("Cardtype", ""));
-						model.setTradetime(picsObj.optString("Tradetime", ""));
-						model.setTradestatus(picsObj.optString("Tradestatus",
-								""));
-						model.setCardnum(picsObj.optString("Cardnum", ""));
-						model.setCardinstitution(picsObj.optString(
-								"Cardinstitution", ""));
-						model.setTradestatus(picsObj.optString("Tradestatus",
-								""));
+						model.setTranstype(picsObj.optString("transType",""));
+						model.setType(picsObj.optString("type", ""));
+						model.setPan(picsObj.optString("pan", ""));
+						System.out.println(picsObj.getString("type")+"~~~~~~~~~~~~~~~~~~");
+
+						model.setInstflag(picsObj.getString("instFlag"));
+						model.setAmttrans(picsObj.getString("amtTrans"));
+						model.setDate(picsObj.optString("date", ""));
+						model.setState(picsObj.optString("state", ""));
 						cpm.add(model);
 					}
 				}

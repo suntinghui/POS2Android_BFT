@@ -35,21 +35,21 @@ public class CardPayDetailActivity extends BaseActivity implements
 
 		model = (CardPayModel) getIntent().getSerializableExtra("model");
 
-		cardadress = (TextView) this.findViewById(R.id.cardadress);
-		tradetime = (TextView) this.findViewById(R.id.tradetime);
-		cardtype = (TextView) this.findViewById(R.id.cardtype);
-		tradetotal = (TextView) this.findViewById(R.id.tradetotal);
-		tradestatus = (TextView) this.findViewById(R.id.tradestatus);
-		// ImageView iv_handsign = (ImageView)
+		// cardadress = (TextView) this.findViewById(R.id.cardadress);
+		// tradetime = (TextView) this.findViewById(R.id.tradetime);
+		// cardtype = (TextView) this.findViewById(R.id.cardtype);
+		// tradetotal = (TextView) this.findViewById(R.id.tradetotal);
+		// tradestatus = (TextView) this.findViewById(R.id.tradestatus);
+		// // ImageView iv_handsign = (ImageView)
 		// this.findViewById(R.id.iv_handsign);
 
-		cardnum.setText(StringUtil.formatAccountNo(model.getCardnum()));
-		tradedate.setText(model.getTradedata());
-		tradetype.setText(model.getTradetype());
-		cardadress.setText(model.getCardinstitution());
-		tradetime.setText(model.getTradetime());
-		cardtype.setText(model.getCardtype());
-		tradetotal.setText("¥ " + model.getTradetotal());
+		cardnum.setText(StringUtil.formatAccountNo(model.getPan()));
+		tradedate.setText(model.getDate());
+		tradetype.setText(model.getTranstype());
+		cardadress.setText(model.getInstflag());
+		tradetime.setText(model.getDate());
+		cardtype.setText(model.getType());
+		tradetotal.setText("¥ " + model.getAmttrans());
 
 	}
 

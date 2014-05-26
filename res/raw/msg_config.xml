@@ -152,7 +152,7 @@
 		<field id="62" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true" />
 		<field id="63" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true"/>
 		<field id="64" 	format="ALPHA"	type="ASCII"	length="8" />
-	</parseinfo>
+	</parseinfo> 
 	
 	<parseinfo msgtypeid="0210"> 
 		<field id="2" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
@@ -160,7 +160,7 @@
 		<field id="4" format="AMOUNT" type="BCD" length="12" />
 		<field id="11" format="NUMERIC"	type="BCD"		length="6" 	must="true" />
 		<field id="12" 	format="TIME" 	type="BCD"	must="true"/>
-		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
+		<field id="13" 	format="DATE4"	type="BCD"	must="false" />
 		<field id="14" format="DATE_EXP" type="BCD" />
 		<field id="15" format="DATE4" 	type="BCD" />
 		<field id="22" format="NUMERIC"	length="3"	type="BCD"	align="right" />

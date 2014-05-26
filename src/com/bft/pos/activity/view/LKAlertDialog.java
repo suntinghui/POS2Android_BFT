@@ -98,7 +98,8 @@ public class LKAlertDialog extends Dialog {
 			((Button) layout.findViewById(R.id.positiveButton))
 					.setText(positiveButtonText);
 			if (positiveButtonClickListener != null) {
-				((Button) layout.findViewById(R.id.positiveButton)).setOnClickListener(new View.OnClickListener() {
+				((Button) layout.findViewById(R.id.positiveButton))
+						.setOnClickListener(new View.OnClickListener() {
 
 							public void onClick(View v) {
 								positiveButtonClickListener.onClick(
@@ -142,9 +143,7 @@ public class LKAlertDialog extends Dialog {
 		}
 
 		this.setContentView(layout);
-
 		this.setCancelable(cancelable);
-
 		return this;
 	}
 }

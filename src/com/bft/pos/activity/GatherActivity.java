@@ -95,10 +95,7 @@ public class GatherActivity extends BaseActivity {
 			ManagerViewHolder holder = null;
 			if (null == convertView){
 				holder = new ManagerViewHolder();
-				
 				convertView = mInflater.inflate(R.layout.item_left_right, null);
-				
-				
 				holder.mLeftIV = (ImageView) convertView.findViewById(R.id.leftIV);
 				holder.mRightTV = (TextView) convertView.findViewById(R.id.rightTV);
 				
@@ -106,12 +103,12 @@ public class GatherActivity extends BaseActivity {
 			} else {
 				holder = (ManagerViewHolder) convertView.getTag();
 			}
-			
 			holder.mLeftIV.setImageResource(imageIds[position]);
 			holder.mRightTV.setText(titles[position]);
 			return convertView;
 		}
-	}	
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		 switch (keyCode) {

@@ -28,7 +28,7 @@
 	<!-- 个人PIN，受约束项 -->
 	<!-- <field key="field52" value="__PSAMPIN" /> -->
 	<field key="field60" value="01#__BATCHNUM#000521" />
-	<!-- <field key="field62" value="__AISHA_PWD" /> -->
+	 <!-- <field key="field62" value="__AISHA_PWD" />  -->
 	<field key="field64" value="00000000" />
 	
 </root>

@@ -100,7 +100,6 @@ public class CnConfigParser {
 			return;
 		}
 		root = doc.getDocumentElement();
-		// Read the j8583cn message configure headers
 		nodes = root.getElementsByTagName("header");
 		System.out.println("############\t【header 】\t############");
 
@@ -177,11 +176,6 @@ public class CnConfigParser {
 
 				String init_filed_data = f.getChildNodes().item(0) == null ? null
 						: f.getChildNodes().item(0).getNodeValue();
-
-				// /System.out.println("######################"+init_filed_data+"$$$$$$$$$$$"+f.getTextContent());
-
-				// System.out.println(String.format("fieldid: %d, init_filed_data: %s, format: %s, length: %d",fieldid,
-				// init_filed_data, format.name(), length));
 				m.setValue(fieldid, format, cnType, init_filed_data, length, must, addLen, align);
 			}
 			mfact.addMessageTemplate(m);
@@ -193,8 +187,6 @@ public class CnConfigParser {
 		for (int i = 0; i < nodes.getLength(); i++) {
 			elem = (Element) nodes.item(i);
 			String msgtypeid = elem.getAttribute("msgtypeid");
-			//			log.debug("========= msgtypeid: " + msgtypeid
-			//					+ " =========");
 
 			if (msgtypeid.length() != 4) {
 				throw new IOException("Invalid type for parse guide: "
@@ -217,10 +209,8 @@ public class CnConfigParser {
 				addLen = false;
 				//没有对齐字段的值 默认为：null ；此为BCD压缩时左对齐（右补零）还是右对齐（左补零）
 				align = null;
-
 				Element f = (Element) fields.item(j);
 				int fieldid = Integer.parseInt(f.getAttribute("id"));
-				// System.out.println(String.format("fieldid: %s,typename:%s",fieldid,f.getAttribute("format")));
 
 				CnFormat format = CnFormat.valueOf(f.getAttribute("format"));
 				CnType cnType = !f.getAttribute("type").equals("")?CnType.valueOf(f.getAttribute("type")):CnType.valueOf(defaultValue);
@@ -239,7 +229,6 @@ public class CnConfigParser {
 				if(f.getAttribute("align") != null && !f.getAttribute("align").equals("")){
 					align = f.getAttribute("align");
 				}
-
 				/**
 				 * new cnFieldParseInfo(format, cnType, length, must, addLen) 给解析的字段赋值
 				 * 然后以fieldid作为key 把上面内容放入parseMap中

@@ -71,8 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"
-                    android:layout_marginTop="20dip"
-                    android:background="@drawable/manager_right_2_n" />
+                    android:layout_marginTop="16dip"
+                    android:background="@drawable/contacts" />
             </LinearLayout>
 
             <com.bft.pos.activity.view.TextWithIconViewThree

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/list_item_bg"
+    android:background="@drawable/baioqian_03"
     android:paddingBottom="10dip"
     android:paddingLeft="10dip"
     android:paddingRight="10dip"
@@ -18,7 +18,111 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <TableRow>
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易类型："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tradetype"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="卡类型："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="卡号："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/pan"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="发卡机构："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/instflag"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易金额："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/amttrans"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dip" >
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -29,48 +133,35 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_account1"
-                    style="@style/black_15"
+                    android:id="@+id/data"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="" />
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow android:layout_marginTop="5dip" >
 
                 <TextView
-                    style="@style/black_15"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="交易金额：" />
+                    android:text="交易状态："
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_amount"
-                    style="@style/gree_17"
+                    android:id="@+id/state"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="" />
-            </TableRow>
-
-            <TableRow android:layout_marginTop="5dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="交易状态：" />
-
-                <TextView
-                    android:id="@+id/tv_local_log"
-                    style="@style/black_15"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="" />
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </TableRow>
         </TableLayout>
 
@@ -96,7 +187,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/more_button"
             android:text="点击查看更多" />
     </RelativeLayout>
 

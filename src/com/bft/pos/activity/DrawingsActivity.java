@@ -23,8 +23,8 @@ public class DrawingsActivity extends BaseActivity {
 	// 定义适配器
 	private ManagerAdapter adapter = null;
 	// 只有一张图片的数组
-	private Integer[] imageIds = { R.drawable.gather_left_0,
-			R.drawable.query_left_0 };
+	private Integer[] imageIds = { R.drawable.pay,
+			R.drawable.chongzhi };
 	//
 	private String[] titles = { "提现", "手机充值" };
 

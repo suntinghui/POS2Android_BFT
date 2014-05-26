@@ -14,7 +14,7 @@ public class TxActionImp {
 	private Map<String, Object> req_map = null;
 	private String clientTransferCode = "";
 
-	String TPDU = "6000050000";//6000050000  6000140000
+	String TPDU = "6000050000";// 6000050000 6000140000
 	String msgHeader = "603110000000";
 
 	public byte[] first(Map<String, Object> reqMap) {
@@ -26,11 +26,11 @@ public class TxActionImp {
 		if (clientTransferCode == null)
 			throw new IllegalArgumentException("请求报文未有消息类型(交易码)");
 		if (clientTransferCode.length() < 4)
-			throw new IllegalArgumentException("请求报文异常交易码:" + clientTransferCode);
+			throw new IllegalArgumentException("请求报文异常交易码:"
+					+ clientTransferCode);
 
 		String msgType = clientTransferCode.substring(0, 4);
 		req_map.put("msgType", msgType);
-		
 
 		return SocketTransport.getInstance().process(req_map);
 	}

@@ -107,7 +107,7 @@ public class ShowMoneyActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_back:
 			Intent intent = new Intent();
-			intent = new Intent(ShowMoneyActivity.this, CatalogActivity.class);
+			intent = new Intent(ShowMoneyActivity.this, DrawingsActivity.class);
 			startActivity(intent);
 			this.finish();
 			break;

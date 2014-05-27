@@ -49,16 +49,13 @@ public class QueryBankBalanceActivity extends BaseActivity implements
 
 	public void swipAction() {
 		try {
-
 			Event event = new Event(null, "swip", null);
 			event.setTransfer("020001");
 			String fsk = "Get_PsamNo|null#Get_VendorTerID|null#Get_CardTrack|int:60#Get_PIN|int:0,int:0,string:0,string:null,string:__PAN,int:60";
 			event.setFsk(fsk);
 			event.trigger();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

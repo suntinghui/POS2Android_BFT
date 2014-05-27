@@ -31,7 +31,7 @@ public class ManageActivity extends BaseActivity {
 	// 四个按钮
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, R.drawable.qiantui,
-			R.drawable.shimingrenzheng, R.drawable.card, R.drawable.card,
+			R.drawable.shimingrenzheng, R.drawable.card, R.drawable.zhi,
 			R.drawable.card };
 	// 四个文字内容
 	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡", "修改支付密码",

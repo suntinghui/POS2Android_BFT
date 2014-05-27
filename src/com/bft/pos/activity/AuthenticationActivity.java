@@ -54,6 +54,7 @@ public class AuthenticationActivity extends BaseActivity implements
 		et_identy_card.setIcon(R.drawable.icon_idcard);
 		et_phone_num.setHintString("安全手机号");
 		et_phone_num.setInputType(InputType.TYPE_CLASS_NUMBER);
+		et_phone_num.setIcon(R.drawable.icon_phone);
 		et_identy_card.setHintString("身份证");
 		et_identy_card.getEditText().setFilters(
 				new InputFilter[] { new InputFilter.LengthFilter(18) });

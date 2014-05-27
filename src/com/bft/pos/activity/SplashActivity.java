@@ -32,7 +32,7 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		
 		//设置商户号，终端号
-		setVendorTerId("108360759990977", "18000211");
+//		setVendorTerId("108360759990977", "18000211");
 		
 		new SplashTask().execute();
 	}

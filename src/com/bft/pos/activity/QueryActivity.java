@@ -34,7 +34,7 @@ public class QueryActivity extends BaseActivity {
 	 * };//新加入的图片
 	 */
 	private Integer[] imageIds = { R.drawable.card,
-			R.drawable.card, R.drawable.query_left_0,
+			R.drawable.yuechaxun, R.drawable.query_left_0,
 			R.drawable.query_left_1, R.drawable.query_left_3 };// 新加入的图片
 	// private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询",
 	// "流量统计","账户交易查询" };

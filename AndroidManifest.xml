@@ -484,6 +484,10 @@
         </activity>
         <activity android:name="com.bft.pos.activity.CardPayListsActivity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.RevokeTransListActivity" >
+        </activity>
+        <activity android:name="com.bft.pos.activity.ASRevokePwd3Activity" >
+        </activity>
     </application>
 
 </manifest>

@@ -57,6 +57,9 @@ public class GatherActivity extends BaseActivity {
 					startActivity(intent0);
 					break;
 				case 1:
+					Intent intent1 = new Intent(GatherActivity.this,
+							RevokeTransListActivity.class);
+					startActivity(intent1);
 					break;
 
 				default:

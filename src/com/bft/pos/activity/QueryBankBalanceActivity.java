@@ -6,11 +6,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.bft.pos.R;
+import com.bft.pos.dynamic.core.Event;
 
 /**
  * 银行卡余额查询
  */
-public class CheckBankBalanceActivity extends BaseActivity implements
+public class QueryBankBalanceActivity extends BaseActivity implements
 		OnClickListener {
 	private Button btn_back;
 	private Button btn_swip;
@@ -20,7 +21,7 @@ public class CheckBankBalanceActivity extends BaseActivity implements
 		super.index = 0;
 		// 添加了侧滑内容
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.activity_check_bank_balance);
+				R.layout.activity_query_bank_balance);
 		super.onCreate(savedInstanceState);
 		init();
 	}
@@ -47,6 +48,17 @@ public class CheckBankBalanceActivity extends BaseActivity implements
 	}
 
 	public void swipAction() {
+		try {
+
+			Event event = new Event(null, "swip", null);
+			event.setTransfer("020001");
+			String fsk = "Get_PsamNo|null#Get_VendorTerID|null#Get_CardTrack|int:60#Get_PIN|int:0,int:0,string:0,string:null,string:__PAN,int:60";
+			event.setFsk(fsk);
+			event.trigger();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 }

@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +31,7 @@ public class SocketTransport {
 	private static SocketTransport instance = null;
 	CnMessageFactory mfact = null;
 	private String host;
-	private int port;
+	int port;
 	private int timeout;
 	private int headlength;
 	private int TPDUlength;
@@ -60,13 +64,23 @@ public class SocketTransport {
 	byte[] respMsg = null;
 	/** 响应报文 */
 	Map<String, Object> resp_map = null;
+	
+	
+	
+	
+	private Thread td;// 线程，获取服务器端发送来的消息
+
+    private String workStatus;// 当前工作状况，null表示正在处理，success表示处理成功，failure表示处理失败
+
+    private String currAction; //标记当前请求头信息，在获取服务器端反馈的数据后，进行验证，以免出现反馈信息和当前请求不一致问题。比如现在发送第二个请求，但服务器端此时才响应第一个请求
 
 	public static synchronized SocketTransport getInstance(){
 		if(instance == null)
 			instance = new SocketTransport();
 		return instance;
 	}
-	public SocketTransport() {
+	
+	SocketTransport() {
 		this.host = "114.80.227.152";
 //		this.host = "www.payfortune.com";
 		this.port = 2003; 
@@ -77,7 +91,6 @@ public class SocketTransport {
 		this.headlength = 12;
 		
 		this.TPDUlength = 10;
-		
 	}
 
 	public SocketTransport(String host, int port, int timeout, int headlength,int TPDUlength) {
@@ -177,8 +190,72 @@ public class SocketTransport {
 		return reqMsg;
 	}
 	
-	
-	
+	private void connectService(){
+		try {
+			// 获取一个连接到socket服务的套接字
+			socket = new Socket();
+			SocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName(host), port);
+			socket.connect(socketAddress, timeout);
+
+			is = socket.getInputStream();
+			out = socket.getOutputStream();
+
+//			out.write(sendMsg);
+//			out.flush();
+
+		} catch (SocketException e) {
+			Log.v("QLQ", "socketException ");
+		} catch (SocketTimeoutException e) {
+			Log.v("QLQ", "超时 ");
+		} catch (IOException e) {
+			System.out.print("发生IO异常:"+e);
+		}
+	}
+	/**
+     * 向服务器发送传入的byte数组数据信息
+     * 
+     * @param sendMsg
+     */
+    private void sendMessage(byte[] sendMsg) {
+        if (socket == null)// 如果未连接到服务器，创建连接
+            connectService();
+        
+        // isConnected（）返回的是是否曾经连接过，isClosed()返回是否处于关闭状态，只有当isConnected（）返回true，isClosed（）返回false的时候，网络处于连接状态
+        if (!socket.isConnected() || (socket.isClosed())) 
+        {
+            Log.v("QLQ", "workStatus is not connected!");
+            for (int i = 0; i < 3 && workStatus == null; i++) {// 如果连接处于关闭状态，重试三次，如果连接正常了，跳出循环
+                socket = null;
+                connectService();
+                if (socket.isConnected() && (!socket.isClosed())) {
+                    Log.v("QLQ", "workStatus is not connected!");
+                    break;
+                }
+            }
+            if (!socket.isConnected() || (socket.isClosed()))// 如果此时连接还是不正常，提示错误，并跳出循环
+            {
+                workStatus = Constant.TAG_CONNECT_FAILURE;
+                Log.v("QLQ", "workStatus is not connected!");
+                return;
+            }
+
+        }
+
+        if (!socket.isOutputShutdown()) {// 输入输出流是否关闭
+            try {
+            	out.write(sendMsg);
+            }catch(Exception e) {
+                // TODO Auto-generated catch block
+                Log.v("QLQ", "workStatus is not connected!55555666666");
+                e.printStackTrace();
+                workStatus = Constant.TAG_CONNECT_FAILURE;
+            }
+        } else {
+            workStatus = Constant.TAG_CONNECT_FAILURE;
+        }
+    }
+
+
 	public byte[] sendData(byte reqMsg[]){
 		System.out.println("####################【sendData】####################" + "\r");
 
@@ -204,34 +281,22 @@ public class SocketTransport {
 		System.out.println("发送报文msg 16进制:\r" + ConvertUtil.trace(reqMsg));
 
 		try {
-			// 获取一个连接到socket服务的套接字
-			socket = new Socket(host, port);
+//			// 获取一个连接到socket服务的套接字
+//			socket = new Socket(host, 2003);
+//			
+//			/** 设置超时时间 */
+//			socket.setSoTimeout(timeout);
+//			is = socket.getInputStream();
+//			out = socket.getOutputStream();
+//			out.write(reqMsg);
+//			//清除out数据
+//			out.flush();
+//			
+			connectService();
 			
-			/* 设置超时时间 */
-			socket.setSoTimeout(timeout);
-			is = socket.getInputStream();
-			
-			try {
-//				int count = respHeaderLenght.length;
-//				int readCount = 0; // 已经成功读取的字节的个数
-//				while (readCount < count) {
-//					readCount += is.read(respHeaderLenght, readCount, count - readCount);
-//				}
-//				inputStream2Bytes(is);
-				  is.read(respHeaderLenght);
-
-				  System.out.print("respHeaderLenght:" + ConvertUtil.trace(respHeaderLenght));
-			} catch (IOException e) {
-				Log.e("读取流异常",e.toString());
-				throw new IOException("读取响应报文异常",e);
-			}
-		if(is==null){
-			System.out.print("is null");
-		}
-			out = socket.getOutputStream();
 			out.write(reqMsg);
-			//清除out数据
-			out.flush();
+//			//清除out数据
+//			out.flush();
 
 			respMsg = revData(respHeaderLenght, is);
 //			Log.i("接收到的交易平台报文时间:\t【"+ DateUtil.formatYearDateTime(new Date()) + "】");
@@ -277,38 +342,6 @@ public class SocketTransport {
 		}
 		return respMsg;
 	}
-	public byte[] inputStream2Bytes(InputStream is) throws IOException{
-		byte[] b = null;
-		try {
-			int count = 0;
-			while (count == 0) {
-				count = is.available();
-			}
-			b = new byte[count];
-			
-			is.read(b);
-			
-			
-			System.out.println(ConvertUtil.trace(b));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new IOException("读取流异常", e);
-		}
-
-
-
-		//或
-		//			int readCount = 0; // 已经成功读取的字节的个数
-		//			while (readCount < count) {
-		//				readCount += is.read(respHeaderLenght, readCount, count - readCount);
-		//				
-		//			}
-
-
-		return b;
-
-	}
 	
 	
 	
@@ -321,64 +354,21 @@ public class SocketTransport {
 	public byte[] revData(byte[] respHeaderLenght, InputStream is) throws IOException {
 	
 		try {
-//			int count = respHeaderLenght.length;
-//			int readCount = 0; // 已经成功读取的字节的个数
-//			while (readCount < count) {
-//				readCount += is.read(respHeaderLenght, readCount, count - readCount);
-//			}
-//			inputStream2Bytes(is);
-			  is.read(respHeaderLenght);
-			  //====
-
-			  //			resp_byte = getBytes(is);
-//			System.arraycopy(resp_byte, 0, respHeaderLenght, 0, 2);
+			respHeaderLenght = ConvertUtil.inputStreamToBytes(is, respHeaderLenght.length);
 		} catch (IOException e) {
 			Log.e("读取流异常",e.toString());
-			throw new IOException("读取响应报文异常",e);
+			throw new IOException("读取响应报文长度异常",e);
 		}
 		int size = ((respHeaderLenght[0] & 0xff) << 8)
 				| (respHeaderLenght[1] & 0xff);
 		
-
 		respMsg = new byte[size];
 		
-		long k = 0;
-		char c;
-		int readCount = 0; // 已经成功读取的字节的个数
-		while (readCount < size) {
-			/** 一次性拿到 */
-			try {
-				readCount += is.read(respMsg, readCount, size - readCount);
-			} catch (IOException e) {
-//				log.error("读取流异常",e);
-//				throw new CommunicationException("网络问题请重试");
-			}
-		}
-		for (byte b : respMsg) {
-			// convert byte to character
-			if (b == 0)
-				// if b is empty
-				c = '-';
-			else
-				// if b is read
-				c = (char) b;
-
-			// prints character
-			//				System.out.print(c);
-		}
-		if (k == -1) {
-			try {
-				is.close();
-			} catch (IOException e) {
-				Log.e("关闭流异常",e.getMessage());
-//				throw new CommunicationException("网络问题请重试");
-			}
-		}
+		respMsg = ConvertUtil.inputStreamToBytes(is, size);
 
 		//			log.debug("\r 发送给交易平台的报文时间:\t"
 		//					+ DateUtil.formatYearDateTime(new Date()));
 		//			log.debug("接收到的交易平台报文16进制:\r" + ConvertUtil.trace(respMsg));
-
 
 		return respMsg;
 	}

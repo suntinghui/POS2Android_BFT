@@ -15,22 +15,12 @@ import org.json.JSONStringer;
 import org.json.JSONTokener;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bft.pos.R;
 import com.bft.pos.activity.BaseActivity;
-import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.db.ReversalDBHelper;
 import com.bft.pos.client.exception.HttpException;

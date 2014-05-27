@@ -226,6 +226,48 @@ public class ConvertUtil {
 		return true;
 	}
 
+	/**@函数功能 输入流转为字节数组
+	 * @函数描述 未知的数组长度进行转换（自动得到长度）
+	 * @param is	输入流
+	 * @return	b	转换后的字节数组
+	 * @throws IOException
+	 */
+	public static byte[] inputStream2Bytes(InputStream is) throws IOException{
+		byte[] b = null;
+		try {
+			int count = 0;
+			while (count == 0) {
+				count = is.available();
+			}
+			b = new byte[count];
+			is.read(b);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException("读取流异常", e);
+		}
+		return b;
+	}
+	
+	/**@函数功能 输入流转为字节数组
+	 * @函数描述 已知的数组长度进行转换
+	 * @param is	输入流
+	 * @param size	要读取的字节数组总长
+	 * @return	b	转换后的字节数组
+	 * @throws IOException
+	 */
+	public static byte[] inputStreamToBytes(InputStream is,int size) throws IOException{
+		byte[] b = new byte[size];
+		try {
+			int readCount = 0; // 已经成功读取的字节的个数
+			while (readCount < size) {
+				readCount += is.read(b, readCount, size - readCount);
+			}
+		}catch (IOException e) {
+			throw new IOException("读取流异常", e);
+		}
+		return b;
+	}
+	
 	/**
 	 * 将InputStream转换成String
 	 * 

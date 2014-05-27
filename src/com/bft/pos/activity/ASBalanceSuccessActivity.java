@@ -60,7 +60,7 @@ public class ASBalanceSuccessActivity extends BaseActivity implements
 		case R.id.btn_confirm02:
 			this.setResult(RESULT_OK);
 			Intent intent1 = new Intent(ASBalanceSuccessActivity.this,
-					CatalogActivity.class);
+					QueryActivity.class);
 			startActivity(intent1);
 			this.finish();
 			break;

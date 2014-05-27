@@ -487,6 +487,8 @@
         </activity>
         <activity android:name="com.bft.pos.activity.ASRevokePwd3Activity" >
         </activity>
+        <activity android:name="com.bft.pos.activity.RevokeTransConfirmActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -151,7 +151,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dip"
                     android:layout_toLeftOf="@id/btn_sms"
-                    android:background="@drawable/input_login"
                     android:hint="短信校验码"
                     android:paddingLeft="5dip" />
             </RelativeLayout>

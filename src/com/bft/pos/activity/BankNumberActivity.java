@@ -59,10 +59,10 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 				.findViewById(R.id.old_backcard);
 		old_backcard.setIcon(R.drawable.icon_bankcard);
 		old_backcard.setHintString("原银行卡号");
+		old_backcard.setIcon(R.drawable.card);
 		et_banknum = (TextWithIconViewTwo) this.findViewById(R.id.et_banknum);
 		et_banknum.setIcon(R.drawable.icon_bankcard);
 		et_banknum.setHintString("新银行卡号");
-
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
 		btn_ok = (Button) findViewById(R.id.btn_ok);
 		btn_ok.setOnClickListener(this);

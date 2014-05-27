@@ -54,6 +54,7 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证");
 		et_id_card.getEditText().setFilters(
+				
 				new InputFilter[] { new InputFilter.LengthFilter(18) });
 		old_backcard = (TextWithIconViewTwo) this.findViewById(R.id.old_backcard);
 		//old_backcard.setIcon(R.drawable.icon_bankcard);

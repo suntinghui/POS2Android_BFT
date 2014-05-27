@@ -55,11 +55,10 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		et_id_card.setHintString("身份证");
 		et_id_card.getEditText().setFilters(
 				new InputFilter[] { new InputFilter.LengthFilter(18) });
-		old_backcard = (TextWithIconViewTwo) this
-				.findViewById(R.id.old_backcard);
-		old_backcard.setIcon(R.drawable.icon_bankcard);
+		old_backcard = (TextWithIconViewTwo) this.findViewById(R.id.old_backcard);
+		//old_backcard.setIcon(R.drawable.icon_bankcard);
 		old_backcard.setHintString("原银行卡号");
-		old_backcard.setIcon(R.drawable.card);
+		old_backcard.setIcon(R.drawable.icon_bankcard);
 		et_banknum = (TextWithIconViewTwo) this.findViewById(R.id.et_banknum);
 		et_banknum.setIcon(R.drawable.icon_bankcard);
 		et_banknum.setHintString("新银行卡号");

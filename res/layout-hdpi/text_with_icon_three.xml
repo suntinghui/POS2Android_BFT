@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:addStatesFromChildren="true"
-    android:background="@drawable/kuang"
+    android:background="@drawable/zhifukuang"
     android:paddingBottom="4dip"
     android:paddingTop="4dip" >
 
@@ -12,7 +12,8 @@
         android:id="@+id/tv_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dip" />
 
     <EditText
         android:id="@+id/ed_text"

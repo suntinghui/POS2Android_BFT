@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:orientation="vertical" 
-    android:id="@+id/layout">
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/topbarLayout"
@@ -94,9 +94,31 @@
                     android:src="@drawable/img_card_head_portrait" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginTop="20dip" >
+
+                <TextView
+                    style="@style/black_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="银行卡图片:" />
+
+                <ImageView
+                    android:id="@+id/iv_3"
+                    android:layout_width="120dip"
+                    android:layout_height="120dip"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/img_card_head_portrait" />
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginTop="15dip"
                 android:background="@drawable/divide_line" />
 
             <RelativeLayout
@@ -164,7 +186,7 @@
                     android:layout_marginRight="10dip"
                     android:src="@drawable/arrow_down" />
             </RelativeLayout>
-<!-- 
+            <!--
             <Button
                 android:id="@+id/btn_bank_branch"
                 style="@style/black_16"
@@ -175,11 +197,13 @@
                 android:gravity="left"
                 android:padding="5dip"
                 android:text="选择支行" />
- -->
+            -->
+
             <TextView
                 style="@style/black_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:text="银行卡号"
                 android:textColor="@color/black" />
 
@@ -189,42 +213,21 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/input_login"
                 android:hint="银行卡号"
                 android:inputType="number"
                 android:paddingLeft="8dip" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dip"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="20dip" >
-
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="银行卡图片:" />
-
-                <ImageView
-                    android:id="@+id/iv_3"
-                    android:layout_width="120dip"
-                    android:layout_height="120dip"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/img_card_head_portrait" />
-            </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginTop="10dip"
                 android:background="@drawable/divide_line" />
 
             <TextView
                 style="@style/black_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:text="商户名"
                 android:textColor="@color/black" />
 
@@ -234,9 +237,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/input_login"
                 android:hint="请输入商户名"
-             
                 android:paddingLeft="8dip" />
 
             <RelativeLayout
@@ -261,7 +262,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dip"
                     android:layout_toLeftOf="@id/btn_sms"
-                    android:background="@drawable/input_login"
                     android:hint="短信校验码"
                     android:paddingLeft="5dip" />
             </RelativeLayout>
@@ -272,7 +272,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dip"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="15dip"
                 android:background="@drawable/button_bg"
                 android:text="上   传"
                 android:textColor="@color/black"

@@ -85,7 +85,7 @@
 
                 <Button
                     android:id="@+id/btn_sms"
-                    style="@style/TextView15_black"
+                    style="@style/black_15"
                     android:layout_width="wrap_content"
                     android:layout_height="40dip"
                     android:layout_alignParentRight="true"
@@ -95,12 +95,11 @@
 
                 <EditText
                     android:id="@+id/et_sms"
-                    style="@style/TextView15_black"
+                    style="@style/black_15"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dip"
                     android:layout_toLeftOf="@id/btn_sms"
-                    android:background="@drawable/input_login"
                     android:hint="短信校验码"
                     android:paddingLeft="5dip" />
             </RelativeLayout>

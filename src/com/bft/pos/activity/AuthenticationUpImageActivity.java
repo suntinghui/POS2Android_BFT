@@ -171,12 +171,12 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		// iv_0 = (ImageView) this.findViewById(R.id.iv_0);
 		iv_1 = (ImageView) this.findViewById(R.id.iv_1);
 		iv_2 = (ImageView) this.findViewById(R.id.iv_2);
-		iv_3 = (ImageView) this.findViewById(R.id.iv_3);
+//		iv_3 = (ImageView) this.findViewById(R.id.iv_3);
 
 		// iv_0.setOnClickListener(this);
 		iv_1.setOnClickListener(this);
 		iv_2.setOnClickListener(this);
-		iv_3.setOnClickListener(this);
+//		iv_3.setOnClickListener(this);
 	}
 
 	@Override
@@ -226,12 +226,12 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			actionCamera();
 			// showDialog();
 			break;
-		case R.id.iv_3:
-			current_index = 3;
-			actionCamera();
+//		case R.id.iv_3:
+//			current_index = 3;
+//			actionCamera();
 			// showDialog();
 			// actionCamera();
-			break;
+//			break;
 		// 银行
 		// case R.id.btn_bank_branch:
 		// Intent intent = new Intent(AuthenticationUpImageActivity.this,

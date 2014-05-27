@@ -100,6 +100,11 @@ public class Constant {
 	public static String recievePhone								="";
 	
 	
+	//socket
+	public static String TAG_CONNECT_FAILURE = "failure";
+	public static String TAG_CONNECT_SUCCESS = "success";
+	public static String TAG_CONNECT_NULL = "null";
+	
 	
 	/**头文件信息*/
 	public static Map<String,Object> HEADER_MAP						= null;

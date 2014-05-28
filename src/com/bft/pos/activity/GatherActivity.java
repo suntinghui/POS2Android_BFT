@@ -18,7 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.slidingmenu.MenuBaseActivity;
 
 public class GatherActivity extends BaseActivity {
 	// 定义列表组件

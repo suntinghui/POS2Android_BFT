@@ -27,6 +27,7 @@ import com.bft.pos.util.PopupMessageUtil;
  * 修改银行卡
  */
 public class BankNumberActivity extends BaseActivity implements OnClickListener {
+
 	private Button btn_back, btn_sms, btn_ok;
 	private TextView titleBank;
 	private EditText et_idcard, et_sms;
@@ -54,9 +55,10 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证");
 		et_id_card.getEditText().setFilters(
-				
-				new InputFilter[] { new InputFilter.LengthFilter(18) });
-		old_backcard = (TextWithIconViewTwo) this.findViewById(R.id.old_backcard);
+
+		new InputFilter[] { new InputFilter.LengthFilter(18) });
+		old_backcard = (TextWithIconViewTwo) this
+				.findViewById(R.id.old_backcard);
 		old_backcard.setHintString("原银行卡号");
 		old_backcard.setIcon(R.drawable.icon_bankcard);
 		et_banknum = (TextWithIconViewTwo) this.findViewById(R.id.et_banknum);
@@ -130,21 +132,20 @@ public class BankNumberActivity extends BaseActivity implements OnClickListener 
 			e.printStackTrace();
 		}
 	}
-
 	private Boolean checkValue() {
-		if (et_id_card.getText().length() == 0) {
+		if (et_id_card.getText().length() == 0){
 			PopupMessageUtil.showMSG_middle2("身份证号不能为空!");
 			return false;
 		}
-		if (et_name.getText().length() == 0) {
+		if (et_name.getText().length() == 0){
 			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
-		if (et_banknum.getText().length() == 0) {
+		if (et_banknum.getText().length() == 0){
 			PopupMessageUtil.showMSG_middle2("银行卡号不能为空！");
 			return false;
 		}
-		if (old_backcard.getText().length() == 0) {
+		if (old_backcard.getText().length() == 0){
 			PopupMessageUtil.showMSG_middle2("原卡号不能为空！");
 			return false;
 		}

@@ -121,7 +121,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 	String pIdImg0_path = "";
 	/** 身份证反面 */
 	String pIdImg1_path = "";
-	String bkCardImg_path = "";
+	String bkCard3_path = "";
 	/* 头像名称 */
 	private static final String IMAGE_FILE_NAME = "Acount.png";
 	private String[] items = new String[] { "本地图片", "拍照" };
@@ -187,7 +187,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			break;
 		case R.id.bt_confirm:
 			System.out.println(pIdImg0_path + "~~~~" + pIdImg1_path + "!!~~"
-					+ bkCardImg_path);
+					+ bkCard3_path);
 			try {
 				Event event = new Event(null, "identifyMerchant", null);
 				event.setTransfer("089020");
@@ -201,7 +201,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				Map<String, String> tmp = new HashMap<String, String>();
 				tmp.put("pIdImg0", pIdImg0_path);// 身份证正面
 				tmp.put("pIdImg1", pIdImg1_path);// 身份证反面
-				tmp.put("bkCardImg", bkCardImg_path);// 银行卡图片
+				tmp.put("bkCardImg", bkCard3_path);// 银行卡图片
 				req_map.putAll(tmp);
 				String req_json = JSONUtil.MAP2JSONStr(req_map);
 				map.put("bankNo", "123456789");// 开户行
@@ -299,11 +299,10 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				break;
 			case 2:
 				pIdImg1_path = fileName;
-
 				iv_2.setImageBitmap(bitmap);
 				break;
 			case 3:
-				bkCardImg_path = fileName;
+				bkCard3_path = fileName;
 				iv_3.setImageBitmap(bitmap);
 				break;
 			default:

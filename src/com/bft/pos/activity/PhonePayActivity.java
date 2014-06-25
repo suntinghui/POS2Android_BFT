@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.bft.pos.R;
 import com.bft.pos.activity.view.TextWithIconViewThree;
 
-public class PhonePayActivity extends Activity {
+public class PhonePayActivity extends BaseActivity implements OnClickListener {
 	private TextWithIconViewThree et_phone, et_phone2;
 	private Button btn_ok, btn_back, bt_ok;
 	private ImageView iv;
@@ -30,12 +30,11 @@ public class PhonePayActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// super.index = 0;
-		// 添加了侧滑内容
-		// setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-		// R.layout.activity_phonepay);
+		 super.index = 0;
+//		 添加了侧滑内容
+		 setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+		 R.layout.activity_phonepay);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_phonepay);
 		// getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		// tv = (TextView) findViewById(R.id.tv1);
 		spinner = (Spinner) findViewById(R.id.spinner0);
@@ -64,7 +63,7 @@ public class PhonePayActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(PhonePayActivity.this,
-						CatalogActivity.class));
+						DrawingsActivity.class));
 				finish();
 			}
 		});

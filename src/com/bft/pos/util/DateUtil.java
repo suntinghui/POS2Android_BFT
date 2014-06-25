@@ -5,7 +5,57 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.text.format.Time;
+
 public class DateUtil {
+	
+	/**
+	 * 获取年月日时分秒，可全部获取也可单个获取
+	 * 
+	 * @param 
+	 * 0、年月日时分秒
+	 * 1、年
+	 * 2、月
+	 * 3、日
+	 * 4、时
+	 * 5、分
+	 * 6、秒
+	 * @return
+	 */
+	public static String getDate(int type){
+		StringBuffer sb = new StringBuffer();
+		Time time = new Time("GMT+8");       
+		    time.setToNow();      
+		    int year = time.year;      
+		    int month = time.month;      
+		    int day = time.monthDay;      
+		    int minute = time.minute;      
+		    int hour = time.hour;      
+		    int sec = time.second;    
+		    
+		    sb.append("当前时间为：" + year +       
+		                        "年 " + month +       
+		                        "月 " + day +       
+		                        "日 " + hour +       
+		                        "时 " + minute +       
+		                        "分 " + sec +       
+		                        "秒");  
+		    switch(type){
+			    case 1:
+			    	return String.valueOf(year);
+			    case 2:
+			    	return String.valueOf(month);
+			    case 3:
+			    	return String.valueOf(day);
+			    case 4:
+			    	return String.valueOf(minute);
+			    case 5:
+			    	return String.valueOf(hour);
+			    case 6:
+			    	return String.valueOf(sec);
+		    }
+		    return sb.toString();
+	}
 	
 	/**
 	 * 将服务器响应的字符串转为日期

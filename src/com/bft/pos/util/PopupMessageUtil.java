@@ -25,16 +25,16 @@ public class PopupMessageUtil{
 	 * @功能函数	屏幕下弹窗
 	 * @param message	将被提醒的消息串
 	 */
-	public void showMSG_below(String message){
+	public static void showMSG_below(String message){
 		Toast.makeText(BaseActivity.getTopActivity(), message,Toast.LENGTH_SHORT).show();
-		
+
 	}
 
 	/**
 	 * @功能函数	屏幕中间弹窗
 	 * @param message	将被提醒的消息串
 	 */
-	public void showMSG_middle(String message){
+	public static void showMSG_middle(String message){
 		Toast toast = Toast.makeText(BaseActivity.getTopActivity(), message,
 				Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER, 0, 0);
@@ -44,7 +44,7 @@ public class PopupMessageUtil{
 	 * @功能函数	屏幕中间弹窗(带图片效果)
 	 * @param message	将被提醒的消息串
 	 */
-	public void showMSG_IMG_middle(String message){
+	public static void showMSG_IMG_middle(String message){
 		Toast toast = Toast.makeText(BaseActivity.getTopActivity(),
 				"message", Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER, 0, 0);

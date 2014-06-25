@@ -58,7 +58,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener {
 
 			Event event = new Event(null, "sign", null);
 			event.setTransfer("080000");
-			String fsk = "Get_PsamNo|null";
+			String fsk = "Get_PsamNo|null#Get_VendorTerID|null";
 			if (Constant.isAISHUA) {
 				fsk = "getKsn|null";
 			}

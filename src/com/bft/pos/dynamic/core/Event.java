@@ -76,105 +76,6 @@ public class Event {
 		return event;
 	}
 
-	public String getActionId() {
-		return actionId;
-	}
-
-	public void setActionId(String actionId) {
-		this.actionId = actionId;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = (null == action ? null : action.trim());
-	}
-
-	public void setFsk(String fsk) {
-		this.fsk = fsk;
-	}
-
-	public String getFsk() {
-		return this.fsk;
-	}
-
-	public String getMethod() {
-		return this.method;
-	}
-
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	public String getActionType() {
-		return actionType;
-	}
-
-	public void setActionType(String actionType) {
-		this.actionType = actionType;
-	}
-
-	public String getTransfer() {
-		return transfer;
-	}
-
-	public void setTransfer(String transfer) {
-		this.transfer = transfer;
-	}
-
-	public void setStaticActivityDataMap(HashMap<String, String> map) {
-		this.staticActivityDataMap = map;
-	}
-
-	public String getNextPage() {
-		return nextPageId;
-	}
-
-	public void setNextPage(String nextPage) {
-		this.nextPageId = nextPage;
-	}
-
-	public String getBackPage() {
-		return backPageId;
-	}
-
-	public void setBackPage(String backPage) {
-		this.backPageId = backPage;
-	}
-
-	public String getExceptionPage() {
-		return exceptionPageId;
-	}
-
-	public void setExceptionPage(String exceptionPage) {
-		this.exceptionPageId = exceptionPage;
-	}
-
-	public void addAParam(String paramId) {
-		params.put(paramId, new Param(viewPage, paramId));
-	}
-
-	public Set<String> getParamSet() {
-		return this.params.keySet();
-	}
-
-	public Param getParam(String key) {
-		return this.params.get(key);
-	}
-
-	public Integer getGoHistory() {
-		return goHistory;
-	}
-
-	public void setGoHistory(Integer goHistory) {
-		this.goHistory = goHistory;
-	}
-
-	public ViewPage getViewPage() {
-		return this.viewPage;
-	}
 
 	public void trigger() throws ViewException, IOException {
 		try {
@@ -489,5 +390,105 @@ public class Event {
 		}
 		return null;
 	}
+	
+	
+	public String getActionId() {
+		return actionId;
+	}
 
+	public void setActionId(String actionId) {
+		this.actionId = actionId;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = (null == action ? null : action.trim());
+	}
+
+	public void setFsk(String fsk) {
+		this.fsk = fsk;
+	}
+
+	public String getFsk() {
+		return this.fsk;
+	}
+
+	public String getMethod() {
+		return this.method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getActionType() {
+		return actionType;
+	}
+
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
+	}
+
+	public String getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(String transfer) {
+		this.transfer = transfer;
+	}
+
+	public void setStaticActivityDataMap(HashMap<String, String> map) {
+		this.staticActivityDataMap = map;
+	}
+
+	public String getNextPage() {
+		return nextPageId;
+	}
+
+	public void setNextPage(String nextPage) {
+		this.nextPageId = nextPage;
+	}
+
+	public String getBackPage() {
+		return backPageId;
+	}
+
+	public void setBackPage(String backPage) {
+		this.backPageId = backPage;
+	}
+
+	public String getExceptionPage() {
+		return exceptionPageId;
+	}
+
+	public void setExceptionPage(String exceptionPage) {
+		this.exceptionPageId = exceptionPage;
+	}
+
+	public void addAParam(String paramId) {
+		params.put(paramId, new Param(viewPage, paramId));
+	}
+
+	public Set<String> getParamSet() {
+		return this.params.keySet();
+	}
+
+	public Param getParam(String key) {
+		return this.params.get(key);
+	}
+
+	public Integer getGoHistory() {
+		return goHistory;
+	}
+
+	public void setGoHistory(Integer goHistory) {
+		this.goHistory = goHistory;
+	}
+
+	public ViewPage getViewPage() {
+		return this.viewPage;
+	}
 }

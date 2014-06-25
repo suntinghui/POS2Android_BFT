@@ -2,28 +2,30 @@
 
 <!-- 消费冲正请求报文  已对照完0926-->
 
-<root>
+<root shouldMac = "true">
+        
 	<field key="fieldTrancode" value="400000022"  />
-	<field key="field2" value="__field2"  />
+	<field key="fieldTransType" value="0400"  />
+	
+	<field key="field2" value=""  />
 	<field key="field3" value="__field3"  /><!-- 多种取值，参见规范 11.3.3.3 -->
 	<field key="field4" value="__field4"  /><!-- 多种取值，参见规范 11.3.3.3 -->
 	<field key="field11" value="__field11"  />
-	<field key="field14" value="__field14"/>
+	<!-- <field key="field14" value="__field14"/> -->
 	<field key="field22" value="__field22" /><!-- 多种取值，参见规范 11.3.10.3 -->
-	<field key="field23" value="__field23" />
+	<!-- <field key="field23" value="__field23" /> -->
 	<field key="field25" value="__field25"  />
+	<field key="field35" value="__field35" />
+	<field key="field36" value="__field36" /> 
 	<field key="field38" value="__field38" /><!-- 授权标识应答码 6位 -->
 	<field key="field39" value="__field39" /><!-- 应答码 2位 -->
 	<field key="field41" value="__field41"  />
 	<field key="field42" value="__field42"  />
 	<field key="field49" value="__field49" />
-	<field key="field55" value="__field55" /> <!-- IC卡55数据域 -->
+	<field key="field53" value="__field53"  />
+	<!-- <field key="field55" value="__field55" /> --> <!-- IC卡55数据域 -->
 	<field key="field60" value="__field60" />
-	<field key="field62" value="__field62" />
-	<field key="field90" value="0210#__field11" />
-	<field key="termMobile" value="__termMobile"  /> 
-	<field key="ReaderID" value="__ReaderID" />
-	<field key="PSAMID" value="__PSAMID" />  
-	<field key="fieldChannel" value="06" />
-	
+	<!-- 62号域说明：为可选项，普通消费不需要，该接口预留供今后开通分期付款、积分消费使用。 -->
+	<!-- <field key="field62" value="__field62" /> -->
+	<field key="field64" value="00000000" />
 </root>

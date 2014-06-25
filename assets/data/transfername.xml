@@ -8,13 +8,13 @@
 	<item code="100005" name="登陆" />
 	<item code="080000" name="签到" />
 	<item code="082001" name="签退" />
-	<item code="500201" name="批结算" />
+	<item code="050000" name="批结算" />
 	<item code="320201" name="批上送" />
 	<item code="020001" name="余额查询" />
 	<item code="020022" name="收款" />
 	<item code="400000022" name="收款冲正" />
 	<item code="020023" name="收款撤销" />
-	<item code="400000022" name="收款撤销冲正" />
+	<item code="400000023" name="收款撤销冲正" />
 	<item code="200001111" name="付款" />
 	<item code="700000001" name="手机充值" />
 	<item code="700000002" name="手机充值冲正" />

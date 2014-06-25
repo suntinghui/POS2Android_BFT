@@ -14,21 +14,23 @@
 	<!-- <field key="field14" value="" /> --> 
 	<!-- 02磁条 第三位：1交易中包含 PIN 2交易中不包含 PIN；021/022 --> 
 	<field key="field22" value="__FIELD22" />
-	<!--  卡序列号 --> 
+	<!--  卡序列号 C:当POS能够获得该值时存在；--> 
 	<!-- <field key="field23" value="143"></field> -->
 	<!-- /* 服务点条件码 */ -->
 	<field key="field25" value="00"  />
 	<!-- 密码长度，有无此数据项受22域决定 -->
-	<!-- <field key="field26" value="6" /> -->
-	<field key="field35" value="__FIELD35" /> 
-	<!-- <field key="field36" value="" /> -->
+	 <field key="field26" value="__FIELD26" />
+	 <field key="field35" value="__FIELD35" /> 
+	 <field key="field36" value="__FIELD36" /> 
 	<field key="field41" value="__TERID"  />
 	<field key="field42" value="__VENDOR"  />
 	<field key="field49" value="156" />
-	<!-- 个人PIN，受约束项 -->
-	<field key="field52" value="__PSAMPIN" />
-	<field key="field60" value="01#__BATCHNUM#000521" />
-	<!-- <field key="field62" value="__AISHA_PWD" />  -->
+	<!-- 个人PIN，受约束项（ 22域） -->
+	 <field key="field52" value="__PSAMPIN" />
+	  <!-- 53域第一位为0时为pin不出现，未知  ； 1:ANSI X9.8 Format(不带主账号信息)；  2:ANSI X9.8 Format(带主账号信息)-->
+	 <field key="field53" value="2600000000000000"  /> 
+	<field key="field60" value="01#__BATCHNUM#000600" />
+	 <!-- <field key="field62" value="__AISHA_PWD" />  -->
 	<field key="field64" value="00000000" />
 	
 </root>

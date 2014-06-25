@@ -79,7 +79,8 @@ public class ShowManeyPayActivity extends BaseActivity implements
 							.toString() + "FF").getBytes(), 1);
 				}
 				map.put("payPass", pwd);
-				map.put("money", ShowManeyPayActivity.lpad(12, money));
+				map.put("money", num);
+//				map.put("money", ShowManeyPayActivity.lpad(12, money));
 				map.put("verifyCode", et_sms.getText().toString());
 				event.setStaticActivityDataMap(map);
 				event.trigger();

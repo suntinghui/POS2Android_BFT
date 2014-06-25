@@ -146,6 +146,9 @@ public class LoginActivity extends BaseActivity {
 		try {
 			Event event = new Event(null, "verifyCodes", null);
 			event.setTransfer("089021");
+			String fsk = "Get_PsamNo|null";
+			event.setFsk(fsk);
+			
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("sendTime", date);
 			event.setStaticActivityDataMap(map);

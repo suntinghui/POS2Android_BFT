@@ -82,6 +82,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 		setAnimationDuration(300);
 		setAnimationType(MENU_TYPE_SLIDEOVER);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		super.onCreate(savedInstanceState);
 
 		listView = (ListView) this.findViewById(R.id.listView);
@@ -163,6 +164,7 @@ public class BaseActivity extends SlidingMenuActivity implements
 	 * 
 	 * */
 	public void initControl() {
+		
 	}
 
 	@Override

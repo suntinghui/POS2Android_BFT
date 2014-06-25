@@ -1,13 +1,11 @@
 package com.dhcc.pos.parse;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-
-
-
 
 import com.dhcc.pos.packets.CnFormat;
 import com.dhcc.pos.packets.CnType;
@@ -78,7 +76,7 @@ public class CnFieldParseInfo {
 		//转换后的域值
 		String value = null;
 
-		ConvertUtil.trace(buf);
+//		ConvertUtil.trace(buf);
 
 		if (cnFormat == CnFormat.ALPHA) {
 			return new CnValue<String>(cnFormat, cnType, new String(buf, pos, length), length, must, addLen, align);
@@ -100,6 +98,17 @@ public class CnFieldParseInfo {
 				value = ConvertUtil.bytesToHexString(data);
 			}
 			return new CnValue<Number>(CnFormat.NUMERIC, cnType, new BigInteger(value), length, must, addLen, align);
+		} else if (cnFormat == CnFormat.AMOUNT) {
+			byte[] digits = new byte[6];
+
+			System.arraycopy(buf, pos, digits, 0, 6);
+			value = ConvertUtil.bcd2str(digits);
+
+//			System.out.println(String.format("pos: %d, length: %d", pos,
+//					length));
+
+			// return new cnValue<BigDecimal>(cnType.AMOUNT, new BigDecimal(value));
+			return new CnValue<BigDecimal>(CnFormat.AMOUNT, cnType, new BigDecimal(Double.parseDouble(value.toString()) / 100.00),length, must, addLen, align);
 		} else if (cnFormat == CnFormat.LLVAR) {
 			//				length = (((buf[pos] & 0xf0) >> 4) * 10) + (buf[pos] & 0x0f);
 			//				String value = new String(buf, pos + 1,length);

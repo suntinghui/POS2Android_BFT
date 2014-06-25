@@ -87,7 +87,7 @@ public class SocketTransport {
 //		this.host = "61.132.75.110";//优乐通
 //		this.port = 9999; 
 		
-		this.timeout = 45000;
+		this.timeout = 50000;
 		this.headlength = 12;
 		
 		this.TPDUlength = 10;
@@ -256,7 +256,7 @@ public class SocketTransport {
     }
 
 
-	public byte[] sendData(byte reqMsg[]){
+	public byte[] sendData(byte reqMsg[]) throws IOException{
 		System.out.println("####################【sendData】####################" + "\r");
 
 		/** 第二种（合理） 拿到报文总字节长度（前两个字节定义的长度） */
@@ -295,8 +295,9 @@ public class SocketTransport {
 			connectService();
 			
 			out.write(reqMsg);
+
 //			//清除out数据
-//			out.flush();
+			out.flush();
 
 			respMsg = revData(respHeaderLenght, is);
 //			Log.i("接收到的交易平台报文时间:\t【"+ DateUtil.formatYearDateTime(new Date()) + "】");
@@ -304,39 +305,41 @@ public class SocketTransport {
 		} catch (ConnectException e) {
 			System.out.print("无法连接到地址:"+e);
 //			throw new ConnectException("网络问题请重试");
+			throw new SocketException("网络问题请重试");
 		} catch (SocketException e) {
 			System.out.print("socket协议有误:"+e);
 //			log.error("socket协议有误",e);
 //			throw new CommunicationException("网络问题请重试");
+			throw new SocketException("网络问题请重试");
 		} catch (IOException e) {
-			System.out.print("发生IO异常:"+e);
+			System.out.print("发生IO异常:"+e+"\n");
 //			log.error("发生IO异常",e);
-//			throw new CommunicationException("网络问题请重试");
+			throw new IOException("网络问题请重试");
 		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					Log.e("关闭流发生IO异常",e.getMessage());
-//					throw new CommunicationException("网络问题请重试");
-				}
-			}
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-					Log.e("关闭流发生IO异常",e.getMessage());
-//					throw new CommunicationException("网络问题请重试");
-				}
-			}
-			if (socket != null) {
+//			if (is != null) {
+//				try {
+//					is.close();
+//				} catch (IOException e) {
+//					Log.e("关闭流发生IO异常",e.getMessage());
+////					throw new CommunicationException("网络问题请重试");
+//				}
+//			}
+//			if (out != null) {
+//				try {
+//					out.close();
+//				} catch (IOException e) {
+//					Log.e("关闭流发生IO异常",e.getMessage());
+////					throw new CommunicationException("网络问题请重试");
+//				}
+//			}
+			if (socket != null && socket.isConnected()) {
 				try {
 					socket.shutdownInput();
 					socket.shutdownOutput();
 //					socket.close();
 				} catch (IOException e) {
 					Log.e("关闭流发生IO异常",e.getMessage());
-//					throw new CommunicationException("网络问题请重试");
+					throw new IOException("网络问题请重试");
 				}
 			}
 		}
@@ -352,11 +355,10 @@ public class SocketTransport {
 	 * @throws IOException 
 	 */
 	public byte[] revData(byte[] respHeaderLenght, InputStream is) throws IOException {
-	
+		respMsg = null;
 		try {
 			respHeaderLenght = ConvertUtil.inputStreamToBytes(is, respHeaderLenght.length);
 		} catch (IOException e) {
-			Log.e("读取流异常",e.toString());
 			throw new IOException("读取响应报文长度异常",e);
 		}
 		int size = ((respHeaderLenght[0] & 0xff) << 8)

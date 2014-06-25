@@ -27,7 +27,7 @@
 			
 		<input type="button" id="settlementConfirmBtn" templateId="button06" value="结    算"
 			layoutParamsTemplateIds="linearLayoutParams01" margin="20,20,20,0"
-			actionId="settlement" transfer="500201" fsk="Get_PsamNo|null#Get_VendorTerID|null">
+			actionId="settlement" transfer="050000" fsk="Get_PsamNo|null#Get_VendorTerID|null">
 			<param id="fieldMerchPWD" />
 		</input>
 		

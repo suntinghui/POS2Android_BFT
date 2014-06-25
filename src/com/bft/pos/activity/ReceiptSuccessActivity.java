@@ -45,8 +45,5 @@ public class ReceiptSuccessActivity extends BaseActivity implements OnClickListe
 		default:
 			break;
 		}
-
 	}
-
-	
 }

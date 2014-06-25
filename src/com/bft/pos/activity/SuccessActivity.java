@@ -54,7 +54,7 @@ public class SuccessActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
 			Intent intent = new Intent(SuccessActivity.this,
-					CatalogActivity.class);
+					ManageActivity.class);
 			startActivity(intent);
 			finish();
 			break;

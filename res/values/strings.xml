@@ -32,5 +32,6 @@
     <string name="phoneNoIllegal">手机号码格式不正确</string>
     <string name="refreshingData">正在刷新数据</string>
     <string name="pwd2">商户密码</string>
-
+	<string name="operatingDevice">正在操作设备请稍候</string>
+    <string name="showBalanceInDevice">余额稍后同步显示在设备屏幕上</string>
 </resources>

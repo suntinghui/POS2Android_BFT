@@ -84,11 +84,15 @@ public enum CnFormat
 			if (value == null) {
 				value = "";
 			}
-			if (value.length() > length) {
-				return value.substring(0, length);
-			}
-			//长度不足右补空格
-			char[] c = new char[length];
+			//当接收到为2进制时 而配置中的长度为原值 此处判断长度没有意义；
+//			if (value.length() > length) {
+//				return value.substring(0, length);
+//			}
+////			长度不足右补空格
+//			char[] c = new char[length];
+			
+			char[] c = new char[value.length()];
+			
 			System.arraycopy(value.toCharArray(), 0, c, 0, value.length());
 			for (int i = value.length(); i < c.length; i++) {
 				c[i] = ' ';

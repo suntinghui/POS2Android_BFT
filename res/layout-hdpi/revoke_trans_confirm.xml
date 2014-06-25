@@ -25,7 +25,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="13dip"
-                android:background="@drawable/back_button" >
+                android:background="@drawable/back_button"
+                android:text="返回" >
+
             </Button>
 
             <TextView
@@ -199,13 +201,13 @@
                 </TableRow>
             </TableLayout>
 
-            <com.bft.pos.activity.view.PasswordWithLabelView
+            <!-- <com.bft.pos.activity.view.PasswordWithLabelView
                 android:id="@+id/passwordET"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:layout_marginTop="15dip" />
+                android:layout_marginTop="15dip" /> -->
         </LinearLayout>
 
         <Button

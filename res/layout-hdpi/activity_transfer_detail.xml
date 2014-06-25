@@ -35,10 +35,6 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <com.bft.pos.activity.view.TopInfoView
-        android:id="@+id/topInfoView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -60,7 +56,7 @@
                     android:layout_height="fill_parent"
                     android:orientation="vertical" >
 
-                    <com.ylt.pos.activity.view.TopInfoView
+                    <com.bft.pos.activity.view.TopInfoView
                         android:id="@+id/topInfoView"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" />
@@ -80,7 +76,7 @@
                         android:scrollbars="none" />
                 </LinearLayout>
 
-                <com.ylt.pos.activity.view.PaginationView
+                <com.bft.pos.activity.view.PaginationView
                     android:id="@+id/pager"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

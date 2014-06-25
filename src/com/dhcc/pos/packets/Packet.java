@@ -147,7 +147,7 @@ public class Packet {
 							}
 							m.setValue(fieldId, cnFormat, cnType, value, value.toString().length(), must, addLen, align);
 						} else if (xFieldParseInfo.getLength() != 0 && xFieldParseInfo.isMust() == false) {
-							if (value != null) {
+							if (value != null || !value.equals("null")) {
 								if(!(cnType == CnType.BINARY)){
 									if (value.toString().length() != xFieldParseInfo.getLength()) {
 										if (value.toString().length() < xFieldParseInfo.getLength()) {
@@ -165,6 +165,8 @@ public class Packet {
 										}
 									}
 								}
+							}else{
+								value = "";
 							}
 							m.setValue(fieldId, cnFormat, cnType, value, xFieldParseInfo.getLength(), must, addLen, align);
 						} else if (xFieldParseInfo.getLength() == 0 && xFieldParseInfo.isMust() == false) {

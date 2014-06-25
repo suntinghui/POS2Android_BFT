@@ -12,6 +12,7 @@ import android.util.Log;
 import com.bft.pos.activity.BaseActivity;
 import com.bft.pos.agent.client.AppDataCenter;
 import com.bft.pos.agent.client.Constant;
+import com.dhcc.pos.packets.util.ConvertUtil;
 import com.itron.android.lib.Logger;
 import com.itron.protol.android.CommandReturn;
 

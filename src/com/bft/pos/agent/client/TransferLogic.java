@@ -16,7 +16,6 @@ import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -34,14 +33,16 @@ import com.bft.pos.activity.FailActivity;
 import com.bft.pos.activity.LoginActivity;
 import com.bft.pos.activity.LoginFailActivity;
 import com.bft.pos.activity.PayPwdSuccess;
+import com.bft.pos.activity.PrintReceiptActivity;
 import com.bft.pos.activity.QBTransferHistory;
 import com.bft.pos.activity.RegisterSuccessActivity;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SetPayPwdActivity;
 import com.bft.pos.activity.SettlementSuccessActivity;
+import com.bft.pos.activity.ShowBalanceActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
-import com.bft.pos.activity.view.ShowDialog;
+import com.bft.pos.agent.client.db.ReversalDBHelper;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
 import com.bft.pos.dynamic.component.ViewException;
@@ -56,6 +57,7 @@ import com.bft.pos.model.TransferSuccessModel;
 import com.bft.pos.util.AssetsUtil;
 import com.bft.pos.util.FileUtil;
 import com.bft.pos.util.PhoneUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.StringUtil;
 
 public class TransferLogic {
@@ -181,8 +183,11 @@ public class TransferLogic {
 			this.queryBalanceDone(fieldMap);
 
 		} else if ("080000".equals(transferCode)) { // 签到
+			
 			this.signDone(fieldMap);
-
+		} else if("050000".equals(transferCode)){ // 批结算
+			
+			this.settlementDone(fieldMap);
 		} else if ("020022".equals(transferCode)) { // 收款
 			this.receiveTransDone(fieldMap);
 
@@ -430,7 +435,7 @@ public class TransferLogic {
 			// Toast.LENGTH_LONG);
 			// toast.setGravity(Gravity.CENTER, 0, 0);
 			// toast.show();
-			ShowDialog.setAlertDialog(desc);
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -556,6 +561,9 @@ public class TransferLogic {
 	 * 执行此方法说明服务器端签到正常，没有其他的异常情况发生。 签到成功后 1、首先要更新工作密钥。按长度分别切割 2、然后将收款撤销表清空。
 	 */
 	private void signDone(final HashMap<String, String> fieldMap) {
+		if(fieldMap.get("field39").equals("00")){
+			
+		}
 		// 更新批次号
 		String batchNum = fieldMap.get("field60").replace(" ", "")
 				.substring(2, 8); // 60域不带长度信息
@@ -630,14 +638,18 @@ public class TransferLogic {
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 				case 0:
-					String tips = "签到成功\n\n[设备已成功更新工作密钥]";
+					BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_DIALOG);
+					String tips = "\t\t\t\t\t签到成功\n\n[设备已成功更新工作密钥]";
 					Constant.isSign = true;
 					if (Constant.isAISHUA) {
 						tips = "签到成功！";
 						AppDataCenter.setVENDOR(verndor);
 						AppDataCenter.setTERID(terid);
 					} else {
-						setVendorTerId(verndor, terid);
+						//终端灌入商户号、终端号
+//						setVendorTerId(verndor, terid);
+						AppDataCenter.setVENDOR(verndor);
+						AppDataCenter.setTERID(terid);
 					}
 					TransferLogic.getInstance().gotoCommonSuccessActivity(tips);
 					break;
@@ -650,19 +662,16 @@ public class TransferLogic {
 			Constant.pinkey = newKey.substring(0, 32);
 			String tips = "签到成功\n\n[设备已成功更新工作密钥]";
 			Constant.isSign = true;
-			if (Constant.isAISHUA) {
-				tips = "签到成功！";
-				AppDataCenter.setVENDOR(verndor);
-				AppDataCenter.setTERID(terid);
-			} else {
-				setVendorTerId(verndor, terid);
-			}
+			tips = "签到成功！";
+			AppDataCenter.setVENDOR(verndor);
+			AppDataCenter.setTERID(terid);
 			TransferLogic.getInstance().gotoCommonSuccessActivity(tips);
 		} else {
 			StringBuffer sb = new StringBuffer();
 			sb.append("Get_RenewKey|string:").append(pinKey).append(",string:")
-					.append(macKey).append(",string:").append(stackKey);
+			.append(macKey).append(",string:").append(stackKey);
 			FSKOperator.execute(sb.toString(), handler);
+			//			setVendorTerId(verndor, terid);
 		}
 
 	}
@@ -672,6 +681,20 @@ public class TransferLogic {
 	 */
 	private void settlementDone(HashMap<String, String> fieldMap) {
 		try {
+			// 更新批次号
+			String batchNum = fieldMap.get("field60").replace(" ", "")
+					.substring(2, 8); // 60域不带长度信息
+			
+			AppDataCenter.setBatchNum(batchNum);
+			
+			// 清空上一个批次的交易成功的信息，即用于消费撤销和查询签购单的数据库表
+			TransferSuccessDBHelper helper = new TransferSuccessDBHelper();
+			if (helper.deleteTransfers()) {
+				Log.e("debug", "更换批次后 成功 清空需清除的成功交易！");
+			} else {
+				Log.e("debug", "更换批次后清空需清除的成功交易 失败 ！");
+			}
+			
 			String field48 = fieldMap.get("field48");
 			String debitAmount = field48.substring(0, 12);
 			String debitCount = field48.substring(12, 15);
@@ -1260,16 +1283,13 @@ public class TransferLogic {
 			intent.putExtra("message", fieldMap.get("fieldMessage"));
 			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		} else {
-			Intent intent = new Intent(ApplicationEnvironment.getInstance()
-					.getApplication().getPackageName()
-					+ ".showBalance");
+			Intent intent = new Intent(BaseActivity.getTopActivity(),
+					ShowBalanceActivity.class);
 			intent.putExtra("balance", fieldMap.get("field54"));
 			intent.putExtra("availableBalance", fieldMap.get("field4"));
 			intent.putExtra("accountNo", fieldMap.get("field2"));
-			intent.putExtra("message", fieldMap.get("fieldMessage"));
 			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		}
-
 	}
 
 	/**
@@ -1309,11 +1329,11 @@ public class TransferLogic {
 				if (AppDataCenter.getValue("__TERSERIALNO")
 						.startsWith("001917")) {
 					// 打印
-					Intent intent = new Intent(
-							"com.bft.pos.PrintReceiptActivity");
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(
-							intent, 0);
+//					Intent intent = new Intent(BaseActivity.getTopActivity(),
+//							PrintReceiptActivity.class);
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivityForResult(
+//							intent, 0);
 
 				} else {
 					ViewPage transferViewPage = new ViewPage("transfersuccess");
@@ -1374,12 +1394,12 @@ public class TransferLogic {
 			} else {
 				if (AppDataCenter.getValue("__TERSERIALNO")
 						.startsWith("001917")) {
-					// 打印
-					Intent intent = new Intent(
-							"com.bft.pos.PrintReceiptActivity");
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(
-							intent, 0);
+//					// 打印
+//					Intent intent = new Intent(
+//							"com.bft.pos.PrintReceiptActivity");
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivityForResult(
+//							intent, 0);
 
 				} else {
 					ViewPage transferViewPage = new ViewPage("transfersuccess");
@@ -1454,30 +1474,46 @@ public class TransferLogic {
 	 * 冲正
 	 */
 	public boolean reversalAction() {
-		return false;
 
-		/*
-		 * if (Constant.isStatic){ return false; }
-		 * 
-		 * ReversalDBHelper helper = new ReversalDBHelper(); HashMap<String,
-		 * String> map = helper.queryNeedReversal();
-		 * 
-		 * if (null == map || map.size() == 0){ return false; } else {
-		 * BaseActivity
-		 * .getTopActivity().showDialog(BaseActivity.PROGRESS_DIALOG,
-		 * "正在发起冲正交易，请稍候...");
-		 * 
-		 * // 更新冲正表，则冲正次数加1。 // 注意这可能有问题，因为如果网络不通，直接没有从手机中发出交易，也已经使冲正次数发生变更
-		 * ReversalDBHelper DBhelper = new ReversalDBHelper();
-		 * DBhelper.updateReversalCount(map.get("field11"));
-		 * 
-		 * // 将原交易的transferCode改为对应的冲正的transferCode map.put("fieldTrancode",
-		 * AppDataCenter.getReversalMap().get(map.get("fieldTrancode")));
-		 * 
-		 * this.transferAction(map.get("fieldTrancode"), map);
-		 * 
-		 * return true; }
-		 */
+		if (Constant.isStatic){ 
+			return false; 
+		}
+
+		ReversalDBHelper helper = new ReversalDBHelper(); 
+		HashMap<String, String> map = helper.queryNeedReversal();
+
+		if (null == map || map.size() == 0){
+			return false; 
+		} else {
+			BaseActivity.getTopActivity().showDialog(BaseActivity.PROGRESS_DIALOG,
+					"正在发起冲正交易，请稍候...");
+
+			// 更新冲正表，则冲正次数加1。 // 注意这可能有问题，因为如果网络不通，直接没有从手机中发出交易，也已经使冲正次数发生变更
+			ReversalDBHelper DBhelper = new ReversalDBHelper();
+			DBhelper.updateReversalCount(map.get("field11"));
+
+
+			// 将原交易的transferCode改为对应的冲正的transferCode map.put("fieldTrancode",
+			AppDataCenter.getReversalMap().get(map.get("fieldTrancode"));
+
+			map.put("fieldTrancode", AppDataCenter.getReversalMap().get(map.get("fieldTrancode")));
+
+			if(map.get("fieldTrancode").equals("400000022")){
+				map.remove("field26");
+				map.remove("field52");
+				map.put("fieldTransType", "0400");
+			}
+
+			if(map.get("fieldTrancode").equals("400200023")){
+				map.remove("field26");
+				map.remove("field52");
+				map.put("fieldTransType", "0400");
+			}
+
+			this.transferAction(map.get("fieldTrancode"), map);
+
+			return true; 
+		}
 	}
 
 	/**

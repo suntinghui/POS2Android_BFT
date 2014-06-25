@@ -20,7 +20,7 @@
         android:layout_below="@id/topbarLayout"/>
     </RelativeLayout>
 
-    <LinearLayout
+   <!--  <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dip"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/pwd_logo" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <Button
         android:id="@+id/btn_confirm"

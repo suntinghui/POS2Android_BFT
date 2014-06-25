@@ -21,7 +21,6 @@ import android.os.Message;
 import android.util.Log;
 
 import com.bft.pos.activity.BaseActivity;
-import com.bft.pos.activity.view.ShowDialog;
 import com.bft.pos.agent.client.db.ReversalDBHelper;
 import com.bft.pos.client.exception.HttpException;
 import com.bft.pos.fsk.FSKOperator;
@@ -32,6 +31,7 @@ import com.bft.pos.model.TransferModel;
 import com.bft.pos.util.ByteUtil;
 import com.bft.pos.util.CustomFilePart;
 import com.bft.pos.util.JSONUtil;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
 import com.dhcc.pos.core.SocketTransport;
@@ -190,12 +190,16 @@ public class TransferPacketThread extends Thread {
 			}
 			// 如果该交易需要进行冲正，则将其记入数据库冲正表中。注意，这里可能会有问题，因为有可能网络不通，直接打回，也就是说没有从手机发出交易就需要进行充正。
 			if (AppDataCenter.getReversalMap().containsKey(this.transferCode)) {
+				
 				ReversalModel model = new ReversalModel();
 				model.setTraceNum(sendFieldMap.get("field11"));
 				model.setDate(AppDataCenter.getValue("__yyyy-MM-dd"));
 				model.setContent(sendFieldMap);
 
+				
+				
 				ReversalDBHelper helper = new ReversalDBHelper();
+				
 				helper.insertATransaction(model);
 			}
 
@@ -355,7 +359,7 @@ public class TransferPacketThread extends Thread {
 
 		} else if (this.transferCode.equals("999000003")) {
 			BaseActivity.getTopActivity().showDialog("正在获取验证码", transferCode);
-
+		
 		} else if (this.transferCode.equals("089006")) {
 
 		} else {
@@ -470,26 +474,60 @@ public class TransferPacketThread extends Thread {
 						parseJson(new String(respByte, Constant.ENCODING_JSON));
 				} else {
 					SocketTransport socketTransport = SocketTransport.getInstance();
-					respByte = socketTransport.sendData(sendByte);
-					Parse parse = Parse.getInstance();
+					if(sendByte!=null){
+						
+						respByte = socketTransport.sendData(sendByte);
+					}
+					
+					
+//					BaseActivity.getTopActivity().hideDialog(
+//							BaseActivity.PROGRESS_DIALOG);
+//					ShowDialog.setAlertDialog("");
+//					
+					
+					
+//					if(respByte == null || respByte.length == 0){
+//						return;
+//					}
+					
+					Parse parse = new Parse();
 					CnMessageFactory mfact = CnMessageFactory.getInstance();
+					receiveFieldMap = new HashMap<String, String>();
 					CnMessage m = null;
-					if(respByte.length != 0){
-						m = parse.parse(mfact, respByte, 10, 12);
-						//					
-						mfact.setCnMessage(m);
-						//					
-						Map<String, Object> respMap = socketTransport.afterProcess(mfact);
+					if(respByte!=null){
+						if(respByte.length != 0){
+							m = parse.parse(mfact, respByte, 10, 12);
+							//					
+							mfact.setCnMessage(m);
+							//					
+							Map<String, Object> respMap = socketTransport.afterProcess(mfact);
 
-						//					HashMap<String, Object> respMap = action
-						//							.afterProcess(respByte);
+							//					HashMap<String, Object> respMap = action
+							//							.afterProcess(respByte);
 
-						receiveFieldMap = new HashMap<String, String>();
-						for (String key : respMap.keySet()) {
-							this.receiveFieldMap
-							.put(key, (String) respMap.get(key));
+							//	给上下文注入响应报文中的39域 以便冲正使用
+							AppDataCenter.set__FIELD39((String) respMap.get("field39")); 
+							
+						
+							for (String key : respMap.keySet()) {
+								this.receiveFieldMap
+								.put(key, (String) respMap.get(key));
+							}
+						//当为结算时，由于返回报文没有39域，所以自动添加为00（如果没有39域无法回调到TransferLogic进行处理）
+							if(respMap.get("fieldTrancode").equals("050000")){
+								this.receiveFieldMap.put("field39", "00");
+							}
+							//测试收款撤销冲正临时添加
+//							if(respMap.get("fieldTrancode").equals("020023")){
+//								this.receiveFieldMap.put("field39", "98");
+//							}
+							
+							parse();
 						}
-						parse();
+					}else{
+//						给上下文注入响应报文中的39域 以便冲正使用
+						AppDataCenter.set__FIELD39("98");
+						System.out.println("没有收到任何报文！！！");
 					}
 				}
 			}
@@ -498,8 +536,8 @@ public class TransferPacketThread extends Thread {
 					BaseActivity.COUNTUP_DIALOG);
 			Log.i("hidecount ", "hidecount base after");
 		} catch (HttpException e) {
-			BaseActivity.getTopActivity().hideDialog(
-					BaseActivity.COUNTUP_DIALOG);
+//			BaseActivity.getTopActivity().hideDialog(
+//					BaseActivity.COUNTUP_DIALOG);
 			BaseActivity.getTopActivity().hideDialog(
 					BaseActivity.PROGRESS_DIALOG);
 			if (this.transferCode.equals("089006")) {
@@ -508,11 +546,12 @@ public class TransferPacketThread extends Thread {
 				// TransferLogic.getInstance().gotoCommonFaileActivity(
 				// e.getMessage());
 			
-				ShowDialog.setAlertDialog(e.getMessage());
+				PopupMessageUtil.showMSG_middle2(e.getMessage());
 			}
 
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			Log.e("UnsupportedEncodingException", e.getMessage());
+//			e.printStackTrace();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -527,9 +566,8 @@ public class TransferPacketThread extends Thread {
 				// toast.setGravity(Gravity.CENTER, 0, 0);
 				// toast.show();
 			
-				ShowDialog.setAlertDialog("服务器响应异常，请重试");
+				PopupMessageUtil.showMSG_middle2("服务器响应异常，请重试");
 			}
-
 		}
 	}
 
@@ -598,6 +636,7 @@ public class TransferPacketThread extends Thread {
 					}
 
 				} else {
+					//无需检查mac交易
 					checkField39();
 				}
 			}
@@ -699,19 +738,19 @@ public class TransferPacketThread extends Thread {
 					AppDataCenter.setServerDate(receiveFieldMap.get("field13"));
 				}
 
+//				// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
 				if (AppDataCenter.getReversalMap().containsValue(
 						this.transferCode)) {
-					// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
 					ReversalDBHelper helper = new ReversalDBHelper();
 					helper.updateReversalState(receiveFieldMap.get("field11"));
 				}
 
+				//成功后回调到TransferLogic
 				Message message = new Message();
 				message.what = 0; // 回调TransferLogic
 				message.obj = receiveFieldMap;
 				message.setTarget(handler);
 				message.sendToTarget();
-
 			} else if (field39.equals("98")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
 				TransferLogic.getInstance()
 						.gotoCommonFaileActivity("没有收到发卡行应答");

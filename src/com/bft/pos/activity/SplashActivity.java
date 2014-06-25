@@ -1,6 +1,7 @@
 package com.bft.pos.activity;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
+import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.RSAUtil;
 
 public class SplashActivity extends BaseActivity {
 
@@ -31,8 +34,19 @@ public class SplashActivity extends BaseActivity {
 				R.layout.splash_activity);
 		super.onCreate(savedInstanceState);
 		
+		/**
+		 * 直接跳转到主菜单
+		 **/
+		 Intent intent = new Intent(BaseActivity.getTopActivity(),
+		 CatalogActivity.class);
+		 startActivity(intent);
+		 
+		 
 		//设置商户号，终端号
+//		PSAMNo 000018
 //		setVendorTerId("108360759990977", "18000211");
+		
+//		setVendorTerId("108360750650935", "18000104");
 		
 		new SplashTask().execute();
 	}

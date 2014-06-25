@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<j8583cn-config>
+<j8583cn-config> 
 	<header tpduLength="10" headerLength="12">0100</header>
 	<header tpduLength="10" headerLength="12">0110</header>
 	 
@@ -117,7 +117,7 @@
 		<field id="62" 	format="LLLVAR" type="BINARY" addLen="true"/>
 		<field id="63" 	format="LLLVAR" type="ASCII" addLen="true"/>
 	</parseinfo> 
-	
+	 
  <parseinfo msgtypeid="0200"> 
 		<field id="2" format="LLVAR" type="BCD"	addLen="true"	align="left" />
 		<field id="3" format="NUMERIC" type="BCD" length="6" />
@@ -127,22 +127,22 @@
 		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
 		<field id="14" format="DATE_EXP" type="BCD" />
 		<field id="15" format="DATE4" 	type="BCD" />
-		<field id="22" format="NUMERIC"	length="3"	type="BCD"	align="right" />
+		<field id="22" format="NUMERIC"	length="3"	type="BCD"	align="left" />
 		<field id="23" format="NUMERIC" length="3"	type="BCD" align="right" />
 		<field id="25" format="NUMERIC" length="2"	type="BCD" 	align="left"/>
 		<field id="26" format="NUMERIC" length="2"	type="BCD" align="left"/>
 		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
 		<field id="35" format="LLVAR" 	type="BCD"	addLen="true" align="left"/>
-		<field id="36" format="LLVAR"	type="BCD"	addLen="true" align="left"/>
+		<field id="36" format="LLLVAR"	type="BCD"	addLen="true" align="left"/>
 		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
 		<field id="38" format="ALPHA"	type="ASCII"	length="6" />
 		<field id="41" 	format="ALPHA" 	type="ASCII" 	length="8" 	must="true"/>
 		<field id="42" 	format="ALPHA" 	type="ASCII" 	length="15" must="true"/>
-		<field id="44" format="LLVAR" type="BCD" must="true" addLen="true" align="left"/>
+		<field id="44" format="LLVAR" type="ASCII"  addLen="true" align="left"/>
 		<field id="48" format="NUMERIC"	type="BCD"	addLen="true"	align="left"/>
 		<field id="49" format="ALPHA"	type="ASCII" length="3"	/>
 		<field id="52" format="ALPHA"	type="BINARY" length="8"/>
-		<field id="53" format="NUMERIC" type="BCD" length="16"		/>
+		<field id="53" format="NUMERIC" type="BCD" length="16" />
 		<field id="54" format="LLLVAR"	type="ASCII"	addLen="true" />
 		<field id="55" format="LLLVAR"	addLen="true" />
 		<field id="57" format="LLVAR" addLen="true" />
@@ -174,18 +174,110 @@
 		<field id="39" 	format="ALPHA"	type="ASCII"	length="2" />
 		<field id="41" 	format="ALPHA" 		type="ASCII" 	length="8" 	must="true"/>
 		<field id="42" 	format="ALPHA" 		type="ASCII" 	length="15" must="true"/>
-		<field id="44" format="LLVAR" type="BCD" must="true" addLen="true" align="left"/>
+		<field id="44" format="LLVAR" type="ASCII"  addLen="true" align="left"/>
 		<field id="49" format="ALPHA" type="ASCII" length="3"	/>
-		<!-- 无长度 -->
+		<!-- 无长度 -->  
 		<field id="52" format="ALPHA" type="BINARY" length="8"/>
-		<field id="53" format="NUMERIC" type="BCD" length="16"		/>
+		<field id="53" format="NUMERIC" type="BCD" length="16"	/>
 		<field id="54" format="LLLVAR"	type="ASCII"	addLen="true" />
 		<field id="55" format="LLLVAR"	addLen="true" />
 		<field id="60" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
-		<field id="62" format="LLLVAR" />
+		<field id="62" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true" />
 		<field id="63" 	format="LLLVAR" type="ASCII" must="true" addLen="true"/>
 		<field id="64" format="ALPHA"  type="ASCII" length="8"/>
-	</parseinfo> 	
+	</parseinfo> 
+	 
+	<parseinfo msgtypeid="0400"> 
+		<field id="2" format="LLVAR" type="BCD"	addLen="true"	align="left" />
+		<field id="3" format="NUMERIC" type="BCD" length="6" />
+		<field id="4" format="AMOUNT" type="BCD" length="12" />
+		<field id="11" format="NUMERIC"	type="BCD"		length="6" 	must="true" />
+		<field id="12" 	format="TIME" 	type="BCD"	must="true"/>
+		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
+		<field id="14" format="DATE_EXP" type="BCD" />
+		<field id="15" format="DATE4" 	type="BCD" />
+		<field id="22" format="NUMERIC"	length="3"	type="BCD"	align="left" />
+		<field id="23" format="NUMERIC" length="3"	type="BCD" align="right" />
+		<field id="25" format="NUMERIC" length="2"	type="BCD" 	align="left"/>
+		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
+		<field id="35" format="LLVAR" 	type="BCD"	addLen="true" align="left"/>
+		<field id="36" format="LLLVAR"	type="BCD"	addLen="true" align="left"/>
+		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
+		<field id="38" format="ALPHA"	type="ASCII"	length="6" />
+		<field id="39" 	format="ALPHA"	type="ASCII"	length="2" />
+		<field id="41" 	format="ALPHA" 	type="ASCII" 	length="8" 	must="true"/>
+		<field id="42" 	format="ALPHA" 	type="ASCII" 	length="15" must="true"/>
+		<field id="44" format="LLVAR" type="ASCII"  addLen="true" align="left"/>
+		<field id="49" format="ALPHA"	type="ASCII" length="3"	/>
+		<field id="52" format="ALPHA"	type="BINARY" length="8"/>
+		<field id="53" format="NUMERIC" type="BCD" length="16" />
+		<field id="54" format="LLLVAR"	type="ASCII"	addLen="true" />
+		<field id="55" format="LLLVAR"	addLen="true" />
+		<field id="60" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
+		<field id="61" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
+		<field id="62" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true" />
+		<field id="64" 	format="ALPHA"	type="ASCII"	length="8" />
+	</parseinfo>
+	<parseinfo msgtypeid="0410">
+		<field id="2" format="LLVAR" type="BCD"	addLen="true"	align="left" />
+		<field id="3" format="NUMERIC" type="BCD" length="6" />
+		<field id="4" format="AMOUNT" type="BCD" length="12" />
+		<field id="11" format="NUMERIC"	type="BCD"		length="6" 	must="true" />
+		<field id="12" 	format="TIME" 	type="BCD"	must="true"/>
+		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
+		<field id="14" format="DATE_EXP" type="BCD" />
+		<field id="15" format="DATE4" 	type="BCD" />
+		<field id="22" format="NUMERIC"	length="3"	type="BCD"	align="left" />
+		<field id="23" format="NUMERIC" length="3"	type="BCD" align="right" />
+		<field id="25" format="NUMERIC" length="2"	type="BCD" 	align="left"/>
+		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
+		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
+		<field id="38" format="ALPHA"	type="ASCII"	length="6" />
+		<field id="39" 	format="ALPHA"	type="ASCII"	length="2" />
+		<field id="41" 	format="ALPHA" 	type="ASCII" 	length="8" 	must="true"/>
+		<field id="42" 	format="ALPHA" 	type="ASCII" 	length="15" must="true"/>
+		<field id="44" format="LLVAR" type="ASCII"  addLen="true" align="left"/>
+		<field id="49" format="ALPHA"	type="ASCII" length="3"	/>
+		<field id="52" format="ALPHA"	type="BINARY" length="8"/>
+		<field id="53" format="NUMERIC" type="BCD" length="16" />
+		<field id="54" format="LLLVAR"	type="ASCII"	addLen="true" />
+		<field id="55" format="LLLVAR"	addLen="true" />
+		<field id="58" format="LLLVAR" addLen="true" />
+		<field id="60" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
+		<field id="62" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true" />
+		<field id="64" 	format="ALPHA"	type="ASCII"	length="8" />
+	</parseinfo>
+	 
+	<parseinfo msgtypeid="0500">
+		<field id="11" format="NUMERIC"	type="BCD"		length="6" 	must="true" />
+		<field id="12" 	format="TIME" 	type="BCD"	must="true"/>
+		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
+		<field id="15" format="DATE4" 	type="BCD" />
+		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
+		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
+		<field id="41" 	format="ALPHA" 	type="ASCII" 	length="8" 	must="true"/>
+		<field id="42" 	format="ALPHA" 	type="ASCII" 	length="15" must="true"/>
+		<field id="48" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
+		<field id="49" format="ALPHA"	type="ASCII" length="3"	/>
+		<field id="60" format="LLLVAR" type="BCD"	must="true"	addLen="true" align="left"/>
+		<field id="63" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true"/>
+	</parseinfo>
+	<parseinfo msgtypeid="0510">
+		<field id="11" format="NUMERIC"	type="BCD"		length="6" 	must="true" />
+		<field id="12" 	format="TIME" 	type="BCD"	must="true"/>
+		<field id="13" 	format="DATE4"		type="BCD"	must="false" />
+		<field id="15" format="DATE4" 	type="BCD" />
+		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
+		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
+		<field id="41" 	format="ALPHA" 	type="ASCII" 	length="8" 	must="true"/>
+		<field id="42" 	format="ALPHA" 	type="ASCII" 	length="15" must="true"/>
+		<field id="48" format="LLLVAR"	type="BCD"	addLen="true"	align="left"/>
+		<field id="49" format="ALPHA"	type="ASCII" length="3"	/>
+		<field id="60" format="LLLVAR" type="BCD"	must="true"	addLen="true" align="left"/>
+		<field id="63" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true"/>
+	</parseinfo>
+	
+	
 </j8583cn-config>
 
 	

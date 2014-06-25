@@ -219,7 +219,7 @@ public class RevokeTransListActivity extends BaseActivity implements OnClickList
 				holder.iv_revoke.setVisibility(View.GONE);
 			}
 			holder.revokeAccountNo.setText(StringUtil.formatAccountNo(model.getContent().get("field2")));
-			holder.revokeDateTime.setText(DateUtil.formatDateTime(model.getContent().get("field13") + model.getContent().get("field12")));
+			holder.revokeDateTime.setText(DateUtil.formatDateTime(DateUtil.getDate(1) + model.getContent().get("field13") + model.getContent().get("field12")));
 			holder.revokeAmount.setText(StringUtil.String2SymbolAmount(model.getContent().get("field4")));
 			return convertView;
 		}

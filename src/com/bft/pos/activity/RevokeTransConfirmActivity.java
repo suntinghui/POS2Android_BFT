@@ -22,12 +22,12 @@ import com.bft.pos.util.StringUtil;
 import com.bft.pos.util.UnionDes;
 import com.bft.pos.util.XORUtil;
 import com.dhcc.pos.packets.util.ConvertUtil;
-
+//消费撤销
 public class RevokeTransConfirmActivity extends BaseActivity implements OnClickListener {
 	
 	private Button backButton = null;
 	private Button okButton  = null;
-	private PasswordWithLabelView passwordText = null;
+//	private PasswordWithLabelView passwordText = null;
 	
 	private HashMap<String, String> map = null;
 	
@@ -41,9 +41,9 @@ public class RevokeTransConfirmActivity extends BaseActivity implements OnClickL
 		super.onCreate(savedInstanceState);
 		
 		this.findViewById(R.id.topInfoView);
-		passwordText = (PasswordWithLabelView) this.findViewById(R.id.passwordET);
-		passwordText.setHintWithLabel(this.getResources().getString(R.string.pwd2), this.getResources().getString(R.string.pInputNewPwd));
-		passwordText.setLabel("卡密码");
+//		passwordText = (PasswordWithLabelView) this.findViewById(R.id.passwordET);
+//		passwordText.setHintWithLabel(this.getResources().getString(R.string.pwd2), this.getResources().getString(R.string.pInputNewPwd));
+//		passwordText.setLabel("卡密码");
 		
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
@@ -57,7 +57,7 @@ public class RevokeTransConfirmActivity extends BaseActivity implements OnClickL
 			((TextView)this.findViewById(R.id.rAccountNo)).setText(StringUtil.formatAccountNo(map.get("field2")));
 			((TextView)this.findViewById(R.id.rAmount)).setText(StringUtil.String2SymbolAmount(map.get("field4")));
 			((TextView)this.findViewById(R.id.rBatchNum)).setText(map.get("field60").substring(2, 8));
-			((TextView)this.findViewById(R.id.rTransTime)).setText(DateUtil.formatDateTime(map.get("field13")+map.get("field12")));
+			((TextView)this.findViewById(R.id.rTransTime)).setText(DateUtil.formatDateTime( map.get("field13")+map.get("field12")));
 		}
 	}
 	
@@ -69,10 +69,10 @@ public class RevokeTransConfirmActivity extends BaseActivity implements OnClickL
 			break;
 			
 		case R.id.okButton:
-			if (passwordText.getText().trim().length() != 6){
-				Toast.makeText(this, this.getResources().getString(R.string.pInputNewPwd), Toast.LENGTH_SHORT).show();
-				break;
-			}
+//			if (passwordText.getText().trim().length() != 6){
+//				Toast.makeText(this, this.getResources().getString(R.string.pInputNewPwd), Toast.LENGTH_SHORT).show();
+//				break;
+//			}
 			if(Constant.isAISHUA){
 				try {
 
@@ -84,12 +84,12 @@ public class RevokeTransConfirmActivity extends BaseActivity implements OnClickL
 					// 16位异或 值作des key
 					byte[] tmpByte = XORUtil.xorDataFor16(ByteUtil.hexStringToBytes(str0));
 					
-					String tmpStr = passwordText.getText() + "00";
+//					String tmpStr = passwordText.getText() + "00";
 
-					String pin52= ConvertUtil.bytesToHexString(tmpStr.getBytes());
-					byte[] desByte = UnionDes.TripleDES(tmpByte, ByteUtil.hexStringToBytes(pin52));//3131313131313030
+//					String pin52= ConvertUtil.bytesToHexString(tmpStr.getBytes());
+//					byte[] desByte = UnionDes.TripleDES(tmpByte, ByteUtil.hexStringToBytes(pin52));//3131313131313030
 //					map.put("AISHUAPIN", "B2A85787299895F6");
-					map.put("AISHUAPIN", ByteUtil.bytesToHexString(desByte));
+//					map.put("AISHUAPIN", ByteUtil.bytesToHexString(desByte));
 					
 					String flagStr = "01";
 					String randomStr = AppDataCenter.getRANDOM();
@@ -115,10 +115,11 @@ public class RevokeTransConfirmActivity extends BaseActivity implements OnClickL
 				if (null != map && map.size() != 0){
 					try{
 				        Event event = new Event(null,"RevokeTransConfirm", null);
-				        String fskStr = "Get_PsamNo|null#Get_VendorTerID|null#Get_EncTrack|int:0,int:0,string:null,int:60#Get_PIN|int:0,int:0,string:"+ map.get("field4") +",string:null,string:__PAN,int:60";
+//				        String fskStr = "Get_PsamNo|null#Get_VendorTerID|null#Get_EncTrack|int:0,int:0,string:null,int:60#Get_PIN|int:0,int:0,string:"+ map.get("field4") +",string:null,string:__PAN,int:60";
+				        String fskStr = "Get_PsamNo|null#Get_VendorTerID|null#Get_CardTrack|int:60#Get_PIN|int:0,int:0,string:"+ map.get("field4") +",string:null,string:__PAN,int:60";
 				        event.setFsk(fskStr);
 				        event.setTransfer("020023");
-				        map.put("fieldMerchPWD", passwordText.getEncryptPWD());
+//				        map.put("fieldMerchPWD", passwordText.getEncryptPWD());
 				        event.setStaticActivityDataMap(map);
 				        
 				        event.trigger();

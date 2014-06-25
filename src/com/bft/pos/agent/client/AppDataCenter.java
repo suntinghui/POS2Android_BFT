@@ -31,12 +31,19 @@ public class AppDataCenter {
 	private static String __PSAMPIN = null; // pin密文
 	private static String __PSAMMAC = null; // mac密文
 	private static String __PSAMTRACK = null; // 磁道密文
+	private static String __FIELD26 = null;
 	private static String __FIELD35 = null;
 	private static String __FIELD36 = null;
 	private static String __PAN = null; // PAN
 	private static String __ENCCARDNO = null; // 卡号密文
 	private static String __VENDOR = null; // 商户号
+	
 	private static String __TERID = null; // 终端号
+	
+	private static String __FIELD39 = null; // 响应码 本地保存（冲正时调用）
+	
+	
+
 	private static String field41 = null; // 终端号 本地保存
 	private static String field42 = null; // 商户号 本地保存
 	private static String __CARDNO = null; // 磁卡卡号
@@ -69,7 +76,8 @@ public class AppDataCenter {
 	private static HashMap<String, String> transferNameMap = new HashMap<String, String>();
 	private static HashMap<String, String> reversalMap = new HashMap<String, String>();
 
-	// 必须全大写
+	
+	//1、必须全大写 2、需要特殊处理的字段if语句中处理，不需要特殊处理的字段无需任何操作
 	public static String getValue(String propertyName) {
 		try {
 			String fieldName = propertyName.trim().toUpperCase();
@@ -114,9 +122,8 @@ public class AppDataCenter {
 							.getPreferences()
 							.getString(Constant.MERCHERNAME, "");
 				}
-			}
-
-			else {
+				//当以上没有匹配到时调用该类的全局变量
+			}else {
 				Class<?> thisClass = Class
 						.forName("com.bft.pos.agent.client.AppDataCenter");
 				Field field = thisClass.getDeclaredField(fieldName); // private
@@ -171,6 +178,15 @@ public class AppDataCenter {
 		return __TRACEAUDITNUM;
 	}
 
+	
+	public static String get__FIELD39() {
+		return __FIELD39;
+	}
+
+	public static void set__FIELD39(String __FIELD39) {
+		AppDataCenter.__FIELD39 = __FIELD39;
+	}
+
 	public static String getENCTRACK() {
 		return __ENCTRACK;
 	}
@@ -194,6 +210,7 @@ public class AppDataCenter {
 	public static void setField42(String field42) {
 		AppDataCenter.field42 = field42;
 	}
+	
 
 	// 签到后
 	public static void setBatchNum(String batchNum) {
@@ -303,6 +320,8 @@ public class AppDataCenter {
 			__PSAMPIN = Util.BinToHex(cmdReturn.Return_PSAMPIN, 0,
 					cmdReturn.Return_PSAMPIN.length);
 			__FIELD22 = "021";
+			//当输入卡密码时 设定26密码长度为6
+			__FIELD26 = "06";
 		} else {
 			__PSAMPIN = "";
 			__FIELD22 = "022"; // 如果交易输入了密码，取值为：021，如果未输入密码，取值为：022
@@ -332,15 +351,18 @@ public class AppDataCenter {
 
 		}
 
-		if (null != cmdReturn.Return_Track2) {
-			__FIELD35 = Util.BinToHex(cmdReturn.Return_Track2, 0,
-					cmdReturn.Return_Track2.length);// "4392257501725638D090610117539137";//
+		if (null != cmdReturn.Return_Track2){
+			__FIELD35 = Util.BinToHex(cmdReturn.Return_Track2, 0, cmdReturn.Return_Track2.length);//"4392257501725638D090610117539137";//
+//			__FIELD35 = "4682030210337444D0800062B2AD39EFD6456";
+			if(__FIELD35.substring(__FIELD35.length()-1).contains("F")){
+				__FIELD35 = __FIELD35.substring(0, __FIELD35.length()-1);
+			}
+		}
+		
+		if (null != cmdReturn.Return_Track3){
+			__FIELD36 = Util.BinToHex(cmdReturn.Return_Track3, 0, cmdReturn.Return_Track3.length);
 		}
 
-		if (null != cmdReturn.Return_Track3) {
-			__FIELD36 = Util.BinToHex(cmdReturn.Return_Track3, 0,
-					cmdReturn.Return_Track3.length);
-		}
 
 		if (null != cmdReturn.Return_PAN)
 			__PAN = Util.BinToHex(cmdReturn.Return_PAN, 0,

@@ -23,16 +23,15 @@ public class QueryBankBalanceActivity extends BaseActivity implements
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.activity_query_bank_balance);
 		super.onCreate(savedInstanceState);
-		init();
+		initControl();
 	}
-
-	private void init() {
+	@Override
+	public void initControl() {
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 		btn_swip = (Button) this.findViewById(R.id.btn_swip);
 		btn_swip.setOnClickListener(this);
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -51,6 +50,7 @@ public class QueryBankBalanceActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "swip", null);
 			event.setTransfer("020001");
+//			String fsk = "Get_PsamNo|null#Get_VendorTerID|null#Get_EncTrack|int:0,int:0,string:null,int:60#Get_PIN|int:0,int:0,string:0,string:null,string:__PAN,int:60";
 			String fsk = "Get_PsamNo|null#Get_VendorTerID|null#Get_CardTrack|int:60#Get_PIN|int:0,int:0,string:0,string:null,string:__PAN,int:60";
 			event.setFsk(fsk);
 			event.trigger();

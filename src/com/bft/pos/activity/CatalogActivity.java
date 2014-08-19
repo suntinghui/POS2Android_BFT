@@ -168,10 +168,13 @@ public class CatalogActivity extends BaseActivity {
 		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				ApplicationEnvironment.getInstance().ForceLogout();
 				
-				for (Activity activity : BaseActivity.getAllActiveActivity()){
-					activity.finish();
+				try{
+					for (Activity activity : BaseActivity.getAllActiveActivity()){
+						activity.finish();
+					}
+				} catch(Exception e){
+					
 				}
 				
 				// 必须关闭整个系统。缺点是也会关闭服务

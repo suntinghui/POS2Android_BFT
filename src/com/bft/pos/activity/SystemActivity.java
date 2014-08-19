@@ -1,6 +1,7 @@
 package com.bft.pos.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
+import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.slidingmenu.MenuBaseActivity;
 
 /**
@@ -48,8 +50,31 @@ public class SystemActivity extends BaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				Log.e("_--", "000");
 				switch (arg2) {
+				case 0:
+					Intent intent0 = new Intent(SystemActivity.this, FeedBackActivity.class);
+					startActivity(intent0);
+					break;
+					
+				case 1:
+					Intent intent1 = new Intent(SystemActivity.this, AboutActivity.class);
+					startActivity(intent1);
+					
+					break;
+					
+					// TODO
+				case 2:
+					LKAlertDialog dialog = new LKAlertDialog(SystemActivity.this);
+					dialog.setTitle("提示");
+					dialog.setMessage("已是最新版本，感谢您的关注。");
+					dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+
+					dialog.create().show();
+					break;
 
 				default:
 					break;

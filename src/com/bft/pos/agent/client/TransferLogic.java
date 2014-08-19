@@ -35,6 +35,7 @@ import com.bft.pos.activity.LoginFailActivity;
 import com.bft.pos.activity.PayPwdSuccess;
 import com.bft.pos.activity.PrintReceiptActivity;
 import com.bft.pos.activity.QBTransferHistory;
+import com.bft.pos.activity.ReceiptSuccessActivity;
 import com.bft.pos.activity.RegisterSuccessActivity;
 import com.bft.pos.activity.SetNewLoginPwdActivity;
 import com.bft.pos.activity.SetPayPwdActivity;
@@ -42,6 +43,7 @@ import com.bft.pos.activity.SettlementSuccessActivity;
 import com.bft.pos.activity.ShowBalanceActivity;
 import com.bft.pos.activity.SuccessActivity;
 import com.bft.pos.activity.TimeoutService;
+import com.bft.pos.activity.UploadSignImageService;
 import com.bft.pos.agent.client.db.ReversalDBHelper;
 import com.bft.pos.agent.client.db.TransferSuccessDBHelper;
 import com.bft.pos.agent.client.db.UploadSignImageDBHelper;
@@ -193,7 +195,10 @@ public class TransferLogic {
 
 		} else if ("020023".equals(transferCode)) { // 收款撤销
 			this.revokeTransDone(fieldMap);
+		
+		} else if ("400000022".equals(transferCode)) { // 收款冲正
 
+			
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
 
@@ -334,7 +339,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "重置支付密码失败" : desc;
-			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
+//			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -355,11 +361,7 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "修改银行卡号失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -539,6 +541,10 @@ public class TransferLogic {
 		}
 	}
 
+	/**设置商户号、终端号 灌入机具中；
+	 * @param vendor
+	 * @param terid
+	 */
 	private void setVendorTerId(String vendor, String terid) {
 		Event event = new Event(null, "login", null);
 		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s",
@@ -599,6 +605,8 @@ public class TransferLogic {
 		String macKey = null;
 		String stackKey = null;
 
+		
+		/**佰付通*/
 		//由于前一个字节（两个长度）是秘钥索引
 		newKey = newKey.substring(2);
 		try{
@@ -615,22 +623,22 @@ public class TransferLogic {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
-		/*
-		 try {
-			if (null != newKey && !"".equals(newKey)) {
-
-				// 标准
-				pinKey = newKey.substring(0, 40);
-				macKey = newKey.substring(40, 56) + newKey.substring(72);
-				stackKey = pinKey;
-
-			} else {
-				return;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		
+		/**众付宝*/
+//		 try {
+//			if (null != newKey && !"".equals(newKey)) {
+//
+//				// 标准
+//				pinKey = newKey.substring(0, 40);
+//				macKey = newKey.substring(40, 56) + newKey.substring(72);
+//				stackKey = pinKey;
+//
+//			} else {
+//				return;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		// 保存工作密钥
 		Handler handler = new Handler() {
@@ -673,7 +681,6 @@ public class TransferLogic {
 			FSKOperator.execute(sb.toString(), handler);
 			//			setVendorTerId(verndor, terid);
 		}
-
 	}
 
 	/**
@@ -734,21 +741,28 @@ public class TransferLogic {
 	private void registrDone(HashMap<String, String> fieldMap) {
 		String desc = null;
 		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
-			if (fieldMap.containsKey("rtCmnt")
-					&& !fieldMap.get("rtCmnt").equals(""))
+			if (fieldMap.containsKey("rtCmnt") && !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
-			desc = (desc == null) ? "注册成功" : desc;
+			desc = (desc == null) ? "已注册成功" : desc;
+			
+			String merchantNo = fieldMap.get("merchantNo").trim();
+			String terminalNo = fieldMap.get("terminalNo").trim();
+			
+//			设置商户号终端号 灌入机具
+			if(merchantNo!=null && merchantNo!=null){
+				setVendorTerId(merchantNo, terminalNo);
+			}else{
+				Log.i("注册:", "收到收单系统的商户号或终端号为空，无法灌入进机具。严重！！！");
+			}
 			// TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
 			TransferLogic.getInstance().gotoCommonLoginSuccessActivity(desc);
+			
 		} else if (fieldMap.get("rtCd") != null
 				&& fieldMap.get("rtCd").equals("05")) {
 			desc = "密钥过期，请更新最新密钥；";
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
-
+			
+			PopupMessageUtil.showMSG_middle(desc);
+			
 			try {
 				Event event = new Event(null, "getPublicKey", null);
 				event.setTransfer("089034");
@@ -771,8 +785,9 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "注册失败" : desc;
-			BaseActivity.getTopActivity().finish();
-			TransferLogic.getInstance().gotoLoginFaileActivity(desc);
+//			BaseActivity.getTopActivity().finish();
+//			TransferLogic.getInstance().gotoLoginFaileActivity(desc);
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -807,11 +822,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "认证失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 
 	}
@@ -835,11 +847,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "验证失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -887,10 +896,11 @@ public class TransferLogic {
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "设置登陆密码失败" : desc;
 			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+//			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
+//					Toast.LENGTH_LONG);
+//			toast.setGravity(Gravity.CENTER, 0, 0);
+//			toast.show();
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -919,11 +929,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "设置支付密码失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -950,11 +957,8 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+		
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -974,11 +978,7 @@ public class TransferLogic {
 					&& !fieldMap.get("rtCmnt").equals(""))
 				desc = fieldMap.get("rtCmnt");
 			desc = (desc == null) ? "修改密码失败" : desc;
-			// 屏幕中间弹窗
-			Toast toast = Toast.makeText(BaseActivity.getTopActivity(), desc,
-					Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			PopupMessageUtil.showMSG_middle2(desc);
 		}
 	}
 
@@ -1325,23 +1325,20 @@ public class TransferLogic {
 				event.setStaticActivityDataMap(fieldMap);
 				transferViewPage.addAnEvent(event);
 				event.trigger();
+				
 			} else {
-				if (AppDataCenter.getValue("__TERSERIALNO")
+//				旧 001903   新 001917
+				if (!AppDataCenter.getValue("__TERSERIALNO")
 						.startsWith("001917")) {
 					// 打印
-//					Intent intent = new Intent(BaseActivity.getTopActivity(),
-//							PrintReceiptActivity.class);
-//					intent.putExtra("content", fieldMap);
-//					BaseActivity.getTopActivity().startActivityForResult(
-//							intent, 0);
-
+					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
+				
+					intent.putExtra("content", fieldMap);
+					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 				} else {
-					ViewPage transferViewPage = new ViewPage("transfersuccess");
-					Event event = new Event(transferViewPage,
-							"transfersuccess", "transfersuccess");
-					event.setStaticActivityDataMap(fieldMap);
-					transferViewPage.addAnEvent(event);
-					event.trigger();
+					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+					intent.putExtra("content", fieldMap);
+					BaseActivity.getTopActivity().startActivity(intent);
 				}
 			}
 
@@ -1392,22 +1389,19 @@ public class TransferLogic {
 				transferViewPage.addAnEvent(event);
 				event.trigger();
 			} else {
+//				旧 001903   新 001917
 				if (AppDataCenter.getValue("__TERSERIALNO")
 						.startsWith("001917")) {
-//					// 打印
-//					Intent intent = new Intent(
-//							"com.bft.pos.PrintReceiptActivity");
-//					intent.putExtra("content", fieldMap);
-//					BaseActivity.getTopActivity().startActivityForResult(
-//							intent, 0);
+					// 打印
+					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
+				
+					intent.putExtra("content", fieldMap);
+					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 
 				} else {
-					ViewPage transferViewPage = new ViewPage("transfersuccess");
-					Event event = new Event(transferViewPage,
-							"transfersuccess", "transfersuccess");
-					event.setStaticActivityDataMap(fieldMap);
-					transferViewPage.addAnEvent(event);
-					event.trigger();
+					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+					intent.putExtra("content", fieldMap);
+					BaseActivity.getTopActivity().startActivity(intent);
 				}
 			}
 
@@ -1544,9 +1538,13 @@ public class TransferLogic {
 			// map.put("batchNum", fieldsMap.get("field60").substring(2, 8));
 
 			map.put("local_log", fieldsMap.get("field37"));
+			map.put("field41", fieldsMap.get("field41"));
 			map.put("merchant_id", fieldsMap.get("field42"));
 			map.put("filedIMEI", fieldsMap.get("imei"));
 			map.put("fieldMobile", fieldsMap.get("receivePhoneNo"));
+			map.put("field11", fieldsMap.get("field11"));
+			map.put("field12", fieldsMap.get("field12"));
+			map.put("field13", fieldsMap.get("field13"));
 
 			if (fieldsMap.containsKey("signImageName")) {
 				String imagePath = Constant.SIGNIMAGESPATH
@@ -1583,35 +1581,49 @@ public class TransferLogic {
 		} finally {
 			try {
 				BaseActivity.getTopActivity().startService(
-						new Intent("com.bft.pos.uploadSignImageService"));
+						new Intent(BaseActivity.getTopActivity(),UploadSignImageService.class));
 
 				BaseActivity.getTopActivity().setResult(BaseActivity.RESULT_OK);
-				BaseActivity.getTopActivity().finish();
+//				BaseActivity.getTopActivity().finish();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
 	/**
 	 * 签购单上传完成
 	 */
 	private void uploadReceiptDone(HashMap<String, String> fieldMap) {
-		String field11 = transferMap.get(UPLOADSIGNIMAGETRANSFER).getSendMap()
-				.get("field11");
 
-		UploadSignImageDBHelper helper = new UploadSignImageDBHelper();
-
-		// 发送短信
-		String receMobile = helper.queryReceMobile(field11);
-		if (SystemConfig.isSendSMS() && !"".equals(receMobile)) {
-			PhoneUtil.sendSMS(receMobile, fieldMap.get("field44"));
+		String desc = null;
+		if (fieldMap.get("rtCd") != null && fieldMap.get("rtCd").equals("00")) {
+			String field11 = transferMap.get(UPLOADSIGNIMAGETRANSFER).getSendMap()
+					.get("field11");
+			
+			UploadSignImageDBHelper helper = new UploadSignImageDBHelper();
+			
+			// 发送短信
+			String receMobile = helper.queryReceMobile(field11);
+			if (SystemConfig.isSendSMS() && !"".equals(receMobile)) {
+				PhoneUtil.sendSMS(receMobile, fieldMap.get("field44"));
+			}
+			
+			// 签购单上传成功更新数据库
+			helper.updateUploadFlagSuccess(field11);
+			
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc == null) ? "签购单上传成功" : desc;
+			TransferLogic.getInstance().gotoCommonSuccessActivity(desc);
+		} else {
+			if (fieldMap.containsKey("rtCmnt")
+					&& !fieldMap.get("rtCmnt").equals(""))
+				desc = fieldMap.get("rtCmnt");
+			desc = (desc == null) ? "签购单上传失败" : desc;
+			TransferLogic.getInstance().gotoCommonFaileActivity(desc);
+//			PopupMessageUtil.showMSG_middle2(desc);
 		}
-
-		// 签购单上传成功更新数据库
-		helper.updateUploadFlagSuccess(field11);
-
-		// gotoCommonSuccessActivity(fieldMap.get("fieldMessage"));
 	}
 
 	/**

@@ -22,7 +22,7 @@ public class Packet {
 	private static Packet instance = null;
 
 	private Packet() {
-		this.TPDU = "6000030000";
+		this.TPDU = "6000040000";
 		this.msgHeader = "603110000000"; 
 	}
 
@@ -147,7 +147,7 @@ public class Packet {
 							}
 							m.setValue(fieldId, cnFormat, cnType, value, value.toString().length(), must, addLen, align);
 						} else if (xFieldParseInfo.getLength() != 0 && xFieldParseInfo.isMust() == false) {
-							if (value != null || !value.equals("null")) {
+							if (value != null && !value.equals("null")) {
 								if(!(cnType == CnType.BINARY)){
 									if (value.toString().length() != xFieldParseInfo.getLength()) {
 										if (value.toString().length() < xFieldParseInfo.getLength()) {

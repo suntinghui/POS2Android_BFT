@@ -88,6 +88,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				.findViewById(R.id.et_login_pwd_again);
 		et_login_pwd_again.setIconAndHint(R.drawable.icon_pwd, "再次输入登陆密码");
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
+		et_sms.setInputType(InputType.TYPE_CLASS_NUMBER);
 		ib_agree = (ImageButton) this.findViewById(R.id.ib_agree);// 同意服务协议
 		ib_agree.setOnClickListener(this);
 	}
@@ -269,7 +270,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		timer.schedule(task, 1000, 1000); // timeTask
 	};
 
-	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	// 处理点击手机菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// Toggle the menu on menu key press.

@@ -81,11 +81,25 @@ public class SocketTransport {
 	}
 	
 	SocketTransport() {
+//		佰付通
 		this.host = "114.80.227.152";
 //		this.host = "www.payfortune.com";
 		this.port = 2003; 
-//		this.host = "61.132.75.110";//优乐通
+//		
+		//公司网控器
+//		this.host = "192.168.4.62";
+//		this.port = 60000; 
+		
+		//优乐通
+//		this.host = "61.132.75.110";
 //		this.port = 9999; 
+		
+		//众付宝
+//		this.host = "220.194.46.46";
+//		this.port = 9909; 
+		
+		
+		
 		
 		this.timeout = 50000;
 		this.headlength = 12;
@@ -204,11 +218,11 @@ public class SocketTransport {
 //			out.flush();
 
 		} catch (SocketException e) {
-			Log.v("QLQ", "socketException ");
+			Log.e("QLQ", e.getMessage());
 		} catch (SocketTimeoutException e) {
-			Log.v("QLQ", "超时 ");
+			Log.e("QLQ", e.getMessage());
 		} catch (IOException e) {
-			System.out.print("发生IO异常:"+e);
+			Log.e("发生IO异常", e.getMessage());
 		}
 	}
 	/**

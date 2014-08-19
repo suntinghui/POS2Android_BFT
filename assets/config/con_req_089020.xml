@@ -16,7 +16,7 @@
 
     <field
         key="bkCardNo"
-        value="1234567890"/>
+        value="__bkCardNo"/>
 
     <field
         key="mctName"

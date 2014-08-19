@@ -62,13 +62,17 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 		displayPadLayout = (LinearLayout) this.findViewById(R.id.displayPadLayout);
 
 		backButton = (Button) this.findViewById(R.id.backButton);
-		backButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				finish();
-			}
-
-		});
+//		backButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View arg0) {
+//				finish();
+//			}
+//
+//		});
+		
+//		或者
+		backButton.setOnClickListener(listener);
+		
 
 		button_1 = (Button) this.findViewById(R.id.button_1);
 		button_2 = (Button) this.findViewById(R.id.button_2);
@@ -101,7 +105,15 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 		this.showDateLayout();
 		this.refreshDisplayPad(inputString);
 	}
-
+	
+	private OnClickListener listener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			finish();
+		}
+	};
+	
 	@Override
 	public void onClick(View view) {
 		// 震动提示
@@ -314,28 +326,28 @@ public class InputMoneyActivity extends BaseActivity implements OnClickListener 
 
 		return imageView;
 	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			return false;
-		} else if (keyCode == KeyEvent.KEYCODE_BACK){
-			try {
-
-				Event eve = new Event(null, "swip", null);
-				String fsk = "stopCard|null";
-				eve.setFsk(fsk);
-				eve.trigger();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			return false;
-		}else {
-			return super.onKeyDown(keyCode, event);
-		}
-	}
+//手机返回按键
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_MENU) {
+//			return false;
+//		} else if (keyCode == KeyEvent.KEYCODE_BACK){
+//			try {
+//
+//				Event eve = new Event(null, "swip", null);
+//				String fsk = "stopCard|null";
+//				eve.setFsk(fsk);
+//				eve.trigger();
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//
+//			return false;
+//		}else {
+//			return super.onKeyDown(keyCode, event);
+//		}
+//	}
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {

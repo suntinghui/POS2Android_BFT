@@ -341,8 +341,8 @@ public class TransferPacketThread extends Thread {
 		}
 
 		if (transferModel.isJson()) {
-			Log.e("send JSON", AppDataCenter.getMethod_Json(this.transferCode)
-					+ ":   " + sendJSONStringer.toString());
+//			Log.e("send JSON", AppDataCenter.getMethod_Json(this.transferCode)
+//					+ ":   " + sendJSONStringer.toString());
 		}
 		// 如果是冲正则提示冲正。
 		if (AppDataCenter.getReversalMap().containsValue(this.transferCode)) {
@@ -361,7 +361,11 @@ public class TransferPacketThread extends Thread {
 			BaseActivity.getTopActivity().showDialog("正在获取验证码", transferCode);
 		
 		} else if (this.transferCode.equals("089006")) {
+			
+		} else if (this.transferCode.equals("089016")) {
 
+			BaseActivity.getTopActivity().showDialog("正在登陆，请稍候 ",
+					transferCode);
 		} else {
 			BaseActivity.getTopActivity().showDialog("正在处理交易，请稍候 ",
 					transferCode);
@@ -375,7 +379,8 @@ public class TransferPacketThread extends Thread {
 				if (transferModel.isJson()) {
 
 					/**
-					 * ================ 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
+					 * ================ 
+					 * 1、由于各连接系统不同，做特殊处理，故在此解包处理再组包(json)：
 					 * 2、处理带附件交易
 					 * 
 					 * ================
@@ -647,7 +652,7 @@ public class TransferPacketThread extends Thread {
 	}
 
 	private void parseJson(String jsonStr) {
-		Log.e("rece JSON", jsonStr);
+//		Log.e("rece JSON", jsonStr);
 
 		receiveFieldMap = new HashMap<String, String>();
 		receiveFieldMap.put("fieldTrancode", transferCode);
@@ -668,51 +673,39 @@ public class TransferPacketThread extends Thread {
 				String arg_str = receiveFieldMap.get("apires") != null ? receiveFieldMap
 						.get("apires").replace(",", "") : null;
 			}
-			if (this.transferCode.equals("089014")) {
-				if (receiveFieldMap.containsKey("field39")
-						&& receiveFieldMap.get("field39").equals("00")) {
-					Message message = new Message();
-					message.what = 0; // 回调TransferLogic
-					message.obj = receiveFieldMap;
-					message.setTarget(handler);
-					message.sendToTarget();
-				}
-
-			} else {
-				if (transferModel.shouldMac()) {
-					if (receiveFieldMap.get("macstr").length() == 0) {
-						if (this.transferCode.equals("089018")
-								|| this.transferCode.equals("089006")) {
-						} else {
-							TransferLogic.getInstance()
-									.gotoCommonFaileActivity("操作失败");
-						}
+			if (transferModel.shouldMac()) {
+				if (receiveFieldMap.get("macstr").length() == 0) {
+					if (this.transferCode.equals("089018")
+							|| this.transferCode.equals("089006")) {
 					} else {
-						if (receiveFieldMap.get("mac") != null) {
-							String md5key = ApplicationEnvironment
-									.getInstance().getPreferences()
-									.getString(Constant.MD5KEY, "");
-							if ((receiveFieldMap.get("mac").equals(StringUtil
-									.MD5Crypto(receiveFieldMap.get("macstr")
-											+ md5key)))) {
-								Message message = new Message();
-								message.what = 0; // 回调TransferLogic
-								message.obj = receiveFieldMap;
-								message.setTarget(handler);
-								message.sendToTarget();
-							} else {
-								TransferLogic.getInstance()
-										.gotoCommonFaileActivity("操作失败");
-							}
-						}
+						TransferLogic.getInstance()
+						.gotoCommonFaileActivity("操作失败");
 					}
 				} else {
-					Message message = new Message();
-					message.what = 0; // 回调TransferLogic
-					message.obj = receiveFieldMap;
-					message.setTarget(handler);
-					message.sendToTarget();
+					if (receiveFieldMap.get("mac") != null) {
+						String md5key = ApplicationEnvironment
+								.getInstance().getPreferences()
+								.getString(Constant.MD5KEY, "");
+						if ((receiveFieldMap.get("mac").equals(StringUtil
+								.MD5Crypto(receiveFieldMap.get("macstr")
+										+ md5key)))) {
+							Message message = new Message();
+							message.what = 0; // 回调TransferLogic
+							message.obj = receiveFieldMap;
+							message.setTarget(handler);
+							message.sendToTarget();
+						} else {
+							TransferLogic.getInstance()
+							.gotoCommonFaileActivity("操作失败");
+						}
+					}
 				}
+			} else {
+				Message message = new Message();
+				message.what = 0; // 回调TransferLogic
+				message.obj = receiveFieldMap;
+				message.setTarget(handler);
+				message.sendToTarget();
 			}
 
 		} catch (JSONException e) {
@@ -751,6 +744,26 @@ public class TransferPacketThread extends Thread {
 				message.obj = receiveFieldMap;
 				message.setTarget(handler);
 				message.sendToTarget();
+				
+//			} else if (field39.equals("40") || field39.equals("25")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
+//				// 只有在交易成功的时候取服务器日期
+//				if (receiveFieldMap.containsKey("field13")) {
+//					AppDataCenter.setServerDate(receiveFieldMap.get("field13"));
+//				}
+//
+////				// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
+//				if (AppDataCenter.getReversalMap().containsValue(
+//						this.transferCode)) {
+//					ReversalDBHelper helper = new ReversalDBHelper();
+//					helper.updateReversalState(receiveFieldMap.get("field11"));
+//				}
+//
+//				//成功后回调到TransferLogic
+//				Message message = new Message();
+//				message.what = 0; // 回调TransferLogic
+//				message.obj = receiveFieldMap;
+//				message.setTarget(handler);
+//				message.sendToTarget();
 			} else if (field39.equals("98")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
 				TransferLogic.getInstance()
 						.gotoCommonFaileActivity("没有收到发卡行应答");

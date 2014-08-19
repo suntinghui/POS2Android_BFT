@@ -2,113 +2,61 @@ package com.bft.pos.activity;
 
 import java.util.HashMap;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.dynamic.core.Event;
-
 
 public class PrintReceiptActivity extends BaseActivity {
-	
-	String printContent = "";
-	Button closeButton;
-	
+	TextView tv_content;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.index = 0;
+// 		依旧添加侧滑界面
+			setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_print_receipt);
+			super.onCreate(savedInstanceState);
+		this.findViewById(R.id.topInfoView);
 		
-		this.setContentView(R.layout.receipt);
-		
-		this.findViewById(R.id.closeButton).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				PrintReceiptActivity.this.setResult(RESULT_OK);
-				PrintReceiptActivity.this.finish();
-			}
-			
-		});
-		
-		/**或者*/
-		
-//		closeButton = (Button) this.findViewById(R.id.closeButton);
-//		closeButton.setOnClickListener(listener);
-		
-		
-		try {
-			@SuppressWarnings("unchecked")
-			HashMap<String, String> map = (HashMap<String, String>) this.getIntent().getSerializableExtra("content");
-			StringBuffer sb = new StringBuffer();
-			for (String key : map.keySet()){
-				if (!key.equals("fieldMAB")){
-					sb.append(key).append("=").append(map.get(key)).append(";");
-				}
-			}
-			
-			printContent = sb.deleteCharAt(sb.length()-1).toString();
-			
-			new PrintReceiptTask().execute();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		initControl();
 	}
-	
-	// 点击相应
-	private OnClickListener listener = new OnClickListener(){
-		@Override
-		public void onClick(View arg0) {
-			PrintReceiptActivity.this.setResult(RESULT_OK);
-			PrintReceiptActivity.this.finish();
+	@Override
+	public void initControl() {
+		HashMap<String, String> fieldMap = (HashMap<String, String>) this.getIntent().getSerializableExtra("content");
+		
+		tv_content = (TextView) findViewById(R.id.tv_content);
+		
+		if(fieldMap.get("fieldTrancode").equals("020022")){
+			tv_content.setText("收款成功");
+		}else if(fieldMap.get("fieldTrancode").equals("020023")){
+			tv_content.setText("收款撤销成功");
 		}
 		
-	};
-	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Button btn_back2 = (Button) this.findViewById(R.id.btn_back2);
+		btn_back2.setOnClickListener(this);
+		
+		Button btn_commit = (Button) this.findViewById(R.id.btn_commit);
+		btn_commit.setOnClickListener(this);
+	}
+	@Override
+	public void onClick(View arg0) {
+		switch (arg0.getId()) {
+		case R.id.btn_back2:
+		
+			this.finish();
+			break;
+		case R.id.btn_commit:
+		
+			Intent intent1 = new Intent(PrintReceiptActivity.this,GatherActivity.class);
+			startActivity(intent1);
+			this.finish();
+			
+			break;
 
-	    switch (keyCode) {
-	        case KeyEvent.KEYCODE_BACK:
-	        {
-	        	PrintReceiptActivity.this.setResult(RESULT_OK);
-				PrintReceiptActivity.this.finish();
-	        }
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+		default:
+			break;
+		}
 	}
-	
-	class PrintReceiptTask extends AsyncTask<Object, Object, Object>{
-		@Override
-		protected void onPreExecute() {
-			PrintReceiptActivity.this.showDialog(BaseActivity.PROGRESS_DIALOG, PrintReceiptActivity.this.getResources().getString(R.string.operatingDevice));
-			
-			try{
-				Event event = new Event(null,"print", null);
-		        String fskStr = "Set_PtrData|string:" + printContent;
-		        event.setFsk(fskStr);
-		        event.trigger();
-				
-			} catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		
-		@Override
-		protected void onPostExecute(Object result) {
-			PrintReceiptActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
-		}
-
-		@Override
-		protected Object doInBackground(Object... arg0) {
-			
-			return null;
-			
-		}
-		
-	}
-	
 }

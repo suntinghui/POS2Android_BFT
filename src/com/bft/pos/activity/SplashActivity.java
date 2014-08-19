@@ -44,14 +44,16 @@ public class SplashActivity extends BaseActivity {
 		 
 		//设置商户号，终端号
 //		PSAMNo 000018
+//		 setVendorTerId("108320558140739", "18000220");
+//		 psam卡号：00000018
 //		setVendorTerId("108360759990977", "18000211");
-		
+//		
 //		setVendorTerId("108360750650935", "18000104");
 		
 		new SplashTask().execute();
 	}
 
-	// 要泽宇：处理点击菜单键出现侧滑菜单的问题
+	// 处理点击菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {

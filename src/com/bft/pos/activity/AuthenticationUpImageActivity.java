@@ -186,8 +186,8 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 			this.finish();
 			break;
 		case R.id.bt_confirm:
-			System.out.println(pIdImg0_path + "~~~~" + pIdImg1_path + "!!~~"
-					+ bkCard3_path);
+//			System.out.println(pIdImg0_path + "~~~~" + pIdImg1_path + "!!~~"
+//					+ bkCard3_path);
 			try {
 				Event event = new Event(null, "identifyMerchant", null);
 				event.setTransfer("089020");
@@ -205,7 +205,7 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 				req_map.putAll(tmp);
 				String req_json = JSONUtil.MAP2JSONStr(req_map);
 				map.put("bankNo", "123456789");// 开户行
-				map.put("bkCardNo", "1234567890");// 银行卡号
+				map.put("bkCardNo",et_account.getText().toString() );// 银行卡号
 				map.put("mctName", "建行");// 商户名
 				map.put("verifyCode", et_sms.getText().toString());// 验证码
 				/** 附件内容 */
@@ -885,8 +885,6 @@ public class AuthenticationUpImageActivity extends BaseActivity implements
 		try {
 			Event event = new Event(null, "getSms", null);
 			event.setTransfer("089006");
-			String fsk = "Get_ExtPsamNo|null";
-			event.setFsk(fsk);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("mobNo", ApplicationEnvironment.getInstance()
 					.getPreferences().getString(Constant.PHONENUM, ""));

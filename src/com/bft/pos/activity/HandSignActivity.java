@@ -5,10 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.bft.pos.R;
-import com.bft.pos.activity.view.TextWithLabelView;
-import com.bft.pos.agent.client.Constant;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -34,6 +30,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bft.pos.R;
+import com.bft.pos.activity.view.TextWithLabelView;
+import com.bft.pos.agent.client.Constant;
 
 public class HandSignActivity extends BaseActivity implements OnClickListener {
 
@@ -61,6 +61,9 @@ public class HandSignActivity extends BaseActivity implements OnClickListener {
 		// 依旧添加侧滑界面
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
 				R.layout.handsign);
+		
+//		setContentView(R.layout.handsign);
+		
 		super.onCreate(savedInstanceState);
 		this.findViewById(R.id.topInfoView);
 
@@ -374,13 +377,14 @@ public class HandSignActivity extends BaseActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Object result) {
-			HandSignActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
-			Intent intent = new Intent();
-			intent.putExtra("phoneNum", phoneNum);
-			setResult(RESULT_OK, intent);
-			finish();
+			//在A中启动B，B中有线程操作，结束时涉及到对话框的dismiss。如果在操作尚未结束时，按下HOME键，线程后台操作。此时重新进去A，等到线程操作完成就会出现这个异常。此时应该做一个判断，如下：
+			 if (HandSignActivity.class != null && !HandSignActivity.this.isFinishing()) {
+				 HandSignActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
+				 Intent intent = new Intent();
+				 intent.putExtra("phoneNum", phoneNum);
+				 HandSignActivity.this.setResult(RESULT_OK,intent);
+				 HandSignActivity.this.finish();
+			 }
 		}
-
 	}
-
 }

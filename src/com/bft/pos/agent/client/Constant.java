@@ -32,6 +32,7 @@ public class Constant {
 //	public static String JSONURL = "https://58.221.92.138:8443/yunpaiApi/api/"; // 9200   8443
 //	public static String JSONURL = "http://192.168.1.78:9000/mobile/";
 	public static String JSONURL = "http://www.payfortune.com:2399/mobile/";
+//	public static String JSONURL = "http://114.80.227.152:2399/mobile/";
 	
 //	public static String JSONURL = "https://api.vastpay.cn:8443/yunpaiApi/api/"; // 9200   8443
 	

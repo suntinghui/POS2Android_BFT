@@ -152,7 +152,7 @@
 		<field id="62" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true" />
 		<field id="63" 	format="LLLVAR" type="ASCII" 	must="true" addLen="true"/>
 		<field id="64" 	format="ALPHA"	type="ASCII"	length="8" />
-	</parseinfo> 
+	</parseinfo>  
 	
 	<parseinfo msgtypeid="0210"> 
 		<field id="2" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
@@ -169,7 +169,7 @@
 		<field id="26" format="NUMERIC" length="2"	type="BCD" align="left"/>
 		<field id="32" 	format="LLVAR" 	type="BCD"	addLen="true"	align="left"/>
 		<field id="35" format="LLVAR" 	type="BCD"	addLen="true" align="left"/>
-		<field id="36" format="LLVAR"	type="BCD"	addLen="true" align="left"/>
+		<field id="36" format="LLLVAR"	type="BCD"	addLen="true" align="left"/>
 		<field id="37"	format="ALPHA"	type="ASCII"	length="12" />
 		<field id="39" 	format="ALPHA"	type="ASCII"	length="2" />
 		<field id="41" 	format="ALPHA" 		type="ASCII" 	length="8" 	must="true"/>

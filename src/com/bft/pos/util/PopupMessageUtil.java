@@ -1,6 +1,7 @@
 package com.bft.pos.util;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,18 @@ import com.bft.pos.activity.BaseActivity;
  *
  */
 public class PopupMessageUtil{
+	
+	/**举例：message="您还没有签名，请先完成签名"；
+	 * @param message
+	 */
+	public static void dialog(String message){
+		AlertDialog.Builder builder = new Builder(null);
+		builder.setMessage(message);
+		builder.setPositiveButton("确定", null);
+		builder.create().show();
+		
+	}
+	
 
 	/**
 	 * @功能函数	屏幕下弹窗

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -366,7 +367,27 @@ public class LoginActivity extends BaseActivity {
 		startActivity(getpwd_intent);
 	}
 
-	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	private void exit(){
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setMessage("\n您确定要退出佰付通吗？");
+		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				ApplicationEnvironment.getInstance().ForceLogout();
+				finish();
+			}
+		});
+
+		builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		
+		builder.show();
+	}
+	
+	// 处理点击手机菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -375,4 +396,15 @@ public class LoginActivity extends BaseActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//    	if(keyCode == KeyEvent.KEYCODE_BACK){
+//    		
+//    		this.exit();
+//    		return false;
+//    	} else{
+//    		return super.onKeyDown(keyCode, event);
+//    	}
+//	}
 }

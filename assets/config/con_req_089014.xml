@@ -4,35 +4,42 @@
 
 <root
     isJson="true"
-    shouldMac="true" >
-
-    <field
-        key="tel"
-        value="__tel" />
-
+    shouldMac="false" >
     <field
         key="fieldTrancode"
         value="089014" />
 
     <field
-        key="send_tel"
-        value="__send_tel" />
+        key="mobNo"
+        value="__mobNo" />
 
     <field
-        key="local_log"
-        value="__local_log" />
+        key="psamNo"
+        value="__psamNo" />
 
     <field
-        key="merchant_id"
-        value="__merchant_id" />
+        key="tmnOrdNo"
+        value="__tmnOrdNo" />
 
     <field
-        key="img"
-        value="__img" />
-    <field key="sys_type" value="1" />
+        key="tmnTime"
+        value="__tmnTime" />
+
+    <field key="tmnDate" 
+        value="__tmnDate" />
+    
+    <field key="tmnNo" 
+        value="__tmnNo" />
+    
+    <field key="mctNo" 
+        value="__mctNo" />
+    
+    <field
+        key="signImg"
+        value="__signImg" />
 
     <field
-        key="macstr"
-        value="tel,local_log,merchant_id" />
+        key="orderNo"
+        value="__orderNo" />
 
 </root>

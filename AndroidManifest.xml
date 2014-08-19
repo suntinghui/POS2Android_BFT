@@ -106,7 +106,7 @@
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
-                <action android:name="com.bft.pos.pos.timeoutService" />
+                <action android:name="com.bft.pos.timeoutService" />
             </intent-filter>
         </service>
         <service
@@ -114,7 +114,7 @@
             android:enabled="true"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.bft.pos.pos.updateAPKService" />
+                <action android:name="com.bft.pos.updateAPKService" />
             </intent-filter>
         </service>
         <service
@@ -122,7 +122,7 @@
             android:enabled="true"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.bft.pos.pos.uploadSignImageService" />
+                <action android:name="com.bft.pos.uploadSignImageService" />
             </intent-filter>
         </service>
 
@@ -156,6 +156,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+          <!-- 收款结果界面 -->
+       <!--  <activity android:name=".activity.PrintReceiptActivity"  android:exported="false" android:theme="@style/Theme"
+            android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan">
+        	<intent-filter >
+                <action android:name="com.bft.pos.PrintReceiptActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> -->
+        
         
         <activity
             android:name=".activity.BankNumberActivity"
@@ -384,6 +394,23 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
+        
+        
+        <activity
+            android:name=".activity.PrintReceiptActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+            <intent-filter>
+                <action android:name="com.bft.pos.PrintReceiptActivity" />
+
+                <data android:scheme="info" />
+            </intent-filter>
+        </activity>
+        
+        
+        
+        
         <activity
             android:name="com.bft.pos.activity.DrawingsActivity"
             android:exported="true"
@@ -469,12 +496,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         
-         <activity android:name="com.bft.pos.activity.PrintReceiptActivity" 
-             android:exported="false" 
-             android:theme="@style/Theme"
-            android:screenOrientation="portrait" 
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
         
         <activity android:name="com.bft.pos.activity.PhoneCode" >
         </activity>

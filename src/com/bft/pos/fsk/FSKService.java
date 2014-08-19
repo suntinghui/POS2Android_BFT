@@ -152,7 +152,6 @@ public class FSKService extends Service {
 			} else {
 				BaseActivity.getTopActivity().showDialog(BaseActivity.MODAL_DIALOG, "刷卡设备操作失败，请重试");
 			}
-			
 		} finally{
 			execCount = 0;
 		}

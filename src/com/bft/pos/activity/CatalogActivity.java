@@ -4,9 +4,10 @@ package com.bft.pos.activity;
  * 主界面
  * 这个界面不需要侧滑
  * */
-import java.util.ArrayList;
-
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,9 +22,9 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bft.pos.R;
+import com.bft.pos.agent.client.ApplicationEnvironment;
 
 // 目录
 public class CatalogActivity extends BaseActivity {
@@ -123,29 +124,63 @@ public class CatalogActivity extends BaseActivity {
 		}
 	};
 
-	// 程序退出 点击两次后退键
+//	// 程序退出 点击两次后退键
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK
+//				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+//			if ((System.currentTimeMillis() - exitTimeMillis) > 2000) {
+//				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//				exitTimeMillis = System.currentTimeMillis();
+//			} else {
+//				ArrayList<BaseActivity> list = BaseActivity
+//						.getAllActiveActivity();
+//				for (BaseActivity activity : list) {
+//					activity.finish();
+//				}
+//				System.exit(0);
+//			}
+//			return true;
+//		}
+//		switch (keyCode) {
+//		case KeyEvent.KEYCODE_MENU:
+//			return true;
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
+
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK
-				&& event.getAction() == KeyEvent.ACTION_DOWN) {
-			if ((System.currentTimeMillis() - exitTimeMillis) > 2000) {
-				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-				exitTimeMillis = System.currentTimeMillis();
-			} else {
-				ArrayList<BaseActivity> list = BaseActivity
-						.getAllActiveActivity();
-				for (BaseActivity activity : list) {
-					activity.finish();
-				}
-				System.exit(0);
-			}
-			return true;
+		if (keyCode == KeyEvent.KEYCODE_BACK){
+				exit();
+				return false;
 		}
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_MENU:
-			return true;
-		}
+		
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	private void exit(){
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setMessage("\n您确定要退出佰付通吗？");
+		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				ApplicationEnvironment.getInstance().ForceLogout();
+				finish();
+				// 必须关闭整个系统。缺点是也会关闭服务
+				//android.os.Process.killProcess(android.os.Process.myPid());
+			}
+		});
+
+		builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		
+		builder.show();
 	}
 
 	public final class CatalogHolder {

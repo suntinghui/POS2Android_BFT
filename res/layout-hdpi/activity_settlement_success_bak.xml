@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:id="@+id/layout" >
+
+    <include layout="@layout/titlebar" />
+<!-- 结算成功界面 -->
+	<RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/sawtooth_bg"
+	    android:orientation="horizontal">
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="注册号码：15011302090"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/phoneTV"/>
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="2013-10-08"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"
+	        style="@style/TextView14sp_black"
+	        android:id="@+id/timeTV"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginRight="10dip"/>
+	    
+	</RelativeLayout>
+	
+	<ImageView android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/sign_in_success"
+	    android:layout_gravity="center_horizontal"
+	    android:layout_marginTop="30dip"
+	    />	
+	    
+	<RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/manager_list_bg_n"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="20dip"
+	    android:id="@+id/debitLayout"
+	    android:paddingLeft="10dip"
+	    android:paddingRight="10dip"
+	    android:gravity="center_vertical"
+	    >
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="借记"
+	        style="@style/TextView16sp_black"
+	        android:id="@+id/debitTV_0"/>
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="￥0.03"
+	        android:id="@+id/debitTV_1"
+	        android:layout_marginLeft="15dip"
+	        style="@style/TextView16sp_green"
+	        android:layout_toRightOf="@id/debitTV_0"/>
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="0.01笔"
+	        android:id="@+id/debitTV_2"
+	        android:layout_marginLeft="15dip"
+	        style="@style/TextView16sp_black"
+	        android:layout_alignParentRight="true"/>
+	</RelativeLayout>
+	
+	<RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/manager_list_bg_n"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="10dip"
+	    android:id="@+id/debitLayout"
+	    android:paddingLeft="10dip"
+	    android:paddingRight="10dip"
+	    android:gravity="center_vertical"
+	    >
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="贷记"
+	        style="@style/TextView16sp_black"
+	        android:id="@+id/creditTV_0"/>
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="￥0.03"
+	        android:id="@+id/creditTV_1"
+	        android:layout_marginLeft="15dip"
+	        style="@style/TextView16sp_green"
+	        android:layout_toRightOf="@id/creditTV_0"/>
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="0.01笔"
+	        android:id="@+id/creditTV_2"
+	        android:layout_marginLeft="15dip"
+	        style="@style/TextView16sp_black"
+	        android:layout_alignParentRight="true"/>
+	</RelativeLayout>
+	
+	<Button android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/btn_confirm"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="20dip"
+	    android:id="@+id/btn_confirm"
+	    style="@style/TextView18sp"
+	    android:text="确	定"/>
+	
+</LinearLayout>

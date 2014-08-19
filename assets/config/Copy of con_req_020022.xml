@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 消费（有磁无密） -->
+
+<root shouldMac="true">
+    
+	<field key="fieldTrancode" value="020022"  />
+	
+	<field key="fieldTransType" value="0200"  />
+	<field key="field2" value=""  />
+	<field key="field3" value="000000"  />
+	<field key="field4" value="__field4"  />
+	<field key="field11" value="__TRACEAUDITNUM"  />
+	<!-- 22域决定是否有密码 021：有磁有密 022：有磁无密 -->
+	<field key="field22" value="__FIELD22" />
+	<field key="field25" value="00"  />
+	<field key="field35" value="__FIELD35" />
+	<!-- <field key="field36" value="__FIELD36" /> -->
+	<field key="field41" value="__TERID"  />
+	<field key="field42" value="__VENDOR"  />
+	<field key="field49" value="156" />
+	 <field key="field52" value="__PSAMPIN" /> 
+	 <!-- 53域第一位为0时为pin不出现，未知  ； 1:ANSI X9.8 Format(不带主账号信息)；  2:ANSI X9.8 Format(带主账号信息)-->	
+	<field key="field53" value="2600000000000000"  />
+ 	<field key="field60" value="22#__BATCHNUM#000521" /> 
+	<field key="field64" value="00000000" />
+	
+</root> 
+
+<!-- 消费（有磁有密） -->
+<root shouldMac="true">
+    
+	<field key="fieldTrancode" value="020022"  />
+	
+	<field key="fieldTransType" value="0200"  />
+	<field key="field2" value=""  />
+	<field key="field3" value="000000"  />
+	<field key="field4" value="__field4"  />
+	<field key="field11" value="__TRACEAUDITNUM"  />
+	<!-- 22域决定是否有密码 021：有磁有密 022：有磁无密 -->
+ 	<field key="field22" value="__FIELD22" /> 
+	<field key="field25" value="00"  />
+	<field key="field26" value="12"  /> 
+	<field key="field35" value="__FIELD35" />
+	<!-- <field key="field36" value="__FIELD36" /> -->
+	<field key="field41" value="__TERID"  />
+	<field key="field42" value="__VENDOR"  />
+	<field key="field49" value="156" />
+	<field key="field52" value="__PSAMPIN" />
+	<!-- 53域第一位为0时为pin不出现，未知  ； 1:ANSI X9.8 Format(不带主账号信息)；  2:ANSI X9.8 Format(带主账号信息)-->
+	<field key="field53" value="2600000000000000"  />
+ 	<field key="field60" value="22#__BATCHNUM#000521" /> 
+ 	<!-- <field key="field60" value="22#__BATCHNUM#000201" /> --> 
+	<field key="field64" value="00000000" />
+	
+</root>
+	

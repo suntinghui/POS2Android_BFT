@@ -10,7 +10,10 @@
  	 <field key="field42" value="__VENDOR"  /> 
  	<!-- <field key="field42" value="108360759990977"  /> --> 
 	<field key="field49" value="156" />
-	<field key="field60" value="00#__BATCHNUM#004"/>
+	<!-- 佰付通 -->
+ 	<field key="field60" value="00#__BATCHNUM#004"/> 
+<!-- 众人易付 -->
+	<!-- <field key="field60" value="00#__BATCHNUM#003"/> -->
 	<field key="field62" value="00191120130320000489" />
 	<field key="field63" value="001" />
 </root>

@@ -13,7 +13,7 @@ public class TxActionImp {
 
 	private String clientTransferCode = "";
 
-	String TPDU = "6000050000";// 6000050000 6000140000
+	String TPDU = "6000040000";// 6000050000 6000140000
 	String msgHeader = "603110000000";
 
 	public byte[] first(Map<String, Object> req_map) {

@@ -2,7 +2,6 @@ package com.bft.pos.activity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -24,8 +23,6 @@ import com.bft.pos.agent.client.TransferLogic;
 import com.bft.pos.util.DateUtil;
 import com.bft.pos.util.PhoneUtil;
 import com.bft.pos.util.StringUtil;
-import com.dhcc.pos.packets.CnType;
-import com.dhcc.pos.packets.CnValue;
 
 
 public class ReceiptActivity extends BaseActivity implements OnClickListener {
@@ -93,7 +90,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 		remarkView = (TextView) this.findViewById(R.id.rRemark);
 		
 		try{
-			fieldsMap = (HashMap<String, String>)this.getIntent().getSerializableExtra("map");
+			fieldsMap = (HashMap<String, String>)this.getIntent().getSerializableExtra("content");
 			merchantNoView.setText(fieldsMap.get("field42"));
 			merchantNameView.setText(AppDataCenter.getValue("__MERCHERNAME"));
 			terminalNoView.setText(fieldsMap.get("field41"));
@@ -148,6 +145,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 		}
 		
 	}
+	
 
 	@Override
 	public void onClick(View view) {
@@ -157,10 +155,10 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 			break;
 		
 		case R.id.signButton: // 去签名
-			//this.gotoHandSignActivity();
-			Intent intent1 = new Intent(ReceiptActivity.this,HandSignActivity.class);
-			startActivity(intent1);
-			this.finish();
+			this.gotoHandSignActivity();
+//			Intent intent1 = new Intent(ReceiptActivity.this,HandSignActivity.class);
+//			startActivity(intent1);
+//			this.finish();
 			break;
 			
 		case R.id.okButton: // 完成签名开始交易
@@ -168,6 +166,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 			fieldsMap.put("receivePhoneNo", receivePhoneNo);
 			fieldsMap.put("signImageName", signImageName);
 			fieldsMap.put("imei", imei);
+			
 			TransferLogic.getInstance().uploadReceiptAction(fieldsMap);
 			
 			
@@ -181,7 +180,7 @@ public class ReceiptActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void gotoHandSignActivity(){
-		Intent intent = new Intent(this, HandSignActivity.class);
+		Intent intent = new Intent(ReceiptActivity.this, HandSignActivity.class);
 		intent.putExtra("amount", StringUtil.String2SymbolAmount(fieldsMap.get("field4")));
 		intent.putExtra("tracenum", fieldsMap.get("field11"));
 		// 先将图片的名称暂定为日期13+流水号11

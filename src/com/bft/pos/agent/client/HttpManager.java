@@ -44,7 +44,6 @@ public class HttpManager {
 	private PostMethod postMethod = null;
 	private boolean aborted = false;
 
-	private static final int port = 9200;
 
 	public static final int URL_XML_TYPE = 1;
 	public static final int URL_JSON_TYPE = 2;

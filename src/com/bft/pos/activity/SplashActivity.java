@@ -1,7 +1,6 @@
 package com.bft.pos.activity;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +16,6 @@ import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.agent.client.ApplicationEnvironment;
 import com.bft.pos.dynamic.component.ViewException;
 import com.bft.pos.dynamic.core.Event;
-import com.bft.pos.util.FileUtil;
-import com.bft.pos.util.RSAUtil;
 
 public class SplashActivity extends BaseActivity {
 

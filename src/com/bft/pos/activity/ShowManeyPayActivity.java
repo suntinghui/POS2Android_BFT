@@ -63,7 +63,6 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			startActivity(intent);
 			break;
 		case R.id.btn_confirm01:
-			System.out.println(num + "!!!!!~~~~~~~~~~~~~~~~~~~");
 			try {
 				Event event = new Event(null, "draw-cash", null);
 				event.setTransfer("089025");
@@ -89,7 +88,6 @@ public class ShowManeyPayActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_sms:
-			System.out.println(num + "!!!!!~~~~~~~~~~~~~~~~~~~");
 			PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 			actionGetSms();
 			// SimpleDateFormat sDateFormat = new SimpleDateFormat(

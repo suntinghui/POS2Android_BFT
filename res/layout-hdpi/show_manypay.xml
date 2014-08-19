@@ -78,10 +78,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="手机号提款" />
+                        android:text="提款" />
                 </RelativeLayout>
 
-                <RelativeLayout
+              <!--   <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dip" >
@@ -100,7 +100,7 @@
                         android:layout_alignParentRight="true"
                         android:text="无" />
                 </RelativeLayout>
-
+ -->
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"

@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
 public class QueryActivity extends BaseActivity {
@@ -96,10 +97,12 @@ public class QueryActivity extends BaseActivity {
 				// 还有两个按钮 一个是公告查询，一个是流量统计
 				case 4:
 					// 公告查询
-					Intent intent4 = new Intent(QueryActivity.this,
-							AnnouncementListActivity.class);
-					intent4.putExtra("TAG", arg2);
-					startActivity(intent4);
+					
+					PopupMessageUtil.showMSG_middle2("敬请期待！");
+//					Intent intent4 = new Intent(QueryActivity.this,
+//							AnnouncementListActivity.class);
+//					intent4.putExtra("TAG", arg2);
+//					startActivity(intent4);
 					break;
 
 				default:

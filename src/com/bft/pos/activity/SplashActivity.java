@@ -34,22 +34,13 @@ public class SplashActivity extends BaseActivity {
 				R.layout.splash_activity);
 		super.onCreate(savedInstanceState);
 		
-		/**
-		 * 直接跳转到主菜单
-		 **/
-		 Intent intent = new Intent(BaseActivity.getTopActivity(),
-		 CatalogActivity.class);
-		 startActivity(intent);
-		 
-		 
 		//设置商户号，终端号
 //		PSAMNo 000018
 //		 setVendorTerId("108320558140739", "18000220");
 //		 psam卡号：00000018
 //		setVendorTerId("108360759990977", "18000211");
-//		
+
 //		setVendorTerId("108360750650935", "18000104");
-		
 		new SplashTask().execute();
 	}
 

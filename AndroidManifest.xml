@@ -496,6 +496,18 @@
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         
+        <activity
+            android:name="com.bft.pos.activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        
+        <activity
+            android:name="com.bft.pos.activity.AboutActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        
         
         <activity android:name="com.bft.pos.activity.PhoneCode" >
         </activity>

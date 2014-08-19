@@ -24,20 +24,18 @@ public class SplashActivity extends BaseActivity {
 		this.mDraggingEnabled = true;
 		this.mSlideTitleBar = true;
 		super.index = 0;
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
 		// 添加了侧滑内容
-		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.splash_activity);
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.splash_activity);
 		super.onCreate(savedInstanceState);
-		
-		//设置商户号，终端号
-//		PSAMNo 000018
-//		 setVendorTerId("108320558140739", "18000220");
-//		 psam卡号：00000018
-//		setVendorTerId("108360759990977", "18000211");
 
-//		setVendorTerId("108360750650935", "18000104");
+		// 设置商户号，终端号
+		// PSAMNo 000018
+		// setVendorTerId("108320558140739", "18000220");
+		// psam卡号：00000018
+		// setVendorTerId("108360759990977", "18000211");
+
+		// setVendorTerId("108360750650935", "18000104");
 		new SplashTask().execute();
 	}
 
@@ -59,8 +57,7 @@ public class SplashActivity extends BaseActivity {
 			try {
 				// 利用闪屏界面初始化系统.
 				long startTime = System.currentTimeMillis();
-				ApplicationEnvironment.getInstance().initialize(
-						SplashActivity.this.getApplication());
+				ApplicationEnvironment.getInstance().initialize(SplashActivity.this.getApplication());
 				long endTime = System.currentTimeMillis();
 				long cashTime = endTime - startTime;
 				Log.e("Splash Time", String.valueOf(cashTime));
@@ -81,8 +78,7 @@ public class SplashActivity extends BaseActivity {
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
 
-				Intent intent = new Intent(SplashActivity.this,
-						LoginActivity.class);
+				Intent intent = new Intent(SplashActivity.this, CatalogActivity.class);
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 			} else {// 检查网络
@@ -91,34 +87,28 @@ public class SplashActivity extends BaseActivity {
 				// dialog.setTitle("提示");
 				dialog.setCancelable(false);
 
-				dialog.setMessage(SplashActivity.this.getResources().getString(
-						R.string.noNetTips));
-				dialog.setPositiveButton("设置网络",
-						new android.content.DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(
-										Settings.ACTION_WIRELESS_SETTINGS);
-								startActivity(intent);
-								finish();
-							}
-						});
-				dialog.setNegativeButton("取消",
-						new android.content.DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-								finish();
-							}
-						});
+				dialog.setMessage(SplashActivity.this.getResources().getString(R.string.noNetTips));
+				dialog.setPositiveButton("设置网络", new android.content.DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+						startActivity(intent);
+						finish();
+					}
+				});
+				dialog.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
 				dialog.create().show();
 			}
 		}
 	}
+
 	public void setVendorTerId(String vendor, String terid) {
 		Event event = new Event(null, null, null);
-		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s",
-				vendor, terid);
+		String fsk = String.format("Get_RenewVendorTerID|string:%s,string:%s", vendor, terid);
 		event.setFsk(fsk);
 		try {
 			event.trigger();

@@ -4,6 +4,7 @@ package com.bft.pos.activity;
  * 主界面
  * 这个界面不需要侧滑
  * */
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -167,8 +168,15 @@ public class CatalogActivity extends BaseActivity {
 		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				ApplicationEnvironment.getInstance().ForceLogout();
-				finish();
+				
+				try{
+					for (Activity activity : BaseActivity.getAllActiveActivity()){
+						activity.finish();
+					}
+				} catch(Exception e){
+					
+				}
+				
 				// 必须关闭整个系统。缺点是也会关闭服务
 				//android.os.Process.killProcess(android.os.Process.myPid());
 			}

@@ -1,7 +1,7 @@
 package com.bft.pos.activity;
 /**
- * @author 要泽宇
- * 这里是账户交易查询的流水界面
+ * @author
+ * 账户交易查询的流水界面
  * */
 import java.util.ArrayList;
 import java.util.Calendar;

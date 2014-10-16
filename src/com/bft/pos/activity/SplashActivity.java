@@ -29,13 +29,22 @@ public class SplashActivity extends BaseActivity {
 		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.splash_activity);
 		super.onCreate(savedInstanceState);
 
+		/**
+		 * 直接跳转到主菜单
+		 **/
+		 Intent intent = new Intent(BaseActivity.getTopActivity(),
+		 CatalogActivity.class);
+		 startActivity(intent);
+//		
 		// 设置商户号，终端号
-		// PSAMNo 000018
-		// setVendorTerId("108320558140739", "18000220");
+		// PSAMNo 000019
+//		 setVendorTerId("108320558140739", "18000220");
 		// psam卡号：00000018
-		// setVendorTerId("108360759990977", "18000211");
+//		 setVendorTerId("108360759990977", "18000211");
 
 		// setVendorTerId("108360750650935", "18000104");
+		//psam卡号：00000017
+//		 setVendorTerId("108330350451063", "18000217");
 		new SplashTask().execute();
 	}
 
@@ -78,7 +87,7 @@ public class SplashActivity extends BaseActivity {
 		protected void onPostExecute(Object result) {
 			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
 
-				Intent intent = new Intent(SplashActivity.this, CatalogActivity.class);
+				Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
 			} else {// 检查网络

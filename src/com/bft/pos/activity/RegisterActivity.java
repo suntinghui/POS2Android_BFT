@@ -25,8 +25,10 @@ import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.agent.client.Constant;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PatternUtil;
 import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
+import com.bft.pos.util.StringUtil;
 
 /**
  * 注册
@@ -50,8 +52,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		this.mSlideTitleBar = true;
 		super.index = 0;
 		// 添加了侧滑内容
-		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.activity_register);
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_register);
 		super.onCreate(savedInstanceState);
 		initControl();
 	}
@@ -71,21 +72,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		et_id_card = (TextWithIconView) this.findViewById(R.id.et_id_card);// 身份证号
 		et_id_card.setIcon(R.drawable.icon_idcard);
 		et_id_card.setHintString("身份证");
-		et_id_card.getEditText().setFilters(
-				new InputFilter[] { new InputFilter.LengthFilter(18) });
+		et_id_card.getEditText().setFilters(new InputFilter[] { new InputFilter.LengthFilter(18) });
 		et_phone_num = (TextWithIconView) this.findViewById(R.id.et_phone_num);// 手机号
 		et_phone_num.setInputType(InputType.TYPE_CLASS_NUMBER);
 		et_phone_num.setHintString("手机号码");
 		et_phone_num.setIcon(R.drawable.icon_phone);
-		et_login_name = (TextWithIconView) this
-				.findViewById(R.id.et_login_name);
+		et_login_name = (TextWithIconView) this.findViewById(R.id.et_login_name);
 		et_login_name.setIcon(R.drawable.icon_login_1);
 		et_login_name.setHintString("登录名");
-		et_login_pwd = (PasswordWithIconView) this
-				.findViewById(R.id.et_login_pwd);
+		et_login_pwd = (PasswordWithIconView) this.findViewById(R.id.et_login_pwd);
 		et_login_pwd.setIconAndHint(R.drawable.icon_pwd, "登陆密码");
-		et_login_pwd_again = (PasswordWithIconView) this
-				.findViewById(R.id.et_login_pwd_again);
+		et_login_pwd_again = (PasswordWithIconView) this.findViewById(R.id.et_login_pwd_again);
 		et_login_pwd_again.setIconAndHint(R.drawable.icon_pwd, "再次输入登陆密码");
 		et_sms = (EditText) this.findViewById(R.id.et_sms);// 验证码
 		et_sms.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -152,12 +149,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			// .toUpperCase()
 			// + et_login_pwd_again.getText())
 			// + "www.payfortune.com");
+		
 			String pwd = null;
-			String pk = FileUtil.convertStreamToString(FileUtil
-					.readerFile("publicKey.xml"));
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
 			if (pk != null) {
-				pwd = RSAUtil.encryptToHexStr(pk, (et_login_pwd_again.getText()
-						.toString() + "FF").getBytes(), 1);
+//				pwd = RSAUtil.encryptToHexStr(pk, (et_login_pwd_again.getText().toString() + "FF").getBytes(), 1);
+				pwd = RSAUtil.encryptToHexStr(pk, (StringUtil.cover(et_login_pwd_again.getText().toString(), 8)).getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);// 登陆密码
 			map.put("verifyCode", et_sms.getText().toString());// 验证码
@@ -190,20 +187,23 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
-		if (et_login_pwd.getText().length() == 0) {
-			PopupMessageUtil.showMSG_middle2("密码不能为空！");
+		
+		// 校验登录密码
+		if (!PatternUtil.checkLoginPWD(this, et_login_pwd.getText())){
+			return false; 
+		}
+		
+		if (!PatternUtil.checkLoginPWD(this, et_login_pwd_again.getText())){
 			return false;
 		}
-		if (et_login_pwd_again.getText().length() == 0) {
-			PopupMessageUtil.showMSG_middle2("密码不能为空！");
-			return false;
-		}
+		
 		if (!(et_login_pwd.getMd5PWD().equals(et_login_pwd_again.getMd5PWD()))) {
 			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_login_pwd.setText("");
 			et_login_pwd_again.setText("");
 			return false;
 		}
+		
 		if (!isAgree) {
 			PopupMessageUtil.showMSG_middle2("请先阅读并同意服务协议！");
 			return false;
@@ -224,8 +224,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private void actionGetSms() {
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String date = sDateFormat.format(new java.util.Date());
 		try {
 			Event event = new Event(null, "getSms", null);
@@ -285,8 +284,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	 * 显示服务协议
 	 */
 	private void actionShowProtocol() {
-		Intent intent = new Intent(RegisterActivity.this,
-				ShowProtocolActivity.class);
+		Intent intent = new Intent(RegisterActivity.this, ShowProtocolActivity.class);
 		RegisterActivity.this.startActivity(intent);
 	}
 }

@@ -17,14 +17,21 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 public class RandomPWDKeyboardView extends LinearLayout {
 
-	private Context context;
-	private Vibrator vibrator;
+	private Context context = null;
+	private Vibrator vibrator = null;
 
-	private EditText editText;
-	private PopupWindow popup;
+	private EditText editText = null;
+	private PopupWindow popup = null;
+	
+	private KeyboardView keyboardView = null;
+	private RandomLowerWordKeyboard randomLowerWordKeyboard = null;
+	private RandomUpperWordKeyboard randomUpperWordKeyboard = null;
+	
+	private boolean isUpper = false;
 
 	public RandomPWDKeyboardView(Context context) {
 		super(context);
@@ -41,14 +48,14 @@ public class RandomPWDKeyboardView extends LinearLayout {
 	private void init(Context context) {
 		this.context = context;
 
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.random_pwd_keyboardview, this);
 
-		KeyboardView keyboardView = (KeyboardView) this
-				.findViewById(R.id.keyboard_view);
+		keyboardView = (KeyboardView) this.findViewById(R.id.keyboard_view);
+		//randomDigitKeyboard = new RandomDigitKeyboard(context, R.xml.keyboard_digit);
+		//randomLowerWordKeyboard = new RandomLowerWordKeyboard(context, R.xml.keyboard_word_lower);
 
-		keyboardView.setKeyboard(new RandomPWDKeyboard(context, R.xml.symbols));
+		keyboardView.setKeyboard(new RandomDigitKeyboard(context, R.xml.keyboard_digit));
 		keyboardView.setEnabled(true);
 		keyboardView.setPreviewEnabled(false);
 		keyboardView.setOnKeyboardActionListener(listener);
@@ -95,8 +102,7 @@ public class RandomPWDKeyboardView extends LinearLayout {
 		public void onKey(int primaryCode, int[] keyCodes) {
 			// 震动提示
 			if (null == vibrator)
-				vibrator = (Vibrator) context
-						.getSystemService(Context.VIBRATOR_SERVICE);
+				vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
 			vibrator.vibrate(30);
 
@@ -114,9 +120,35 @@ public class RandomPWDKeyboardView extends LinearLayout {
 					}
 				}
 				break;
+				
+			case -10: // 切换大小写
+				if (isUpper){
+					keyboardView.setKeyboard(randomLowerWordKeyboard);
+				} else {
+					randomUpperWordKeyboard = new RandomUpperWordKeyboard(context, R.xml.keyboard_word_upper, randomLowerWordKeyboard.randomString);
+					keyboardView.setKeyboard(randomUpperWordKeyboard);
+				}
+				keyboardView.invalidate();
+				isUpper = !isUpper;
+				break;
+				
+			case -12: // 切换到数字键盘
+				keyboardView.setKeyboard(new RandomDigitKeyboard(context, R.xml.keyboard_digit));
+				break;
+				
+			case -13: // 切换到字母键盘
+				randomLowerWordKeyboard = new RandomLowerWordKeyboard(context, R.xml.keyboard_word_lower);
+				keyboardView.setKeyboard(randomLowerWordKeyboard);
+				keyboardView.invalidate();
+				break;
+				
+			case 32: // 空格
+				Toast.makeText(context, "密码不能包含空格", Toast.LENGTH_SHORT).show();
+				break;
 
 			case 57420: // 关于
 				showAboutRandomKeyBoard();
+				
 				break;
 
 			case 57419: // Go Left
@@ -147,12 +179,11 @@ public class RandomPWDKeyboardView extends LinearLayout {
 		AlertDialog.Builder builder = new Builder(BaseActivity.getTopActivity());
 		builder.setTitle("关于");
 		builder.setMessage(R.string.pwdKeyboardTips);
-		builder.setPositiveButton("知道了",
-				new android.content.DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
+		builder.setPositiveButton("知道了", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
 
 		builder.show();
 	}

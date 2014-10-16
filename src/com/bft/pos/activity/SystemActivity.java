@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
+import com.bft.pos.util.PopupMessageUtil;
 import com.bft.slidingmenu.MenuBaseActivity;
 
 /**
@@ -64,16 +65,7 @@ public class SystemActivity extends BaseActivity {
 					
 					// TODO
 				case 2:
-					LKAlertDialog dialog = new LKAlertDialog(SystemActivity.this);
-					dialog.setTitle("提示");
-					dialog.setMessage("已是最新版本，感谢您的关注。");
-					dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
-
-					dialog.create().show();
+					PopupMessageUtil.showMSG_middle3(SystemActivity.this, "已是最新版本，感谢您的关注。");
 					break;
 
 				default:

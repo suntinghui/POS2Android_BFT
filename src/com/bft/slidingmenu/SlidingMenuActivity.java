@@ -29,7 +29,7 @@ import com.bft.pos.R.layout;
 
 /**
  * A FragmentActivity subclass that adds a sliding menu.
- * @修改 要泽宇
+ * 
  * 这里是基本的类，侧滑的基本功能在这里实现
  * 
  * 
@@ -57,7 +57,7 @@ View.OnTouchListener{
     public boolean mDraggingEnabled = false;
     private int mGrabberSize = 75;
     private int mGrabberTopOffset = 0;
-//  要泽宇：添加两个用来判断移动与否的数字
+//  ：添加两个用来判断移动与否的数字
 	private int xDown;
 	private int xMove;
     
@@ -350,8 +350,6 @@ View.OnTouchListener{
         return handled;
     }
 /** 
- * 貌似终于找到重要的地方了
- * @修改 要泽宇
  * 这里是侧滑功能的重点
  * 要在什么情况下才能将页面定义为移动，什么情况下跟随手势
  **/

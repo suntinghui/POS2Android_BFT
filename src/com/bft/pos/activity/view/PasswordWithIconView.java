@@ -38,8 +38,7 @@ import com.bft.pos.agent.client.TransferLogic;
 import com.bft.pos.util.StringUtil;
 import com.itron.android.ftf.Util;
 
-public class PasswordWithIconView extends LinearLayout implements TextWatcher,
-		OnFocusChangeListener, OnTouchListener {
+public class PasswordWithIconView extends LinearLayout implements TextWatcher, OnFocusChangeListener, OnTouchListener {
 
 	private String encryptPWD = "";
 	private String md5PWD = "";
@@ -68,18 +67,16 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 	private void init(Context context) {
 		this.context = context;
 
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.password_with_icon, this);
 
 		rootLayout = (LinearLayout) this.findViewById(R.id.rootLayout);
 		iv_icon = (ImageView) this.findViewById(R.id.iv_icon);
 		editText = (EditText) this.findViewById(R.id.text);
 
-		editText.setFilters(new InputFilter[] { new InputFilter.LengthFilter(6) });
-		editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-		editText.setTransformationMethod(PasswordTransformationMethod
-				.getInstance());
+		editText.setFilters(new InputFilter[] { new InputFilter.LengthFilter(20) });
+		//editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+		editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
 		editText.addTextChangedListener(this);
 		editText.setOnFocusChangeListener(this);
@@ -101,14 +98,11 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 		pwd = pwd + "FF";
 
 		// 公钥初始化
-		String mod = ApplicationEnvironment.getInstance().getPreferences()
-				.getString(Constant.PUBLICKEY_MOD, Constant.INIT_PUBLICKEY_MOD);
-		String exp = ApplicationEnvironment.getInstance().getPreferences()
-				.getString(Constant.PUBLICKEY_EXP, Constant.INIT_PUBLICKEY_EXP);
+		String mod = ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PUBLICKEY_MOD, Constant.INIT_PUBLICKEY_MOD);
+		String exp = ApplicationEnvironment.getInstance().getPreferences().getString(Constant.PUBLICKEY_EXP, Constant.INIT_PUBLICKEY_EXP);
 
 		if ("".equals(mod) || "".equals(exp)) {
-			throw new Exception(this.getResources().getString(
-					R.string.noPublicKey));
+			throw new Exception(this.getResources().getString(R.string.noPublicKey));
 		}
 
 		try {
@@ -125,14 +119,12 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 			byte[] cipherData = cipher.doFinal(pwd.getBytes());
 
 			Log.i("rsa", Util.BinToHex(cipherData, 0, cipherData.length));
-			encryptPWD = Util.BinToHex(cipherData, 0, cipherData.length)
-					.substring(0, 32);// 截取32位
+			encryptPWD = Util.BinToHex(cipherData, 0, cipherData.length).substring(0, 32);// 截取32位
 			// Log.e("pwd_encry", encryptPWD);
 			pwd = "";
 
 		} catch (Exception e) {
-			throw new Exception(this.getResources().getString(
-					R.string.noPublicKey));
+			throw new Exception(this.getResources().getString(R.string.noPublicKey));
 		}
 	}
 
@@ -153,15 +145,13 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 
 			} catch (Exception e) {
 				getEditText().setText("");
-				TransferLogic.getInstance().gotoCommonFaileActivity(
-						e.getMessage());
+				TransferLogic.getInstance().gotoCommonFaileActivity(e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-			int arg3) {
+	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 	}
 
 	@Override
@@ -181,12 +171,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 	// 但是也要防止刚进入界面时，界面中密码框第一个获得焦点时弹出软键盘，设置其为只有系统键盘弹出时才弹出自定义软键盘
 	// isActive()并不是判断软键盘是否已弹出，而是是否处于活动状态，即此控件是否能调用软键盘
 	/*
-	 * if(getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.
-	 * SOFT_INPUT_STATE_UNSPECIFIED){ //隐藏软键盘
-	 * getWindow().setSoftInputMode(WindowManager
-	 * .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-	 * getWindow().getAttributes().softInputMode
-	 * =WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED; }
+	 * if(getWindow().getAttributes().softInputMode==WindowManager.LayoutParams. SOFT_INPUT_STATE_UNSPECIFIED){ //隐藏软键盘 getWindow().setSoftInputMode(WindowManager .LayoutParams.SOFT_INPUT_STATE_HIDDEN); getWindow().getAttributes().softInputMode =WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED; }
 	 */
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
@@ -194,8 +179,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 		// Log.e("++",
 		// ""+BaseActivity.getTopActivity().getWindow().getAttributes().softInputMode);
 
-		if (hasFocus
-				&& BaseActivity.getTopActivity().getWindow().getAttributes().softInputMode != 290) {
+		if (hasFocus && BaseActivity.getTopActivity().getWindow().getAttributes().softInputMode != 290) {
 			this.showPopup();
 
 		} else {
@@ -209,8 +193,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 		}
 
 		RandomPWDKeyboardView keyboardView = new RandomPWDKeyboardView(context);
-		popup = new PopupWindow(keyboardView, LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT, true);
+		popup = new PopupWindow(keyboardView, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, true);
 		// 如果没有设置此项目，setOutsideTouchable
 		// setFocusable将不起作用。而且必须在setOutsideTouchable setFocusable前面设置
 		// 请放心，设置 BackgroundDrawable 并不会改变你在配置文件中设置的背景颜色或图像。
@@ -262,8 +245,7 @@ public class PasswordWithIconView extends LinearLayout implements TextWatcher,
 
 	private InputMethodManager getIMM() {
 		if (null == imm) {
-			imm = (InputMethodManager) getContext().getSystemService(
-					Context.INPUT_METHOD_SERVICE);
+			imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		}
 
 		return imm;

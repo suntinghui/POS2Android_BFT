@@ -82,8 +82,8 @@ public class SocketTransport {
 	
 	SocketTransport() {
 //		佰付通
-		this.host = "114.80.227.152";
-//		this.host = "www.payfortune.com";
+//		this.host = "114.80.227.152";
+		this.host = "www.payfortune.com";
 		this.port = 2003; 
 //		
 		//公司网控器
@@ -95,8 +95,8 @@ public class SocketTransport {
 //		this.port = 9999; 
 		
 		//众付宝
-//		this.host = "220.194.46.46";
-//		this.port = 9909; 
+//		this.host = "192.168.4.234";
+//		this.port = 8088; 
 		
 		
 		

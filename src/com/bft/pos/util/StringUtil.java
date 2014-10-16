@@ -9,28 +9,41 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-
 import android.util.Base64;
-import android.util.Log;
 
 /**
- * @author STH
+ * @author 
  * 
  */
 public class StringUtil {
 	private final static String DES = "DES"; 
+	
+
+	/**补位
+	 * @param data 需要补位的原始数据
+	 * @param coverLen 补位除数
+	 * @return
+	 */
+	public static String cover(String data,int coverLen){
+		int length = data.length();
+		StringBuffer sb = new StringBuffer();
+		sb.append(data);
+
+		if (length % 8 != 0) {
+			int sise = length%8;
+			
+			for(int i=0;i<8-sise;i++){
+				sb.append("F");
+			}
+		}
+		return sb.toString();
+	}
 
 	/**
 	 * @param str

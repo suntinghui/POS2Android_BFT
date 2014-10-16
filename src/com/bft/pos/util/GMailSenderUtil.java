@@ -110,13 +110,13 @@ public class GMailSenderUtil extends javax.mail.Authenticator {
     	return "smtp.163.com";
     }
 	public String getMailUsernameFrom(){
-		return "lkoa_app@163.com";
+		return "payfortune_Android_App@163.com";
 	}
 	public String getMailPassWordFrom(){
 		return "LKOA_123";
 	}
 	public String getMailUserNameTo(){
-		return "tinghuisun@163.com";
+		return "fallsoul@163.com";
 	}
 	
 }   

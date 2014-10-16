@@ -27,21 +27,35 @@ public class QueryActivity extends BaseActivity {
 	private ListView listView;
 	private ManagerAdapter adapter = null;
 	// 依旧是图片的数组
-	// 要泽宇：添加账号交易查询图片，与第一个图片相同的图片
+	// 添加账号交易查询图片，与第一个图片相同的图片
 	/*
 	 * private Integer[] imageIds = { R.drawable.query_left_0,
 	 * R.drawable.query_left_1, R.drawable.query_left_2,
 	 * R.drawable.query_left_3, R.drawable.query_left_4, R.drawable.query_left_0
 	 * };//新加入的图片
 	 */
+//	private Integer[] imageIds = { R.drawable.card,
+//			R.drawable.yuechaxun, R.drawable.query_left_0,
+//			R.drawable.query_left_1, R.drawable.query_left_3 };// 新加入的图片
+	
 	private Integer[] imageIds = { R.drawable.card,
-			R.drawable.yuechaxun, R.drawable.query_left_0,
 			R.drawable.query_left_1, R.drawable.query_left_3 };// 新加入的图片
+	
+	
 	// private String[] titles = { "账户余额查询", "银行卡交易查询", "签购单查询", "公告查询",
 	// "流量统计","账户交易查询" };
-	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询",
-			"公告查询" };
-
+//	private String[] titles = { "银行卡余额查询", "账户余额查询", "账户交易查询", "银行卡交易查询",
+//			"公告查询" };
+	private String[] titles = { "银行卡余额查询", "银行卡交易查询",
+	"公告查询" };
+	
+//		银行卡余额查询
+	 static final int queryBankBalance = 0;
+	// 银行卡交易查询
+	 static final int cardPayQuery = 1;
+	// 公告查询
+	 static final int announcement = 2;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
@@ -62,27 +76,27 @@ public class QueryActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				switch (arg2) {
-				case 0:
+				case queryBankBalance:
 					// 银行卡余额查询
 					Intent intent0 = new Intent(QueryActivity.this,
 							QueryBankBalanceActivity.class);
 					intent0.putExtra("TAG", arg2);
 					startActivity(intent0);
 					break;
-				case 1:
-					// 账户余额查询
-					Intent intent1 = new Intent(QueryActivity.this,
-							ASBalancePwdActivity.class);
-					intent1.putExtra("TAG", arg2);
-					startActivity(intent1);
-					break;
-				case 2:
-					// 账户交易查询
-					Intent intent2 = new Intent(QueryActivity.this, QBPwd.class);
-					intent2.putExtra("TAG", arg2);
-					startActivity(intent2);
-					break;
-				case 3:
+//				case 1:
+//					// 账户余额查询
+//					Intent intent1 = new Intent(QueryActivity.this,
+//							ASBalancePwdActivity.class);
+//					intent1.putExtra("TAG", arg2);
+//					startActivity(intent1);
+//					break;
+//				case 2:
+//					// 账户交易查询
+//					Intent intent2 = new Intent(QueryActivity.this, QBPwd.class);
+//					intent2.putExtra("TAG", arg2);
+//					startActivity(intent2);
+//					break;
+				case cardPayQuery:
 					// 银行卡交易查询
 					Intent intent3 = new Intent(QueryActivity.this,
 							CardPayQueryActivity.class);
@@ -95,10 +109,10 @@ public class QueryActivity extends BaseActivity {
 				 * intent2.putExtra("TAG", arg2); startActivity(intent2); break;
 				 */
 				// 还有两个按钮 一个是公告查询，一个是流量统计
-				case 4:
+				case announcement:
 					// 公告查询
 					
-					PopupMessageUtil.showMSG_middle2("敬请期待！");
+					PopupMessageUtil.showMSG_middle3(QueryActivity.this, "敬请期待！");
 //					Intent intent4 = new Intent(QueryActivity.this,
 //							AnnouncementListActivity.class);
 //					intent4.putExtra("TAG", arg2);
@@ -112,13 +126,13 @@ public class QueryActivity extends BaseActivity {
 		});
 	}
 
-	// 适配器，适配器
+	// 适配器
 	public final class ManagerViewHolder {
 		public ImageView mLeftIV;
 		public TextView mRightTV;
 	}
 
-	// 依旧是通过适配器把图片和字段统一起来
+	// 依旧是通过适配器把按照数组位置，图片和字段统一起来
 	public class ManagerAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 

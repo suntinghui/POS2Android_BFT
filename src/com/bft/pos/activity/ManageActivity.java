@@ -30,14 +30,27 @@ public class ManageActivity extends BaseActivity {
 //			R.drawable.manager_right_1_n, R.drawable.qiantui,
 //			R.drawable.shimingrenzheng, R.drawable.card, R.drawable.zhi,
 //			R.drawable.chongzhizhifu };
+	
+//	private Integer[] imageIds = { R.drawable.manager_right_0_n,
+//			R.drawable.manager_right_1_n, 
+//			R.drawable.shimingrenzheng, R.drawable.card, R.drawable.zhi,
+//			R.drawable.chongzhizhifu };
+	
 	private Integer[] imageIds = { R.drawable.manager_right_0_n,
 			R.drawable.manager_right_1_n, 
-			R.drawable.shimingrenzheng, R.drawable.card, R.drawable.zhi,
-			R.drawable.chongzhizhifu };
+			R.drawable.shimingrenzheng, R.drawable.card};
 	// 四个文字内容
 //	private String[] titles = { "签到", "结算", "签退", "实名认证", "修改银行卡", "修改支付密码","重置支付密码" };
-			private String[] titles = { "签到", "结算", "实名认证", "修改银行卡", "修改支付密码", "重置支付密码" };
-
+//			private String[] titles = { "签到", "结算", "实名认证", "修改银行卡", "修改支付密码", "重置支付密码" };
+			private String[] titles = { "签到", "结算", "实名认证", "修改银行卡"};
+			//签到
+			static final  int signIn = 0;
+			//结算
+			static final  int settlement = 1;
+			//实名认证
+			static final  int authenticationUpImage = 2;
+//			修改银行卡
+			static final  int bankNumber = 3;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
@@ -61,14 +74,14 @@ public class ManageActivity extends BaseActivity {
 					long arg3) {
 				// 点击四个内容
 				switch (arg2) {
-				case 0:
+				case signIn:
 					// 点击跳转:签到
 					Intent intent0 = new Intent(ManageActivity.this,
 							SignInActivity.class);
 					intent0.putExtra("TAG", arg2);
 					startActivity(intent0);
 					break;
-				case 1:
+				case settlement:
 					// 点击跳转:结算
 					Intent intent1 = new Intent(ManageActivity.this,
 							SettlementActivity.class);
@@ -79,14 +92,14 @@ public class ManageActivity extends BaseActivity {
 //				case 2:
 //					break;
 				// 实名认证
-				case 2:
+				case authenticationUpImage:
 					Intent intent2 = new Intent(ManageActivity.this,
 							AuthenticationUpImageActivity.class);
 					intent2.putExtra("TAG", arg2);
 					startActivity(intent2);
 					break;
 				// 修改银行卡
-				case 3:
+				case bankNumber:
 					Intent intent4 = new Intent(ManageActivity.this,
 							BankNumberActivity.class);
 					intent4.putExtra("TAG", arg2);

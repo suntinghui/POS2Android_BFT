@@ -13,14 +13,14 @@ import com.bft.pos.activity.view.PasswordWithIconView;
 import com.bft.pos.activity.view.TextWithIconView;
 import com.bft.pos.dynamic.core.Event;
 import com.bft.pos.util.FileUtil;
+import com.bft.pos.util.PatternUtil;
 import com.bft.pos.util.PopupMessageUtil;
 import com.bft.pos.util.RSAUtil;
 
 /**
  * 找回密码 验证身份后设置新的密码
  */
-public class SetNewLoginPwdActivity extends BaseActivity implements
-		OnClickListener {
+public class SetNewLoginPwdActivity extends BaseActivity implements OnClickListener {
 	private PasswordWithIconView et_pwd_new;// 新的登陆密码
 	private PasswordWithIconView et_pwd_confirm;// 确认密码
 	private Button btn_back, btn_confirm;
@@ -32,8 +32,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
 		// 添加了侧滑内容
-		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.activity_set_new_login_pwd);
+		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu, R.layout.activity_set_new_login_pwd);
 		super.onCreate(savedInstanceState);
 		init();
 	}
@@ -48,8 +47,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		btn_confirm.setOnClickListener(this);
 		et_pwd_new = (PasswordWithIconView) this.findViewById(R.id.et_pwd_new);// 新登陆密码
 		et_pwd_new.setIconAndHint(R.drawable.icon_pwd, "新登陆密码");
-		et_pwd_confirm = (PasswordWithIconView) this
-				.findViewById(R.id.et_pwd_confirm);// 确认登陆密码
+		et_pwd_confirm = (PasswordWithIconView) this.findViewById(R.id.et_pwd_confirm);// 确认登陆密码
 		et_pwd_confirm.setIconAndHint(R.drawable.icon_pwd, "确认登陆密码");
 		et_sms = (TextWithIconView) this.findViewById(R.id.et_sms);// 短信校验码
 		et_sms.setHintString("短信校验码");
@@ -93,11 +91,9 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 			// + et_pwd_confirm.getText())
 			// + "www.payfortune.com");
 			String pwd = null;
-			String pk = FileUtil.convertStreamToString(FileUtil
-					.readerFile("publicKey.xml"));
+			String pk = FileUtil.convertStreamToString(FileUtil.readerFile("publicKey.xml"));
 			if (pk != null) {
-				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText()
-						.toString() + "FF").getBytes(), 1);
+				pwd = RSAUtil.encryptToHexStr(pk, (et_pwd_confirm.getText().toString() + "FF").getBytes(), 1);
 			}
 			map.put("lgnPass", pwd);
 			map.put("version", "1.0");
@@ -112,14 +108,15 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 	 * 判断输入框的输入内容
 	 */
 	private Boolean checkValue() {
-		if (et_pwd_new.getText().length() == 0) {
-			PopupMessageUtil.showMSG_middle2("密码不能为空！");
+		// 校验登录密码
+		if (!PatternUtil.checkLoginPWD(this, et_pwd_new.getText())) {
 			return false;
 		}
-		if (et_pwd_confirm.getText().length() == 0) {
-			PopupMessageUtil.showMSG_middle2("确认密码不能为空！");
+
+		if (!PatternUtil.checkLoginPWD(this, et_pwd_confirm.getText())) {
 			return false;
 		}
+
 		if (!et_pwd_new.getText().equals(et_pwd_confirm.getText())) {
 			PopupMessageUtil.showMSG_middle2("密码输入不一致，请重新输入！");
 			et_pwd_new.setText("");
@@ -129,7 +126,7 @@ public class SetNewLoginPwdActivity extends BaseActivity implements
 		return true;
 	}
 
-	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	// ：处理点击手机菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// Toggle the menu on menu key press.

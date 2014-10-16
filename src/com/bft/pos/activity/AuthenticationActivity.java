@@ -104,7 +104,7 @@ public class AuthenticationActivity extends BaseActivity implements
 		}
 	}
 
-	// 要泽宇：处理点击手机菜单键出现侧滑菜单的问题
+	// 处理点击手机菜单键出现侧滑菜单的问题
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// Toggle the menu on menu key press.

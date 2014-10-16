@@ -2,6 +2,8 @@ package com.bft.pos.util;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.bft.pos.R;
 import com.bft.pos.activity.BaseActivity;
+import com.bft.pos.activity.SystemActivity;
+import com.bft.pos.activity.view.LKAlertDialog;
 
 /**
  * @功能函数 弹窗工具类
@@ -69,7 +73,7 @@ public class PopupMessageUtil{
 	}
 
 	/**
-	 * @功能函数	屏幕中间弹窗（较美观）
+	 * @功能函数	屏幕中间弹窗（较美观 级别2）
 	 * @param message	将被提醒的消息串
 	 */
 	public static void showMSG_middle2(String message) {
@@ -92,5 +96,22 @@ public class PopupMessageUtil{
 						dialog.dismiss();
 					}
 				});
+	}
+	
+	/**
+	 * @功能函数	屏幕中间弹窗（较美观 级别3）
+	 * @param message	将被提醒的消息串
+	 */
+	public static void showMSG_middle3(Context context, String message){
+		LKAlertDialog dialog = new LKAlertDialog(context);
+		dialog.setTitle("提示");
+		dialog.setMessage(message);
+		dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+
+		dialog.create().show();
 	}
 }

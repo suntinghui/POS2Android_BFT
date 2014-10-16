@@ -25,16 +25,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bft.pos.R;
-import com.bft.pos.agent.client.ApplicationEnvironment;
 
 // 目录
 public class CatalogActivity extends BaseActivity {
 	// 这里是五个按钮
+//	private Integer[] imageIds = { R.drawable.catalog_1_button,
+//			R.drawable.catalog_2_button, R.drawable.catalog_3_button,
+//			R.drawable.catalog_4_button, R.drawable.catalog_5_button };
 	private Integer[] imageIds = { R.drawable.catalog_1_button,
 			R.drawable.catalog_2_button, R.drawable.catalog_3_button,
-			R.drawable.catalog_4_button, R.drawable.catalog_5_button };
+			R.drawable.catalog_5_button };
 	// 这里是五个按钮要的内容
-	private String[] titles = { "我的管理", "我要查询", "我要收款", "我要提款", "系统相关" };
+//	private String[] titles = { "我的管理", "我要查询", "我要收款", "我要提款", "系统相关" };
+	private String[] titles = { "我的管理", "我要查询", "我要收款", "系统相关" };
+//	我的管理
+	final static int manage = 0;
+//	我的查询
+	final static int query = 1;
+//	我的收款
+	final static int gather = 2;
+//	系统设置
+	final static int system = 3;
+	
+	
 	// 网格布局
 	private GridView gridView = null;
 	// 适配器
@@ -78,40 +91,40 @@ public class CatalogActivity extends BaseActivity {
 				long arg3) {
 
 			switch (arg2) {
-			case 0:
+			case manage:
 				// 跳转：我的管理
 				Intent intent0 = new Intent(CatalogActivity.this,
 						ManageActivity.class);
 				intent0.putExtra("TAG", arg2);
 				startActivity(intent0);
 				break;
-			case 1:
+			case query:
 				// 跳转：我要查询
 				Intent intent1 = new Intent(CatalogActivity.this,
 						QueryActivity.class);
 				intent1.putExtra("TAG", arg2);
 				startActivity(intent1);
 				break;
-			case 2:
+			case gather:
 				// 跳转：我要收款
 				Intent intent2 = new Intent(CatalogActivity.this,
 						GatherActivity.class);
 				intent2.putExtra("TAG", arg2);
 				startActivity(intent2);
 				break;
-			case 3:
-				// 跳转：我要提款
-				Intent intent3 = new Intent(CatalogActivity.this,
-						DrawingsActivity.class);
-				intent3.putExtra("TAG", arg2);
-				startActivity(intent3);
-				break;
+//			case 3:
+//				// 跳转：我要提款
+//				Intent intent3 = new Intent(CatalogActivity.this,
+//						DrawingsActivity.class);
+//				intent3.putExtra("TAG", arg2);
+//				startActivity(intent3);
+//				break;
 			/*
 			 * case 3: // 跳转：我的存款 Intent intent3 = new
 			 * Intent(CatalogActivity.this, QueryBusinessDepositActivity.class);
 			 * intent3.putExtra("TAG", arg2); startActivity(intent3); break;
 			 */
-			case 4:
+			case system:
 				// 跳转：系统相关
 				Intent intent4 = new Intent(CatalogActivity.this,
 						SystemActivity.class);

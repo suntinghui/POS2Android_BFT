@@ -1328,18 +1328,21 @@ public class TransferLogic {
 				
 			} else {
 //				旧 001903   新 001917
-				if (!AppDataCenter.getValue("__TERSERIALNO")
-						.startsWith("001917")) {
-					// 打印
-					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
-				
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
-				} else {
-					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivity(intent);
-				}
+//				if (!AppDataCenter.getValue("__TERSERIALNO")
+//						.startsWith("001917")) {
+//					// 打印
+//					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
+//				
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+//				} else {
+//					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivity(intent);
+//				}
+				Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+				intent.putExtra("content", fieldMap);
+				BaseActivity.getTopActivity().startActivity(intent);
 			}
 
 		} catch (Exception e) {
@@ -1390,19 +1393,22 @@ public class TransferLogic {
 				event.trigger();
 			} else {
 //				旧 001903   新 001917
-				if (AppDataCenter.getValue("__TERSERIALNO")
-						.startsWith("001917")) {
-					// 打印
-					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
-				
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
-
-				} else {
-					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
-					intent.putExtra("content", fieldMap);
-					BaseActivity.getTopActivity().startActivity(intent);
-				}
+//				if (AppDataCenter.getValue("__TERSERIALNO")
+//						.startsWith("001917")) {
+//					// 打印
+//					Intent intent = new Intent(BaseActivity.getTopActivity(),PrintReceiptActivity.class);
+//				
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+//
+//				} else {
+//					Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+//					intent.putExtra("content", fieldMap);
+//					BaseActivity.getTopActivity().startActivity(intent);
+//				}
+				Intent intent = new Intent(BaseActivity.getTopActivity(), ReceiptSuccessActivity.class);
+				intent.putExtra("content", fieldMap);
+				BaseActivity.getTopActivity().startActivity(intent);
 			}
 
 		} catch (Exception e) {

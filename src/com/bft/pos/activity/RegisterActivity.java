@@ -98,8 +98,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.btn_sms:
 			et_sms.setText("");
-			if (et_phone_num.getText().length() == 0) {
-				PopupMessageUtil.showMSG_middle2("手机号不能为空!");
+			if(!PatternUtil.isMobileNO(et_phone_num.getText().toString())){
+				PopupMessageUtil.showMSG_middle2("手机号不合法，请重新输入!");
 			} else {
 				PopupMessageUtil.showMSG_middle2("短信已发送，请注意查收!");
 				actionGetSms();
@@ -179,8 +179,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
-		if (et_phone_num.getText().length() == 0) {
-			PopupMessageUtil.showMSG_middle2("手机号不能为空！");
+		if(PatternUtil.isMobileNO(et_phone_num.getText().toString())){
+			PopupMessageUtil.showMSG_middle2("手机号不合法，请重新输入!");
 			return false;
 		}
 		if (et_login_name.getText().length() == 0) {
@@ -233,6 +233,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			map.put("mobNo", et_phone_num.getText().toString());
 			map.put("sendTime", date);
 			map.put("type", "0");
+			map.put("money", "");
 			event.setStaticActivityDataMap(map);
 			event.trigger();
 		} catch (Exception e) {

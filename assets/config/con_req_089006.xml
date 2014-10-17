@@ -19,9 +19,10 @@
     <field
         key="type"
         value="__type" />
-    
+
     <!-- 请求提现时需要附带金额参数 -->
-     <field
+
+    <field
         key="money"
         value="__money" />
 

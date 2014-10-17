@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="50dip"
-    android:layout_marginRight="50dip"
+    android:paddingLeft="40dip"
+    android:paddingRight="40dip"
     android:gravity="center" >
 
     <LinearLayout
@@ -25,17 +25,20 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
+            android:layout_marginTop="5dip"
             android:background="@android:color/black" />
 
         <TextView
+            android:textSize="17sp"
             android:id="@+id/dialog_textview_ok"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="确定"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            />
     </LinearLayout>
 
 </FrameLayout>

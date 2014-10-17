@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/ed_text"
-        style="@style/black_15"
+        style="@style/black_17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dip"

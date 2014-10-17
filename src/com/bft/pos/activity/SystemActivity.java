@@ -65,7 +65,7 @@ public class SystemActivity extends BaseActivity {
 					
 					// TODO
 				case 2:
-					PopupMessageUtil.showMSG_middle3(SystemActivity.this, "已是最新版本，感谢您的关注。");
+					PopupMessageUtil.showMSG_middle2("当前版本已是最新版本，感谢您的关注！");
 					break;
 
 				default:

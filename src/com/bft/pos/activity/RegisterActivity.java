@@ -179,7 +179,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			PopupMessageUtil.showMSG_middle2("姓名不能为空！");
 			return false;
 		}
-		if(PatternUtil.isMobileNO(et_phone_num.getText().toString())){
+		if(!PatternUtil.isMobileNO(et_phone_num.getText().toString())){
 			PopupMessageUtil.showMSG_middle2("手机号不合法，请重新输入!");
 			return false;
 		}

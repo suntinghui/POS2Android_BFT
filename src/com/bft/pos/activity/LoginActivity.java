@@ -359,6 +359,10 @@ public class LoginActivity extends BaseActivity {
 	private void registerAction() {
 		Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
 		startActivity(register_intent);
+		
+//		Intent intent = new Intent(LoginActivity.this,
+//				CatalogActivity.class);
+//		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
 	/*

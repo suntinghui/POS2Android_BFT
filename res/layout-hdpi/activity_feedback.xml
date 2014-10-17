@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_frame"
+            android:background="@drawable/prompt_cnt"
             android:orientation="vertical" >
 
             <!-- android:hint="您的反馈对我们非常重要，我们将为您不断改进" -->
@@ -66,7 +66,6 @@
         android:layout_marginRight="10dip"
         android:background="@drawable/button_bg"
         android:text="发   送"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        style="@style/black_18" />
 
 </LinearLayout>

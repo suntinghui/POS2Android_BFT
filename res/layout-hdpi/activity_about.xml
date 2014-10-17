@@ -39,11 +39,11 @@
             <Button
                 android:id="@+id/btn_access"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dip"
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
                 android:layout_marginTop="60dip"
-                android:background="@drawable/bg_frame"
+                android:background="@drawable/prompt_cnt"
                 android:text="访问公司主页"
                 android:textSize="18sp" />
         </LinearLayout>

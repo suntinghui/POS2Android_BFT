@@ -29,7 +29,7 @@
 	 <field key="field52" value="__PSAMPIN" />
 	  <!-- 53域第一位为0时为pin不出现，未知  ； 1:ANSI X9.8 Format(不带主账号信息)；  2:ANSI X9.8 Format(带主账号信息)-->
 	 <field key="field53" value="2600000000000000"  /> 
-	<field key="field60" value="01#__BATCHNUM#000600" />
+	<field key="field60" value="01#__BATCHNUM#000201" />
 	 <!-- <field key="field62" value="__AISHA_PWD" />  -->
 	<field key="field64" value="00000000" />
 	

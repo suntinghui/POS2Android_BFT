@@ -197,7 +197,9 @@ public class TransferLogic {
 			this.revokeTransDone(fieldMap);
 		
 		} else if ("400000022".equals(transferCode)) { // 收款冲正
-
+			this.reversalDone(fieldMap);
+		} else if ("400000023".equals(transferCode)) { // 收款冲正
+			this.reversalDone(fieldMap);
 			
 		} else if ("080003".equals(transferCode)) { // 商户余额查询
 			this.balanceQueryDone(fieldMap);
@@ -239,6 +241,13 @@ public class TransferLogic {
 		}
 	}
 
+	/**
+	 * 冲正
+	 */
+	private void reversalDone(HashMap<String, String> fieldMap) {
+	
+	}
+	
 	private void getPublicKeyDone(HashMap<String, String> fieldMap) {
 		System.out.println("###############下载公钥处理###############");
 		String desc = null;

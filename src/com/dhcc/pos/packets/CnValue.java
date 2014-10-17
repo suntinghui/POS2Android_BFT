@@ -61,9 +61,9 @@ public class CnValue<T> {
 		this.must = must;
 		this.addLen = addLen;
 		this.align = align;
-
-		if ((this.length == 0) && (cnFormat.needsLength()))
-			throw new IllegalArgumentException("Length must be greater than zero");
+//暂不校验长度
+//		if ((this.length == 0) && (cnFormat.needsLength()))
+//			throw new IllegalArgumentException("Length must be greater than zero");
 		if ((cnFormat == CnFormat.LLVAR) || (cnFormat == CnFormat.LLLVAR)) {
 			// 设置变长域的长度
 //			this.length = value.toString().getBytes().length;

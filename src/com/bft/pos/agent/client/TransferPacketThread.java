@@ -744,26 +744,27 @@ public class TransferPacketThread extends Thread {
 				message.obj = receiveFieldMap;
 				message.setTarget(handler);
 				message.sendToTarget();
-				
-//			} else if (field39.equals("40") || field39.equals("25")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
-//				// 只有在交易成功的时候取服务器日期
-//				if (receiveFieldMap.containsKey("field13")) {
-//					AppDataCenter.setServerDate(receiveFieldMap.get("field13"));
-//				}
-//
-////				// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
-//				if (AppDataCenter.getReversalMap().containsValue(
-//						this.transferCode)) {
-//					ReversalDBHelper helper = new ReversalDBHelper();
-//					helper.updateReversalState(receiveFieldMap.get("field11"));
-//				}
-//
-//				//成功后回调到TransferLogic
-//				Message message = new Message();
-//				message.what = 0; // 回调TransferLogic
-//				message.obj = receiveFieldMap;
-//				message.setTarget(handler);
-//				message.sendToTarget();
+				// 当39域为98时要冲正。98 - 银联收不到发卡行应答
+				//当为12无效交易、25时未能找到文件上记录 则认为冲正成功
+			} else if (field39.equals("12") || field39.equals("25")) { 
+				// 只有在交易成功的时候取服务器日期
+				if (receiveFieldMap.containsKey("field13")) {
+					AppDataCenter.setServerDate(receiveFieldMap.get("field13"));
+				}
+
+//				// 交易成功。如果这笔交易是冲正交易，则要更新冲正表，将这笔交易的状态置为冲正成功。
+				if (AppDataCenter.getReversalMap().containsValue(
+						this.transferCode)) {
+					ReversalDBHelper helper = new ReversalDBHelper();
+					helper.updateReversalState(receiveFieldMap.get("field11"));
+				}
+
+				//成功后回调到TransferLogic
+				Message message = new Message();
+				message.what = 0; // 回调TransferLogic
+				message.obj = receiveFieldMap;
+				message.setTarget(handler);
+				message.sendToTarget();
 			} else if (field39.equals("98")) { // 当39域为98时要冲正。98 - 银联收不到发卡行应答
 				TransferLogic.getInstance()
 						.gotoCommonFaileActivity("没有收到发卡行应答");

@@ -58,9 +58,10 @@ public class HandSignActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.index = 0;
-		// 依旧添加侧滑界面
-		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
-				R.layout.handsign);
+		// 添加侧滑界面
+//		setLayoutIdsTest(R.layout.ws_munday_slidingmenu_test_menu,
+//				R.layout.handsign);
+		
 		
 //		setContentView(R.layout.handsign);
 		

@@ -111,8 +111,7 @@ public class QueryActivity extends BaseActivity {
 				// 还有两个按钮 一个是公告查询，一个是流量统计
 				case announcement:
 					// 公告查询
-					
-					PopupMessageUtil.showMSG_middle3(QueryActivity.this, "敬请期待！");
+					PopupMessageUtil.showMSG_middle2("该功能暂未开通，敬请期待!");
 //					Intent intent4 = new Intent(QueryActivity.this,
 //							AnnouncementListActivity.class);
 //					intent4.putExtra("TAG", arg2);

@@ -357,8 +357,12 @@ public class LoginActivity extends BaseActivity {
 	 * 注册
 	 */
 	private void registerAction() {
-		Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
-		startActivity(register_intent);
+//		Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//		startActivity(register_intent);
+		
+		Intent intent = new Intent(LoginActivity.this,
+				CatalogActivity.class);
+		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
 	/*

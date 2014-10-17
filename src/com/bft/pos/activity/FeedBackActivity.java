@@ -18,6 +18,7 @@ import com.bft.pos.R;
 import com.bft.pos.activity.view.LKAlertDialog;
 import com.bft.pos.activity.view.TextWithLabelView;
 import com.bft.pos.util.GMailSenderUtil;
+import com.bft.pos.util.PopupMessageUtil;
 
 public class FeedBackActivity extends BaseActivity implements OnClickListener, TextWatcher {
 
@@ -81,17 +82,18 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener, T
 
 				new SendEmailTask().execute();
 
-				LKAlertDialog dialog = new LKAlertDialog(this);
-				dialog.setTitle("提示");
-				dialog.setMessage("信息发送成功，真诚感谢您的支持,谢谢!");
-				dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						finish();
-					}
-				});
-
-				dialog.create().show();
+				PopupMessageUtil.showMSG_middle2("信息发送成功，真诚感谢您的支持,谢谢!");
+//				LKAlertDialog dialog = new LKAlertDialog(this);
+//				dialog.setTitle("提示");
+//				dialog.setMessage("信息发送成功，真诚感谢您的支持,谢谢!");
+//				dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+//					public void onClick(DialogInterface dialog, int which) {
+//						dialog.dismiss();
+//						finish();
+//					}
+//				});
+//
+//				dialog.create().show();
 			}
 			break;
 		}

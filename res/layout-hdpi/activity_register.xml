@@ -133,23 +133,18 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/remeberpwd_n" />
 
-                <TextView
-                    style="@style/black_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dip"
-                    android:text="同意 《佰付通服务协议》" />
-            </LinearLayout>
-
-            <Button
+                <Button
                 android:id="@+id/btn_protocol"
-                style="@style/gree_14"
+                android:textSize="17sp"
+                android:layout_marginLeft="8dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
                 android:background="@color/clear"
-                android:text="服务协议"
-                android:textColor="@drawable/text_green_blue" />
+                android:text="同意 《佰付通服务协议》"
+                android:textColor="@drawable/text_orange_blue" />
+            </LinearLayout>
+
+            
         </LinearLayout>
 
         <Button
